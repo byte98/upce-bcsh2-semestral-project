@@ -16,24 +16,13 @@ using System.Windows.Shapes;
 namespace SemestralProject.View
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Interaction logic for Register.xaml
     /// </summary>
-    public partial class Login : Page
+    public partial class Register : Page
     {
-        public Login()
+        public Register()
         {
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// Method which handles click on 'Register' button.
-        /// </summary>
-        /// <param name="sender">Sender of the event.</param>
-        /// <param name="e">Arguments of the event.</param>
-        private void ButtonRegister_Click(object sender, RoutedEventArgs e)
-        {
-            Register register = new Register();
-            NavigationService.Navigate(register);
         }
     }
 }

@@ -20,9 +20,23 @@
             <ColumnDefinition MinWidth="300" Width="1*"/>
         </Grid.ColumnDefinitions>
         <Image Source="/View/title.jpg" Stretch="UniformToFill" Grid.Row="0" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="1"/>
-        <StackPanel Margin="10,10,10,10" Grid.Column="1">
-            <TextBlock TextWrapping="Wrap" Text="Vítejte" Style="{DynamicResource HeaderTextBlockStyle}" Margin="0,0,0,32"/>
-            <Frame NavigationUIVisibility="Hidden" Source="/View/Login.xaml" />
+        <DockPanel Margin="10,10,10,32" Grid.Column="1">
+            <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Text="Vítejte" Style="{DynamicResource HeaderTextBlockStyle}" Margin="0,0,0,32"/>
+            <Frame DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" Source="/View/Login.xaml" Margin="0,0,0,16" />
+        </DockPanel>
+        <StackPanel VerticalAlignment="Bottom" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,16,0,0">
+            <Label FontSize="12" Padding="5" Name="LabelVersion" VerticalContentAlignment="Center"/>
+            <Separator Width="2" Margin="4,0,4,0"  Foreground="{DynamicResource SystemBaseHighColorBrush}" Background="{DynamicResource SystemBaseHighColorBrush}"/>
+            <ui:HyperlinkButton Click="HyperlinkButton_Click">
+                <ui:HyperlinkButton.Content>
+                    <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
+                        <Viewbox Height="16" Width="16">
+                            <ui:SymbolIcon Symbol="Repair" Margin="0,0,10,0" Foreground="{DynamicResource SystemBaseHighColorBrush}" />
+                        </Viewbox>
+                        <Label Padding="5" Content="Správa instalace" FontSize="12"/>
+                    </StackPanel>
+                </ui:HyperlinkButton.Content>
+            </ui:HyperlinkButton>
         </StackPanel>
     </Grid>
 </Window>

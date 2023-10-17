@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,9 +21,40 @@ namespace SemestralProject.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Flag, whether installer window is visible.
+        /// </summary>
+        private bool installerVisible = false;
+
+        /// <summary>
+        /// Window with installer of the application.
+        /// </summary>
+        private InstallerWindow? installerWindow;
+
         public MainWindow()
         {
             InitializeComponent();
+            this.LabelVersion.Content = Assembly.GetExecutingAssembly().GetName().Name + " " + Assembly.GetExecutingAssembly().GetName().Version?.ToString();
+        }
+
+        private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.installerVisible == false)
+            {
+                this.installerVisible = true;
+                this.installerWindow = new InstallerWindow();
+                this.installerWindow.Show();
+                this.installerWindow.Closed += InstallerWindow_Closed;
+            }
+            else
+            {
+                this.installerWindow?.Activate();
+            }
+        }
+
+        private void InstallerWindow_Closed(object? sender, EventArgs e)
+        {
+            this.installerVisible = false;
         }
     }
 }
