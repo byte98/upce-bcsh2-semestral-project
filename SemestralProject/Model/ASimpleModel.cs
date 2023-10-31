@@ -10,7 +10,7 @@ namespace SemestralProject.Model
     /// <summary>
     /// Class which abstracts all simple data models.
     /// </summary>
-    internal abstract class ASimpleModel: INotifyPropertyChanged
+    public abstract class ASimpleModel: INotifyPropertyChanged
     {
         /// <summary>
         /// Event invoked when any property has changed.

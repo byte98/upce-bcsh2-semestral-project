@@ -10,13 +10,7 @@
         xmlns:local="clr-namespace:SemestralProject.View"
         mc:Ignorable="d"
         Title="InstallerWindow" Height="450" Width="800" Background="{x:Static fw:AccentColors.ImmersiveSystemAccentBrush}">
-    <StackPanel Margin="10">
-        <StackPanel VerticalAlignment="Top" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Viewbox Height="48" Width="48">
-                <ui:SymbolIcon Symbol="Repair" Margin="0,0,10,0" Foreground="{DynamicResource SystemBaseHighColorBrush}" />
-            </Viewbox>
-            <TextBlock Text="Správa instalace" Style="{DynamicResource HeaderTextBlockStyle}"/>
-        </StackPanel>
-        <ui:Frame Source="/View/Installer/InstallerTitle.xaml" />
-    </StackPanel>
+    <Grid Margin="10,10,10,10">
+        <ui:Frame VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Source="/View/Installer/InstallerTitle.xaml"/>
+    </Grid>
 </Window>

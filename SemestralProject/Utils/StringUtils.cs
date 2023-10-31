@@ -51,11 +51,11 @@ namespace SemestralProject.Utils
         /// <returns>Decrypted string.</returns>
         public static string? Decrypt(string? input, string key)
         {
-            byte[] iv = new byte[16];
-            byte[] arr = Convert.FromBase64String(input);
             string? reti = null;
-            if (input is not null)
+            if (input != null)
             {
+                byte[] iv = new byte[16];
+                byte[] arr = Convert.FromBase64String(input);
                 using (Aes aes = Aes.Create())
                 {
                     aes.Key = Encoding.UTF8.GetBytes(key);
@@ -74,6 +74,23 @@ namespace SemestralProject.Utils
                 }
             }
             return reti;
+        }
+
+        /// <summary>
+        /// Creates pseudo-random string.
+        /// </summary>
+        /// <param name="alphabet">Alphabet of allowed characters.</param>
+        /// <param name="length">Length of string.</param>
+        /// <returns>Pseudo-random string.</returns>
+        public static string Random(string alphabet, int length)
+        {
+            StringBuilder reti = new StringBuilder();
+            Random random = new Random();
+            for (int i = 0; i < length; i++)
+            {
+                reti.Append(alphabet[random.Next(0, alphabet.Length)]);
+            }
+            return reti.ToString();
         }
     }
 }

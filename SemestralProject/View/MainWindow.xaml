@@ -22,7 +22,7 @@
         <Image Source="/View/title.jpg" Stretch="UniformToFill" Grid.Row="0" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="1"/>
         <DockPanel Margin="10,10,10,32" Grid.Column="1">
             <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Text="Vítejte" Style="{DynamicResource HeaderTextBlockStyle}" Margin="0,0,0,32"/>
-            <Frame DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" Source="/View/Login.xaml" Margin="0,0,0,16" />
+            <ui:Frame DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" Source="/View/Login.xaml" Margin="0,0,0,16" />
         </DockPanel>
         <StackPanel VerticalAlignment="Bottom" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,16,0,0">
             <Label FontSize="12" Padding="5" Name="LabelVersion" VerticalContentAlignment="Center"/>
