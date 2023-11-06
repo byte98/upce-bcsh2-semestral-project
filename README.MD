@@ -14,3 +14,8 @@ Tento repozitář obsahuje aplikační vrstvu semestrálního projektu z předm�
 - [ ] Správa zaměstnanců
   - [ ] Role
   - [ ] Uživatelé
+- [ ] Backend
+  - [ ] CRUD opearce nad všemi tabulkami
+  - [ ] Vyřešit logování
+  - [ ] Funkce, procedury, triggery
+
