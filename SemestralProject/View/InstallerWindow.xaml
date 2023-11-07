@@ -9,7 +9,7 @@
         ui:TitleBar.ExtendViewIntoTitleBar="True"
         xmlns:local="clr-namespace:SemestralProject.View"
         mc:Ignorable="d"
-        Title="InstallerWindow" Height="450" Width="800" Background="{x:Static fw:AccentColors.ImmersiveSystemAccentBrush}">
+        Title="InstallerWindow" Height="500" Width="800" Background="{x:Static fw:AccentColors.ImmersiveSystemAccentBrush}">
     <Grid Margin="10,10,10,10">
         <ui:Frame VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Source="/View/Installer/InstallerTitle.xaml"/>
     </Grid>

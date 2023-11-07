@@ -102,6 +102,13 @@ namespace SemestralProject.Data
             },
             {
                 IConnection.DatabaseObject.Procedure, new Dictionary<string, string>()
+            },
+            {
+                IConnection.DatabaseObject.Package, new Dictionary<string, string>()
+                {
+                    {"SEMPR_CRUD", "DROP PACKAGE sempr_crud"},
+                    {"SEMPR_UTILS", "DROP PACKAGE sempr_utils"}
+                }
             }
         };
 
@@ -287,6 +294,8 @@ namespace SemestralProject.Data
 
             @"ALTER TABLE staty ADD CONSTRAINT stat_pk PRIMARY KEY(id_stat )",
 
+            @"ALTER TABLE staty ADD CONSTRAINT stat_un UNIQUE(nazev )",
+
             @"CREATE TABLE stavy(
             id_stav INTEGER DEFAULT stavy_seq.nextval NOT NULL,
             nazev VARCHAR2(16) NOT NULL
@@ -314,6 +323,7 @@ namespace SemestralProject.Data
             id_uzivatel INTEGER DEFAULT uzivatele_seq.nextval NOT NULL,
             heslo VARCHAR2(256) NOT NULL,
             datum_registrace TIMESTAMP NOT NULL,
+            obrazek CLOB NOT NULL,
             role INTEGER,
             stav             INTEGER,
             zamestnanec INTEGER NOT NULL
@@ -531,21 +541,432 @@ namespace SemestralProject.Data
         public static readonly string[] Triggers = new string[0];
 
         /// <summary>
-        /// Array with SQL statements which creates all procedures.
-        /// </summary>
-        public static readonly string[] Procedures = new string[0];
-
-        /// <summary>
-        /// Array with SQL statements which creates all functions.
-        /// </summary>
-        public static readonly string[] Functions = new string[0];
-
-        /// <summary>
         /// Array with SQL statements which inserts all data into database.
         /// </summary>
         public static readonly string[] Data = new string[]
         {
-            "INSERT INTO (id_role, nazev) VALUES (0, 'SUPERUŽIVATEL')"
+            "INSERT INTO role (id_role, nazev) VALUES (0, 'SUPERUŽIVATEL')"
+        };
+
+        /// <summary>
+        /// Array with SQL statements which creates all used packages.
+        /// </summary>
+        public static readonly string[] Packages = new string[]
+        {
+            @"
+CREATE OR REPLACE
+PACKAGE sempr_crud AS 
+
+
+
+    -- CRUD operations over 'staty' table
+                    
+    /*
+     * Type definition of data stored in 'staty' table
+     */
+    TYPE t_staty IS TABLE OF staty%ROWTYPE;
+
+    /*
+     * Creates new 'staty' object.
+     * :param p_name: Name of new 'staty' object.
+     */
+    PROCEDURE proc_staty_create(p_name IN staty.nazev%TYPE);
+
+    /*
+     * Updates 'staty' object.
+     * :param p_id:   Identifier of object which will be updated.
+     * :param p_name: New name of object.
+     */
+    PROCEDURE proc_staty_update(p_id IN staty.id_stat%TYPE, p_name IN staty.nazev%TYPE);
+
+    /*
+     * Deletes 'staty' object.
+     * :param p_id: Identifier of object which will be deleted.
+     */
+    PROCEDURE proc_staty_delete(p_id IN staty.id_stat%TYPE);
+
+    /*
+     * Reads all data from 'staty'.
+     * :returns: Table with all data from 'staty'.
+     */
+    FUNCTION  func_staty_read RETURN t_staty PIPELINED;
+
+    /*
+     * Reads searched data from 'staty'.
+     * :param p_id: Identifier of searched data.
+     * :returns:    Table with data from 'staty' with searched identifier.
+     */
+    FUNCTION  func_staty_read(p_id IN staty.id_stat%TYPE) RETURN t_staty PIPELINED;
+
+    /*
+     * Reads searched data from 'staty'.
+     * :param p_name: Name of searched data.
+     * :returns:      Table with data from 'staty' with searched name.
+     */
+    FUNCTION  func_staty_read(p_name IN staty.nazev%TYPE) RETURN t_staty PIPELINED;
+
+
+
+    -- CRUD operations over 'obce' table
+
+    /*
+     * Type definition of data stored in 'obce' table.
+     */
+    TYPE t_obce IS TABLE OF obce%ROWTYPE;
+
+    /*
+     * Creates new 'obce' object.
+     * :param p_name:    Name of new object.
+     * :param p_zip:     ZIP code of new object.
+     * :param p_country: Identifier of country in which is 'obce' object located.
+     */
+    PROCEDURE proc_obce_create(p_name IN obce.nazev%TYPE, p_zip IN obce.psc%TYPE, p_country in obce.stat%TYPE);
+
+    /*
+     * Creates new 'obce' object.
+     * :param p_name:    Name of new object.
+     * :param p_part:    Name of part of new object.
+     * :param p_zip:     ZIP code of new object.
+     * :param p_country: Identifier of country in which is 'obce' object located.
+     */
+    PROCEDURE proc_obce_create(p_name IN obce.nazev%TYPE, p_part IN obce.cast_obce%TYPE, p_zip IN obce.psc%TYPE, p_country in obce.stat%TYPE);
+                    
+    /*
+     * Updates 'obce' object.
+     * :param p_id:      Identifier of object which will be updated.
+     * :param p_name:    New name of object.
+     * :param p_zip:     New ZIP code of object.
+     * :param p_country: New identifier of country in which is 'obce' object located.
+     */
+    PROCEDURE proc_obce_update(p_id IN obce.id_obec%TYPE, p_name IN obce.nazev%TYPE, p_zip IN obce.psc%TYPE, p_country in obce.stat%TYPE);
+                    
+    /*
+     * Updates 'obce' object.
+     * :param p_id:      Identifier of object which will be updated.
+     * :param p_name:    New name of object.
+     * :param p_zip:     New ZIP code of object.
+     * :param p_country: New identifier of country in which is 'obce' object located.
+     */
+    PROCEDURE proc_obce_update(p_id IN obce.id_obec%TYPE, p_name IN obce.nazev%TYPE, p_part IN obce.cast_obce%TYPE, p_zip IN obce.psc%TYPE, p_country IN obce.stat%TYPE);
+    
+    /*
+     * Deletes 'obce' object.
+     * :param p_id: Identifier of object which will be deleted.
+     */
+    PROCEDURE proc_obce_delete(p_id IN obce.id_obec%TYPE);
+
+    /*
+     * Reads all data from table 'obce'.
+     * :returns: Table with all data from table 'obce'.
+     */
+    FUNCTION func_obce_read RETURN t_obce PIPELINED;
+
+    /*
+     * Reads searched data from 'obce'.
+     * :param p_id: Identifier of searched object.
+     * :returns:    Table with all searched data from table 'obce'.
+     */
+    FUNCTION func_obce_read(p_id IN obce.id_obec%TYPE) RETURN t_obce PIPELINED;
+
+
+    -- CRUD operations over 'adresy' table
+    PROCEDURE proc_adresy_create(p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE);
+    PROCEDURE proc_adresy_create(p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE);
+    PROCEDURE proc_adresy_create(p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE);
+    PROCEDURE proc_adresy_create(p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE);
+    PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE);
+    PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE);
+    PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE);
+    PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE);
+    PROCEDURE proc_adresy_delete(p_id IN adresy.id_adresa%TYPE);
+END sempr_crud;",
+@"CREATE OR REPLACE
+PACKAGE BODY sempr_crud AS
+
+
+
+    --- Definition of CRUD operations over 'staty' table
+
+    /*
+     * Creates new 'staty' object.
+     * :param p_name: Name of new 'staty' object.
+     */
+    PROCEDURE proc_staty_create(p_name IN staty.nazev%TYPE) AS
+    BEGIN
+            SET TRANSACTION READ WRITE;
+            INSERT INTO staty(nazev) VALUES (p_name);
+            COMMIT;
+    END proc_staty_create;
+
+    /*
+     * Updates 'staty' object.
+     * :param p_id:   Identifier of object which will be updated.
+     * :param p_name: New name of object.
+     */
+    PROCEDURE proc_staty_update(p_id IN staty.id_stat%TYPE, p_name IN staty.nazev%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE staty SET nazev=p_name WHERE id_stat=p_id;
+        COMMIT;
+    END proc_staty_update;
+
+    /*
+     * Deletes 'staty' object.
+     * :param p_id: Identifier of object which will be deleted.
+     */
+    PROCEDURE proc_staty_delete(p_id IN staty.id_stat%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        DELETE FROM staty WHERE id_stat=p_id;
+        COMMIT;
+    END proc_staty_delete;
+
+    /*
+     * Reads all data from 'staty'.
+     * :returns: Table with all data from 'staty'.
+     */
+    FUNCTION func_staty_read RETURN t_staty PIPELINED AS
+        v_cursor SYS_REFCURSOR;
+        v_stat   staty%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM staty;
+        LOOP
+            FETCH v_cursor INTO v_stat;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_stat);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_staty_read;
+
+    /*
+     * Reads searched data from 'staty'.
+     * :param p_id: Identifier of searched data.
+     * :returns:    Table with data from 'staty' with searched identifier.
+     */
+    FUNCTION func_staty_read(p_id IN staty.id_stat%TYPE) RETURN t_staty PIPELINED AS
+        v_cursor SYS_REFCURSOR;
+        v_stat   staty%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM staty WHERE id_stat=p_id;
+        LOOP
+            FETCH v_cursor INTO v_stat;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_stat);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_staty_read;
+
+    /*
+     * Reads searched data from 'staty'.
+     * :param p_name: Name of searched data.
+     * :returns:      Table with data from 'staty' with searched name.
+     */
+    FUNCTION func_staty_read(p_name IN staty.nazev%TYPE) RETURN t_staty PIPELINED AS
+        v_cursor SYS_REFCURSOR;
+        v_stat   staty%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM staty WHERE nazev=p_name;
+        LOOP
+            FETCH v_cursor INTO v_stat;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_stat);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_staty_read;
+
+
+
+    -- Definition of CRUD operations over 'obce' table
+
+    /*
+     * Creates new 'obce' object.
+     * :param p_name:    Name of new object.
+     * :param p_zip:     ZIP code of new object.
+     * :param p_country: Identifier of country in which is 'obce' object located.
+     */
+    PROCEDURE proc_obce_create(p_name IN obce.nazev%TYPE, p_zip IN obce.psc%TYPE, p_country in obce.stat%TYPE) AS
+    BEGIN
+        INSERT INTO obce(nazev, psc, stat) VALUES (p_name, p_zip, p_country);
+    END proc_obce_create;
+
+    /*
+     * Creates new 'obce' object.
+     * :param p_name:    Name of new object.
+     * :param p_part:    Name of part of new object.
+     * :param p_zip:     ZIP code of new object.
+     * :param p_country: Identifier of country in which is 'obce' object located.
+     */
+    PROCEDURE proc_obce_create(p_name IN obce.nazev%TYPE, p_part IN obce.cast_obce%TYPE, p_zip IN obce.psc%TYPE, p_country in obce.stat%TYPE) AS
+    BEGIN
+        INSERT INTO obce(nazev, cast_obce, psc, stat) VALUES (p_name, p_part, p_zip, p_country);
+    END proc_obce_create;
+
+    /*
+     * Updates 'obce' object.
+     * :param p_id:      Identifier of object which will be updated.
+     * :param p_name:    New name of object.
+     * :param p_zip:     New ZIP code of object.
+     * :param p_country: New identifier of country in which is 'obce' object located.
+     */
+    PROCEDURE proc_obce_update(p_id IN obce.id_obec%TYPE, p_name IN obce.nazev%TYPE, p_zip IN obce.psc%TYPE, p_country in obce.stat%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE obce SET nazev=p_name, psc=p_zip, stat=p_country WHERE id_obec=p_id;
+        COMMIT;
+    END proc_obce_update;
+         
+    /*
+     * Updates 'obce' object.
+     * :param p_id:      Identifier of object which will be updated.
+     * :param p_name:    New name of object.
+     * :param p_zip:     New ZIP code of object.
+     * :param p_country: New identifier of country in which is 'obce' object located.
+     */
+    PROCEDURE proc_obce_update(p_id IN obce.id_obec%TYPE, p_name IN obce.nazev%TYPE, p_part IN obce.cast_obce%TYPE, p_zip IN obce.psc%TYPE, p_country in obce.stat%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE obce SET nazev=p_name, cast_obce=p_part, psc=p_zip, stat=p_country WHERE id_obec=p_id;
+        COMMIT;
+    END proc_obce_update;
+
+    /*
+     * Deletes 'obce' object.
+     * :param p_id: Identifier of object which will be deleted.
+     */
+    PROCEDURE proc_obce_delete(p_id IN obce.id_obec%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        DELETE FROM obce WHERE id_obec=p_id;
+        COMMIT;
+    END proc_obce_delete;
+
+    /*
+     * Reads all data from table 'obce'.
+     * :returns: Table with all data from table 'obce'.
+     */
+    FUNCTION func_obce_read RETURN t_obce PIPELINED AS
+        v_cursor SYS_REFCURSOR;
+        v_obec   obce%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM obce;
+        LOOP
+            FETCH v_cursor INTO v_obec;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_obec);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_obce_read;
+
+    /*
+     * Reads searched data from 'obce'.
+     * :param p_id: Identifier of searched object.
+     * :returns:    Table with all searched data from table 'obce'.
+     */
+    FUNCTION func_obce_read(p_id IN obce.id_obec%TYPE) RETURN t_obce PIPELINED AS
+        v_cursor SYS_REFCURSOR;
+        v_obec   obce%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM obce WHERE id_obce=p_id;
+        LOOP
+            FETCH v_cursor INTO v_obec;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_obec);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_obce_read;
+
+    -- Definitions of CRUD operations over 'adresy' table
+
+    PROCEDURE proc_adresy_create(p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE) AS
+    BEGIN
+        INSERT INTO adresy(ulice, cislo_popisne, obec) VALUES (p_street, p_home, p_municipality);
+    END proc_adresy_create;
+
+    PROCEDURE proc_adresy_create(p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE) AS
+    BEGIN
+        INSERT INTO adresy(ulice, cislo_popisne, cislo_orientacni, obec) VALUES (p_street, p_home, p_orientation, p_municipality);
+    END proc_adresy_create;
+
+    PROCEDURE proc_adresy_create(p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE) AS
+    BEGIN
+        INSERT INTO adresy(cislo_popisne, obec) VALUES (p_home, p_municipality);
+    END proc_adresy_create;
+
+    PROCEDURE proc_adresy_create(p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE) AS
+    BEGIN
+        INSERT INTO adresy(cislo_popisne, cislo_orientacni, obec) VALUES (p_home, p_orientation, p_municipality);
+    END proc_adresy_create;
+
+    PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE adresy SET ulice=p_street, cislo_popisne=p_home, obec=p_municipality WHERE id_adresa=p_id;
+        COMMIT;
+    END proc_adresy_update;
+
+    PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE adresy SET ulice=p_street, cislo_popisne=p_home, cislo_orientacni=p_orientation, obec=p_municipality WHERE id_adresa=p_id;
+        COMMIT;
+    END proc_adresy_update;
+
+    PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE adresy SET cislo_popisne=p_home, obec=p_municipality WHERE id_adresa=p_id;
+        COMMIT;
+    END proc_adresy_update;
+
+    PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE adresy SET cislo_popisne=p_home, cislo_orientacni=p_orientation, obec=p_municipality WHERE id_adresa=p_id;
+        COMMIT;
+    END proc_adresy_update;
+
+    PROCEDURE proc_adresy_delete(p_id IN adresy.id_adresa%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        DELETE FROM adresy WHERE id_adresa=p_id;
+        COMMIT;
+    END proc_adresy_delete;
+
+END sempr_crud;",
+            @"CREATE OR REPLACE
+                PACKAGE sempr_utils AS
+                    FUNCTION func_last_seq(p_seq VARCHAR2) RETURN NUMBER;
+                END sempr_utils;",
+            @"CREATE OR REPLACE
+                PACKAGE BODY sempr_utils AS
+                    FUNCTION func_last_seq(p_seq VARCHAR2) RETURN NUMBER AS
+                        v_reti NUMBER := -2147483648;
+                        v_sequence_exists NUMBER;
+                    BEGIN
+                        SELECT COUNT(*)
+                        INTO v_sequence_exists
+                        FROM all_sequences
+                        WHERE sequence_name=p_seq;
+                        IF v_sequence_exists = 0 THEN
+                            RETURN v_reti;
+                        END IF;
+                        EXECUTE IMMEDIATE 'SELECT' || p_seq || '.CURRVAL FROM DUAL' INTO v_reti;
+                        RETURN v_reti;
+                    EXCEPTION
+                        WHEN OTHERS THEN
+                            RETURN v_reti;
+                    END func_last_seq;
+                END sempr_utils;"
         };
     }
 }

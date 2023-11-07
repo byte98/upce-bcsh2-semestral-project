@@ -41,7 +41,9 @@ namespace SemestralProject.View.Installer
         /// <param name="tables">Number of created tables.</param>
         /// <param name="relations">Number of created relations.</param>
         /// <param name="data">Number of created data.</param>
-        public Install2(InstallViewModel install, int delete, int sequences, int tables, int relations, int data)
+        /// <param name="triggers">Number of created triggers.</param>
+        /// <param name="packages">Number of created packages.</param>
+        public Install2(InstallViewModel install, int delete, int sequences, int tables, int relations, int data, int triggers, int packages)
         {
             this.install = install;
             InitializeComponent();
@@ -50,6 +52,8 @@ namespace SemestralProject.View.Installer
             this.LabelTablesTotal.Content = tables;
             this.LabelRelationsTotal.Content = relations;
             this.LabelDataTotal.Content = data;
+            this.LabelTriggersTotal.Content = triggers;
+            this.LabelPackagesTotal.Content = packages;
         }
 
         /// <summary>
@@ -110,6 +114,18 @@ namespace SemestralProject.View.Installer
             this.LabelData3.FontWeight = FontWeights.Normal;
             this.LabelDataActual.FontWeight = FontWeights.Normal;
             this.LabelDataTotal.FontWeight = FontWeights.Normal;
+
+            this.LabelTriggers1.FontWeight = FontWeights.Normal;
+            this.LabelTriggers2.FontWeight = FontWeights.Normal;
+            this.LabelTriggers3.FontWeight = FontWeights.Normal;
+            this.LabelTriggersActual.FontWeight = FontWeights.Normal;
+            this.LabelTriggersTotal.FontWeight = FontWeights.Normal;
+
+            this.LabelPackages1.FontWeight = FontWeights.Normal;
+            this.LabelPackages2.FontWeight = FontWeights.Normal;
+            this.LabelPackages3.FontWeight = FontWeights.Normal;
+            this.LabelPackagesActual.FontWeight = FontWeights.Normal;
+            this.LabelPackagesTotal.FontWeight = FontWeights.Normal;
         }
 
         /// <summary>
@@ -123,6 +139,8 @@ namespace SemestralProject.View.Installer
             this.ProgressRingTables.Visibility = Visibility.Hidden;
             this.ProgressRingRelations.Visibility = Visibility.Hidden;
             this.ProgressRingData.Visibility = Visibility.Hidden;
+            this.ProgressRingTriggers.Visibility = Visibility.Hidden;
+            this.ProgressRingPackages.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -145,6 +163,12 @@ namespace SemestralProject.View.Installer
 
             this.LabelDataFail.Visibility = Visibility.Hidden;
             this.LabelDataSuccess.Visibility = Visibility.Hidden;
+
+            this.LabelTriggersFail.Visibility = Visibility.Hidden;
+            this.LabelTriggersSuccess.Visibility = Visibility.Hidden;
+
+            this.LabelPackagesFail.Visibility = Visibility.Hidden;
+            this.LabelPackagesSuccess.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -222,6 +246,26 @@ namespace SemestralProject.View.Installer
                         this.ProgressRingData.Visibility = Visibility.Visible;
                         break;
                     }
+                case Install2Step.Triggers:
+                    {
+                        this.LabelTriggers1.FontWeight = FontWeights.Bold;
+                        this.LabelTriggers2.FontWeight = FontWeights.Bold;
+                        this.LabelTriggers3.FontWeight = FontWeights.Bold;
+                        this.LabelTriggersActual.FontWeight = FontWeights.Bold;
+                        this.LabelTriggersTotal.FontWeight = FontWeights.Bold;
+                        this.ProgressRingTriggers.Visibility = Visibility.Visible;
+                        break;
+                    }
+                case Install2Step.Packages:
+                    {
+                        this.LabelPackages1.FontWeight = FontWeights.Bold;
+                        this.LabelPackages2.FontWeight = FontWeights.Bold;
+                        this.LabelPackages3.FontWeight = FontWeights.Bold;
+                        this.LabelPackagesActual.FontWeight = FontWeights.Bold;
+                        this.LabelPackagesTotal.FontWeight = FontWeights.Bold;
+                        this.ProgressRingPackages.Visibility = Visibility.Visible;
+                        break;
+                    }
             }
         }
 
@@ -233,13 +277,15 @@ namespace SemestralProject.View.Installer
             Label? label = null;
             switch(this.step)
             {
-                case Install2Step.Connection: label = null;                      break;
-                case Install2Step.Deletion:   label = this.LabelDeleteActual;    break;
-                case Install2Step.Sequences:  label = this.LabelSequencesActual; break;
-                case Install2Step.Tables:     label = this.LabelTablesActual;    break;
-                case Install2Step.Relations:  label = this.LabelRelationsActual; break;
-                case Install2Step.Data:       label = this.LabelDataActual;      break;
-                default:                      label = null;                      break;
+                case Install2Step.Connection: label = null;                       break;
+                case Install2Step.Deletion:   label = this.LabelDeleteActual;     break;
+                case Install2Step.Sequences:  label = this.LabelSequencesActual;  break;
+                case Install2Step.Tables:     label = this.LabelTablesActual;     break;
+                case Install2Step.Relations:  label = this.LabelRelationsActual;  break;
+                case Install2Step.Data:       label = this.LabelDataActual;       break;
+                case Install2Step.Triggers:   label = this.LabelTriggersActual;   break;
+                case Install2Step.Packages:   label = this.LabelPackagesActual;   break;
+                default:                      label = null;                       break;
             }
             if (label is not null)
             {
@@ -260,9 +306,11 @@ namespace SemestralProject.View.Installer
                 case Install2Step.Connection: label = this.LabelConnectionFail;  break;
                 case Install2Step.Deletion:   label = this.LabelDeleteFail;      break;
                 case Install2Step.Sequences:  label = this.LabelSequencesFail;   break;
-                case Install2Step.Tables:     label= this.LabelTablesFail;       break;
+                case Install2Step.Tables:     label = this.LabelTablesFail;      break;
                 case Install2Step.Relations:  label = this.LabelRelationsFail;   break;
                 case Install2Step.Data:       label = this.LabelDataFail;        break;
+                case Install2Step.Triggers:   label = this.LabelTriggersFail;    break;
+                case Install2Step.Packages:   label = this.LabelPackagesFail;    break;
                 default:                      label = null;                      break;
             }
             if (label is not null)
@@ -277,20 +325,32 @@ namespace SemestralProject.View.Installer
         public void Success()
         {
             Label? label;
+            this.HideProgressRings();
             switch (this.step)
             {
                 case Install2Step.Connection: label = this.LabelConnectionSuccess; break;
-                case Install2Step.Deletion: label = this.LabelDeleteSuccess; break;
-                case Install2Step.Sequences: label = this.LabelSequencesSuccess; break;
-                case Install2Step.Tables: label = this.LabelTablesSuccess; break;
-                case Install2Step.Relations: label = this.LabelRelationsSuccess; break;
-                case Install2Step.Data: label = this.LabelDataSuccess; break;
-                default: label = null; break;
+                case Install2Step.Deletion:   label = this.LabelDeleteSuccess;     break;
+                case Install2Step.Sequences:  label = this.LabelSequencesSuccess;  break;
+                case Install2Step.Tables:     label = this.LabelTablesSuccess;     break;
+                case Install2Step.Relations:  label = this.LabelRelationsSuccess;  break;
+                case Install2Step.Data:       label = this.LabelDataSuccess;       break;
+                case Install2Step.Triggers:   label = this.LabelTriggersSuccess;   break;
+                case Install2Step.Packages:   label = this.LabelPackagesSuccess;   break;
+                default:                      label = null;                        break;
             }
             if (label is not null)
             {
                 label.Visibility = Visibility.Visible;
             }
+        }
+
+        /// <summary>
+        /// Unselects actual step.
+        /// </summary>
+        public void UnselectStep()
+        {
+            this.HideProgressRings();
+            this.ResetView();
         }
     }
 }

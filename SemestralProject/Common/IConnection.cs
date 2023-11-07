@@ -46,7 +46,12 @@ namespace SemestralProject.Common
             /// <summary>
             /// Named procedure.
             /// </summary>
-            Procedure
+            Procedure,
+
+            /// <summary>
+            /// Package of functions, procuedures, etc.
+            /// </summary>
+            Package
         }
 
         /// <summary>

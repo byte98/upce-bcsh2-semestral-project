@@ -28,7 +28,7 @@ namespace SemestralProject.View.Installer
             this.LabelVersion.Content = Assembly.GetExecutingAssembly().GetName().Version;
             Task.Run(async () =>
             {
-                IConnection conn = await OracleConnector.Load();
+                IConnection conn = await OracleConnector.LoadAsync();
                 Dispatcher.Invoke(() =>
                 {
                     this.ProgressRingDBLoader.Visibility = Visibility.Collapsed;

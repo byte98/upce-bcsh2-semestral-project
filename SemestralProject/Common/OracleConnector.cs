@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Oracle.ManagedDataAccess.Client;
 using System.Reflection.Metadata.Ecma335;
 using System.IO.Packaging;
+using System.Runtime.CompilerServices;
+using System.IO;
 
 namespace SemestralProject.Common
 {
@@ -25,20 +27,68 @@ namespace SemestralProject.Common
         /// </summary>
         private OracleConnection? connection;
 
+        /// <summary>
+        /// Instance of connection to the database.
+        /// </summary>
+        private static OracleConnector? instance;
+
         public ConnectionModel ConnectionModel { get; init; }
         public Exception? LastException { get; private set; }
         public int AffectedRows { get; private set; }
 
         /// <summary>
+        /// Loads connection from saved settings asynchronously.
+        /// </summary>
+        /// <returns>Task which resolves into connection with parameters from settings.</returns>
+        public static Task<OracleConnector> LoadAsync()
+        {
+            return Task<OracleConnector>.Run(() =>
+            {
+                ConnectionModel model = ConnectionModel.Load();
+                return new OracleConnector(model);
+            });
+        }
+
+        /// <summary>
         /// Loads connection from saved settings.
         /// </summary>
         /// <returns>Connection with parameters from settings.</returns>
-        public static Task<OracleConnector> Load()
+        public static OracleConnector Load()
         {
-            return Task<OracleConnector>.Run(async () =>
+            if (OracleConnector.instance != null)
             {
-                ConnectionModel model = await ConnectionModel.Load();
-                return new OracleConnector(model);
+                return OracleConnector.instance;
+            }
+            else
+            {
+                ConnectionModel model = ConnectionModel.Load();
+                OracleConnector reti = new OracleConnector(model);
+                OracleConnector.instance = reti;
+                return reti;
+            }
+        }
+
+        /// <summary>
+        /// Reloads connection from saved settings.
+        /// </summary>
+        /// <returns>Connection with parameters from settings.</returns>
+        public static OracleConnector Reload()
+        {
+            ConnectionModel model = ConnectionModel.Load();
+            OracleConnector reti = new OracleConnector(model);
+            OracleConnector.instance = reti;
+            return reti;
+        }
+
+        /// <summary>
+        /// Reloads connection from saved settings asynchronously.
+        /// </summary>
+        /// <returns>Task which resolves into connection with parameters from settings.</returns>
+        public static Task<OracleConnector> ReloadAsync()
+        {
+            return Task<OracleConnector>.Run(() =>
+            {
+                return OracleConnector.Reload();
             });
         }
 
@@ -85,6 +135,18 @@ namespace SemestralProject.Common
             this.connectionString = $"Data Source={this.ConnectionModel.Server}:{this.ConnectionModel.Port}/{this.ConnectionModel.Database};User ID={this.ConnectionModel.Username};Password={this.ConnectionModel.Password};Connection Timeout=30; Persist Security Info=false";
         }
 
+        /// <summary>
+        /// Writes text to log file.
+        /// </summary>
+        /// <param name="text">Text which will be written to log file.</param>
+        private void Log(string text)
+        {
+            using (StreamWriter sw = File.AppendText("db.log"))
+            {
+                sw.WriteLine(DateTime.Now.ToString() + ": " + text);
+            }
+        }
+
         public bool Connect()
         {
             this.Prepare();
@@ -115,6 +177,7 @@ namespace SemestralProject.Common
                 using (OracleCommand cmd = this.connection.CreateCommand())
                 {
                     cmd.CommandText = sql;
+                    this.Log(sql);
                     try
                     {
                         this.AffectedRows = cmd.ExecuteNonQuery();
@@ -139,6 +202,7 @@ namespace SemestralProject.Common
                 using (OracleCommand cmd = this.connection.CreateCommand())
                 {
                     cmd.CommandText = sql;
+                    this.Log(sql);
                     try
                     {
                         using (OracleDataReader reader = cmd.ExecuteReader())
@@ -176,6 +240,7 @@ namespace SemestralProject.Common
                 case IConnection.DatabaseObject.Trigger:   reti = this.TriggerExists(name);   break;
                 case IConnection.DatabaseObject.Procedure: reti = this.ProcedureExists(name); break;
                 case IConnection.DatabaseObject.Function:  reti = this.FunctionExists(name);  break;
+                case IConnection.DatabaseObject.Package:   reti = this.PackageExists(name);   break;
                 default:                                   reti = false;                      break;
             }
             return reti;
@@ -269,6 +334,17 @@ namespace SemestralProject.Common
         private bool FunctionExists(string name)
         {
             string sql = "SELECT COUNT(*) AS COUNT FROM all_procedures WHERE object_type='FUNCTION' AND object_name='" + name + "'";
+            return this.ExistsQuery(sql, "COUNT");
+        }
+
+        /// <summary>
+        /// Checks, whether package exists in database.
+        /// </summary>
+        /// <param name="name">Name of package which will be checked.</param>
+        /// <returns>TRUE if package exists in database, FALSE otherwise.</returns>
+        private bool PackageExists(string name)
+        {
+            string sql = "SELECT COUNT(*) AS COUNT FROM all_objects WHERE object_type='PACKAGE' AND object_name='" + name + "'";
             return this.ExistsQuery(sql, "COUNT");
         }
 

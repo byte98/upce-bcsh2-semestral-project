@@ -42,18 +42,13 @@ namespace SemestralProject.View.Enums
         Data,
 
         /// <summary>
-        /// Step in which are created functions.
+        /// Step in which are created packages.
         /// </summary>
-        Functions,
+        Packages,
 
         /// <summary>
         /// Step in which are created triggers.
         /// </summary>
-        Triggers,
-
-        /// <summary>
-        /// Step in which are created procedures.
-        /// </summary>
-        Procedures
+        Triggers
     }
 }

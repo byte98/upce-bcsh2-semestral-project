@@ -270,81 +270,93 @@ namespace SemestralProject.Model
         }
 
         /// <summary>
+        /// Loads connection model from application settings asynchronously.
+        /// </summary>
+        /// <returns>Task which results into model of connection to the database.</returns>
+        public static Task<ConnectionModel> LoadAsync()
+        {
+            return Task.Run(() =>
+            {
+                return ConnectionModel.Load();
+            });
+        }
+
+        /// <summary>
         /// Loads connection model from application settings.
         /// </summary>
         /// <returns>Model of connection to the database.</returns>
-        public static Task<ConnectionModel> Load()
+        public static ConnectionModel Load()
         {
-            return Task.Run(async () =>
+            ConnectionModel reti = ConnectionModel.UnknownModel;
+            string key = ConnectionModel.GetKey();
+            if (key != string.Empty)
             {
-                ConnectionModel reti = ConnectionModel.UnknownModel;
-                string key = await ConnectionModel.GetKey();
-                if (key != string.Empty)
-                {
-                    string server = StringUtils.Decrypt((string?)Registry.GetValue(ConnectionModel.SettingsRoot, ConnectionModel.ServerSettings, (object?)ConnectionModel.Unknown), key) ?? ConnectionModel.Unknown;
-                    string port = StringUtils.Decrypt((string?)Registry.GetValue(ConnectionModel.SettingsRoot, ConnectionModel.PortSettings, (object?)ConnectionModel.Unknown), key) ?? ConnectionModel.Unknown;
-                    string username = StringUtils.Decrypt((string?)Registry.GetValue(ConnectionModel.SettingsRoot, ConnectionModel.UsernameSettings, (object?)ConnectionModel.Unknown), key) ?? ConnectionModel.Unknown;
-                    string password = StringUtils.Decrypt((string?)Registry.GetValue(ConnectionModel.SettingsRoot, ConnectionModel.PasswordSettings, (object?)ConnectionModel.Unknown), key) ?? ConnectionModel.Unknown;
-                    string database = StringUtils.Decrypt((string?)Registry.GetValue(ConnectionModel.SettingsRoot, ConnectionModel.DatabaseSettings, (object?)ConnectionModel.Unknown), key) ?? ConnectionModel.Unknown;
-                    reti =  new ConnectionModel(
-                        server,
-                        port,
-                        username,
-                        password,
-                        database
-                    );
-                }
-                return reti;
-            });
+                string server = StringUtils.Decrypt((string?)Registry.GetValue(ConnectionModel.SettingsRoot, ConnectionModel.ServerSettings, (object?)ConnectionModel.Unknown), key) ?? ConnectionModel.Unknown;
+                string port = StringUtils.Decrypt((string?)Registry.GetValue(ConnectionModel.SettingsRoot, ConnectionModel.PortSettings, (object?)ConnectionModel.Unknown), key) ?? ConnectionModel.Unknown;
+                string username = StringUtils.Decrypt((string?)Registry.GetValue(ConnectionModel.SettingsRoot, ConnectionModel.UsernameSettings, (object?)ConnectionModel.Unknown), key) ?? ConnectionModel.Unknown;
+                string password = StringUtils.Decrypt((string?)Registry.GetValue(ConnectionModel.SettingsRoot, ConnectionModel.PasswordSettings, (object?)ConnectionModel.Unknown), key) ?? ConnectionModel.Unknown;
+                string database = StringUtils.Decrypt((string?)Registry.GetValue(ConnectionModel.SettingsRoot, ConnectionModel.DatabaseSettings, (object?)ConnectionModel.Unknown), key) ?? ConnectionModel.Unknown;
+                reti = new ConnectionModel(
+                    server,
+                    port,
+                    username,
+                    password,
+                    database
+                );
+            }
+            return reti;
         }
 
         /// <summary>
         /// Gets key which encrypts data stored in registry.
         /// </summary>
         /// <returns>String representing key which encrypts data stored in registry.</returns>
-        private static Task<string> GetKey()
+        private static string GetKey()
         {
-            return Task<string>.Run(() =>
+            string reti = string.Empty;
+            CredentialManagement.Credential cred = new CredentialManagement.Credential { Target = ConnectionModel.KeyCredential };
+            if (cred.Load())
             {
-                string reti = string.Empty;
-                CredentialManagement.Credential cred = new CredentialManagement.Credential { Target = ConnectionModel.KeyCredential };
-                if (cred.Load())
-                {
-                    reti = cred.Password;
-                }
-                return reti;
-            });
+                reti = cred.Password;
+            }
+            return reti;
         }
 
         /// <summary>
         /// Generates key for encrypting data in registry.
         /// </summary>
         /// <returns>String which represents key used to encrypt data in registry.</returns>
-        private static Task<string> RegenerateKey()
+        private static string RegenerateKey()
         {
-            return Task<string>.Run(() =>
-            {
-                string reti = StringUtils.Random(ConnectionModel.KeyAlphabet, ConnectionModel.KeyLength);
-                CredentialManagement.Credential cred = new CredentialManagement.Credential { Target = ConnectionModel.KeyCredential, Password = reti };
-                cred.Save();
-                return reti;
-            });
+            string reti = StringUtils.Random(ConnectionModel.KeyAlphabet, ConnectionModel.KeyLength);
+            CredentialManagement.Credential cred = new CredentialManagement.Credential { Target = ConnectionModel.KeyCredential, Password = reti, PersistanceType = CredentialManagement.PersistanceType.LocalComputer };
+            cred.Save();
+            return reti;
         }
 
         /// <summary>
         /// Saves connection model to the application settings.
         /// </summary>
-        public Task Save()
+        public void Save()
         {
-            return Task.Run(async () =>
+            string key = ConnectionModel.RegenerateKey();
+            Registry.SetValue(ConnectionModel.SettingsRoot, ConnectionModel.ServerSettings, StringUtils.Encrypt(this.server, key));
+            Registry.SetValue(ConnectionModel.SettingsRoot, ConnectionModel.PortSettings, StringUtils.Encrypt(this.port, key));
+            Registry.SetValue(ConnectionModel.SettingsRoot, ConnectionModel.UsernameSettings, StringUtils.Encrypt(this.username, key));
+            Registry.SetValue(ConnectionModel.SettingsRoot, ConnectionModel.PasswordSettings, StringUtils.Encrypt(this.password, key));
+            Registry.SetValue(ConnectionModel.SettingsRoot, ConnectionModel.DatabaseSettings, StringUtils.Encrypt(this.database, key));
+            this.ConnectionModelChanged?.Invoke(new ConnectionModelChangedEventArgs());
+        }
+
+        /// <summary>
+        /// Saves connection model asynchronously.
+        /// </summary>
+        /// <returns>Saving task.</returns>
+        public Task SaveAsync()
+        {
+            return Task.Run(() =>
             {
-                string key = await ConnectionModel.RegenerateKey();
-                Registry.SetValue(ConnectionModel.SettingsRoot, ConnectionModel.ServerSettings, StringUtils.Encrypt(this.server, key));
-                Registry.SetValue(ConnectionModel.SettingsRoot, ConnectionModel.PortSettings, StringUtils.Encrypt(this.port, key));
-                Registry.SetValue(ConnectionModel.SettingsRoot, ConnectionModel.UsernameSettings, StringUtils.Encrypt(this.username, key));
-                Registry.SetValue(ConnectionModel.SettingsRoot, ConnectionModel.PasswordSettings, StringUtils.Encrypt(this.password, key));
-                Registry.SetValue(ConnectionModel.SettingsRoot, ConnectionModel.DatabaseSettings, StringUtils.Encrypt(this.database, key));
-                this.ConnectionModelChanged?.Invoke(new ConnectionModelChangedEventArgs());
+                this.Save();
             });
         }
 

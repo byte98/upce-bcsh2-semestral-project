@@ -24,27 +24,27 @@
                 <Label Content="1" FontSize="36"/>
                 <TextBlock Text="Nastavení&#x0a;databáze" TextWrapping="WrapWithOverflow" Margin="16,8,0,4"/>
             </StackPanel>
-            <Rectangle Margin="1,0,1,0" Grid.Row="1" Grid.Column="0" Height="8" Stroke="{DynamicResource SystemBaseHighColorBrush}" Fill="{DynamicResource SystemBaseHighColorBrush}"/>
+            <Rectangle Margin="1,0,1,0" Grid.Row="1" Grid.Column="0" Height="4" Stroke="{DynamicResource SystemBaseHighColorBrush}" Fill="{DynamicResource SystemBaseHighColorBrush}"/>
             <StackPanel Margin="4,0,0,0" Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
                 <Label Content="2" FontSize="36"/>
                 <TextBlock FontWeight="Bold" Text="Vytvoření&#x0a;databáze" TextWrapping="WrapWithOverflow" Margin="16,8,0,4"/>
             </StackPanel>
-            <Rectangle Margin="1,0,1,0" Grid.Row="1" Grid.Column="1" Height="8" Stroke="{DynamicResource SystemBaseHighColorBrush}" Fill="{DynamicResource SystemBaseHighColorBrush}" />
+            <Rectangle Margin="1,0,1,0" Grid.Row="1" Grid.Column="1" Height="4" Stroke="{DynamicResource SystemBaseHighColorBrush}" Fill="{DynamicResource SystemBaseHighColorBrush}" />
             <StackPanel Margin="4,0,0,0" Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
                 <Label Content="3" FontSize="36"/>
                 <TextBlock Text="Nastavení&#x0a;uživatele" TextWrapping="Wrap" Margin="16,8,0,4"/>
             </StackPanel>
-            <Rectangle Margin="1,0,1,0" Grid.Row="1" Grid.Column="2" Height="8" Stroke="{DynamicResource SystemBaseHighColorBrush}" Fill="Transparent" />
+            <Rectangle Margin="1,0,1,0" Grid.Row="1" Grid.Column="2" Height="4" Stroke="{DynamicResource SystemBaseHighColorBrush}" Fill="Transparent" />
             <StackPanel Margin="4,0,0,0" Grid.Row="0" Grid.Column="3" Orientation="Horizontal">
                 <Label Content="4" FontSize="36"/>
                 <TextBlock Text="Vytvoření&#x0a;uživatele" TextWrapping="Wrap" Margin="16,8,0,4"/>
             </StackPanel>
-            <Rectangle Margin="1,0,1,0" Grid.Row="1" Grid.Column="3" Height="8" Stroke="{DynamicResource SystemBaseHighColorBrush}" Fill="Transparent" />
+            <Rectangle Margin="1,0,1,0" Grid.Row="1" Grid.Column="3" Height="4" Stroke="{DynamicResource SystemBaseHighColorBrush}" Fill="Transparent" />
             <StackPanel Margin="4,0,0,0" Grid.Row="0" Grid.Column="4" Orientation="Horizontal">
                 <Label Content="5" FontSize="36"/>
                 <TextBlock Text="Dokončení" TextWrapping="Wrap" Margin="16,8,0,4"/>
             </StackPanel>
-            <Rectangle Margin="1,0,1,0" Grid.Row="1" Grid.Column="4" Height="8" Stroke="{DynamicResource SystemBaseHighColorBrush}" Fill="Transparent" />
+            <Rectangle Margin="1,0,1,0" Grid.Row="1" Grid.Column="4" Height="4" Stroke="{DynamicResource SystemBaseHighColorBrush}" Fill="Transparent" />
         </Grid>
         <Grid Margin="128,0,128,0">
             <Grid.ColumnDefinitions>
@@ -52,6 +52,8 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -104,15 +106,35 @@
             <Label FontWeight="Bold" x:Name="LabelRelationsSuccess" Grid.Row="4" Grid.Column="1" FontFamily="Segoe UI Symbol" Content="&#xe10b;" Visibility="Hidden"/>
             <Label FontWeight="Bold" x:Name="LabelRelationsFail" Grid.Row="4" Grid.Column="1" FontFamily="Segoe UI Symbol" Content="&#xe10a;" Visibility="Hidden"/>
             <StackPanel Grid.Row="5" Grid.Column="0" Orientation="Horizontal" Margin="0,0,16,8">
+                <Label x:Name="LabelTriggers1" Content="Vytváření spouští ("/>
+                <Label x:Name="LabelTriggersActual" Content="0"/>
+                <Label x:Name="LabelTriggers2" Content=" / "/>
+                <Label x:Name="LabelTriggersTotal" Content="0"/>
+                <Label x:Name="LabelTriggers3" Content=")"/>
+            </StackPanel>
+            <ui:ProgressRing x:Name="ProgressRingTriggers" Grid.Row="5" Grid.Column="1" Width="16" Height="16" IsActive="True" HorizontalAlignment="Left" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
+            <Label FontWeight="Bold" x:Name="LabelTriggersSuccess" Grid.Row="5" Grid.Column="1" FontFamily="Segoe UI Symbol" Content="&#xe10b;" Visibility="Hidden"/>
+            <Label FontWeight="Bold" x:Name="LabelTriggersFail" Grid.Row="5" Grid.Column="1" FontFamily="Segoe UI Symbol" Content="&#xe10a;" Visibility="Hidden"/>
+            <StackPanel Grid.Row="6" Grid.Column="0" Orientation="Horizontal" Margin="0,0,16,8">
+                <Label x:Name="LabelPackages1" Content="Vytváření balíčků funkcí ("/>
+                <Label x:Name="LabelPackagesActual" Content="0"/>
+                <Label x:Name="LabelPackages2" Content=" / "/>
+                <Label x:Name="LabelPackagesTotal" Content="0"/>
+                <Label x:Name="LabelPackages3" Content=")"/>
+            </StackPanel>
+            <ui:ProgressRing x:Name="ProgressRingPackages" Grid.Row="6" Grid.Column="1" Width="16" Height="16" IsActive="True" HorizontalAlignment="Left" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
+            <Label FontWeight="Bold" x:Name="LabelPackagesSuccess" Grid.Row="6" Grid.Column="1" FontFamily="Segoe UI Symbol" Content="&#xe10b;" Visibility="Hidden"/>
+            <Label FontWeight="Bold" x:Name="LabelPackagesFail" Grid.Row="6" Grid.Column="1" FontFamily="Segoe UI Symbol" Content="&#xe10a;" Visibility="Hidden"/>
+            <StackPanel Grid.Row="7" Grid.Column="0" Orientation="Horizontal" Margin="0,0,16,8">
                 <Label x:Name="LabelData1" Content="Vkládání výchozích dat ("/>
                 <Label x:Name="LabelDataActual" Content="0"/>
                 <Label x:Name="LabelData2" Content=" / "/>
                 <Label x:Name="LabelDataTotal" Content="0"/>
                 <Label x:Name="LabelData3" Content=")"/>
             </StackPanel>
-            <ui:ProgressRing x:Name="ProgressRingData" Grid.Row="5" Grid.Column="1" Width="16" Height="16" IsActive="True" HorizontalAlignment="Left" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
-            <Label FontWeight="Bold" x:Name="LabelDataSuccess" Grid.Row="5" Grid.Column="1" FontFamily="Segoe UI Symbol" Content="&#xe10b;" Visibility="Hidden"/>
-            <Label FontWeight="Bold" x:Name="LabelDataFail" Grid.Row="5" Grid.Column="1" FontFamily="Segoe UI Symbol" Content="&#xe10a;" Visibility="Hidden"/>
+            <ui:ProgressRing x:Name="ProgressRingData" Grid.Row="7" Grid.Column="1" Width="16" Height="16" IsActive="True" HorizontalAlignment="Left" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
+            <Label FontWeight="Bold" x:Name="LabelDataSuccess" Grid.Row="7" Grid.Column="1" FontFamily="Segoe UI Symbol" Content="&#xe10b;" Visibility="Hidden"/>
+            <Label FontWeight="Bold" x:Name="LabelDataFail" Grid.Row="7" Grid.Column="1" FontFamily="Segoe UI Symbol" Content="&#xe10a;" Visibility="Hidden"/>
         </Grid>
     </StackPanel>
 </UserControl>

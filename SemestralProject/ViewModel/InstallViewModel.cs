@@ -67,11 +67,17 @@ namespace SemestralProject.ViewModel
             ).Count();
             this.install2 = new Install2(
                 this,
-                drops,
+                (
+                    from obj in InstallerScript.Drops
+                    from inner in obj.Value
+                    select inner
+                ).Count(),
                 InstallerScript.Sequences.Length,
                 InstallerScript.Tables.Length,
                 InstallerScript.Relations.Length,
-                0
+                InstallerScript.Data.Length,
+                InstallerScript.Triggers.Length,
+                InstallerScript.Packages.Length
             );
             this.install1.DatabaseFilled += (sender, args) =>
             {
@@ -104,8 +110,8 @@ namespace SemestralProject.ViewModel
             {
                 if (this.connectionModel != null)
                 {
-                    await this.connectionModel.Save();
-                    this.connection = await OracleConnector.Load();
+                    await this.connectionModel.SaveAsync();
+                    this.connection = await OracleConnector.ReloadAsync();
                     bool result = await this.connection.ConnectAsync();
                     if (result == true)
                     {
@@ -191,7 +197,7 @@ namespace SemestralProject.ViewModel
         /// <param name="sql">Array with SQL statements.</param>
         /// <param name="next">Next step visible to the user.</param>
         /// <param name="nextAction">Next performed action.</param>
-        private async void Install(string[] sql, View.Enums.Install2Step next, Action nextAction)
+        private async void Install(string[] sql, View.Enums.Install2Step? next, Action nextAction)
         {
             bool failed = false;
             if (this.connection == null)
@@ -200,22 +206,26 @@ namespace SemestralProject.ViewModel
             }
             else
             {
-                foreach (string s in sql)
+                if (sql.Length > 0)
                 {
-                    bool result = await this.connection.ExecuteAsync(s);
-                    if (result == false)
+                    foreach (string s in sql)
                     {
-                        failed = true;
-                        break;
-                    }
-                    else
-                    {
-                        this.install2.Dispatcher.Invoke(() =>
+                        bool result = await this.connection.ExecuteAsync(s);
+                        if (result == false)
                         {
-                            this.install2.IncrementCounter();
-                        });
+                            failed = true;
+                            break;
+                        }
+                        else
+                        {
+                            this.install2.Dispatcher.Invoke(() =>
+                            {
+                                this.install2.IncrementCounter();
+                            });
+                        }
                     }
                 }
+                
             }
             if (failed)
             {
@@ -234,7 +244,11 @@ namespace SemestralProject.ViewModel
                 this.install2.Dispatcher.Invoke(() =>
                 {
                     this.install2.Success();
-                    this.install2.SwitchStep(next);
+                    if (next != null)
+                    {
+                        this.install2.SwitchStep((View.Enums.Install2Step)next);
+                    }
+                    
                 });
                 nextAction();
             }
@@ -271,6 +285,30 @@ namespace SemestralProject.ViewModel
         {
             this.Install(
                 InstallerScript.Relations,
+                View.Enums.Install2Step.Triggers,
+                this.InstallTriggers
+            );
+        }
+
+        /// <summary>
+        /// Creates all triggers.
+        /// </summary>
+        private void InstallTriggers()
+        {
+            this.Install(
+                InstallerScript.Triggers,
+                View.Enums.Install2Step.Packages,
+                this.InstallPackages
+            );
+        }
+
+        /// <summary>
+        /// Creates all packages.
+        /// </summary>
+        private void InstallPackages()
+        {
+            this.Install(
+                InstallerScript.Packages,
                 View.Enums.Install2Step.Data,
                 this.InstallData
             );
@@ -281,7 +319,18 @@ namespace SemestralProject.ViewModel
         /// </summary>
         private void InstallData()
         {
-
+            this.Install(
+                InstallerScript.Data,
+                null,
+                () =>
+                {
+                    this.install2.Dispatcher.Invoke(() =>
+                    {
+                        this.install2.UnselectStep();
+                    });
+                    this.ButtonNextEnabledChanged?.Invoke(this, new ButtonEnabledEventArgs(true));
+                }
+            );
         }
 
         /// <summary>
@@ -304,7 +353,10 @@ namespace SemestralProject.ViewModel
                 case 1:
                     {
                         this.stage = 2;
-                        this.install2.SwitchStep(View.Enums.Install2Step.Connection);
+                        this.install2.Dispatcher.Invoke(() =>
+                        {
+                            this.install2.SwitchStep(View.Enums.Install2Step.Connection);
+                        });
                         reti = this.install2;
                         Task.Run(() =>
                         {
