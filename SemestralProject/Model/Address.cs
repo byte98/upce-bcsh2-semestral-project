@@ -62,9 +62,7 @@ namespace SemestralProject.Model
         public static Address? GetById(int id)
         {
             Address? reti = null;
-            string sql = $"SELECT * FROM adresy WHERE id_adresa={id}";
-            IConnection connection = OracleConnector.Load();
-            IDictionary<string, object?>[] result = connection.Query(sql);
+            IDictionary<string, object?>[] result = Municipality.Read($"sempr_crud.func_adresy_read({id})");
             if (result.Length > 0)
             {
                 Municipality? municipality = Municipality.GetById((int)(result[0]["obec"] ?? int.MinValue));
@@ -102,7 +100,6 @@ namespace SemestralProject.Model
         /// <summary>
         /// Creates new address.
         /// </summary>
-        /// <param name="id">Identifier of address.</param>
         /// <param name="street">Street part of address.</param>
         /// <param name="houseNumber">House number.</param>
         /// <param name="orientationNumber">Orientation number of house.</param>
@@ -110,20 +107,79 @@ namespace SemestralProject.Model
         /// <returns>Newly created address.</returns>
         public static Address Create(string street, int houseNumber, int orientationNumber, Municipality municipality)
         {   
-            string sql = $"EXECUTE sempr_crud.proc_adresy_create('{street}', {houseNumber}, {orientationNumber}, {municipality.Id}";
+            string sql = $"EXECUTE sempr_crud.proc_adresy_create('{street}', {houseNumber}, {orientationNumber}, {municipality.Id})";
             int id = Address.Create(sql, "adresy_seq");
             return new Address(id, street, houseNumber, orientationNumber, municipality);
         }
 
+        /// <summary>
+        /// Creates new address.
+        /// </summary>
+        /// <param name="id">Identifier of address.</param>
+        /// <param name="street">Street part of address.</param>
+        /// <param name="houseNumber">House number.</param>
+        /// <param name="municipality">Municipality of address.</param>
+        /// <returns>Newly created address.</returns>
+        public static Address Create(string street, int houseNumber, Municipality municipality)
+        {
+            string sql = $"EXECUTE sempr_crud.proc_adresy_create('{street}', {houseNumber}, {municipality.Id})";
+            int id = Address.Create(sql, "adresy_seq");
+            return new Address(id, street, houseNumber, null, municipality);
+        }
+
+        /// <summary>
+        /// Creates new address.
+        /// </summary>
+        /// <param name="houseNumber">House number.</param>
+        /// <param name="municipality">Municipality of address.</param>
+        /// <returns>Newly created address.</returns>
+        public static Address Create(int houseNumber, Municipality municipality)
+        {
+            string sql = $"EXECUTE sempr_crud.proc_adresy_create({houseNumber}, {municipality.Id})";
+            int id = Address.Create(sql, "adresy_seq");
+            return new Address(id, null, houseNumber, null, municipality);
+        }
+
+        /// <summary>
+        /// Creates new address.
+        /// </summary>
+        /// <param name="id">Identifier of address.</param>
+        /// <param name="street">Street part of address.</param>
+        /// <param name="houseNumber">House number.</param>
+        /// <param name="orientationNumber">Orientation number of house.</param>
+        /// <param name="municipality">Municipality of address.</param>
+        /// <returns>Newly created address.</returns>
+        public static Address Create(int houseNumber, int orientationNumber, Municipality municipality)
+        {
+            string sql = $"EXECUTE sempr_crud.proc_adresy_create({houseNumber}, {orientationNumber}, {municipality.Id})";
+            int id = Address.Create(sql, "adresy_seq");
+            return new Address(id, null, houseNumber, orientationNumber, municipality);
+        }
 
         public override bool Delete()
         {
-            return false;
+            string sql = $"EXECUTE sempr_crud.proc_adresy_delete({this.Id})";
+            IConnection connection = OracleConnector.Load();
+            return connection.Execute(sql);
         }
 
         public override bool Update()
         {
-            return false;
+            string sql = $"EXECUTE sempr_crud.proc_adresy_update({this.Id}, '{this.Street}', {this.HouseNumber}, {this.OrientationNumber},{this.Municipality.Id})";
+            if (this.Street == null && this.OrientationNumber != null)
+            {
+                sql = $"EXECUTE sempr_crud.proc_adresy_update({this.Id}, {this.HouseNumber}, {this.OrientationNumber},{this.Municipality.Id})";
+            }
+            else if (this.Street != null && this.OrientationNumber == null)
+            {
+                sql = $"EXECUTE sempr_crud.proc_adresy_update({this.Id}, '{this.Street}, {this.HouseNumber} ,{this.Municipality.Id})";
+            }
+            else if (this.Street == null && this.OrientationNumber == null)
+            {
+                sql = $"EXECUTE sempr_crud.proc_adresy_update({this.Id}, {this.HouseNumber} ,{this.Municipality.Id})";
+            }
+            IConnection connection = OracleConnector.Load();
+            return connection.Execute(sql);
         }
     }
 }

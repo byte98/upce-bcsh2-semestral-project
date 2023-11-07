@@ -366,15 +366,9 @@ namespace SemestralProject.Data
             osobni_cislo INTEGER NOT NULL,
             datum_nastupu DATE NOT NULL,
             bydliste INTEGER NOT NULL,
-            uzivatelsky_ucet INTEGER NOT NULL,
             osobni_udaje INTEGER NOT NULL,
             nadrizeny INTEGER
             )",
-
-            @"CREATE UNIQUE INDEX zamestnanec__idx ON
-            zamestnanci(
-            uzivatelsky_ucet
-            ASC)",
 
             @"ALTER TABLE zamestnanci ADD CONSTRAINT zamestnanec_pk PRIMARY KEY(id_zamestnanec )",
 
@@ -559,6 +553,8 @@ PACKAGE sempr_crud AS
 
 
 
+
+
     -- CRUD operations over 'staty' table
                     
     /*
@@ -604,6 +600,8 @@ PACKAGE sempr_crud AS
      * :returns:      Table with data from 'staty' with searched name.
      */
     FUNCTION  func_staty_read(p_name IN staty.nazev%TYPE) RETURN t_staty PIPELINED;
+
+
 
 
 
@@ -669,19 +667,104 @@ PACKAGE sempr_crud AS
     FUNCTION func_obce_read(p_id IN obce.id_obec%TYPE) RETURN t_obce PIPELINED;
 
 
+
+
+
     -- CRUD operations over 'adresy' table
+
+    /*
+     * Type definition of data stored in 'adresy' table.
+     */
+    TYPE t_adresy IS TABLE OF adresy%ROWTYPE;    
+
+    /*
+     * Creates new object 'adresy'.
+     * :param p_street:       Name of street.
+     * :param p_home:         Number of home.
+     * :param p_municipality: Identifier of 'obce' in which is 'adresy' located.*
+     */
     PROCEDURE proc_adresy_create(p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE);
+    
+    /*
+     * Creates new object 'adresy'.
+     * :param p_street:       Name of street.
+     * :param p_home:         Number of home.
+     * :param p_orientation:  Orientational number of home.
+     * :param p_municipality: Identifier of 'obce' in which is 'adresy' located.*
+     */
     PROCEDURE proc_adresy_create(p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE);
+    
+    /*
+     * Creates new object 'adresy'
+     * :param p_home:         Number of home.
+     * :param p_municipality: Identifier of 'obce' in which is 'adresy' located.
+     */
     PROCEDURE proc_adresy_create(p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE);
+    
+    /*
+     * Creates new object 'adresy'
+     * :param p_home:         Number of home.
+     * :param p_orientation:  Orientational number of home.
+     * :param p_municipality: Identifier of 'obce' in which is 'adresy' located.
+     */
     PROCEDURE proc_adresy_create(p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE);
+    
+    /* Updates 'adresy' object.
+     * :param p_id:           Identifier of object which will be updated.
+     * :param p_street:       New street of object.
+     * :param p_home:         New number of home of object.
+     * :param p_municipality: New identifier of 'obce' in which is 'adresy' located.
+     */
     PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE);
+    
+    /* Updates 'adresy' object.
+     * :param p_id:           Identifier of object which will be updated.
+     * :param p_street:       New street of object.
+     * :param p_home:         New number of home of object.
+     * :param p_orientation:  New orientational number of home of object.
+     * :param p_municipality: New identifier of 'obce' in which is 'adresy' located.
+     */
     PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE);
+    
+    /* Updates 'adresy' object.
+     * :param p_id:           Identifier of object which will be updated.
+     * :param p_home:         New number of home of object.
+     * :param p_municipality: New identifier of 'obce' in which is 'adresy' located.
+     */
     PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE);
+    
+    /* Updates 'adresy' object.
+     * :param p_id:           Identifier of object which will be updated.
+     * :param p_home:         New number of home of object.
+     * :param p_orientation:  New orientational number of home of object.
+     * :param p_municipality: New identifier of 'obce' in which is 'adresy' located.
+     */
     PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE);
+    
+    /*
+     * Deletes 'adresy' object.
+     * :param p_id: Identifier of object which will be deleted.
+     */
     PROCEDURE proc_adresy_delete(p_id IN adresy.id_adresa%TYPE);
+
+    /*
+     * Reads all data from 'adresy' table.
+     * :returns: Table with data from 'adresy' table.
+     */
+    FUNCTION func_adresy_read RETURN t_adresy PIPELINED;
+
+    /*
+     * Reads searched data from 'adresy' table.
+     * :param p_id: Identifier of searched data.
+     * :returns:    Table with searched data from 'adresy' table.
+     */
+    FUNCTION func_adresy_read(p_id IN adresy.id_adresa%TYPE) RETURN t_adresy PIPELINED;
+
 END sempr_crud;",
 @"CREATE OR REPLACE
 PACKAGE BODY sempr_crud AS
+
+
 
 
 
@@ -782,6 +865,8 @@ PACKAGE BODY sempr_crud AS
 
 
 
+
+
     -- Definition of CRUD operations over 'obce' table
 
     /*
@@ -876,7 +961,7 @@ PACKAGE BODY sempr_crud AS
     BEGIN
         SET TRANSACTION READ ONLY;
         OPEN v_cursor FOR
-            SELECT * FROM obce WHERE id_obce=p_id;
+            SELECT * FROM obce WHERE id_obec=p_id;
         LOOP
             FETCH v_cursor INTO v_obec;
             EXIT WHEN v_cursor%NOTFOUND;
@@ -885,28 +970,62 @@ PACKAGE BODY sempr_crud AS
         CLOSE v_cursor;
     END func_obce_read;
 
+
+
+
+
     -- Definitions of CRUD operations over 'adresy' table
 
+    /*
+     * Creates new object 'adresy'.
+     * :param p_street:       Name of street.
+     * :param p_home:         Number of home.
+     * :param p_municipality: Identifier of 'obce' in which is 'adresy' located.*
+     */
     PROCEDURE proc_adresy_create(p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE) AS
     BEGIN
         INSERT INTO adresy(ulice, cislo_popisne, obec) VALUES (p_street, p_home, p_municipality);
     END proc_adresy_create;
 
+    /*
+     * Creates new object 'adresy'.
+     * :param p_street:       Name of street.
+     * :param p_home:         Number of home.
+     * :param p_orientation:  Orientational number of home.
+     * :param p_municipality: Identifier of 'obce' in which is 'adresy' located.*
+     */
     PROCEDURE proc_adresy_create(p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE) AS
     BEGIN
         INSERT INTO adresy(ulice, cislo_popisne, cislo_orientacni, obec) VALUES (p_street, p_home, p_orientation, p_municipality);
     END proc_adresy_create;
 
+    /*
+     * Creates new object 'adresy'
+     * :param p_home:         Number of home.
+     * :param p_municipality: Identifier of 'obce' in which is 'adresy' located.*
+     */
     PROCEDURE proc_adresy_create(p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE) AS
     BEGIN
         INSERT INTO adresy(cislo_popisne, obec) VALUES (p_home, p_municipality);
     END proc_adresy_create;
 
+    /*
+     * Creates new object 'adresy'
+     * :param p_home:         Number of home.
+     * :param p_orientation:  Orientational number of home.
+     * :param p_municipality: Identifier of 'obce' in which is 'adresy' located.
+     */
     PROCEDURE proc_adresy_create(p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE) AS
     BEGIN
         INSERT INTO adresy(cislo_popisne, cislo_orientacni, obec) VALUES (p_home, p_orientation, p_municipality);
     END proc_adresy_create;
 
+    /* Updates 'adresy' object.
+     * :param p_id:           Identifier of object which will be updated.
+     * :param p_street:       New street of object.
+     * :param p_home:         New number of home of object.
+     * :param p_municipality: New identifier of 'obce' in which is 'adresy' located.
+     */
     PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE) AS
     BEGIN
         SET TRANSACTION READ WRITE;
@@ -914,6 +1033,13 @@ PACKAGE BODY sempr_crud AS
         COMMIT;
     END proc_adresy_update;
 
+    /* Updates 'adresy' object.
+     * :param p_id:           Identifier of object which will be updated.
+     * :param p_street:       New street of object.
+     * :param p_home:         New number of home of object.
+     * :param p_orientation:  New orientational number of home of object.
+     * :param p_municipality: New identifier of 'obce' in which is 'adresy' located.
+     */
     PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE) AS
     BEGIN
         SET TRANSACTION READ WRITE;
@@ -921,6 +1047,11 @@ PACKAGE BODY sempr_crud AS
         COMMIT;
     END proc_adresy_update;
 
+    /* Updates 'adresy' object.
+     * :param p_id:           Identifier of object which will be updated.
+     * :param p_home:         New number of home of object.
+     * :param p_municipality: New identifier of 'obce' in which is 'adresy' located.
+     */
     PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE) AS
     BEGIN
         SET TRANSACTION READ WRITE;
@@ -928,6 +1059,12 @@ PACKAGE BODY sempr_crud AS
         COMMIT;
     END proc_adresy_update;
 
+    /* Updates 'adresy' object.
+     * :param p_id:           Identifier of object which will be updated.
+     * :param p_home:         New number of home of object.
+     * :param p_orientation:  New orientational number of home of object.
+     * :param p_municipality: New identifier of 'obce' in which is 'adresy' located.
+     */
     PROCEDURE proc_adresy_update(p_id IN adresy.id_adresa%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_orientation IN adresy.cislo_orientacni%TYPE, p_municipality IN adresy.obec%TYPE) AS
     BEGIN
         SET TRANSACTION READ WRITE;
@@ -935,12 +1072,55 @@ PACKAGE BODY sempr_crud AS
         COMMIT;
     END proc_adresy_update;
 
+    /*
+     * Deletes 'adresy' object.
+     * :param p_id: Identifier of object which will be deleted.
+     */
     PROCEDURE proc_adresy_delete(p_id IN adresy.id_adresa%TYPE) AS
     BEGIN
         SET TRANSACTION READ WRITE;
         DELETE FROM adresy WHERE id_adresa=p_id;
         COMMIT;
     END proc_adresy_delete;
+
+    /*
+     * Reads all data from 'adresy' table.
+     * :returns: Table with data from 'adresy' table.
+     */
+    FUNCTION  func_adresy_read RETURN t_adresy PIPELINED AS
+        v_cursor SYS_REFCURSOR;
+        v_adresa adresy%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM adresy;
+        LOOP
+            FETCH v_cursor INTO v_adresa;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_adresa);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_adresy_read;
+
+    /*
+     * Reads searched data from 'adresy' table.
+     * :param p_id: Identifier of searched data.
+     * :returns:    Table with searched data from 'adresy' table.
+     */
+    FUNCTION func_adresy_read(p_id IN adresy.id_adresa%TYPE) RETURN t_adresy PIPELINED AS
+        v_cursor SYS_REFCURSOR;
+        v_adresa adresy%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM adresy WHERE id_adresa=p_id;
+        LOOP
+            FETCH v_cursor INTO v_adresa;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_adresa);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_adresy_read;
 
 END sempr_crud;",
             @"CREATE OR REPLACE
