@@ -812,6 +812,58 @@ PACKAGE sempr_crud AS
      * :returns:    Table with data from 'osoby' which has specified identifier.
      */
     FUNCTION  func_osoby_read(p_id IN osoby.id_osoba%TYPE) RETURN t_osoby PIPELINED;
+    
+    
+     
+    
+    
+    -- CRUD operations over 'zamestnanci' table.
+    
+    /*
+     * Creates new object 'zamestnanci'.
+     * :param p_personal_number: Personal number of new 'zamestnanci' object.
+     * :param p_date:            Start of employment of new 'zamestnanci' object.
+     * :param p_residence:       Identifier of address from 'adresy' of residence of new 'zamestnanci' object.
+     * :param p_personal_data:   Identifier of personal data from 'osoby' of new 'zamestnanci' object.
+     */
+    PROCEDURE proc_zamestnanci_create(p_personal_number IN zamestnanci.osobni_cislo%TYPE, p_date IN zamestnanci.datum_nastupu%TYPE, p_residence IN zamestnanci.bydliste%TYPE, p_personal_data IN zamestnanci.osobni_udaje%TYPE);
+
+    /*
+     * Creates new object 'zamestnanci'.
+     * :param p_personal_number: Personal number of new 'zamestnanci' object.
+     * :param p_date:            Start of employment of new 'zamestnanci' object.
+     * :param p_residence:       Identifier of address from 'adresy' of residence of new 'zamestnanci' object.
+     * :param p_personal_data:   Identifier of personal data from 'osoby' of new 'zamestnanci' object.
+     * :param p_superior:        Identifier of superior employee from 'zamestnanci' of new 'zamestnanci' object.
+     */
+    PROCEDURE proc_zamestnanci_create(p_personal_number IN zamestnanci.osobni_cislo%TYPE, p_date IN zamestnanci.datum_nastupu%TYPE, p_residence IN zamestnanci.bydliste%TYPE, p_personal_data IN zamestnanci.osobni_udaje%TYPE, p_superior IN zamestnanci.nadrizeny%TYPE);
+
+    /*
+     * Updates 'zamestnanci'.
+     * :param p_id:              Identifier of 'zamestanci' object which will be updated.
+     * :param p_personal_number: New personal number of 'zamestnanci' object.
+     * :param p_date:            New sart of employment of 'zamestnanci' object.
+     * :param p_residence:       New identifier of address from 'adresy' of residence of 'zamestnanci' object.
+     * :param p_personal_data:   New identifier of personal data from 'osoby' of 'zamestnanci' object.
+     */
+    PROCEDURE proc_zamestnanci_update(p_id IN zamestnanci.id_zamestnanec%TYPE, p_personal_number IN zamestnanci.osobni_cislo%TYPE, p_date IN zamestnanci.datum_nastupu%TYPE, p_residence IN zamestnanci.bydliste%TYPE, p_personal_data IN zamestnanci.osobni_udaje%TYPE);
+
+    /*
+     * Updates 'zamestnanci'.
+     * :param p_id:              Identifier of 'zamestanci' object which will be updated.
+     * :param p_personal_number: New personal number of 'zamestnanci' object.
+     * :param p_date:            New sart of employment of 'zamestnanci' object.
+     * :param p_residence:       New identifier of address from 'adresy' of residence of 'zamestnanci' object.
+     * :param p_personal_data:   New identifier of personal data from 'osoby' of 'zamestnanci' object.
+     * :param p_superior:        New identifier of superior employee from 'zamestnanci' of 'zamestnanci' object.
+     */
+    PROCEDURE proc_zamestnanci_update(p_id IN zamestnanci.id_zamestnanec%TYPE, p_personal_number IN zamestnanci.osobni_cislo%TYPE, p_date IN zamestnanci.datum_nastupu%TYPE, p_residence IN zamestnanci.bydliste%TYPE, p_personal_data IN zamestnanci.osobni_udaje%TYPE, p_superior IN zamestnanci.nadrizeny%TYPE);
+
+    /*
+     * Deletes data from 'zamestnanci'.
+     * :param p_id: Identifier of 'zamestnanci' which will be deleted.
+     */
+    PROCEDURE proc_zamestnanci_delete(p_id IN zamestnanci.id_zamestnanec%TYPE);
 
 END sempr_crud;",
 @"CREATE OR REPLACE
@@ -1270,6 +1322,113 @@ PACKAGE BODY sempr_crud AS
         END LOOP;
         CLOSE v_cursor;
     END func_osoby_read;
+
+
+
+
+
+    -- Definition of CRUD operations over 'zamestnanci' table.
+    /*
+     * Creates new object 'zamestnanci'.
+     * :param p_personal_number: Personal number of new 'zamestnanci' object.
+     * :param p_date:            Start of employment of new 'zamestnanci' object.
+     * :param p_residence:       Identifier of address from 'adresy' of residence of new 'zamestnanci' object.
+     * :param p_personal_data:   Identifier of personal data from 'osoby' of new 'zamestnanci' object.
+     */
+    PROCEDURE proc_zamestnanci_create(p_personal_number IN zamestnanci.osobni_cislo%TYPE, p_date IN zamestnanci.datum_nastupu%TYPE, p_residence IN zamestnanci.bydliste%TYPE, p_personal_data IN zamestnanci.osobni_udaje%TYPE) AS
+    BEGIN
+        INSERT INTO zamestnanci(
+            osobni_cislo,
+            datum_nastupu,
+            bydliste,
+            osobni_udaje)
+        VALUES (
+            p_personal_number,
+            p_date,
+            p_residence,
+            p_personal_data
+        );
+    END proc_zamestnanci_create;
+
+    /*
+     * Creates new object 'zamestnanci'.
+     * :param p_personal_number: Personal number of new 'zamestnanci' object.
+     * :param p_date:            Start of employment of new 'zamestnanci' object.
+     * :param p_residence:       Identifier of address from 'adresy' of residence of new 'zamestnanci' object.
+     * :param p_personal_data:   Identifier of personal data from 'osoby' of new 'zamestnanci' object.
+     * :param p_superior:        Identifier of superior employee from 'zamestnanci' of new 'zamestnanci' object.
+     */
+    PROCEDURE proc_zamestnanci_create(p_personal_number IN zamestnanci.osobni_cislo%TYPE, p_date IN zamestnanci.datum_nastupu%TYPE, p_residence IN zamestnanci.bydliste%TYPE, p_personal_data IN zamestnanci.osobni_udaje%TYPE, p_superior IN zamestnanci.nadrizeny%TYPE) AS
+    BEGIN
+        INSERT INTO zamestnanci(
+            osobni_cislo,
+            datum_nastupu,
+            bydliste,
+            osobni_udaje,
+            nadrizeny)
+        VALUES (
+            p_personal_number,
+            p_date,
+            p_residence,
+            p_personal_data,
+            p_superior
+        );
+    END proc_zamestnanci_create;
+
+    /*
+     * Updates 'zamestnanci'.
+     * :param p_id:              Identifier of 'zamestanci' object which will be updated.
+     * :param p_personal_number: New personal number of 'zamestnanci' object.
+     * :param p_date:            New sart of employment of 'zamestnanci' object.
+     * :param p_residence:       New identifier of address from 'adresy' of residence of 'zamestnanci' object.
+     * :param p_personal_data:   New identifier of personal data from 'osoby' of 'zamestnanci' object.
+     */
+    PROCEDURE proc_zamestnanci_update(p_id IN zamestnanci.id_zamestnanec%TYPE, p_personal_number IN zamestnanci.osobni_cislo%TYPE, p_date IN zamestnanci.datum_nastupu%TYPE, p_residence IN zamestnanci.bydliste%TYPE, p_personal_data IN zamestnanci.osobni_udaje%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE zamestnanci
+        SET
+            osobni_cislo=p_personal_number,
+            datum_nastupu=p_date,
+            bydliste=p_residence,
+            osobni_udaje=p_personal_data
+        WHERE id_zamestnanec=p_id;
+        COMMIT;
+    END proc_zamestnanci_update;
+
+    /*
+     * Updates 'zamestnanci'.
+     * :param p_id:              Identifier of 'zamestanci' object which will be updated.
+     * :param p_personal_number: New personal number of 'zamestnanci' object.
+     * :param p_date:            New sart of employment of 'zamestnanci' object.
+     * :param p_residence:       New identifier of address from 'adresy' of residence of 'zamestnanci' object.
+     * :param p_personal_data:   New identifier of personal data from 'osoby' of 'zamestnanci' object.
+     * :param p_superior:        New identifier of superior employee from 'zamestnanci' of 'zamestnanci' object.
+     */
+    PROCEDURE proc_zamestnanci_update(p_id IN zamestnanci.id_zamestnanec%TYPE, p_personal_number IN zamestnanci.osobni_cislo%TYPE, p_date IN zamestnanci.datum_nastupu%TYPE, p_residence IN zamestnanci.bydliste%TYPE, p_personal_data IN zamestnanci.osobni_udaje%TYPE, p_superior IN zamestnanci.nadrizeny%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE zamestnanci
+        SET
+            osobni_cislo=p_personal_number,
+            datum_nastupu=p_date,
+            bydliste=p_residence,
+            osobni_udaje=p_personal_data,
+            nadrizeny=p_superior
+        WHERE id_zamestnanec=p_id;
+        COMMIT;
+    END proc_zamestnanci_update;
+
+    /*
+     * Deletes data from 'zamestnanci'.
+     * :param p_id: Identifier of 'zamestnanci' which will be deleted.
+     */
+    PROCEDURE proc_zamestnanci_delete(p_id IN zamestnanci.id_zamestnanec%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        DELETE FROM zamestnanci WHERE id_zamestnanec=p_id;
+        COMMIT;
+    END proc_zamestnanci_delete;
 
 END sempr_crud;",
 @"CREATE OR REPLACE
