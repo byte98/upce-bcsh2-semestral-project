@@ -818,6 +818,11 @@ PACKAGE sempr_crud AS
     
     
     -- CRUD operations over 'zamestnanci' table.
+
+    /*
+     * Type definition of table 'zamestnanci'.
+     */
+    TYPE t_zamestnanci IS TABLE OF zamestnanci%ROWTYPE;
     
     /*
      * Creates new object 'zamestnanci'.
@@ -864,6 +869,19 @@ PACKAGE sempr_crud AS
      * :param p_id: Identifier of 'zamestnanci' which will be deleted.
      */
     PROCEDURE proc_zamestnanci_delete(p_id IN zamestnanci.id_zamestnanec%TYPE);
+
+    /*
+     * Function which reads all available data from 'zamestnanci'.
+     * :returns: Table with data from 'zamestnanci'.
+     */
+    FUNCTION  func_zamestnanci_read RETURN t_zamestnanci PIPELINED;
+
+    /*
+     * Function which reads data from 'zamestnanci' defined by its identifier.
+     * :param p_id: Identifier of searched data.
+     * :returns:    Table with data from 'zamestnanci' with searched identifier.
+     */
+    FUNCTION  func_zamestnanci_read(p_id IN zamestnanci.id_zamestnanec%TYPE) RETURN t_zamestnanci PIPELINED;
 
 END sempr_crud;",
 @"CREATE OR REPLACE
@@ -1429,6 +1447,46 @@ PACKAGE BODY sempr_crud AS
         DELETE FROM zamestnanci WHERE id_zamestnanec=p_id;
         COMMIT;
     END proc_zamestnanci_delete;
+
+    /*
+     * Function which reads all available data from 'zamestnanci'.
+     * :returns: Table with data from 'zamestnanci'.
+     */
+    FUNCTION  func_zamestnanci_read RETURN t_zamestnanci PIPELINED AS
+        v_cursor       SYS_REFCURSOR;
+        v_zamestnanec  zamestnancci%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM zamestnanci;
+        LOOP
+            FETCH v_cursor INTO v_zamestnanec;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_zamestnanec);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_zamestnanci_read;
+
+
+    /*
+     * Function which reads data from 'zamestnanci' defined by its identifier.
+     * :param p_id: Identifier of searched data.
+     * :returns:    Table with data from 'zamestnanci' with searched identifier.
+     */
+    FUNCTION  func_zamestnanci_read(p_id IN zamestnanci.id_zamestnanec%TYPE) RETURN t_zamestnanci PIPELINED AS
+        v_cursor       SYS_REFCURSOR;
+        v_zamestnanec  zamestnancci%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM zamestnanci WHERE id_zamestnanec=p_id;
+        LOOP
+            FETCH v_cursor INTO v_zamestnanec;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_zamestnanec);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_zamestnanci_read;
 
 END sempr_crud;",
 @"CREATE OR REPLACE

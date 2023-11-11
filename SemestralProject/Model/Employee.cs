@@ -2,6 +2,7 @@
 using SemestralProject.Common;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -108,6 +109,106 @@ namespace SemestralProject.Model
                     personalData,
                     superior
                 );
+            });
+        }
+
+        /// <summary>
+        /// Gets all available employees.
+        /// </summary>
+        /// <returns>Array with all available employees.</returns>
+        public static Employee[] GetAll()
+        {
+            IList<Employee> reti = new List<Employee>();
+            IDictionary<string, object?>[] results = Employee.Read("sempr_crud.func_zamestnanci_read()");
+            foreach (IDictionary<string, object?> row in results)
+            {
+                Address? address = Address.GetById((int)(row["bydliste"] ?? int.MinValue));
+                Person?  person  = Person.GetById((int)(row["osobni_udaje"] ?? int.MinValue));
+                Employee? superior = Employee.GetById((int)(row["nadrizeny"] ?? int.MinValue));
+                DateTime date;
+                if (DateTime.TryParse((string)(row["datum_nastupu"] ?? string.Empty), out date))
+                {
+                    if (address != null && person != null)
+                    {
+                        reti.Add(new Employee(
+                            (int)(row["id_zamestnanec"] ?? int.MinValue),
+                            (int)(row["osobni_cislo"] ?? int.MinValue),
+                            date,
+                            address,
+                            person,
+                            superior
+                        ));
+                    }
+                }
+            }
+            return reti.ToArray();
+        }
+
+        /// <summary>
+        /// Gets all available employees.
+        /// </summary>
+        /// <returns>Task which resolves into array with all available employees.</returns>
+        public static Task<Employee[]> GetAllAsync()
+        {
+            return Task<Employee[]>.Run(() =>
+            {
+                return Employee.GetAll();
+            });
+        }
+
+        /// <summary>
+        /// Gets employee by its identifier.
+        /// </summary>
+        /// <param name="id">Identifier of employee.</param>
+        /// <returns>
+        /// Employee with searched identifier,
+        /// or NULL, if there is no such employee.
+        /// </returns>
+        public static Employee? GetById(int id)
+        {
+            Employee? reti = null;
+            IDictionary<string, object?>[] results = Employee.Read($"sempr_crud.func_zamestnanci_read({id})");
+            if (results.Length > 0)
+            {
+                Country? country = Country.GetById((int)(results[0]["stat"] ?? int.MinValue));
+                if (country is not null)
+                {
+                    Address? address = Address.GetById((int)(results[0]["bydliste"] ?? int.MinValue));
+                    Person? person = Person.GetById((int)(results[0]["osobni_udaje"] ?? int.MinValue));
+                    Employee? superior = Employee.GetById((int)(results[0]["nadrizeny"] ?? int.MinValue));
+                    DateTime date;
+                    if (DateTime.TryParse((string)(results[0]["datum_nastupu"] ?? string.Empty), out date))
+                    {
+                        if (address != null && person != null)
+                        {
+                            reti = new Employee(
+                                (int)(results[0]["id_zamestnanec"] ?? int.MinValue),
+                                (int)(results[0]["osobni_cislo"] ?? int.MinValue),
+                                date,
+                                address,
+                                person,
+                                superior
+                            );
+                        }
+                    }
+                }
+            }
+            return reti;
+        }
+
+        /// <summary>
+        /// Gets employee by its identifier.
+        /// </summary>
+        /// <param name="id">Identifier of employee.</param>
+        /// <returns>
+        /// Employee with searched identifier,
+        /// or NULL, if there is no such employee.
+        /// </returns>
+        public static Task<Employee?> GetByIdAsync(int id)
+        {
+            return Task<Employee?>.Run(() =>
+            {
+                return Employee.GetById(id);
             });
         }
 
