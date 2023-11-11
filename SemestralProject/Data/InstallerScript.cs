@@ -517,11 +517,7 @@ namespace SemestralProject.Data
 
                 @"ALTER TABLE zamestnanci
                     ADD CONSTRAINT zamestnanec_osoby_fk FOREIGN KEY(osobni_udaje )
-                REFERENCES osoby(id_osoba )",
-
-                @"ALTER TABLE zamestnanci
-                    ADD CONSTRAINT zamestnanec_uzivatel_fk FOREIGN KEY(uzivatelsky_ucet )
-                REFERENCES uzivatele(id_uzivatel )"
+                REFERENCES osoby(id_osoba )"
         };
 
         /// <summary>
@@ -549,6 +545,15 @@ namespace SemestralProject.Data
         {
             @"
 CREATE OR REPLACE
+
+/*
+ * Package which defines all necessary procedures
+ * and functions to perform CRUD operations over
+ * all available tables.
+ *
+ * :author: David Schwam <david.schwam@student.upce.cz>
+ *          Jiri Skoda <jiri.skoda@student.upce.cz>
+ */
 PACKAGE sempr_crud AS 
 
 
@@ -760,8 +765,63 @@ PACKAGE sempr_crud AS
      */
     FUNCTION func_adresy_read(p_id IN adresy.id_adresa%TYPE) RETURN t_adresy PIPELINED;
 
+
+
+
+    -- CRUD operations over 'osoby' table
+
+    /*
+     * Type definition of data stored in 'osoby' table.
+     */
+    TYPE t_osoby IS TABLE OF osoby%ROWTYPE;
+    
+    /*
+     * Creates new 'osoby' object.
+     * :param p_name:    Name of new 'osoby'.
+     * :param p_surname: Surname of new 'osoby'.
+     * :param p_email:   E-mail of new 'osoby'.
+     * :param p_phone:   Phone number of new 'osoby'.
+     */
+    PROCEDURE proc_osoby_create(p_name IN osoby.jmeno%TYPE, p_surname IN osoby.prijmeni%TYPE, p_email IN osoby.e_mail%TYPE, p_phone IN osoby.telefon%TYPE);
+
+    /*
+     * Updates 'osoby' object.
+     * :param p_id:      Identifier of 'osoby' which will be updated.
+     * :param p_name:    New name of 'osoby'.
+     * :param p_surname: New surname of 'osoby'.
+     * :param p_email:   New e-mail of 'osoby'.
+     * :param p_phone:   New phone number of 'osoby'.
+     */
+    PROCEDURE proc_osoby_update(p_id IN osoby.id_osoba%TYPE, p_name IN osoby.jmeno%TYPE, p_surname IN osoby.prijmeni%TYPE, p_email IN osoby.e_mail%TYPE, p_phone IN osoby.telefon%TYPE);
+
+    /*
+     * Deletes data from 'osoby'.
+     * :param p_id: Identifier of 'osoby' which will be deleted.
+     */
+    PROCEDURE proc_osoby_delete(p_id IN osoby.id_osoba%TYPE);
+
+    /*
+     * Reads all data from 'osoby'.
+     * :returns: Table with data from 'osoby'.
+     */
+    FUNCTION  func_osoby_read RETURN t_osoby PIPELINED;
+
+    /*
+     * Reads specified data from 'osoby'.
+     * :param p_id: Identifier of searched data.
+     * :returns:    Table with data from 'osoby' which has specified identifier.
+     */
+    FUNCTION  func_osoby_read(p_id IN osoby.id_osoba%TYPE) RETURN t_osoby PIPELINED;
+
 END sempr_crud;",
 @"CREATE OR REPLACE
+/*
+ * Body of package with procedures and functions to
+ * perform CRUD operations over all tables.
+ *
+ * :author: David Schwam <david.schwam@student.upce.cz>
+ *          Jiri Skoda <jiri.skoda@student.upce.cz>
+ */
 PACKAGE BODY sempr_crud AS
 
 
@@ -1122,31 +1182,148 @@ PACKAGE BODY sempr_crud AS
         CLOSE v_cursor;
     END func_adresy_read;
 
+
+
+
+
+    -- Definition of CRUD operations over 'osoby' table
+
+    /*
+     * Creates new 'osoby' object.
+     * :param p_name:    Name of new 'osoby'.
+     * :param p_surname: Surname of new 'osoby'.
+     * :param p_email:   E-mail of new 'osoby'.
+     * :param p_phone:   Phone number of new 'osoby'.
+     */
+    PROCEDURE proc_osoby_create(p_name IN osoby.jmeno%TYPE, p_surname IN osoby.prijmeni%TYPE, p_email IN osoby.e_mail%TYPE, p_phone IN osoby.telefon%TYPE) AS
+    BEGIN
+        INSERT INTO osoby(jmeno, prijmeni, e_mail, telefon) VALUES (p_name, p_surname, p_email, p_phone);
+    END proc_osoby_create;
+
+    /*
+     * Updates 'osoby' object.
+     * :param p_id:      Identifier of 'osoby' which will be updated.
+     * :param p_name:    New name of 'osoby'.
+     * :param p_surname: New surname of 'osoby'.
+     * :param p_email:   New e-mail of 'osoby'.
+     * :param p_phone:   New phone number of 'osoby'.
+     */
+    PROCEDURE proc_osoby_update(p_id IN osoby.id_osoba%TYPE, p_name IN osoby.jmeno%TYPE, p_surname IN osoby.prijmeni%TYPE, p_email IN osoby.e_mail%TYPE, p_phone IN osoby.telefon%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE osoby
+        SET
+            jmeno=p_name,
+            prijmeni=p_surname,
+            e_mail=p_email,
+            telefon=p_phone
+        WHERE id_osoba=p_id;
+        COMMIT;
+    END proc_osoby_update;
+
+    /*
+     * Deletes data from 'osoby'.
+     * :param p_id: Identifier of 'osoby' which will be deleted.
+     */
+    PROCEDURE proc_osoby_delete(p_id IN osoby.id_osoba%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        DELETE FROM osoby WHERE id_osoba=p_id;
+        COMMIT;
+    END proc_osoby_delete;
+
+    /*
+     * Reads all data from 'osoby'.
+     * :returns: Table with data from 'osoby'.
+     */
+    FUNCTION  func_osoby_read RETURN t_osoby PIPELINED AS
+        v_cursor SYS_REFCURSOR;
+        v_osoba  osoby%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM osoby;
+        LOOP
+            FETCH v_cursor INTO v_osoba;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_osoba);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_osoby_read;
+
+    /*
+     * Reads specified data from 'osoby'.
+     * :param p_id: Identifier of searched data.
+     * :returns:    Table with data from 'osoby' which has specified identifier.
+     */
+    FUNCTION  func_osoby_read(p_id IN osoby.id_osoba%TYPE) RETURN t_osoby PIPELINED AS
+        v_cursor SYS_REFCURSOR;
+        v_osoba  osoby%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM osoby WHERE id_osoba=p_id;
+        LOOP
+            FETCH v_cursor INTO v_osoba;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_osoba);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_osoby_read;
+
 END sempr_crud;",
-            @"CREATE OR REPLACE
-                PACKAGE sempr_utils AS
-                    FUNCTION func_last_seq(p_seq VARCHAR2) RETURN NUMBER;
-                END sempr_utils;",
-            @"CREATE OR REPLACE
-                PACKAGE BODY sempr_utils AS
-                    FUNCTION func_last_seq(p_seq VARCHAR2) RETURN NUMBER AS
-                        v_reti NUMBER := -2147483648;
-                        v_sequence_exists NUMBER;
-                    BEGIN
-                        SELECT COUNT(*)
-                        INTO v_sequence_exists
-                        FROM all_sequences
-                        WHERE sequence_name=p_seq;
-                        IF v_sequence_exists = 0 THEN
-                            RETURN v_reti;
-                        END IF;
-                        EXECUTE IMMEDIATE 'SELECT' || p_seq || '.CURRVAL FROM DUAL' INTO v_reti;
-                        RETURN v_reti;
-                    EXCEPTION
-                        WHEN OTHERS THEN
-                            RETURN v_reti;
-                    END func_last_seq;
-                END sempr_utils;"
+@"CREATE OR REPLACE
+
+/*
+ * Package with some usefull utility functions.
+ *
+ * :author: David Schwam <david.schwam@student.upce.cz>
+ *          Jiri Skoda <jiri.skoda@student.upce.cz>
+ */
+PACKAGE sempr_utils AS
+
+    /*
+     * Gets last generated number of sequence
+     * :param p_seq: Name of sequence.
+     * :returns:     Last generated number of sequence,
+     *               or -2147483648 if any error occurs.
+     */
+    FUNCTION func_last_seq(p_seq VARCHAR2) RETURN NUMBER;
+END sempr_utils;",
+@"CREATE OR REPLACE
+/*
+ * Body of package with utility functions.
+ *
+ * :author: David Schwam <david.schwam@student.upce.cz>
+ *          Jiri Skoda <jiri.skoda@student.upce.cz>
+ */
+PACKAGE BODY sempr_utils AS
+    
+    /*
+     * Gets last generated number of sequence
+     * :param p_seq: Name of sequence.
+     * :returns:     Last generated number of sequence,
+     *               or -2147483648 if any error occurs.
+     */
+    FUNCTION func_last_seq(p_seq VARCHAR2) RETURN NUMBER AS
+        v_reti NUMBER := -2147483648;
+        v_sequence_exists NUMBER;
+    BEGIN
+        SELECT COUNT(*)
+        INTO v_sequence_exists
+        FROM all_sequences
+        WHERE sequence_name=p_seq;
+        IF v_sequence_exists = 0 THEN
+            RETURN v_reti;
+        END IF;
+        EXECUTE IMMEDIATE 'SELECT' || p_seq || '.CURRVAL FROM DUAL' INTO v_reti;
+        RETURN v_reti;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RETURN v_reti;
+    END func_last_seq;
+
+END sempr_utils;"
         };
     }
 }
