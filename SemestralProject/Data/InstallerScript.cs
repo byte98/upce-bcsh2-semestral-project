@@ -1002,13 +1002,13 @@ PACKAGE sempr_crud AS
      * :param p_state: New identifier of 'stavy' of 'uzivatele'.
      * :param p_empl:  New identifier of 'zamestnanci' to which is 'uzivatele' assigned to.
      */
-    PROCEDURE proc_uzivatele_update(p_id IN uzivatele.id_uzivatele%TYPE, p_pwd IN uzivatele.heslo%TYPE, p_reg IN uzivatele.datum_registrace%TYPE, p_pict IN uzivatele.obrazek%TYPE, p_role IN uzivatele.role%TYPE, p_state IN uzivatele.stav%TYPE, p_empl IN uzivatele.zamestnanec%TYPE);
+    PROCEDURE proc_uzivatele_update(p_id IN uzivatele.id_uzivatel%TYPE, p_pwd IN uzivatele.heslo%TYPE, p_reg IN uzivatele.datum_registrace%TYPE, p_pict IN uzivatele.obrazek%TYPE, p_role IN uzivatele.role%TYPE, p_state IN uzivatele.stav%TYPE, p_empl IN uzivatele.zamestnanec%TYPE);
 
     /*
      * Deletes object from 'uzivatele'.
      * :param p_id: Identifier of object which will be deleted.
      */
-    PROCEDURE proc_uzivatele_delete(p_id IN uzivatele.id_uzivatele%TYPE);
+    PROCEDURE proc_uzivatele_delete(p_id IN uzivatele.id_uzivatel%TYPE);
 
     /*
      * Reads all available data from 'uzivatele'.
@@ -1021,7 +1021,7 @@ PACKAGE sempr_crud AS
      * :param p_id: Identifier of searched data.
      * :returns:    Table with all searched from 'uzivatele'.
      */
-    FUNCTION  func_uzivatele_read(p_id IN uzivatele.id_uzivatele%TYPE) RETURN t_uzivatele PIPELINED;
+    FUNCTION  func_uzivatele_read(p_id IN uzivatele.id_uzivatel%TYPE) RETURN t_uzivatele PIPELINED;
     
 
 END sempr_crud;",
@@ -1739,7 +1739,7 @@ PACKAGE BODY sempr_crud AS
      */
     PROCEDURE proc_stavy_delete(p_id IN stavy.id_stav%TYPE) AS
     BEGIN
-        SET TRANSACTION READ WRITE  
+        SET TRANSACTION READ WRITE;  
         DELETE FROM stavy WHERE id_stav=p_id;
         COMMIT;
     END proc_stavy_delete;
@@ -1813,7 +1813,7 @@ PACKAGE BODY sempr_crud AS
      * :param p_state: New identifier of 'stavy' of 'uzivatele'.
      * :param p_empl:  New identifier of 'zamestnanci' to which is 'uzivatele' assigned to.
      */
-    PROCEDURE proc_uzivatele_update(p_id IN uzivatele.id_uzivatele%TYPE, p_pwd IN uzivatele.heslo%TYPE, p_reg IN uzivatele.datum_registrace%TYPE, p_pict IN uzivatele.obrazek%TYPE, p_role IN uzivatele.role%TYPE, p_state IN uzivatele.stav%TYPE, p_empl IN uzivatele.zamestnanec%TYPE) AS
+    PROCEDURE proc_uzivatele_update(p_id IN uzivatele.id_uzivatel%TYPE, p_pwd IN uzivatele.heslo%TYPE, p_reg IN uzivatele.datum_registrace%TYPE, p_pict IN uzivatele.obrazek%TYPE, p_role IN uzivatele.role%TYPE, p_state IN uzivatele.stav%TYPE, p_empl IN uzivatele.zamestnanec%TYPE) AS
     BEGIN
         SET TRANSACTION READ WRITE;
         UPDATE uzivatele
@@ -1824,7 +1824,7 @@ PACKAGE BODY sempr_crud AS
             role=p_role,
             stav=p_state,
             zamestnanec=p_empl
-        WHERE id_uzivatele=p_id;
+        WHERE id_uzivatel=p_id;
         COMMIT;
     END proc_uzivatele_update;
 
@@ -1832,10 +1832,10 @@ PACKAGE BODY sempr_crud AS
      * Deletes object from 'uzivatele'.
      * :param p_id: Identifier of object which will be deleted.
      */
-    PROCEDURE proc_uzivatele_delete(p_id IN uzivatele.id_uzivatele%TYPE) AS
+    PROCEDURE proc_uzivatele_delete(p_id IN uzivatele.id_uzivatel%TYPE) AS
     BEGIN
         SET TRANSACTION READ WRITE;
-        DELETE FROM uzivatele WHERE id_uzivatele=p_id;
+        DELETE FROM uzivatele WHERE id_uzivatel=p_id;
         COMMIT;
     END proc_uzivatele_delete;
 
@@ -1851,9 +1851,9 @@ PACKAGE BODY sempr_crud AS
         OPEN v_cursor FOR
             SELECT * FROM uzivatele;
         LOOP
-            FETCH v_cursor INTO v_uzivatele;
+            FETCH v_cursor INTO v_uzivatel;
             EXIT WHEN v_cursor%NOTFOUND;
-            PIPE ROW (v_uzivatele);
+            PIPE ROW (v_uzivatel);
         END LOOP;
         CLOSE v_cursor;
     END func_uzivatele_read;
@@ -1863,17 +1863,17 @@ PACKAGE BODY sempr_crud AS
      * :param p_id: Identifier of searched data.
      * :returns:    Table with all searched from 'uzivatele'.
      */
-    FUNCTION  func_uzivatele_read(p_id IN uzivatele.id_uzivatele%TYPE) RETURN t_uzivatele PIPELINED AS
+    FUNCTION  func_uzivatele_read(p_id IN uzivatele.id_uzivatel%TYPE) RETURN t_uzivatele PIPELINED AS
         v_cursor   SYS_REFCURSOR;
         v_uzivatel uzivatele%ROWTYPE;
     BEGIN
         SET TRANSACTION READ ONLY;
         OPEN v_cursor FOR
-            SELECT * FROM uzivatele WHERE id_uzivatele=p_id;
+            SELECT * FROM uzivatele WHERE id_uzivatel=p_id;
         LOOP
-            FETCH v_cursor INTO v_uzivatele;
+            FETCH v_cursor INTO v_uzivatel;
             EXIT WHEN v_cursor%NOTFOUND;
-            PIPE ROW (v_uzivatele);
+            PIPE ROW (v_uzivatel);
         END LOOP;
         CLOSE v_cursor;
     END func_uzivatele_read;
