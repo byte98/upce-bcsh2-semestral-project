@@ -883,6 +883,13 @@ PACKAGE sempr_crud AS
      */
     FUNCTION  func_zamestnanci_read(p_id IN zamestnanci.id_zamestnanec%TYPE) RETURN t_zamestnanci PIPELINED;
 
+
+
+
+
+    -- CRUD operations over 'role' table.
+    PROCEDURE 
+
 END sempr_crud;",
 @"CREATE OR REPLACE
 /*
@@ -1454,7 +1461,7 @@ PACKAGE BODY sempr_crud AS
      */
     FUNCTION  func_zamestnanci_read RETURN t_zamestnanci PIPELINED AS
         v_cursor       SYS_REFCURSOR;
-        v_zamestnanec  zamestnancci%ROWTYPE;
+        v_zamestnanec  zamestnanci%ROWTYPE;
     BEGIN
         SET TRANSACTION READ ONLY;
         OPEN v_cursor FOR
@@ -1475,7 +1482,7 @@ PACKAGE BODY sempr_crud AS
      */
     FUNCTION  func_zamestnanci_read(p_id IN zamestnanci.id_zamestnanec%TYPE) RETURN t_zamestnanci PIPELINED AS
         v_cursor       SYS_REFCURSOR;
-        v_zamestnanec  zamestnancci%ROWTYPE;
+        v_zamestnanec  zamestnanci%ROWTYPE;
     BEGIN
         SET TRANSACTION READ ONLY;
         OPEN v_cursor FOR
