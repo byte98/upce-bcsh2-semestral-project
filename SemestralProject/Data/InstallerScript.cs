@@ -927,6 +927,49 @@ PACKAGE sempr_crud AS
      */
     FUNCTION  func_role_read(p_id IN role.id_role%TYPE) RETURN t_role PIPELINED;
 
+    
+
+
+
+    -- CRUD operations over 'stavy' table.
+
+    /*
+     * Type definition of table with data from 'stavy'.
+     */
+    TYPE t_stavy IS TABLE OF stavy%ROWTYPE;
+
+    /*
+     * Creates new 'stavy' object.
+     * :param p_name: Name of new 'stavy' object.
+     */
+    PROCEDURE proc_stavy_create(p_name IN stavy.nazev%TYPE);
+
+    /*
+     * Updates 'stavy' object.
+     * :param p_id:   Identifier of object which will be updated.
+     * :param p_name: New name of 'stavy' object.
+     */
+    PROCEDURE proc_stavy_update(p_id IN stavy.id_stav%TYPE, p_name IN stavy.nazev%TYPE);
+    
+    /*
+     * Deletes object 'stavy'.
+     * :param p_id: Identifier of object which will be deleted.
+     */
+    PROCEDURE proc_stavy_delete(p_id IN stavy.id_stav%TYPE);
+
+    /*
+     * Reads all data from 'stavy'.
+     * :returns: Table with all data from 'stavy'.
+     */
+    FUNCTION  func_stavy_read RETURN t_stavy PIPELINED;
+
+    /*
+     * Reads searched data from 'stavy'.
+     * :param p_id: Identifier of searched data.
+     * :returns:    Table with searched data from 'stavy'.
+     */
+    FUNCTION  func_stavy_read(p_id IN stavy.id_stav%TYPE) RETURN t_stavy PIPELINED;
+
 END sempr_crud;",
 @"CREATE OR REPLACE
 /*
@@ -1610,6 +1653,83 @@ PACKAGE BODY sempr_crud AS
         END LOOP;
         CLOSE v_cursor;
     END func_role_read;
+
+
+
+
+
+    -- Definition of CRUD operations over 'stavy' table.
+    /*
+     * Creates new 'stavy' object.
+     * :param p_name: Name of new 'stavy' object.
+     */
+    PROCEDURE proc_stavy_create(p_name IN stavy.nazev%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        INSERT INTO stavy(nazev) VALUES(p_name);
+    END proc_stavy_create;
+
+    /*
+     * Updates 'stavy' object.
+     * :param p_id:   Identifier of object which will be updated.
+     * :param p_name: New name of 'stavy' object.
+     */
+    PROCEDURE proc_stavy_update(p_id IN stavy.id_stav%TYPE, p_name IN stavy.nazev%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE stavy SET nazev=p_name WHERE id_stav=p_id;
+        COMMIT;
+    END proc_stavy_update;
+    
+    /*
+     * Deletes object 'stavy'.
+     * :param p_id: Identifier of object which will be deleted.
+     */
+    PROCEDURE proc_stavy_delete(p_id IN stavy.id_stav%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE  
+        DELETE FROM stavy WHERE id_stav=p_id;
+        COMMIT;
+    END proc_stavy_delete;
+
+    /*
+     * Reads all data from 'stavy'.
+     * :returns: Table with all data from 'stavy'.
+     */
+    FUNCTION  func_stavy_read RETURN t_stavy PIPELINED AS
+        v_cursor SYS_REFCURSOR;
+        v_stav   stavy%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM stavy;
+        LOOP
+            FETCH v_cursor INTO v_stav;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_stav);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_stavy_read;
+
+    /*
+     * Reads searched data from 'stavy'.
+     * :param p_id: Identifier of searched data.
+     * :returns:    Table with searched data from 'stavy'.
+     */
+    FUNCTION  func_stavy_read(p_id IN stavy.id_stav%TYPE) RETURN t_stavy PIPELINED
+        v_cursor SYS_REFCURSOR;
+        v_stav   stavy%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM stavy WHERE id_stav=p_id;
+        LOOP
+            FETCH v_cursor INTO v_stav;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_stav);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_stavy_read;
 
 END sempr_crud;",
 @"CREATE OR REPLACE
