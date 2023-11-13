@@ -114,7 +114,7 @@ namespace SemestralProject.Model
         }
 
         /// <summary>
-        /// Gets role by its identifier asynchronously
+        /// Gets role by its identifier asynchronously.
         /// </summary>
         /// <param name="id">Identifier of role.</param>
         /// <returns>
