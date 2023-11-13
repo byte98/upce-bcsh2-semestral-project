@@ -61,6 +61,10 @@ namespace SemestralProject.Common
             }
             else
             {
+                if (File.Exists("db.log"))
+                {
+                    File.Delete("db.log");
+                }
                 ConnectionModel model = ConnectionModel.Load();
                 OracleConnector reti = new OracleConnector(model);
                 OracleConnector.instance = reti;
@@ -74,6 +78,10 @@ namespace SemestralProject.Common
         /// <returns>Connection with parameters from settings.</returns>
         public static OracleConnector Reload()
         {
+            if (File.Exists("db.log"))
+            {
+                File.Delete("db.log");
+            }
             ConnectionModel model = ConnectionModel.Load();
             OracleConnector reti = new OracleConnector(model);
             OracleConnector.instance = reti;
@@ -143,7 +151,8 @@ namespace SemestralProject.Common
         {
             using (StreamWriter sw = File.AppendText("db.log"))
             {
-                sw.WriteLine(DateTime.Now.ToString() + ": " + text);
+                //sw.WriteLine(DateTime.Now.ToString() + ": " + text);
+                sw.WriteLine(text);
             }
         }
 

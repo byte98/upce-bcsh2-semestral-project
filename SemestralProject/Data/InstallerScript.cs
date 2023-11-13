@@ -888,7 +888,44 @@ PACKAGE sempr_crud AS
 
 
     -- CRUD operations over 'role' table.
-    PROCEDURE 
+    
+    /*
+     * Type definition of table with data from 'role'.
+     */
+    TYPE t_role IS TABLE OF role%ROWTYPE;
+
+    /*
+     * Creates object 'role'.
+     * :param p_name: Name of new 'role' object.
+     */
+    PROCEDURE proc_role_create(p_name IN role.nazev%TYPE);
+
+    /*
+     * Updates object 'role'.
+     * :param p_id:   Identifier of object which will be updated.
+     * :param p_name: New name of 'role'.
+     */
+    PROCEDURE proc_role_update(p_id IN role.id_role%TYPE, p_name IN role.nazev%TYPE);
+
+    /*
+     * Deletes object from 'role'.
+     * :param p_id: Identifier of object which will be deleted.
+     */
+    PROCEDURE proc_role_delete(p_id IN role.id_role%TYPE);
+
+    /*
+     * Reads all available data from 'role'.
+     * :returs: Table with all data from 'role'.
+     */
+    FUNCTION  func_role_read RETURN t_role PIPELINED;
+
+        
+    /*
+     * Reads searched data from 'role'.
+     * :param p_id: Identifier of searched data.
+     * :returns:    Table with searched data from 'role'.
+     */
+    FUNCTION  func_role_read(p_id IN role.id_role%TYPE) RETURN t_role PIPELINED;
 
 END sempr_crud;",
 @"CREATE OR REPLACE
@@ -1494,6 +1531,85 @@ PACKAGE BODY sempr_crud AS
         END LOOP;
         CLOSE v_cursor;
     END func_zamestnanci_read;
+
+
+
+
+    
+    -- Definition of CRUD operations over 'role' table.
+
+    /*
+     * Creates object 'role'.
+     * :param p_name: Name of new 'role' object.
+     */
+    PROCEDURE proc_role_create(p_name IN role.nazev%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        INSERT INTO role(nazev) VALUES (p_name);
+    END proc_role_create;
+
+    /*
+     * Updates object 'role'.
+     * :param p_id:   Identifier of object which will be updated.
+     * :param p_name: New name of 'role'.
+     */
+    PROCEDURE proc_role_update(p_id IN role.id_role%TYPE, p_name IN role.nazev%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE role SET nazev=p_name WHERE id_role=p_id;
+        COMMIT;
+    END proc_role_update;
+
+    /*
+     * Deletes object from 'role'.
+     * :param p_id: Identifier of object which will be deleted.
+     */
+    PROCEDURE proc_role_delete(p_id IN role.id_role%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        DELETE FROM role WHERE id_role=p_id;
+        COMMIT;
+    END proc_role_delete;
+
+    /*
+     * Reads all available data from 'role'.
+     * :returs: Table with all data from 'role'.
+     */
+    FUNCTION  func_role_read RETURN t_role PIPELINED AS
+        v_cursor SYS_REFCURSOR;
+        v_role   role%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM role;
+        LOOP
+            FETCH v_cursor INTO v_role;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_role);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_role_read;
+
+        
+    /*
+     * Reads searched data from 'role'.
+     * :param p_id: Identifier of searched data.
+     * :returns:    Table with searched data from 'role'.
+     */
+    FUNCTION  func_role_read(p_id IN role.id_role%TYPE) RETURN t_role PIPELINED AS
+        v_cursor SYS_REFCURSOR;
+        v_role   role%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM role WHERE id_role=p_id;
+        LOOP
+            FETCH v_cursor INTO v_role;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_role);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_role_read;
 
 END sempr_crud;",
 @"CREATE OR REPLACE
