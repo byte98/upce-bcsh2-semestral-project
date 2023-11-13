@@ -1716,7 +1716,7 @@ PACKAGE BODY sempr_crud AS
      * :param p_id: Identifier of searched data.
      * :returns:    Table with searched data from 'stavy'.
      */
-    FUNCTION  func_stavy_read(p_id IN stavy.id_stav%TYPE) RETURN t_stavy PIPELINED
+    FUNCTION  func_stavy_read(p_id IN stavy.id_stav%TYPE) RETURN t_stavy PIPELINED AS
         v_cursor SYS_REFCURSOR;
         v_stav   stavy%ROWTYPE;
     BEGIN
