@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace SemestralProject.View.Components
+namespace SemestralProject.Common
 {
     /// <summary>
     /// Class which represents image of user.
@@ -48,7 +48,7 @@ namespace SemestralProject.View.Components
             }
             return new UserImage(content);
         }
-        
+
         /// <summary>
         /// Creates new image from its content.
         /// </summary>
@@ -67,9 +67,18 @@ namespace SemestralProject.View.Components
         {
             BitmapImage reti = new BitmapImage();
             reti.BeginInit();
-            reti.StreamSource = new MemoryStream(Convert.FromBase64String(this.content));
+            reti.StreamSource = new MemoryStream(Convert.FromBase64String(content));
             reti.EndInit();
             return reti;
+        }
+
+        /// <summary>
+        /// Gets content of image.
+        /// </summary>
+        /// <returns>String representing BASE64 encoded content of image.</returns>
+        public string ToContent()
+        {
+            return this.content;
         }
     }
 }

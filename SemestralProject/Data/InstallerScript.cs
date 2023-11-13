@@ -970,6 +970,60 @@ PACKAGE sempr_crud AS
      */
     FUNCTION  func_stavy_read(p_id IN stavy.id_stav%TYPE) RETURN t_stavy PIPELINED;
 
+
+
+
+
+    -- CRUD operations over 'uzivatele' table.
+
+    /*
+     * Type definition of table of 'uzivatele'.
+     */
+    TYPE t_uzivatele IS TABLE OF uzivatele%ROWTYPE;
+    
+    /*
+     * Creates new 'uzivatele' object.
+     * :param p_pwd:   Password of new 'uzivatele'.
+     * :param p_reg:   Date and time of registration of new 'uzivatele'.
+     * :param p_pict:  Picture of new 'uzivatele'.
+     * :param p_role:  Identifier of 'role' of new 'uzivatele'.
+     * :param p_state: Identifier of 'stavy' of new 'uzivatele'.
+     * :param p_empl:  Identifier of 'zamestnanci' to which is new 'uzivatele' assigned to.
+     */
+    PROCEDURE proc_uzivatele_create(p_pwd IN uzivatele.heslo%TYPE, p_reg IN uzivatele.datum_registrace%TYPE, p_pict IN uzivatele.obrazek%TYPE, p_role IN uzivatele.role%TYPE, p_state IN uzivatele.stav%TYPE, p_empl IN uzivatele.zamestnanec%TYPE);
+
+    /*
+     * Updates 'uzivatele' object.
+     * :param p_id:    Identifier of 'uzivatele' which will be updated.
+     * :param p_pwd:   New password of 'uzivatele'.
+     * :param p_reg:   New date and time of registration of 'uzivatele'.
+     * :param p_pict:  New picture of 'uzivatele'.
+     * :param p_role:  New identifier of 'role' of 'uzivatele'.
+     * :param p_state: New identifier of 'stavy' of 'uzivatele'.
+     * :param p_empl:  New identifier of 'zamestnanci' to which is 'uzivatele' assigned to.
+     */
+    PROCEDURE proc_uzivatele_update(p_id IN uzivatele.id_uzivatele%TYPE, p_pwd IN uzivatele.heslo%TYPE, p_reg IN uzivatele.datum_registrace%TYPE, p_pict IN uzivatele.obrazek%TYPE, p_role IN uzivatele.role%TYPE, p_state IN uzivatele.stav%TYPE, p_empl IN uzivatele.zamestnanec%TYPE);
+
+    /*
+     * Deletes object from 'uzivatele'.
+     * :param p_id: Identifier of object which will be deleted.
+     */
+    PROCEDURE proc_uzivatele_delete(p_id IN uzivatele.id_uzivatele%TYPE);
+
+    /*
+     * Reads all available data from 'uzivatele'.
+     * :returns: Table with all data from 'uzivatele'.
+     */
+    FUNCTION  func_uzivatele_read RETURN t_uzivatele PIPELINED;
+
+    /*
+     * Reads all searched data from 'uzivatele'.
+     * :param p_id: Identifier of searched data.
+     * :returns:    Table with all searched from 'uzivatele'.
+     */
+    FUNCTION  func_uzivatele_read(p_id IN uzivatele.id_uzivatele%TYPE) RETURN t_uzivatele PIPELINED;
+    
+
 END sempr_crud;",
 @"CREATE OR REPLACE
 /*
@@ -1587,7 +1641,6 @@ PACKAGE BODY sempr_crud AS
      */
     PROCEDURE proc_role_create(p_name IN role.nazev%TYPE) AS
     BEGIN
-        SET TRANSACTION READ WRITE;
         INSERT INTO role(nazev) VALUES (p_name);
     END proc_role_create;
 
@@ -1665,7 +1718,6 @@ PACKAGE BODY sempr_crud AS
      */
     PROCEDURE proc_stavy_create(p_name IN stavy.nazev%TYPE) AS
     BEGIN
-        SET TRANSACTION READ WRITE;
         INSERT INTO stavy(nazev) VALUES(p_name);
     END proc_stavy_create;
 
@@ -1730,6 +1782,101 @@ PACKAGE BODY sempr_crud AS
         END LOOP;
         CLOSE v_cursor;
     END func_stavy_read;
+
+
+
+
+
+    -- Definition of CRUD operations over 'uzivatele' table.
+    /*
+     * Creates new 'uzivatele' object.
+     * :param p_pwd:   Password of new 'uzivatele'.
+     * :param p_reg:   Date and time of registration of new 'uzivatele'.
+     * :param p_pict:  Picture of new 'uzivatele'.
+     * :param p_role:  Role of new 'uzivatele'.
+     * :param p_state: State of new 'uzivatele'.
+     * :param p_empl:  Employee to which is new 'uzivatele' assigned to.
+     */
+    PROCEDURE proc_uzivatele_create(p_pwd IN uzivatele.heslo%TYPE, p_reg IN uzivatele.datum_registrace%TYPE, p_pict IN uzivatele.obrazek%TYPE, p_role IN uzivatele.role%TYPE, p_state IN uzivatele.stav%TYPE, p_empl IN uzivatele.zamestnanec%TYPE) AS
+    BEGIN
+        INSERT INTO uzivatele(heslo, datum_registrace, obrazek, role, stav, zamestnanec)
+        VALUES (p_pwd, p_reg, p_pict, p_role, p_state, p_empl);
+    END proc_uzivatele_create;
+
+    /*
+     * Updates 'uzivatele' object.
+     * :param p_id:    Identifier of 'uzivatele' which will be updated.
+     * :param p_pwd:   New password of 'uzivatele'.
+     * :param p_reg:   New date and time of registration of 'uzivatele'.
+     * :param p_pict:  New picture of 'uzivatele'.
+     * :param p_role:  New identifier of 'role' of 'uzivatele'.
+     * :param p_state: New identifier of 'stavy' of 'uzivatele'.
+     * :param p_empl:  New identifier of 'zamestnanci' to which is 'uzivatele' assigned to.
+     */
+    PROCEDURE proc_uzivatele_update(p_id IN uzivatele.id_uzivatele%TYPE, p_pwd IN uzivatele.heslo%TYPE, p_reg IN uzivatele.datum_registrace%TYPE, p_pict IN uzivatele.obrazek%TYPE, p_role IN uzivatele.role%TYPE, p_state IN uzivatele.stav%TYPE, p_empl IN uzivatele.zamestnanec%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE uzivatele
+        SET
+            heslo=p_pwd,
+            datum_registrace=p_reg,
+            obrazek=p_pict,
+            role=p_role,
+            stav=p_state,
+            zamestnanec=p_empl
+        WHERE id_uzivatele=p_id;
+        COMMIT;
+    END proc_uzivatele_update;
+
+    /*
+     * Deletes object from 'uzivatele'.
+     * :param p_id: Identifier of object which will be deleted.
+     */
+    PROCEDURE proc_uzivatele_delete(p_id IN uzivatele.id_uzivatele%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        DELETE FROM uzivatele WHERE id_uzivatele=p_id;
+        COMMIT;
+    END proc_uzivatele_delete;
+
+    /*
+     * Reads all available data from 'uzivatele'.
+     * :returns: Table with all data from 'uzivatele'.
+     */
+    FUNCTION  func_uzivatele_read RETURN t_uzivatele PIPELINED AS
+        v_cursor   SYS_REFCURSOR;
+        v_uzivatel uzivatele%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM uzivatele;
+        LOOP
+            FETCH v_cursor INTO v_uzivatele;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_uzivatele);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_uzivatele_read;
+
+    /*
+     * Reads all searched data from 'uzivatele'.
+     * :param p_id: Identifier of searched data.
+     * :returns:    Table with all searched from 'uzivatele'.
+     */
+    FUNCTION  func_uzivatele_read(p_id IN uzivatele.id_uzivatele%TYPE) RETURN t_uzivatele PIPELINED AS
+        v_cursor   SYS_REFCURSOR;
+        v_uzivatel uzivatele%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM uzivatele WHERE id_uzivatele=p_id;
+        LOOP
+            FETCH v_cursor INTO v_uzivatele;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_uzivatele);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_uzivatele_read;
 
 END sempr_crud;",
 @"CREATE OR REPLACE
