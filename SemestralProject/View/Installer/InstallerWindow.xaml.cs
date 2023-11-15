@@ -12,16 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SemestralProject.View
+namespace SemestralProject.View.Installer
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for InstallerWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class InstallerWindow : Window
     {
-        public MainWindow()
+        /// <summary>
+        /// Content of the window.
+        /// </summary>
+        public static Frame? ContentFrame = null;
+
+        public InstallerWindow()
         {
             InitializeComponent();
+            InstallerWindow.ContentFrame = this.FrameContent;
         }
     }
 }

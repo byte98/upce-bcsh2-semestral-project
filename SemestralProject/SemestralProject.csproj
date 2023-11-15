@@ -13,7 +13,12 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    <PackageReference Include="CredentialManagement" Version="1.0.2" />
+      <PackageReference Include="CredentialManagement" Version="1.0.2">
+          <NoWarn>NU1701</NoWarn>
+      </PackageReference>
+      <PackageReference Include="Expression.Interaction" Version="3.0.40218">
+          <NoWarn>NU1701</NoWarn>
+      </PackageReference>
     <PackageReference Include="FluentWPF" Version="0.10.2" />
     <PackageReference Include="ModernWpfUI" Version="0.9.6" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.120" />
@@ -21,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Assets\" />
+    <Folder Include="Common\Messaging\" />
   </ItemGroup>
 
   <ItemGroup>

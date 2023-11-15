@@ -32,7 +32,7 @@ namespace SemestralProject.Common
         /// </summary>
         private static OracleConnector? instance;
 
-        public ConnectionModel ConnectionModel { get; init; }
+        public Connection ConnectionModel { get; init; }
         public Exception? LastException { get; private set; }
         public int AffectedRows { get; private set; }
 
@@ -44,7 +44,8 @@ namespace SemestralProject.Common
         {
             return Task<OracleConnector>.Run(() =>
             {
-                ConnectionModel model = ConnectionModel.Load();
+                Connection model = Connection.Unknown;
+                model.Load();
                 return new OracleConnector(model);
             });
         }
@@ -65,7 +66,8 @@ namespace SemestralProject.Common
                 {
                     File.Delete("db.log");
                 }
-                ConnectionModel model = ConnectionModel.Load();
+                Connection model = Connection.Unknown;
+                model.Load();
                 OracleConnector reti = new OracleConnector(model);
                 OracleConnector.instance = reti;
                 return reti;
@@ -82,7 +84,8 @@ namespace SemestralProject.Common
             {
                 File.Delete("db.log");
             }
-            ConnectionModel model = ConnectionModel.Load();
+            Connection model = Connection.Unknown;
+            model.Load();
             OracleConnector reti = new OracleConnector(model);
             OracleConnector.instance = reti;
             return reti;
@@ -104,13 +107,9 @@ namespace SemestralProject.Common
         /// Creates new connection into Oracle database.
         /// </summary>
         /// <param name="connectionModel">Data model of connection.</param>
-        private OracleConnector(ConnectionModel connectionModel)
+        private OracleConnector(Connection connectionModel)
         {
             this.ConnectionModel = connectionModel;
-            this.ConnectionModel.ConnectionModelChanged += (args) =>
-            {
-                this.UpdateConnection();
-            };
         }
 
         /// <summary>

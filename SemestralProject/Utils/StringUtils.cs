@@ -82,15 +82,29 @@ namespace SemestralProject.Utils
         /// <param name="alphabet">Alphabet of allowed characters.</param>
         /// <param name="length">Length of string.</param>
         /// <returns>Pseudo-random string.</returns>
-        public static string Random(string alphabet, int length)
+        public static string Random(string alphabet, uint length)
         {
             StringBuilder reti = new StringBuilder();
             Random random = new Random();
-            for (int i = 0; i < length; i++)
+            for (uint i = 0; i < length; i++)
             {
                 reti.Append(alphabet[random.Next(0, alphabet.Length)]);
             }
             return reti.ToString();
+        }
+
+        /// <summary>
+        /// Creates pseudo-random string asynchronously.
+        /// </summary>
+        /// <param name="alphabet">Alphabet of allowed characters.</param>
+        /// <param name="length">Length of string.</param>
+        /// <returns>Task which resolves into pseudo-random string.</returns>
+        public static Task<string> RandomAsync(string alphabet, uint length)
+        {
+            return Task<string>.Run(() =>
+            {
+                return StringUtils.Random(alphabet, length);
+            });
         }
     }
 }

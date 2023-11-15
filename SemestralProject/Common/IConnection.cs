@@ -184,7 +184,7 @@ namespace SemestralProject.Common
         /// <summary>
         /// Data model of connection.
         /// </summary>
-        public abstract ConnectionModel ConnectionModel { get; }
+        public abstract Connection ConnectionModel { get; }
 
         /// <summary>
         /// Last received exception by connection.
