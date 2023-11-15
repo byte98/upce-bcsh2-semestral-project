@@ -55,6 +55,44 @@ namespace SemestralProject.Model.Entities
         }
 
         /// <summary>
+        /// Gets all available addresses.
+        /// </summary>
+        /// <returns>Array with all available addresses.</returns>
+        public static Address[] GetAll()
+        {
+            IList<Address> reti = new List<Address>();
+            IDictionary<string, object?>[] results = Address.Read("sempr_crud.func_adresy_read()");
+            foreach (IDictionary<string, object?> row in results)
+            {
+                Municipality? municipality = Municipality.GetById((int)(row["obec"] ?? int.MinValue));
+                if (municipality != null)
+                {
+                    reti.Add(new Address(
+                        (int)(row["id_adresa"] ?? int.MinValue),
+                        (string?)(row["ulice"]),
+                        (int)(row["cislo_popisne"] ?? int.MinValue),
+                        (int?)(row["cislo_orientacni"]),
+                        municipality
+                    ));
+                }
+            }
+            
+            return reti.Order().ToArray();
+        }
+
+        /// <summary>
+        /// Gets all available addresses asynchronously.
+        /// </summary>
+        /// <returns>Task which resolves into array with all available addresses.</returns>
+        public static Task<Address[]> GetAllAsync()
+        {
+            return Task<Address[]>.Run(() =>
+            {
+                return Address.GetAll();
+            });
+        }
+
+        /// <summary>
         /// Gets address by its identifier.
         /// </summary>
         /// <param name="id">Identifier of address.</param>
@@ -180,6 +218,29 @@ namespace SemestralProject.Model.Entities
             }
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
+        }
+
+        public override string? ToString()
+        {
+            StringBuilder reti = new StringBuilder();
+            if (this.Street != null)
+            {
+                reti.Append(this.Street);
+            }
+            else
+            {
+                reti.Append(this.Municipality.Name);
+            }
+            reti.Append(" ");
+            reti.Append(this.HouseNumber);
+            if(this.OrientationNumber != null)
+            {
+                reti.Append("/");
+                reti.Append(this.OrientationNumber);
+            }
+            reti.Append(", ");
+            reti.Append(this.Municipality.ToString());
+            return reti.ToString();
         }
     }
 }

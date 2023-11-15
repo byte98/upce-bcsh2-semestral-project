@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="SemestralProject.View.Components.AddressSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SemestralProject.View.Components"             
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:vml="clr-namespace:SemestralProject.Common"
+             xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+             vml:ViewModelLocator.AutoHookedUpViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="64" d:DesignWidth="400">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ControlLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <StackPanel>
+        <Label Content="Adresa"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="14,16,0,0" Visibility="{Binding LoaderVisibility}">
+            <ui:ProgressRing Width="16" Height="16" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}"  HorizontalAlignment="Left" Margin="0,0,16,0"/>
+            <Label Content="Načítám dostupné adresy..."/>
+        </StackPanel>
+        <Grid fw:PointerTracker.Enabled="True" Visibility="{Binding ComboBoxVisibility}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ComboBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  ItemsSource="{Binding AvailableAddresses}" SelectedItem="{Binding SelectedAddress}" Margin="0,0,8,0" />
+            <Button Style="{StaticResource ButtonRevealStyle}" Grid.Row="0" Grid.Column="1"  Padding="8,8,8,8" Command="{Binding FindAddressCommand}">
+                <ui:SymbolIcon Symbol="Find" />
+            </Button>
+        </Grid>
+    </StackPanel>
+</UserControl>

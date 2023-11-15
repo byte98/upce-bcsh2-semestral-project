@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Folder Include="Assets\" />
-    <Folder Include="Common\Messaging\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -67,7 +67,7 @@ namespace SemestralProject.Model.Entities
         /// <returns>Array with all available countries.</returns>
         public static Country[] GetAll()
         {
-            IDictionary<string, object?>[] results = Country.Read("sepmr_crud.func_staty_read()");
+            IDictionary<string, object?>[] results = Country.Read("sempr_crud.func_staty_read()");
             IList<Country> reti = new List<Country>();
             foreach(IDictionary<string, object?> row in results)
             {
@@ -96,7 +96,7 @@ namespace SemestralProject.Model.Entities
         public static Country? GetById(int id)
         {
             Country? reti = null;
-            IDictionary<string, object?>[] results = Country.Read($"sepmr_crud.func_staty_read({id})");
+            IDictionary<string, object?>[] results = Country.Read($"sempr_crud.func_staty_read({id})");
             if (results.Length > 0)
             {
                 reti = new Country((int)(results[0]["id_stat"] ?? int.MinValue), (string)(results[0]["nazev"] ?? string.Empty));
@@ -165,6 +165,11 @@ namespace SemestralProject.Model.Entities
             string sql = $"EXECUTE sempr_crud.proc_staty_delete({this.Id})";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
+        }
+
+        public override string? ToString()
+        {
+            return this.Name;
         }
     }
 }

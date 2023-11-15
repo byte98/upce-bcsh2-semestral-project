@@ -372,7 +372,7 @@ namespace SemestralProject.ViewModel.Installer
         [RelayCommand]
         private void Next()
         {
-
+            this.ChangeContent(new InstallationStep3(), this.model);
         }
 
         /// <summary>
@@ -459,11 +459,11 @@ namespace SemestralProject.ViewModel.Installer
         /// </summary>
         private void DispatchStage()
         {
+            this.HideProgressRings();
+            this.UpdateFontWeights();
             if (this.IsFinished() == false)
             {
-                this.HideProgressRings();
                 this.UpdateProgressVisibility();
-                this.UpdateFontWeights();
                 Action? action = null;
                 switch (this.Stage)
                 {

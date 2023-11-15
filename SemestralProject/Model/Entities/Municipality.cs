@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Pkcs;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,7 +26,7 @@ namespace SemestralProject.Model.Entities
         /// <summary>
         /// ZIP code of municipality.
         /// </summary>
-        public int ZIP { get; set; }
+        public string ZIP { get; set; }
 
         /// <summary>
         /// Name of part of municipality.
@@ -45,7 +46,7 @@ namespace SemestralProject.Model.Entities
         /// <param name="part">Name of part of municipality.</param>
         /// <param name="zip">ZIP code of municipality.</param>
         /// <param name="country">Country in which is municipality located.</param>
-        private Municipality(int id, string name, string? part, int zip, Country country)
+        private Municipality(int id, string name, string? part, string zip, Country country)
         {
             this.Id = id;
             this.Name = name;
@@ -62,7 +63,7 @@ namespace SemestralProject.Model.Entities
         /// <param name="zip">ZIP code of new municipality.</param>
         /// <param name="country">Country in which is new municipality located.</param>
         /// <returns>Newly created municipality.</returns>
-        public static Municipality Create(string name, string? part, int zip, Country country)
+        public static Municipality Create(string name, string? part, string zip, Country country)
         {
             string sql = $"EXECUTE sempr_crud.proc_obce_create('{name}', '{zip}', {country.Id})";
             if (part is not null)
@@ -81,7 +82,7 @@ namespace SemestralProject.Model.Entities
         /// <param name="zip">ZIP code of new municipality.</param>
         /// <param name="country">Country in which is new municipality located.</param>
         /// <returns>Task which resolves into newly created municipality.</returns>
-        public static Task<Municipality> CreateAsync(string name, string? part, int zip, Country country)
+        public static Task<Municipality> CreateAsync(string name, string? part, string zip, Country country)
         {
             return Task<Municipality>.Run(() =>
             {
@@ -107,7 +108,7 @@ namespace SemestralProject.Model.Entities
                                 (int)(results[0]["id_obec"] ?? int.MinValue),
                                 (string)(results[0]["nazev"] ?? string.Empty),
                                 (string?)results[0]["cast_obce"],
-                                (int)(results[0]["psc"] ?? int.MinValue),
+                                (string)(results[0]["psc"] ?? string.Empty),
                                 country
                            );
                 }
@@ -149,7 +150,7 @@ namespace SemestralProject.Model.Entities
                         (int)(row["id_obec"] ?? int.MinValue),
                         (string)(row["nazev"] ?? string.Empty),
                         (string?)(row["cast_obce"]),
-                        (int)(row["psc"] ?? int.MinValue),
+                        (string)(row["psc"] ?? string.Empty),
                         country
                     ));
                 }
@@ -185,6 +186,20 @@ namespace SemestralProject.Model.Entities
             }
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
+        }
+
+        public override string ToString()
+        {
+            StringBuilder reti = new StringBuilder();
+            reti.Append(this.Name);
+            if (this.Part != null)
+            {
+                reti.Append(" - ");
+                reti.Append(this.Part);
+            }
+            reti.Append(", ");
+            reti.Append(this.Country.ToString());
+            return reti.ToString();
         }
     }
 }

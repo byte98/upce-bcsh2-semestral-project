@@ -132,6 +132,10 @@ namespace SemestralProject.Common
         {
             this.AffectedRows = 0;
             this.LastException = null;
+            if (this.connection != null && this.connection.State  != System.Data.ConnectionState.Open)
+            {
+                this.connection.Open();
+            }
         }
 
         /// <summary>
@@ -218,10 +222,20 @@ namespace SemestralProject.Common
                             IList<IDictionary<string, object?>> results = new List<IDictionary<string, object?>>();
                             while(reader.Read())
                             {
-                                IDictionary<string, object?> row = new Dictionary<string, object?>();
+                                IDictionary<string, object?> row = new Dictionary<string, object?>(StringComparer.OrdinalIgnoreCase);
                                 for (int i = 0; i < reader.FieldCount;  i++)
                                 {
-                                    row[reader.GetName(i)] = reader.GetValue(i);
+                                    object value = reader.GetValue(i);
+                                    if (value.GetType() == typeof(decimal))
+                                    {
+                                        decimal dval = (decimal)value;
+                                        int ival = decimal.ToInt32(dval);
+                                        row[reader.GetName(i)] = ival;
+                                    }
+                                    else
+                                    {
+                                        row[reader.GetName(i)] = value;
+                                    }
                                 }
                                 results.Add(row);
                             }

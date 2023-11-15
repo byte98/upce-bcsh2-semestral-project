@@ -59,11 +59,8 @@ namespace SemestralProject.Model
         protected static IDictionary<string, object?>[] Read(string sql)
         {
             IDictionary<string, object?>[] reti = new IDictionary<string, object?>[0];
-            string cmd = $@"
-                SET TRANSACTION READ ONLY;
-                SELECT * FROM TABLE({sql});
-            ";
             IConnection connection = OracleConnector.Load();
+            string cmd = $"SELECT * FROM TABLE({sql})";
             reti = connection.Query(cmd);
             connection.Execute("COMMIT");
             return reti;

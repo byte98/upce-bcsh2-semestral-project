@@ -13,7 +13,7 @@
         ui:TitleBar.ExtendViewIntoTitleBar="True"
         xmlns:local="clr-namespace:SemestralProject.View"
         mc:Ignorable="d"
-        Title="InstallerWindow" Height="500" Width="800" Background="{x:Static fw:AccentColors.ImmersiveSystemAccentBrush}">
+        Title="InstallerWindow" Height="568" Width="800" Background="{x:Static fw:AccentColors.ImmersiveSystemAccentBrush}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}"/>

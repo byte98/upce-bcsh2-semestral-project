@@ -171,7 +171,7 @@
                 <Label FontWeight="{Binding Stage7FontWeight}" Content="{Binding TotalStage7}"/>
                 <Label FontWeight="{Binding Stage7FontWeight}" Content=")"/>
             </StackPanel>
-            <ui:ProgressRing Grid.Row="6" Grid.Column="1" Width="16" Height="16" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}" Visibility="{Binding Stage6ProgressVisibility}" HorizontalAlignment="Left"/>
+            <ui:ProgressRing Grid.Row="6" Grid.Column="1" Width="16" Height="16" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}" Visibility="{Binding Stage7ProgressVisibility}" HorizontalAlignment="Left"/>
             <Label FontWeight="Bold" Grid.Row="6" Grid.Column="1" FontFamily="Segoe UI Symbol" Content="&#xe10b;" Visibility="{Binding SuccessStage7}" />
             <Label FontWeight="Bold" Grid.Row="6" Grid.Column="1" FontFamily="Segoe UI Symbol" Content="&#xe10a;" Visibility="{Binding FailStage7}" />
 
@@ -183,7 +183,7 @@
                 <Label FontWeight="{Binding Stage8FontWeight}" Content="{Binding TotalStage8}"/>
                 <Label FontWeight="{Binding Stage8FontWeight}" Content=")"/>
             </StackPanel>
-            <ui:ProgressRing Grid.Row="7" Grid.Column="1" Width="16" Height="16" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}" Visibility="{Binding Stage6ProgressVisibility}" HorizontalAlignment="Left"/>
+            <ui:ProgressRing Grid.Row="7" Grid.Column="1" Width="16" Height="16" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}" Visibility="{Binding Stage8ProgressVisibility}" HorizontalAlignment="Left"/>
             <Label FontWeight="Bold" Grid.Row="7" Grid.Column="1" FontFamily="Segoe UI Symbol" Content="&#xe10b;" Visibility="{Binding SuccessStage8}" />
             <Label FontWeight="Bold" Grid.Row="7" Grid.Column="1" FontFamily="Segoe UI Symbol" Content="&#xe10a;" Visibility="{Binding FailStage8}" />
 
