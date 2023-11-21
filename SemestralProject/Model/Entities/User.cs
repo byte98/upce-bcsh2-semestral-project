@@ -1,4 +1,5 @@
 ﻿using SemestralProject.Common;
+using SemestralProject.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -118,10 +119,7 @@ namespace SemestralProject.Model.Entities
         /// <returns>Newly created user.</returns>
         public static User Create(string password, DateTime registration, UserImage image, Role role, State state, Employee employee)
         {
-            string dateFormat = "yyyy-MM-dd HH24:MI:SS";
-            string formattedDate = registration.ToString(dateFormat);
-            string sqlDate = $"TO_DATE('{formattedDate}', '{dateFormat.ToUpper()})";
-            string sql = $"EXECUTE sempr_crud.proc_uzivatele_create('{User.HashPassword(password)}', {sqlDate}, '{image.ToContent()}', {role.Id}, {state.Id}, {employee.Id})";
+            string sql = $"sempr_crud.proc_uzivatele_create('{User.HashPassword(password)}', {DateUtils.ToSQL(registration)}, {image.ToClob()}, {role.Id}, {state.Id}, {employee.Id})";
             int id = User.Create(sql, "uzivatele_seq");
             return new User(id, password, registration, image, role, state, employee);
         }
@@ -242,17 +240,14 @@ namespace SemestralProject.Model.Entities
 
         public override bool Update()
         {
-            string dateFormat = "yyyy-MM-dd HH24:MI:SS";
-            string formattedDate = this.Registration.ToString(dateFormat);
-            string sqlDate = $"TO_DATE('{formattedDate}', '{dateFormat.ToUpper()})";
-            string sql = $"EXECUTE sempr_crud.proc_uzivatele_update({this.Id}, '{this.Password}', {sqlDate}, '{this.Image.ToContent()}', {this.Role.Id}, {this.State.Id}, {this.Employee.Id})";
+            string sql = $"sempr_crud.proc_uzivatele_update({this.Id}, '{this.Password}', {DateUtils.ToSQL(this.Registration)}, '{this.Image.ToContent()}', {this.Role.Id}, {this.State.Id}, {this.Employee.Id})";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
         }
 
         public override bool Delete()
         {
-            string sql = $"EXECUTE sempr_crud.proc_uzivatele_delete({this.Id})";
+            string sql = $"sempr_crud.proc_uzivatele_delete({this.Id})";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
         }

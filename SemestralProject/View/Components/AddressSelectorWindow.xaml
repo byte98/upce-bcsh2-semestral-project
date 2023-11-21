@@ -15,18 +15,18 @@
         Title="AddressSelectorWindow" Height="340" Width="400" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <StackPanel Margin="8,8,8,8">
         <TextBlock Text="Adresa" Style="{DynamicResource HeaderTextBlockStyle}" />
-        <TextBox Margin="0,0,0,16">
+        <TextBox Margin="0,0,0,16" Text="{Binding Street}">
             <ui:ControlHelper.Header>
                 <Label Content="Ulice" />
             </ui:ControlHelper.Header>
         </TextBox>
         <UniformGrid Columns="2" Rows="1" Margin="0,0,0,16">
-            <ui:NumberBox Grid.Row="0" Grid.Column="0" Margin="0,0,8,0">
+            <ui:NumberBox Grid.Row="0" Grid.Column="0" Margin="0,0,8,0" Text="{Binding HouseNumber}">
                 <ui:ControlHelper.Header>
                     <Label Content="Číslo popisné" />
                 </ui:ControlHelper.Header>
             </ui:NumberBox>
-            <ui:NumberBox Grid.Row="0" Grid.Column="1" Margin="8,0,0,0">
+            <ui:NumberBox Grid.Row="0" Grid.Column="1" Margin="8,0,0,0" Text="{Binding OrientationNumber}">
                 <ui:ControlHelper.Header>
                     <Label Content="Číslo orientační" />
                 </ui:ControlHelper.Header>
@@ -34,8 +34,13 @@
         </UniformGrid>
         <component:MunicipalitySelector Margin="0,0,0,8" />
         <StackPanel fw:PointerTracker.Enabled="True" Grid.Row="6" Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,16,0,0">
-            <Button Style="{StaticResource ButtonAccentRevealStyle}" Background="{DynamicResource AccentButtonBackground}" Content="OK" Margin="4,0,4,0" Width="96" Height="32" />
-            <Button Style="{StaticResource ButtonRevealStyle}" Content="Zrušit" Margin="4,0,4,0" Width="96" Height="32" />
+            <Button Command="{Binding OKCommand}" Style="{StaticResource PrimaryButton}" Margin="4,0,4,0" Width="96" Height="32">
+                <StackPanel>
+                    <Label Content="OK" Visibility="{Binding ButtonTextVisibility}"/>
+                    <ui:ProgressRing Grid.Row="1" Grid.Column="1" Width="16" Height="16" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}" Visibility="{Binding SavingProgressVisibility}" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding CancelCommand}" Style="{StaticResource ButtonRevealStyle}" Content="Zrušit" Margin="4,0,4,0" Width="96" Height="32" />
         </StackPanel>
     </StackPanel>
 </Window>

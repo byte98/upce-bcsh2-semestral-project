@@ -1,7 +1,10 @@
-﻿using System;
+﻿using SemestralProject.Utils;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Text;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +20,7 @@ namespace SemestralProject.Common
         /// <summary>
         /// Default image of user.
         /// </summary>
-        public static UserImage Default = new UserImage("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");
+        public static UserImage Default = new UserImage("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");
 
         /// <summary>
         /// BASE64 encoded string containing content of image.
@@ -47,8 +50,7 @@ namespace SemestralProject.Common
                 {
                     image.Save(ms, image.RawFormat);
                     byte[] bytes = ms.ToArray();
-
-                    content = Convert.ToBase64String(bytes);
+                    content = Convert.ToBase64String(UserImage.Compress(bytes));
                 }
             }
             return new UserImage(content);
@@ -72,7 +74,7 @@ namespace SemestralProject.Common
         {
             BitmapImage reti = new BitmapImage();
             reti.BeginInit();
-            reti.StreamSource = new MemoryStream(Convert.FromBase64String(content));
+            reti.StreamSource = new MemoryStream(UserImage.Decompress(Convert.FromBase64String(content)));
             reti.EndInit();
             return reti;
         }
@@ -84,6 +86,64 @@ namespace SemestralProject.Common
         public string ToContent()
         {
             return this.content;
+        }
+
+        /// <summary>
+        /// Compresses data.
+        /// </summary>
+        /// <param name="data">Array of bytes which will be compressed.</param>
+        /// <returns>Array of bytes with compressed data.</returns>
+        private static byte[] Compress(byte[] data)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                using (var gzipStream = new GZipStream(memoryStream, CompressionLevel.SmallestSize))
+                {
+                    gzipStream.Write(data, 0, data.Length);
+                }
+                return memoryStream.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Decompresses data.
+        /// </summary>
+        /// <param name="data">Array of bytes which will be decompressed.</param>
+        /// <returns>Array of bytes with decompressed data.</returns>
+        private static byte[] Decompress(byte[] data)
+        {
+            using (var memoryStream = new MemoryStream(data))
+            {
+                using (var outputStream = new MemoryStream())
+                {
+                    using (var decompressStream = new GZipStream(memoryStream, CompressionMode.Decompress))
+                    {
+                        decompressStream.CopyTo(outputStream);
+                    }
+                    return outputStream.ToArray();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets CLOB representation of content of image.
+        /// </summary>
+        /// <returns>String representing conversion of content of image to CLOB data type.</returns>
+        public string ToClob()
+        {
+            StringBuilder reti = new StringBuilder();
+            string[] parts = StringUtils.SplitBySize(this.content, 1024);
+            for (int i = 0; i < parts.Length; i++)
+            {
+                reti.Append("TO_CLOB('");
+                reti.Append(parts[i]);
+                reti.Append("')");
+                if (i < parts.Length - 1)
+                {
+                    reti.Append("||");
+                }
+            }
+            return reti.ToString();
         }
     }
 }

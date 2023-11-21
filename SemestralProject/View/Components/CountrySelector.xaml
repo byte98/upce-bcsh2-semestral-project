@@ -22,6 +22,12 @@
             <ui:ProgressRing Width="16" Height="16" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}"  HorizontalAlignment="Left" Margin="0,0,16,0"/>
             <Label Content="Načítám dostupné země..."/>
         </StackPanel>
-        <ComboBox Visibility="{Binding ComboBoxVisibility}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  ItemsSource="{Binding AvailableCountries}" SelectedItem="{Binding SelectedCountry}"/>
+        <ComboBox ItemsSource="{Binding AvailableCountries}" Visibility="{Binding ComboBoxVisibility}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  SelectedItem="{Binding SelectedCountry}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding CountryChangedCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
     </StackPanel>
 </UserControl>

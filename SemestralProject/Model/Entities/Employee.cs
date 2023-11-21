@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging.Messages;
 using SemestralProject.Common;
+using SemestralProject.Utils;
 using System;
 using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
@@ -75,10 +76,7 @@ namespace SemestralProject.Model.Entities
         /// <returns>Newly created employee.</returns>
         public static Employee Create(int personalNumber, DateTime employmentDate, Address residence, Person personalData, Employee? superior)
         {
-            string dateFormat = "yyyy-MM-dd HH24:MI:SS";
-            string formattedDate = employmentDate.ToString(dateFormat);
-            string sqlDate = $"TO_DATE('{formattedDate}', '{dateFormat.ToUpper()})";
-            string sql = $"EXECUTE sempr_crud.proc_zamestnanci_create({personalNumber}, {sqlDate}, {residence.Id}, {personalData.Id}";
+            string sql = $"sempr_crud.proc_zamestnanci_create({personalNumber}, {DateUtils.ToSQL(employmentDate)}, {residence.Id}, {personalData.Id}";
             if (superior != null)
             {
                 sql += $", {superior.Id}";
@@ -214,10 +212,7 @@ namespace SemestralProject.Model.Entities
 
         public override bool Update()
         {
-            string dateFormat = "yyyy-MM-dd HH24:MI:SS";
-            string formattedDate = this.EmploymentDate.ToString(dateFormat);
-            string sqlDate = $"TO_DATE('{formattedDate}', '{dateFormat.ToUpper()})";
-            string sql = $"EXECUTE sempr_crud.proc_zamestnanci_update({this.Id}, {this.PersonalNumber}, {sqlDate}, {this.Residence.Id}, {this.PersonalData.Id}";
+            string sql = $"sempr_crud.proc_zamestnanci_update({this.Id}, {this.PersonalNumber}, {DateUtils.ToSQL(this.EmploymentDate)}, {this.Residence.Id}, {this.PersonalData.Id}";
             if (this.Superior != null)
             {
                 sql += $", {this.Superior.Id}";
@@ -229,7 +224,7 @@ namespace SemestralProject.Model.Entities
 
         public override bool Delete()
         {
-            string sql = $"EXECUTE sempr_crud.proc_zamestnanci_delete({this.Id})";
+            string sql = $"sempr_crud.proc_zamestnanci_delete({this.Id})";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
         }

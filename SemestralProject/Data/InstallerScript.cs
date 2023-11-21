@@ -787,6 +787,9 @@ namespace SemestralProject.Data
             "INSERT INTO staty(nazev) VALUES ('Zambijská republika')",
             "INSERT INTO staty(nazev) VALUES ('Saharská arabská demokratická republika')",
             "INSERT INTO staty(nazev) VALUES ('Zimbabwská republika')",
+            "INSERT INTO stavy(id_stav, nazev) VALUES (0, 'Aktivní')",
+            "INSERT INTO stavy(id_stav, nazev) VALUES (1, 'Blokovaný')",
+            "INSERT INTO stavy(id_stav, nazev) VALUES (2, 'Smazaný')",
             "COMMIT"
                     };
 
@@ -2167,22 +2170,75 @@ PACKAGE BODY sempr_utils AS
     FUNCTION func_last_seq(p_seq VARCHAR2) RETURN NUMBER AS
         v_reti NUMBER := -2147483648;
         v_sequence_exists NUMBER;
+        sequence_not_found EXCEPTION;
+        PRAGMA EXCEPTION_INIT(sequence_not_found, -10000);
     BEGIN
         SELECT COUNT(*)
         INTO v_sequence_exists
         FROM all_sequences
         WHERE sequence_name=p_seq;
         IF v_sequence_exists = 0 THEN
+            RAISE sequence_not_found;
             RETURN v_reti;
         END IF;
-        EXECUTE IMMEDIATE 'SELECT' || p_seq || '.CURRVAL FROM DUAL' INTO v_reti;
+        EXECUTE IMMEDIATE 'SELECT ' || p_seq || '.CURRVAL FROM DUAL' INTO v_reti;
         RETURN v_reti;
     EXCEPTION
         WHEN OTHERS THEN
             RETURN v_reti;
     END func_last_seq;
 
-END sempr_utils;"
+END sempr_utils;",
+@"CREATE OR REPLACE
+/*
+ * Package with some API functions.
+ * :author: David Schwam <david.schwam@student.upce.cz>
+ *          Jiri Skoda <jiri.skoda@student.upce.cz>
+ */
+PACKAGE sempr_api AS
+
+    /*
+     * Logins user to the system.
+     * :param p_personal_nr: Personal number of user.
+     * :param p_password:    Entered password.
+     * :returns:             Identifier of user with matching personal number and password
+     *                       or nothing if there is no such user.
+     */
+     FUNCTION func_users_login(p_personal_nr IN zamestnanci.osobni_cislo%TYPE, p_password IN uzivatele.heslo%TYPE) RETURN uzivatele.id_uzivatel%TYPE;
+
+END sempr_api;
+",
+@"CREATE OR REPLACE
+/*
+ * Body of package with some API functions.
+ * :author: David Schwam <david.schwam@student.upce.cz>
+ *          Jiri Skoda <jiri.skoda@student.upce.cz>
+ */
+PACKAGE BODY sempr_api AS
+
+    /*
+     * Logins user to the system.
+     * :param p_personal_nr: Personal number of user.
+     * :param p_password:    Entered password.
+     * :returns: -           Identifier of user with matching personal number and password
+     *                       or -2147483648 if there is no such user.
+     */
+    FUNCTION func_users_login(p_personal_nr IN zamestnanci.osobni_cislo%TYPE, p_password IN uzivatele.heslo%TYPE) RETURN uzivatele.id_uzivatel%TYPE AS
+        v_reti uzivatele.id_uzivatel%TYPE      := -2147483648;
+    BEGIN
+        SELECT id_uzivatel INTO v_reti
+        FROM uzivatele
+        WHERE heslo=p_password
+            AND zamestnanec IN (
+                SELECT id_zamestnanec
+                FROM zamestnanci
+                WHERE osobni_cislo=p_personal_nr
+            );
+        RETURN v_reti;
+    END func_users_login;
+
+END sempr_api;
+"
         };
     }
 }

@@ -42,7 +42,7 @@ namespace SemestralProject.Model.Entities
         /// <returns>Newly created coutnry.</returns>
         public static Country Create(string name)
         {
-            string sql = $"EXECUTE sempr_crud.proc_staty_create('{name}')";
+            string sql = $"sempr_crud.proc_staty_create('{name}')";
             IConnection connection = OracleConnector.Load();
             connection.Execute(sql);
             return Country.GetByName(name) ?? new Country(int.MinValue, string.Empty);
@@ -155,14 +155,14 @@ namespace SemestralProject.Model.Entities
 
         public override bool Update()
         {
-            string sql = $"EXECUTE sempr_crud.proc_staty_update('{this.Name}',{this.Id})";
+            string sql = $"sempr_crud.proc_staty_update('{this.Name}',{this.Id})";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
         }
 
         public override bool Delete()
         {
-            string sql = $"EXECUTE sempr_crud.proc_staty_delete({this.Id})";
+            string sql = $"sempr_crud.proc_staty_delete({this.Id})";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
         }

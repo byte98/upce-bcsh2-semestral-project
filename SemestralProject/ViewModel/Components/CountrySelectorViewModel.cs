@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using SemestralProject.Model.Entities;
 using SemestralProject.Utils;
+using SemestralProject.ViewModel.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -46,10 +48,10 @@ namespace SemestralProject.ViewModel.Components
         /// </summary>
         public CountrySelectorViewModel()
         {
-            this.loaderVisibility = Visibility.Visible;
-            this.comboBoxVisibility = Visibility.Collapsed;
-            this.availableCountries = new ObservableCollection<Country>();
-            this.selectedCountry = null;
+            this.LoaderVisibility = Visibility.Visible;
+            this.ComboBoxVisibility = Visibility.Collapsed;
+            this.AvailableCountries = new ObservableCollection<Country>();
+            this.SelectedCountry = null;
         }
 
         /// <summary>
@@ -75,6 +77,18 @@ namespace SemestralProject.ViewModel.Components
             }
             this.LoaderVisibility = Visibility.Collapsed;
             this.ComboBoxVisibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Informs all recepients about country change.
+        /// </summary>
+        [RelayCommand]
+        private void CountryChanged()
+        {
+            if (this.SelectedCountry != null)
+            {
+                WeakReferenceMessenger.Default.Send(new SelectedCountryChangedMessage(this.SelectedCountry));
+            }
         }
     }
 }

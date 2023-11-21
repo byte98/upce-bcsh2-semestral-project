@@ -7,31 +7,38 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         xmlns:components="clr-namespace:SemestralProject.View.Components"
+        xmlns:vml="clr-namespace:SemestralProject.Common"
+        vml:ViewModelLocator.AutoHookedUpViewModel="True"
         ui:WindowHelper.UseModernWindowStyle="True"
         ui:TitleBar.ExtendViewIntoTitleBar="True"
         mc:Ignorable="d"
         Title="MunicipalitySelectorWindow" Height="416" Width="450" WindowStyle="ToolWindow" ResizeMode="NoResize" >
     <StackPanel Margin="8,8,8,8">
         <TextBlock Text="Obec" Style="{DynamicResource HeaderTextBlockStyle}" />
-        <TextBox Margin="0,0,0,16">
+        <TextBox Margin="0,0,0,16" Text="{Binding Name}">
             <ui:ControlHelper.Header>
                 <Label Content="Název obce"/>
             </ui:ControlHelper.Header>
         </TextBox>
-        <TextBox Margin="0,0,0,16">
+        <TextBox Margin="0,0,0,16"  Text="{Binding Part}">
             <ui:ControlHelper.Header>
                 <Label Content="Název části obce"/>
             </ui:ControlHelper.Header>
         </TextBox>
-        <TextBox Margin="0,0,0,16">
+        <TextBox Margin="0,0,0,16"  Text="{Binding Zip}">
             <ui:ControlHelper.Header>
                 <Label Content="PSČ"/>
             </ui:ControlHelper.Header>
         </TextBox>
         <components:CountrySelector Margin="0,0,0,8" />
         <StackPanel fw:PointerTracker.Enabled="True" Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,16,0,0">
-            <Button Style="{StaticResource ButtonAccentRevealStyle}" Background="{DynamicResource AccentButtonBackground}" Content="OK" Margin="4,0,4,0" Width="96" Height="32" />
-            <Button Style="{StaticResource ButtonRevealStyle}" Content="Zrušit" Margin="4,0,4,0" Width="96" Height="32" />
+            <Button Command="{Binding OKCommand}" Style="{StaticResource PrimaryButton}" Margin="4,0,4,0" Width="96" Height="32">
+                <StackPanel>
+                    <Label Content="OK" Visibility="{Binding ButtonTextVisibility}"/>
+                    <ui:ProgressRing Grid.Row="1" Grid.Column="1" Width="16" Height="16" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}" Visibility="{Binding SavingProgressVisibility}" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Button>
+            <Button  Command="{Binding CancelCommand}" Style="{StaticResource ButtonRevealStyle}" Content="Zrušit" Margin="4,0,4,0" Width="96" Height="32" />
         </StackPanel>
     </StackPanel>
 </Window>

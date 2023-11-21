@@ -12,6 +12,15 @@
                 <ui:XamlControlsResources />
                 <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Button" x:Key="PrimaryButton" BasedOn="{StaticResource ButtonAccentRevealStyle}">
+                <Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" />
+                <Setter Property="Foreground" Value="{DynamicResource SystemBaseHighColorBursh}" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="Red"  />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

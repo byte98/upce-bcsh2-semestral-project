@@ -34,10 +34,28 @@ namespace SemestralProject.ViewModel.Installer
         private string version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "<neznámý údaj>";
 
         /// <summary>
-        /// Connection to the database.
+        /// Address of server on which database runs.
         /// </summary>
         [ObservableProperty]
-        private Connection connection = Connection.Unknown;
+        private string server = Connection.Unknown.Server;
+
+        /// <summary>
+        /// Port on which database runs.
+        /// </summary>
+        [ObservableProperty]
+        private string port = Connection.Unknown.Port;
+
+        /// <summary>
+        /// Username of user with access to the database.
+        /// </summary>
+        [ObservableProperty]
+        private string username = Connection.Unknown.Username;
+
+        /// <summary>
+        /// Name of database.
+        /// </summary>
+        [ObservableProperty]
+        private string database = Connection.Unknown.Database;
 
         /// <summary>
         /// Visibility of connection progress ring.
@@ -76,10 +94,13 @@ namespace SemestralProject.ViewModel.Installer
         private async Task PageLoaded()
         {
             IConnection conn = await OracleConnector.ReloadAsync();
-            this.Connection = conn.ConnectionModel;
+            this.Server = conn.ConnectionModel.Server;
+            this.Port = conn.ConnectionModel.Port;
+            this.Database = conn.ConnectionModel.Database;
+            this.Username = conn.ConnectionModel.Username;
             this.ConnectionProgressRingVisibility = Visibility.Collapsed;
             this.ConnectionInfoVisibility = Visibility.Visible;
-            if (this.Connection.IsUnknown())
+            if (conn.ConnectionModel.IsUnknown())
             {
                 this.ConnectionStateProgressRingVisibility = Visibility.Collapsed;
                 this.ConnectionFailVisibility = Visibility.Visible;
@@ -110,6 +131,15 @@ namespace SemestralProject.ViewModel.Installer
         private void ButtonInstallClicked()
         {
             this.Navigate(new InstallationProcess());
+        }
+
+        /// <summary>
+        /// Handles click on 'manage database' button.
+        /// </summary>
+        [RelayCommand]
+        private void ButtonManageDatabaseClicked()
+        {
+            this.Navigate(new ManageDatabase());
         }
     }
 }

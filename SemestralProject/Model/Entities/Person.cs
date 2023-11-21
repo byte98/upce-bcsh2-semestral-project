@@ -65,7 +65,7 @@ namespace SemestralProject.Model.Entities
         /// <returns>Newly created person.</returns>
         public static Person Create(string name, string surname, string email, string phone)
         {
-            string sql = $"EXECUTE sempr_crud.proc_osoby_create('{name}', '{surname}', '{email}', '{phone}')";
+            string sql = $"sempr_crud.proc_osoby_create('{name}', '{surname}', '{email}', '{phone}')";
             int id = Person.Create(sql, "osoby_seq");
             return new Person(id, name, surname, email, phone);
         }
@@ -166,14 +166,14 @@ namespace SemestralProject.Model.Entities
 
         public override bool Update()
         {
-            string sql = $"EXECUTE sempr_crud.proc_osoby_update({this.Id}, '{this.Name}', '{this.Surname}', '{this.Email}', '{this.Phone}'";
+            string sql = $"sempr_crud.proc_osoby_update({this.Id}, '{this.Name}', '{this.Surname}', '{this.Email}', '{this.Phone}'";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
         }
 
         public override bool Delete()
         {
-            string sql = $"EXECUTE sempr_crud.proc_osoby_delete({this.Id})";
+            string sql = $"sempr_crud.proc_osoby_delete({this.Id})";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
         }

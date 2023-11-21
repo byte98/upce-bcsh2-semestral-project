@@ -65,10 +65,10 @@ namespace SemestralProject.Model.Entities
         /// <returns>Newly created municipality.</returns>
         public static Municipality Create(string name, string? part, string zip, Country country)
         {
-            string sql = $"EXECUTE sempr_crud.proc_obce_create('{name}', '{zip}', {country.Id})";
+            string sql = $"sempr_crud.proc_obce_create('{name}', '{zip}', {country.Id})";
             if (part is not null)
             {
-                sql = $"EXECUTE sempr_crud.proc_obce_create('{name}', '{part}', {zip}, {country.Id})";
+                sql = $"sempr_crud.proc_obce_create('{name}', '{part}', '{zip}', {country.Id})";
             }
             int id = Municipality.Create(sql, "obce_seq");
             return new Municipality(id, name, part, zip, country);
@@ -172,17 +172,17 @@ namespace SemestralProject.Model.Entities
 
         public override bool Delete()
         {
-            string sql = $"EXECUTE sempr_crud.proc_obce_delete({this.Id})";
+            string sql = $"sempr_crud.proc_obce_delete({this.Id})";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
         }
 
         public override bool Update()
         {
-            string sql = $"EXECUTE sempr_crud.proc_obce_update({this.Id}, '{this.Name}',{this.ZIP}, {this.Country.Id})";
+            string sql = $"sempr_crud.proc_obce_update({this.Id}, '{this.Name}','{this.ZIP}', {this.Country.Id})";
             if (this.Part is not null)
             {
-                sql = $"EXECUTE sempr_crud.proc_obce_update({this.Id}, '{this.Name}', '{this.Part}', {this.ZIP}, {this.Country.Id})";
+                sql = $"sempr_crud.proc_obce_update({this.Id}, '{this.Name}', '{this.Part}', '{this.ZIP}', {this.Country.Id})";
             }
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);

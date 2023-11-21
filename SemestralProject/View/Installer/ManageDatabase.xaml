@@ -1,0 +1,122 @@
+﻿<Page x:Class="SemestralProject.View.Installer.ManageDatabase"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SemestralProject.View.Installer"
+      xmlns:ui="http://schemas.modernwpf.com/2019"
+      xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+      xmlns:vml="clr-namespace:SemestralProject.Common"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      vml:ViewModelLocator.AutoHookedUpViewModel="True"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ManageDatabase">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,32,0">
+                <Button Command="{Binding BackClickedCommand}" Background="Transparent" BorderBrush="#00000000">
+                    <StackPanel Orientation="Horizontal">
+                        <Border BorderBrush="{DynamicResource SystemBaseHighColorBrush}" BorderThickness="4px" Width="40px" Height="40px" CornerRadius="20">
+                            <Label FontFamily="Segoe UI Symbol" Content="&#xE0D5;" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
+                    </StackPanel>
+                </Button>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                    <Viewbox Height="48" Width="48">
+                        <ui:SymbolIcon Symbol="Admin" Margin="0,0,10,0" Foreground="{DynamicResource SystemBaseHighColorBrush}" />
+                    </Viewbox>
+                    <TextBlock Text="Správa databáze" Style="{DynamicResource HeaderTextBlockStyle}"/>
+                </StackPanel>
+            </StackPanel>
+            <Grid Grid.Row="1" Grid.Column="0" Margin="96,0,96,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Server}" Margin="0,0,8,16">
+                    <ui:ControlHelper.Header>
+                        Adresa databáze
+                    </ui:ControlHelper.Header>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Port}" Margin="0,0,8,16">
+                    <ui:ControlHelper.Header>
+                        Port
+                    </ui:ControlHelper.Header>
+                </TextBox>
+                <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding Database}" Margin="0,0,8,16">
+                    <ui:ControlHelper.Header>
+                        Název databáze
+                    </ui:ControlHelper.Header>
+                </TextBox>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Username}" Margin="8,0,0,16">
+                    <ui:ControlHelper.Header>
+                        Uživatelské jméno
+                    </ui:ControlHelper.Header>
+                </TextBox>
+                <PasswordBox Grid.Row="1" Grid.Column="1" Margin="8,0,0,16" x:Name="passwordBox">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PasswordChanged">
+                            <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=passwordBox}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ui:ControlHelper.Header>
+                        Heslo
+                    </ui:ControlHelper.Header>
+                </PasswordBox>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Stav připojení:" Margin="8,0,8,0" />
+                        <StackPanel Orientation="Horizontal" Visibility="{Binding UnknownVisibility}">
+                            <Label  FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE11B;" Margin="0,0,8,0"/>
+                            <Label Content="neznámý"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Visibility="{Binding SuccessVisibility}">
+                            <Label FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE10B;" Margin="0,0,8,0"/>
+                            <Label Content="připojeno"/>
+                        </StackPanel>
+                        <StackPanel  Visibility="{Binding FailVisibility}" Orientation="Horizontal">
+                            <Label FontFamily="Segoe UI Symbol" FontSize="12" Content="&#xE0CA;" Margin="0,0,8,0"/>
+                            <Label Content="nepřipojeno"/>
+                        </StackPanel>
+                        <StackPanel Visibility="{Binding ProgressVisibility}" Orientation="Horizontal">
+                            <ui:ProgressRing Width="16" Height="16" IsActive="True" HorizontalAlignment="Left" Foreground="{DynamicResource SystemBaseHighColorBrush}" Margin="0,0,8,0"/>
+                            <Label Content="testuji připojení..." />
+                        </StackPanel>
+                    </StackPanel>
+                    <Button Content="Otestovat" Command="{Binding TestCommand}" Width="96" Margin="8,0,0,0" />
+                    <Button Command="{Binding SaveCommand}" Width="96" Margin="8,0,0,0">
+                        <StackPanel>
+                            <Label  Visibility="{Binding SaveTextVisibility}" Content="Uložit" />
+                            <ui:ProgressRing  Visibility="{Binding SaveProgressVisibility}" Width="16" Height="16" IsActive="True" HorizontalAlignment="Left" Foreground="{DynamicResource SystemBaseHighColorBrush}" Margin="0,0,8,0"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

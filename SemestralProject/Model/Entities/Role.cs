@@ -23,6 +23,11 @@ namespace SemestralProject.Model.Entities
         public string Name { get; set; }
 
         /// <summary>
+        /// Superuser role in system.
+        /// </summary>
+        public static readonly Role Superuser = new Role(0, "SUPERUŽIVATEL");
+
+        /// <summary>
         /// Creates new role.
         /// </summary>
         /// <param name="id">Identifier of role.</param>
@@ -40,7 +45,7 @@ namespace SemestralProject.Model.Entities
         /// <returns>Newly created role.</returns>
         public static Role Create(string name)
         {
-            string sql = $"EXECUTE sempr_crud.proc_role_create('{name}')";
+            string sql = $"sempr_crud.proc_role_create('{name}')";
             int id = Role.Create(sql, "role_seq");
             return new Role(id, name);
         }
@@ -132,14 +137,14 @@ namespace SemestralProject.Model.Entities
 
         public override bool Update()
         {
-            string sql = $"EXECUTE sempr_crud.proc_role_update({this.Id}, '{this.Name}')";
+            string sql = $"sempr_crud.proc_role_update({this.Id}, '{this.Name}')";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
         }
 
         public override bool Delete()
         {
-            string sql = $"EXECUTE sempr_crud.proc_role_delete({this.Id})";
+            string sql = $"sempr_crud.proc_role_delete({this.Id})";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
         }

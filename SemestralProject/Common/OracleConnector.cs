@@ -154,8 +154,8 @@ namespace SemestralProject.Common
         {
             using (StreamWriter sw = File.AppendText("db.log"))
             {
-                //sw.WriteLine(DateTime.Now.ToString() + ": " + text);
-                sw.WriteLine(text);
+                sw.WriteLine(DateTime.Now.ToString() + ": " + text);
+                //sw.WriteLine(text);
             }
         }
 

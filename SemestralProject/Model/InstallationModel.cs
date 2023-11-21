@@ -1,4 +1,5 @@
 ﻿using SemestralProject.Common;
+using SemestralProject.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,6 +20,11 @@ namespace SemestralProject.Model
         public InstallationConnectionModel Connection { get; init; } = new InstallationConnectionModel();
 
         /// <summary>
+        /// Model of user.
+        /// </summary>
+        public InstallationUserModel User { get; init; }
+
+        /// <summary>
         /// Instance of connection to the database.
         /// </summary>
         public IConnection? Database {get; init;}
@@ -37,6 +43,7 @@ namespace SemestralProject.Model
             this.Connection = new InstallationConnectionModel(
                 server, port, database, username, password
             );
+            this.User = new InstallationUserModel();
         }
 
         /// <summary>
@@ -49,6 +56,37 @@ namespace SemestralProject.Model
             this.Database = database;
             this.Connection = new InstallationConnectionModel(
                 connection.Server, connection.Port, connection.Database, connection.Username, connection.Password
+            );
+            this.User = new InstallationUserModel();
+        }
+
+        /// <summary>
+        /// Creates new data model for installer.
+        /// </summary>
+        /// <param name="database">Connection to the database.</param>
+        /// <param name="name">Name of user.</param>
+        /// <param name="surname">Surname of user.</param>
+        /// <param name="email">E-mail of user.</param>
+        /// <param name="phone">Phone number of user.</param>
+        /// <param name="password">Password of user.</param>
+        /// <param name="personalNumber">Personal number of user.</param>
+        /// <param name="image">Image of user.</param>
+        /// <param name="address">Address of residence of user.</param>
+        public InstallationModel(
+            IConnection database,
+            string name,
+            string surname,
+            string email,
+            string phone,
+            string password,
+            int personalNumber,
+            UserImage image,
+            Address? address)
+        {
+            this.Database = database;
+            this.Connection = new InstallationConnectionModel();
+            this.User = new InstallationUserModel(
+                name, surname, email, phone, password, personalNumber, image, address
             );
         }
     }

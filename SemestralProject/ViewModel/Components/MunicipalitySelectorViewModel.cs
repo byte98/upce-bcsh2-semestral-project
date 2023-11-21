@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using SemestralProject.Model.Entities;
 using SemestralProject.Utils;
 using SemestralProject.View.Components;
+using SemestralProject.ViewModel.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -51,16 +53,25 @@ namespace SemestralProject.ViewModel.Components
             this.loaderVisibility = Visibility.Visible;
             this.comboboxVisibility = Visibility.Collapsed;
             this.AvailableMunicipalities = new ObservableCollection<Municipality>();
+            WeakReferenceMessenger.Default.Register<MunicipalitiesChangedMessage>(this, (sender, args) =>
+            {
+                this.Load();
+            });
+            WeakReferenceMessenger.Default.Register<SelectedMunicipalityChangedMessage>(this, (sender, args) =>
+            {
+                this.SelectedMunicipality = args.Value;
+            });
         }
 
         /// <summary>
-        /// Handles initialization after control is loaded.
+        /// Loads data for control.
         /// </summary>
-        /// <returns>Task which performs initialization of control.</returns>
-        [RelayCommand]
-        private async Task ControlLoaded()
+        /// <returns>Task which performs loading of control.</returns>
+        private async void Load()
         {
             this.AvailableMunicipalities.Clear();
+            this.LoaderVisibility = Visibility.Visible;
+            this.ComboboxVisibility = Visibility.Collapsed;
             Municipality[] municipalities = await Municipality.GetAllAsync();
             foreach (Municipality mun in municipalities)
             {
@@ -69,6 +80,18 @@ namespace SemestralProject.ViewModel.Components
             this.SelectedMunicipality = ArrayUtils<Municipality>.Random(municipalities);
             this.LoaderVisibility = Visibility.Collapsed;
             this.ComboboxVisibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Handles initialization after control is loaded.
+        /// </summary>
+        /// <returns>Task which performs initialization of control.</returns>
+        [RelayCommand]
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        private async Task ControlLoaded()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+        {
+            this.Load();
         }
 
         /// <summary>

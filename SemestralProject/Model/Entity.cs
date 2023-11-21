@@ -35,19 +35,17 @@ namespace SemestralProject.Model
         protected static int Create(string sql, string seq)
         {
             int reti = int.MinValue;
-            if (sql.EndsWith(";") == false) sql += ";";
-            string cmd = @$"
-                SET TRANSACTION READ WRITE;
-                {sql}
-                SELECT sempr_utils.func_last_seq('{seq}') AS last_id FROM dual;
-                COMMIT;
-            ";
+            if (sql.EndsWith(";") == false) sql = sql + ";";
+            if (sql.All(c => char.IsUpper(c)) == false) seq = seq.ToUpper();
             IConnection connection = OracleConnector.Load();
-            IDictionary<string, object?>[] result = connection.Query(cmd);
+            connection.Execute("SET TRANSACTION READ WRITE");
+            connection.Execute("BEGIN\n    " + sql + "\nEND;");
+            IDictionary<string, object?>[] result = connection.Query($"SELECT sempr_utils.func_last_seq('{seq}') AS last_id FROM dual");
             if (result.Length > 0)
             {
                 reti = (int)(result[0]["last_id"] ?? int.MinValue);
             }
+            connection.Execute("COMMIT");
             return reti;
         }
 

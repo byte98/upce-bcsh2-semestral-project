@@ -1,7 +1,5 @@
-﻿using SemestralProject.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SemestralProject.View
+namespace SemestralProject.View.Installer
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for InstallationStep5.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class InstallationStep5 : UserControl
     {
-        public MainWindow()
+        public InstallationStep5()
         {
             InitializeComponent();
         }

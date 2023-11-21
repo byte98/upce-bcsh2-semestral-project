@@ -23,6 +23,21 @@ namespace SemestralProject.Model.Entities
         public string Name { get; set; }
 
         /// <summary>
+        /// Active state of user.
+        /// </summary>
+        public static readonly State Active = new State(0, "Aktivní");
+
+        /// <summary>
+        /// Blocked state of user.
+        /// </summary>
+        public static readonly State Blocked = new State(1, "Blokovaný");
+
+        /// <summary>
+        /// Deleted state of user.
+        /// </summary>
+        public static readonly State Deleted = new State(2, "Smazaný");
+
+        /// <summary>
         /// Creates new state.
         /// </summary>
         /// <param name="id">Identifier of state.</param>
@@ -40,7 +55,7 @@ namespace SemestralProject.Model.Entities
         /// <returns>Newly created state.</returns>
         public static State Create(string name)
         {
-            string sql = $"EXECUTE sempr_crud.proc_stavy_create('{name}')";
+            string sql = $"sempr_crud.proc_stavy_create('{name}')";
             int id = State.Create(sql, "role_seq");
             return new State(id, name);
         }
@@ -132,14 +147,14 @@ namespace SemestralProject.Model.Entities
 
         public override bool Update()
         {
-            string sql = $"EXECUTE sempr_crud.proc_stavy_update({this.Id}, '{this.Name}')";
+            string sql = $"sempr_crud.proc_stavy_update({this.Id}, '{this.Name}')";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
         }
 
         public override bool Delete()
         {
-            string sql = $"EXECUTE sempr_crud.proc_stavy_delete({this.Id})";
+            string sql = $"sempr_crud.proc_stavy_delete({this.Id})";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
         }

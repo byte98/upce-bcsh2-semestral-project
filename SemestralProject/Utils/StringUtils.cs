@@ -106,5 +106,27 @@ namespace SemestralProject.Utils
                 return StringUtils.Random(alphabet, length);
             });
         }
+
+        /// <summary>
+        /// Splits string to smaller strings.
+        /// </summary>
+        /// <param name="str">String which will be splitted.</param>
+        /// <param name="size">Maximal length of one final string.</param>
+        /// <returns>Array of smaller strings.</returns>
+        public static string[] SplitBySize(string str, int size)
+        {
+            IList<string> reti = new List<string>();
+            StringBuilder buffer = new StringBuilder();
+            for (int i = 0; i < str.Length; i++)
+            {
+                buffer.Append(str[i]);
+                if (buffer.Length >= size)
+                {
+                    reti.Add(buffer.ToString());
+                    buffer.Clear();
+                }
+            }
+            return reti.ToArray();
+        }
     }
 }

@@ -47,7 +47,7 @@
                         </Grid>
                     </Button.Content>
                 </Button>
-                <Button Padding="10" Style="{StaticResource ButtonRevealStyle}" Background="Transparent" Margin="0,0,0,16" HorizontalContentAlignment="Left">
+                <Button Command="{Binding ButtonManageDatabaseClickedCommand}" Padding="10" Style="{StaticResource ButtonRevealStyle}" Background="Transparent" Margin="0,0,0,16" HorizontalContentAlignment="Left">
                     <Button.Content>
                         <Grid HorizontalAlignment="Left" VerticalAlignment="Center">
                             <Grid.ColumnDefinitions>
@@ -139,13 +139,13 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Content="Server" FontWeight="Bold" Grid.Row="0" Grid.Column="0"/>
-                    <Label Content="{Binding Connection.Server}" Grid.Row="0" Grid.Column="1" Margin="16,0,0,0" />
+                    <Label Content="{Binding Server}" Grid.Row="0" Grid.Column="1" Margin="16,0,0,0" />
                     <Label Content="Port" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
-                    <Label Content="{Binding Connection.Port}" Grid.Row="1" Grid.Column="1" Margin="16,0,0,0" />
+                    <Label Content="{Binding Port}" Grid.Row="1" Grid.Column="1" Margin="16,0,0,0" />
                     <Label Content="Databáze" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
-                    <Label Content="{Binding Connection.Database}" Grid.Row="2" Grid.Column="1" Margin="16,0,0,0" />
+                    <Label Content="{Binding Database}" Grid.Row="2" Grid.Column="1" Margin="16,0,0,0" />
                     <Label Content="Uživatelské jméno" Grid.Row="3" Grid.Column="0" FontWeight="Bold" />
-                    <Label Content="{Binding Connection.Username}" Grid.Row="3" Grid.Column="1" Margin="16,0,0,0" />
+                    <Label Content="{Binding Username}" Grid.Row="3" Grid.Column="1" Margin="16,0,0,0" />
                     <Label Content="Stav" Grid.Row="4" Grid.Column="0" FontWeight="Bold"/>
                     <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="16,0,0,0" >
                         <ui:ProgressRing Visibility="{Binding ConnectionStateProgressRingVisibility}" Width="16" Height="16" IsActive="True" HorizontalAlignment="Left" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>

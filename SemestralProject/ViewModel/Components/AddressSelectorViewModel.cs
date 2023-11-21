@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using SemestralProject.Model.Entities;
 using SemestralProject.Utils;
 using SemestralProject.View.Components;
+using SemestralProject.ViewModel.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -51,17 +53,35 @@ namespace SemestralProject.ViewModel.Components
             this.loaderVisibility = Visibility.Visible;
             this.comboBoxVisibility = Visibility.Collapsed;
             this.availableAddresses = new ObservableCollection<Address>();
+            WeakReferenceMessenger.Default.Register<AddressesChangedMessage>(this, (sender, args) =>
+            {
+                this.Load();
+            });
+            WeakReferenceMessenger.Default.Register<SelectedAddressChangedMessage>(this, (sender, args) =>
+            {
+                this.SelectedAddress = args.Value;
+            });
         }
 
         /// <summary>
         /// Handles initialization process after control is loaded.
         /// </summary>
         [RelayCommand]
-        private async Task ControlLoaded()
+        private void ControlLoaded()
         {
+            this.Load();
+        }
+
+        /// <summary>
+        /// Loads all available addresses.
+        /// </summary>
+        private async void Load()
+        {
+            this.LoaderVisibility = Visibility.Visible;
+            this.ComboBoxVisibility = Visibility.Collapsed;
             Address[] addresses = await Address.GetAllAsync();
             this.AvailableAddresses.Clear();
-            foreach(Address address in addresses)
+            foreach (Address address in addresses)
             {
                 this.AvailableAddresses.Add(address);
             }

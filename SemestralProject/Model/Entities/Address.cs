@@ -1,6 +1,7 @@
 ﻿using SemestralProject.Common;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -145,7 +146,7 @@ namespace SemestralProject.Model.Entities
         /// <returns>Newly created address.</returns>
         public static Address Create(string street, int houseNumber, int orientationNumber, Municipality municipality)
         {   
-            string sql = $"EXECUTE sempr_crud.proc_adresy_create('{street}', {houseNumber}, {orientationNumber}, {municipality.Id})";
+            string sql = $"sempr_crud.proc_adresy_create('{street}', {houseNumber}, {orientationNumber}, {municipality.Id})";
             int id = Address.Create(sql, "adresy_seq");
             return new Address(id, street, houseNumber, orientationNumber, municipality);
         }
@@ -160,7 +161,7 @@ namespace SemestralProject.Model.Entities
         /// <returns>Newly created address.</returns>
         public static Address Create(string street, int houseNumber, Municipality municipality)
         {
-            string sql = $"EXECUTE sempr_crud.proc_adresy_create('{street}', {houseNumber}, {municipality.Id})";
+            string sql = $"sempr_crud.proc_adresy_create('{street}', {houseNumber}, {municipality.Id})";
             int id = Address.Create(sql, "adresy_seq");
             return new Address(id, street, houseNumber, null, municipality);
         }
@@ -173,7 +174,7 @@ namespace SemestralProject.Model.Entities
         /// <returns>Newly created address.</returns>
         public static Address Create(int houseNumber, Municipality municipality)
         {
-            string sql = $"EXECUTE sempr_crud.proc_adresy_create({houseNumber}, {municipality.Id})";
+            string sql = $"sempr_crud.proc_adresy_create({houseNumber}, {municipality.Id})";
             int id = Address.Create(sql, "adresy_seq");
             return new Address(id, null, houseNumber, null, municipality);
         }
@@ -189,32 +190,95 @@ namespace SemestralProject.Model.Entities
         /// <returns>Newly created address.</returns>
         public static Address Create(int houseNumber, int orientationNumber, Municipality municipality)
         {
-            string sql = $"EXECUTE sempr_crud.proc_adresy_create({houseNumber}, {orientationNumber}, {municipality.Id})";
+            string sql = $"sempr_crud.proc_adresy_create({houseNumber}, {orientationNumber}, {municipality.Id})";
             int id = Address.Create(sql, "adresy_seq");
             return new Address(id, null, houseNumber, orientationNumber, municipality);
         }
 
+        /// <summary>
+        /// Creates new address asynchronously.
+        /// </summary>
+        /// <param name="street">Street part of address.</param>
+        /// <param name="houseNumber">House number.</param>
+        /// <param name="orientationNumber">Orientation number of house.</param>
+        /// <param name="municipality">Municipality of address.</param>
+        /// <returns>Task which resolves into newly created address.</returns>
+        public static Task<Address> CreateAsync(string street, int houseNumber, int orientationNumber, Municipality municipality)
+        {
+            return Task<Address>.Run(() =>
+            {
+                return Address.Create(street, houseNumber, orientationNumber, municipality);
+            });
+        }
+
+        /// <summary>
+        /// Creates new address asynchronously.
+        /// </summary>
+        /// <param name="id">Identifier of address.</param>
+        /// <param name="street">Street part of address.</param>
+        /// <param name="houseNumber">House number.</param>
+        /// <param name="municipality">Municipality of address.</param>
+        /// <returns>Task which resolves into newly created address.</returns>
+        public static Task<Address> CreateAsync(string street, int houseNumber, Municipality municipality)
+        {
+            return Task<Address>.Run(() =>
+            {
+                return Address.Create(street, houseNumber, municipality);
+            });
+        }
+
+        /// <summary>
+        /// Creates new address asynchronously.
+        /// </summary>
+        /// <param name="houseNumber">House number.</param>
+        /// <param name="municipality">Municipality of address.</param>
+        /// <returns>Task which resolves into newly created address.</returns>
+        public static Task<Address> CreateAsync(int houseNumber, Municipality municipality)
+        {
+            return Task<Address>.Run(() =>
+            {
+                return Address.Create(houseNumber, municipality);
+            });
+        }
+
+        /// <summary>
+        /// Creates new address asynchronously.
+        /// </summary>
+        /// <param name="id">Identifier of address.</param>
+        /// <param name="street">Street part of address.</param>
+        /// <param name="houseNumber">House number.</param>
+        /// <param name="orientationNumber">Orientation number of house.</param>
+        /// <param name="municipality">Municipality of address.</param>
+        /// <returns>Task which resolves into newly created address.</returns>
+        public static Task<Address> CreateAsync(int houseNumber, int orientationNumber, Municipality municipality)
+        {
+            return Task<Address>.Run(() =>
+            {
+                return Address.Create(houseNumber, orientationNumber, municipality);
+            });
+        }
+
         public override bool Delete()
         {
-            string sql = $"EXECUTE sempr_crud.proc_adresy_delete({this.Id})";
+            string sql = $"sempr_crud.proc_adresy_delete({this.Id})";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
         }
 
         public override bool Update()
         {
-            string sql = $"EXECUTE sempr_crud.proc_adresy_update({this.Id}, '{this.Street}', {this.HouseNumber}, {this.OrientationNumber},{this.Municipality.Id})";
+            string sql = $"sempr_crud.proc_adresy_update({this.Id}, '{this.Street}', {this.HouseNumber}, {this.OrientationNumber},{this.Municipality.Id})";
             if (this.Street == null && this.OrientationNumber != null)
             {
-                sql = $"EXECUTE sempr_crud.proc_adresy_update({this.Id}, {this.HouseNumber}, {this.OrientationNumber},{this.Municipality.Id})";
+                sql = $"sempr_crud.proc_adresy_update({this.Id}, {this.HouseNumber}, {this.OrientationNumber},{this.Municipality.Id})";
             }
             else if (this.Street != null && this.OrientationNumber == null)
             {
-                sql = $"EXECUTE sempr_crud.proc_adresy_update({this.Id}, '{this.Street}, {this.HouseNumber} ,{this.Municipality.Id})";
+                sql = $"sempr_crud.proc_adresy_update({this.Id}, '{this.Street}, {this.HouseNumber} ,{this.Municipality.Id})";
             }
             else if (this.Street == null && this.OrientationNumber == null)
             {
-                sql = $"EXECUTE sempr_crud.proc_adresy_update({this.Id}, {this.HouseNumber} ,{this.Municipality.Id})";
+                sql = $"sempr_crud.proc_adresy_update({this.Id}, {this.HouseNumber} ,{this.Municipality.Id})";
             }
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
