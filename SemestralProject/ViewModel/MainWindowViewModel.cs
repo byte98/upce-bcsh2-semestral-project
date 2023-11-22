@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using SemestralProject.View;
 using SemestralProject.View.Installer;
+using SemestralProject.View.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,19 @@ namespace SemestralProject.ViewModel
         {
             InstallerWindow installerWindow = new InstallerWindow();
             installerWindow.ShowDialog();
+        }
+
+        /// <summary>
+        /// Handles procedures needed to be done after window has been loaded.
+        /// </summary>
+        [RelayCommand]
+        private void WindowLoaded()
+        {
+            if (MainWindow.ContentFrame != null)
+            {
+                Navigator navigator = Navigator.Instance;
+                navigator.Context = MainWindow.ContentFrame;
+            }
         }
 
     }

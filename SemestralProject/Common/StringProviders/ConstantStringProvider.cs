@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SemestralProject.Common
+namespace SemestralProject.Common.StringProviders
 {
     /// <summary>
     /// Class which represents provider of constant string.
@@ -28,12 +28,12 @@ namespace SemestralProject.Common
 
         public IEnumerator<string> GetEnumerator()
         {
-            yield return this.str;
+            yield return str;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
     }
 }

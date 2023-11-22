@@ -9,7 +9,7 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SemestralProject.Common
+namespace SemestralProject.Common.StringProviders
 {
     /// <summary>
     /// Class which provides strings as lines of file.

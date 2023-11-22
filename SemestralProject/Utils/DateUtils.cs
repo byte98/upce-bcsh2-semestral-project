@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 
 namespace SemestralProject.Utils
 {
@@ -35,10 +36,44 @@ namespace SemestralProject.Utils
         /// Converts string to date time.
         /// </summary>
         /// <param name="str">String which will be converted.</param>
-        /// <returns>Date time with data from string.</returns>
-        public static DateTime FromString(string str)
+        /// <returns>
+        /// Date time with data from string,
+        /// or NULL if conversion is not possible.
+        /// </returns>
+        public static DateTime? FromString(string str)
         {
-            return DateTime.ParseExact(str, DateUtils.Format, null);
+            DateTime? reti = null;
+            DateTime parsed;
+            if (DateTime.TryParseExact(str, DateUtils.Format, null, System.Globalization.DateTimeStyles.AssumeUniversal, out parsed) == true)
+            {
+                reti = parsed;
+            }
+            return reti;
+        }
+
+        /// <summary>
+        /// Converts result of query to the date time.
+        /// </summary>
+        /// <param name="result">Result of query.</param>
+        /// <returns>
+        /// Date time converted from result of query,
+        /// or NULL if conversion is not possible.
+        /// </returns>
+        public static DateTime? FromQuery(object? result)
+        {
+            DateTime? reti = null;
+            if (result != null)
+            {
+                if (result.GetType() == typeof(DateTime))
+                {
+                    reti = (DateTime)result;
+                }
+                else
+                {
+                    reti = DateUtils.FromString(result.ToString() ?? string.Empty);
+                }
+            }
+            return reti;
         }
     }
 }

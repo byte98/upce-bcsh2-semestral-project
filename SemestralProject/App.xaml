@@ -17,10 +17,15 @@
                 <Setter Property="Foreground" Value="{DynamicResource SystemBaseHighColorBursh}" />
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="Red"  />
+                        <Setter Property="Background" Value="{DynamicResource SystemBaseHighColorBursh}"  />
+                    </Trigger>
+                    <Trigger Property="IsMouseDirectlyOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource SystemBaseHighColorBursh}"  />
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            <Color x:Key="ErrorColor">#FF8080</Color>
+            <SolidColorBrush x:Key="ErrorColorBrush" Color="{StaticResource ErrorColor}" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

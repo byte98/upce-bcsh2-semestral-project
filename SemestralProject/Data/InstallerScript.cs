@@ -1,4 +1,5 @@
 ﻿using SemestralProject.Common;
+using SemestralProject.Common.StringProviders;
 using SemestralProject.Utils;
 using System;
 using System.Collections;
@@ -157,15 +158,7 @@ namespace SemestralProject.Data
             new CompactStringProvider(
                 new MergedStringProvider(
                     new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_HEADER"), "--" + Environment.NewLine),
-                    new FunctionStringProvider((str) =>
-                    {
-                        string reti = str;
-                        if (str.EndsWith(Environment.NewLine))
-                        {
-                            str = str.Substring(0, str.Length - Environment.NewLine.Length);
-                        }
-                        return reti;
-                    }, new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_DOCS"), "--" + Environment.NewLine))
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_DOCS"), "--" + Environment.NewLine)
                 )
             ),
             new CompactStringProvider(
@@ -177,15 +170,7 @@ namespace SemestralProject.Data
             new CompactStringProvider(
                 new MergedStringProvider(
                     new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_HEADER"), "--" + Environment.NewLine),
-                    new FunctionStringProvider((str) =>
-                    {
-                        string reti = str;
-                        if (str.EndsWith(Environment.NewLine))
-                        {
-                            str = str.Substring(0, str.Length - Environment.NewLine.Length);
-                        }
-                        return reti;
-                    }, new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_DOCS"), "--" + Environment.NewLine))
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_DOCS"), "--" + Environment.NewLine)
                 )
             ),
             new CompactStringProvider(
@@ -197,15 +182,7 @@ namespace SemestralProject.Data
             new CompactStringProvider(
                 new MergedStringProvider(
                     new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_HEADER"), "--" + Environment.NewLine),
-                    new FunctionStringProvider((str) =>
-                    {
-                        string reti = str;
-                        if (str.EndsWith(Environment.NewLine))
-                        {
-                            str = str.Substring(0, str.Length - Environment.NewLine.Length);
-                        }
-                        return reti;
-                    }, new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_DOCS"), "--" + Environment.NewLine))
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_DOCS"), "--" + Environment.NewLine)
                 )
             ),
             new CompactStringProvider(

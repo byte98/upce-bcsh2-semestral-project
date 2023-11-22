@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SemestralProject.Common
+namespace SemestralProject.Common.StringProviders
 {
     /// <summary>
     /// Class which provides strings as parts from file separated by separator.
@@ -43,8 +43,8 @@ namespace SemestralProject.Common
             this.content = content;
             this.separator = separator;
             this.emptyParts = emptyParts;
-            this.strings = new string[0];
-            this.Load();
+            strings = new string[0];
+            Load();
         }
 
         /// <summary>
@@ -52,12 +52,12 @@ namespace SemestralProject.Common
         /// </summary>
         private void Load()
         {
-            string fileContent = Encoding.UTF8.GetString(this.content);
-            string[] parts = fileContent.Split(this.separator);
+            string fileContent = Encoding.UTF8.GetString(content);
+            string[] parts = fileContent.Split(separator);
             IList<string> loaded = new List<string>();
-            foreach(string part in parts)
+            foreach (string part in parts)
             {
-                if (this.emptyParts == true)
+                if (emptyParts == true)
                 {
                     loaded.Add(part);
                 }
@@ -70,12 +70,12 @@ namespace SemestralProject.Common
                     }
                 }
             }
-            this.strings = loaded.ToArray();
+            strings = loaded.ToArray();
         }
 
         public IEnumerator<string> GetEnumerator()
         {
-            foreach(string str in this.strings)
+            foreach (string str in strings)
             {
                 yield return str;
             }
@@ -83,7 +83,7 @@ namespace SemestralProject.Common
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
     }
 }

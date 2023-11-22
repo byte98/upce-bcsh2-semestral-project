@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SemestralProject.Common
+namespace SemestralProject.Common.StringProviders
 {
     /// <summary>
     /// Class which provides strings as parts of file splitted by empty lines.
     /// </summary>
-    public class EmptyLineSplittedFileStringProvider: IStringProvider
+    public class EmptyLineSplittedFileStringProvider : IStringProvider
     {
         /// <summary>
         /// Content of file.
@@ -21,7 +21,7 @@ namespace SemestralProject.Common
         /// Parts of file.
         /// </summary>
         private string[] parts;
-        
+
         /// <summary>
         /// Creates new provider of strings which returns parts of file separated by empty lines.
         /// </summary>
@@ -29,8 +29,8 @@ namespace SemestralProject.Common
         public EmptyLineSplittedFileStringProvider(byte[] content)
         {
             this.content = content;
-            this.parts = new string[0];
-            this.ReadFile();
+            parts = new string[0];
+            ReadFile();
         }
 
         /// <summary>
@@ -40,8 +40,8 @@ namespace SemestralProject.Common
         {
             IList<string> fileParts = new List<string>();
             StringBuilder buffer = new StringBuilder();
-            string[] lines = Encoding.UTF8.GetString(this.content).Split(Environment.NewLine);
-            foreach(string line in lines)
+            string[] lines = Encoding.UTF8.GetString(content).Split(Environment.NewLine);
+            foreach (string line in lines)
             {
                 string trimmed = line.Trim();
                 if (trimmed.Length > 0)
@@ -57,13 +57,13 @@ namespace SemestralProject.Common
                     buffer.Clear();
                 }
             }
-            this.parts = fileParts.ToArray();
+            parts = fileParts.ToArray();
         }
 
 
         public IEnumerator<string> GetEnumerator()
         {
-            foreach(string str in this.parts)
+            foreach (string str in parts)
             {
                 yield return str;
             }
@@ -71,7 +71,7 @@ namespace SemestralProject.Common
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.parts.GetEnumerator();
+            return parts.GetEnumerator();
         }
     }
 }

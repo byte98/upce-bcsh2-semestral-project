@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SemestralProject.Common
+namespace SemestralProject.Common.StringProviders
 {
     /// <summary>
     /// Class which provides one string as compacted string from other providers.
     /// </summary>
-    public class CompactStringProvider: IStringProvider
+    public class CompactStringProvider : IStringProvider
     {
         /// <summary>
         /// Providers which outputs will be compacted to one string.
         /// </summary>
         private readonly IStringProvider[] providers;
-        
+
         /// <summary>
         /// Provider of output of compacted string provider.
         /// </summary>
@@ -28,9 +28,9 @@ namespace SemestralProject.Common
         /// <param name="providers">Providers which outputs will be compacted to one string.</param>
         public CompactStringProvider(params IStringProvider[] providers)
         {
-            this.output = new ConstantStringProvider(string.Empty);
+            output = new ConstantStringProvider(string.Empty);
             this.providers = providers;
-            this.Load();
+            Load();
         }
 
         /// <summary>
@@ -39,24 +39,24 @@ namespace SemestralProject.Common
         private void Load()
         {
             StringBuilder buffer = new StringBuilder();
-            foreach(IStringProvider provider in this.providers)
+            foreach (IStringProvider provider in providers)
             {
-                foreach(string str in provider)
+                foreach (string str in provider)
                 {
                     buffer.Append(str);
                 }
             }
-            this.output = new ConstantStringProvider(buffer.ToString());   
+            output = new ConstantStringProvider(buffer.ToString());
         }
 
         public IEnumerator<string> GetEnumerator()
         {
-            return this.output.GetEnumerator();
+            return output.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.output.GetEnumerator();
+            return output.GetEnumerator();
         }
     }
 }

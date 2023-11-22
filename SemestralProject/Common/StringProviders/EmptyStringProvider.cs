@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SemestralProject.Common
+namespace SemestralProject.Common.StringProviders
 {
     /// <summary>
     /// Class which provides no strings at all.
     /// </summary>
-    public class EmptyStringProvider: IStringProvider
+    public class EmptyStringProvider : IStringProvider
     {
         /// <summary>
         /// Empty array of strings.
@@ -24,7 +24,7 @@ namespace SemestralProject.Common
 
         public IEnumerator<string> GetEnumerator()
         {
-            foreach(string str in this.strings)
+            foreach (string str in strings)
             {
                 yield return str;
             }
@@ -32,7 +32,7 @@ namespace SemestralProject.Common
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SemestralProject.Common
+namespace SemestralProject.Common.StringProviders
 {
     /// <summary>
     /// Class which merges multiple string providers by alternating its contents.
@@ -30,8 +30,8 @@ namespace SemestralProject.Common
         public MergedStringProvider(params IStringProvider[] providers)
         {
             this.providers = providers;
-            this.strings = new string[0];
-            this.Load();
+            strings = new string[0];
+            Load();
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace SemestralProject.Common
         {
             IList<string> content = new List<string>();
             IList<string[]> loaded = new List<string[]>();
-            foreach(IStringProvider provider in this.providers)
+            foreach (IStringProvider provider in providers)
             {
                 loaded.Add(provider.ToArray());
             }
@@ -56,12 +56,12 @@ namespace SemestralProject.Common
                     }
                 }
             }
-            this.strings = content.ToArray();
+            strings = content.ToArray();
         }
 
         public IEnumerator<string> GetEnumerator()
         {
-            foreach (string str in this.strings)
+            foreach (string str in strings)
             {
                 yield return str;
             }
@@ -69,7 +69,7 @@ namespace SemestralProject.Common
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
     }
 }

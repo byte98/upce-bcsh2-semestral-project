@@ -132,6 +132,10 @@ namespace SemestralProject.Common
         {
             this.AffectedRows = 0;
             this.LastException = null;
+            if (this.connection == null)
+            {
+                this.UpdateConnection();
+            }
             if (this.connection != null && this.connection.State  != System.Data.ConnectionState.Open)
             {
                 this.connection.Open();
@@ -232,12 +236,28 @@ namespace SemestralProject.Common
                                         int ival = decimal.ToInt32(dval);
                                         row[reader.GetName(i)] = ival;
                                     }
+                                    else if (value.GetType() == typeof(DBNull))
+                                    {
+                                        row[reader.GetName(i)] = null;
+                                    }
                                     else
                                     {
                                         row[reader.GetName(i)] = value;
                                     }
                                 }
-                                results.Add(row);
+                                bool isNullOnly = true;
+                                foreach(string key in row.Keys)
+                                {
+                                    if (row[key] != null)
+                                    {
+                                        isNullOnly = false;
+                                        break;
+                                    }
+                                }
+                                if (isNullOnly == false)
+                                {
+                                    results.Add(row);
+                                }
                             }
                             reti = results.ToArray();
                         }

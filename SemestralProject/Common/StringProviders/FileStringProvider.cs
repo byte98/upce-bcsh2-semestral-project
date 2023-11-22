@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SemestralProject.Common
+namespace SemestralProject.Common.StringProviders
 {
     /// <summary>
     /// Class which provides whole content of file as string.
     /// </summary>
-    public class FileStringProvider: ConstantStringProvider
+    public class FileStringProvider : ConstantStringProvider
     {
         /// <summary>
         /// Creates new provider of string which returns whole content of file.
         /// </summary>
         /// <param name="content">Content of file.</param>
-        public FileStringProvider(byte[] content) : base(FileStringProvider.ContentToString(content)) { }
+        public FileStringProvider(byte[] content) : base(ContentToString(content)) { }
 
         /// <summary>
         /// Converts content of file to the string.

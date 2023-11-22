@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SemestralProject.Common
+namespace SemestralProject.Common.StringProviders
 {
     /// <summary>
     /// String provider which extends existing string provider by function.
     /// </summary>
-    public class FunctionStringProvider: IStringProvider
+    public class FunctionStringProvider : IStringProvider
     {
         /// <summary>
         /// Function which will be applied to output of another string provider.
@@ -35,9 +35,9 @@ namespace SemestralProject.Common
         public FunctionStringProvider(Func<string, string> func, IStringProvider provider)
         {
             this.func = func;
-            this.strings = new string[0];
+            strings = new string[0];
             this.provider = provider;
-            this.Apply();
+            Apply();
         }
 
         /// <summary>
@@ -46,16 +46,16 @@ namespace SemestralProject.Common
         private void Apply()
         {
             IList<string> outputs = new List<string>();
-            foreach(string str in this.provider)
+            foreach (string str in provider)
             {
-                outputs.Add(this.func(str));
+                outputs.Add(func(str));
             }
-            this.strings = outputs.ToArray();
+            strings = outputs.ToArray();
         }
 
         public IEnumerator<string> GetEnumerator()
         {
-            foreach(string str in this.strings)
+            foreach (string str in strings)
             {
                 yield return str;
             }
@@ -63,7 +63,7 @@ namespace SemestralProject.Common
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
     }
 }

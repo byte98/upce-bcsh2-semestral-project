@@ -5,16 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SemestralProject.View"
         xmlns:model="clr-namespace:SemestralProject.ViewModel"
-        xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:ui="http://schemas.modernwpf.com/2019"  
+        xmlns:vml="clr-namespace:SemestralProject.Common"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        vml:ViewModelLocator.AutoHookedUpViewModel="True"
         ui:WindowHelper.UseModernWindowStyle="True"
         fw:AcrylicWindow.Enabled="True"
         fw:AcrylicWindow.ExtendViewIntoTitleBar="True"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="{x:Null}">
-    <Window.DataContext>
-        <model:MainWindowViewModel />
-    </Window.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -26,7 +31,7 @@
         <Image Source="/View/title.jpg" Stretch="UniformToFill" Grid.Row="0" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="1"/>
         <DockPanel Margin="10,10,10,32" Grid.Column="1">
             <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Text="Vítejte" Style="{DynamicResource HeaderTextBlockStyle}" Margin="0,0,0,32"/>
-            <ui:Frame DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" Margin="0,0,0,16" />
+            <ui:Frame Source="/View/Components/Login.xaml" DockPanel.Dock="Bottom" NavigationUIVisibility="Hidden" Margin="0,0,0,16" x:Name="FrameContent" />
         </DockPanel>
         <StackPanel VerticalAlignment="Bottom" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,16,0,0">
             <Label FontSize="12" Padding="5"  VerticalContentAlignment="Center" Content="{Binding Version}"/>

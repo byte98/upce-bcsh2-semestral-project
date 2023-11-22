@@ -168,27 +168,27 @@ namespace SemestralProject.Model.Entities
             IDictionary<string, object?>[] results = Employee.Read($"sempr_crud.func_zamestnanci_read({id})");
             if (results.Length > 0)
             {
-                Country? country = Country.GetById((int)(results[0]["stat"] ?? int.MinValue));
-                if (country is not null)
+                Address? address = Address.GetById((int)(results[0]["bydliste"] ?? int.MinValue));
+                Person? person = Person.GetById((int)(results[0]["osobni_udaje"] ?? int.MinValue));
+                if (address != null && person != null)
                 {
-                    Address? address = Address.GetById((int)(results[0]["bydliste"] ?? int.MinValue));
-                    Person? person = Person.GetById((int)(results[0]["osobni_udaje"] ?? int.MinValue));
                     Employee? superior = Employee.GetById((int)(results[0]["nadrizeny"] ?? int.MinValue));
-                    DateTime date;
-                    if (DateTime.TryParse((string)(results[0]["datum_nastupu"] ?? string.Empty), out date))
+                    if (results[0]["datum_nastupu"] != null)
                     {
-                        if (address != null && person != null)
+                        DateTime? date = DateUtils.FromQuery(results[0]["datum_nastupu"]);
+                        if (date != null)
                         {
                             reti = new Employee(
-                                (int)(results[0]["id_zamestnanec"] ?? int.MinValue),
-                                (int)(results[0]["osobni_cislo"] ?? int.MinValue),
-                                date,
-                                address,
-                                person,
-                                superior
-                            );
+                                    (int)(results[0]["id_zamestnanec"] ?? int.MinValue),
+                                    (int)(results[0]["osobni_cislo"] ?? int.MinValue),
+                                    (DateTime)date,
+                                    address,
+                                    person,
+                                    superior
+                                );
                         }
                     }
+                    
                 }
             }
             return reti;

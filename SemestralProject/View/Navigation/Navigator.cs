@@ -36,6 +36,11 @@ namespace SemestralProject.View.Navigation
         private readonly Stack<object> history;
 
         /// <summary>
+        /// Stack on frames on which can navigation be performed.
+        /// </summary>
+        private readonly Stack<Frame> frames;
+
+        /// <summary>
         /// Sources of navigation requests.
         /// </summary>
         private readonly IList<INavigationSource> sources;
@@ -59,6 +64,10 @@ namespace SemestralProject.View.Navigation
             {
                 this.history.Clear();
                 this.context = value;
+                if (this.context != null)
+                {
+                    this.frames.Push(this.context);
+                }
             }
         }
 
@@ -69,6 +78,7 @@ namespace SemestralProject.View.Navigation
         {
             this.sources = new List<INavigationSource>();
             this.history = new Stack<object>();
+            this.frames = new Stack<Frame>();
         }
 
         /// <summary>
@@ -107,6 +117,17 @@ namespace SemestralProject.View.Navigation
             this.sources.Add(source);
             source.NavigationRequested += this.HanldeRequest;
             source.NavigationBack      += this.HandleBack;
+        }
+
+        /// <summary>
+        /// Sets actual context as the previous one.
+        /// </summary>
+        public void SetPreviousContext()
+        {
+            if (this.frames.Count > 0)
+            {
+                this.context = this.frames.Pop();
+            }
         }
     }
 }

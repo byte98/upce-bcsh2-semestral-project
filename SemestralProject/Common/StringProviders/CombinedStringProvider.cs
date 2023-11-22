@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SemestralProject.Common
+namespace SemestralProject.Common.StringProviders
 {
     /// <summary>
     /// Class which combines multiple string providers.
     /// </summary>
-    public class CombinedStringProvider: IStringProvider
+    public class CombinedStringProvider : IStringProvider
     {
         /// <summary>
         /// All wrapped string providers.
@@ -29,8 +29,8 @@ namespace SemestralProject.Common
         public CombinedStringProvider(params IStringProvider[] providers)
         {
             this.providers = providers;
-            this.strings = new string[0];
-            this.LoadStrings();
+            strings = new string[0];
+            LoadStrings();
         }
 
         /// <summary>
@@ -39,19 +39,19 @@ namespace SemestralProject.Common
         private void LoadStrings()
         {
             IList<string> providedStrings = new List<string>();
-            foreach(IStringProvider provider in this.providers)
+            foreach (IStringProvider provider in providers)
             {
-                foreach(string str in provider)
+                foreach (string str in provider)
                 {
                     providedStrings.Add(str);
                 }
             }
-            this.strings = providedStrings.ToArray();
+            strings = providedStrings.ToArray();
         }
 
         public IEnumerator<string> GetEnumerator()
         {
-            foreach(string str in this.strings)
+            foreach (string str in strings)
             {
                 yield return str;
             }
@@ -59,7 +59,7 @@ namespace SemestralProject.Common
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
     }
 }

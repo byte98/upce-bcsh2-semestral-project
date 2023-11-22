@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SemestralProject.Common
+namespace SemestralProject.Common.StringProviders
 {
     /// <summary>
     /// Interface which provides some kind of strings.
     /// </summary>
-    public interface IStringProvider: IEnumerable<string>{}
+    public interface IStringProvider : IEnumerable<string> { }
 }

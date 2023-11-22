@@ -29,5 +29,15 @@ namespace SemestralProject.ViewModel.Installer
                 navigator.Context = InstallerWindow.ContentFrame;
             }
         }
+
+        /// <summary>
+        /// Handles procedures needde to be done when window is closing.
+        /// </summary>
+        [RelayCommand]
+        private void WindowClosing()
+        {
+            Navigator navigator = Navigator.Instance;
+            navigator.SetPreviousContext();
+        }
     }
 }

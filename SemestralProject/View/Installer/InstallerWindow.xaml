@@ -18,6 +18,9 @@
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}"/>
         </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding WindowClosingCommand}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid Margin="10,10,10,10">
         <ui:Frame x:Name="FrameContent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Source="/View/Installer/InstallerMenu.xaml" />
