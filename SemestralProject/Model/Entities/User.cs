@@ -94,17 +94,7 @@ namespace SemestralProject.Model.Entities
         /// <returns>String containing hashed password.</returns>
         private static string HashPassword(string password)
         {
-            StringBuilder sb = new StringBuilder();
-            byte[] hash;
-            using (HashAlgorithm sha = SHA256.Create())
-            {
-                hash = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
-            }
-            foreach (byte b in hash)
-            {
-                sb.Append(b.ToString("X2"));
-            }
-            return sb.ToString();
+            return StringUtils.Hash(password);
         }
 
         /// <summary>

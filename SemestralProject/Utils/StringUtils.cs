@@ -128,5 +128,25 @@ namespace SemestralProject.Utils
             }
             return reti.ToArray();
         }
+
+        /// <summary>
+        /// Creates hash of string.
+        /// </summary>
+        /// <param name="str">String which hash will be computed.</param>
+        /// <returns>Hash of string.</returns>
+        public static string Hash(string str)
+        {
+            StringBuilder sb = new StringBuilder();
+            byte[] hash;
+            using (HashAlgorithm sha = SHA256.Create())
+            {
+                hash = sha.ComputeHash(Encoding.UTF8.GetBytes(str));
+            }
+            foreach (byte b in hash)
+            {
+                sb.Append(b.ToString("X2"));
+            }
+            return sb.ToString();
+        }
     }
 }

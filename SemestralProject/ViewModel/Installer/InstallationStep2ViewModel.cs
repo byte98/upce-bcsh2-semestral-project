@@ -337,12 +337,12 @@ namespace SemestralProject.ViewModel.Installer
                 from inner in obj.Value
                 select inner
                 ).Count();
-            this.TotalStage3 = (uint)InstallerScript.Sequences.Length;
-            this.totalStage4 = (uint)InstallerScript.Tables.Length;
-            this.TotalStage5 = (uint)InstallerScript.Relations.Length;
-            this.TotalStage6 = (uint)InstallerScript.Packages.Length;
-            this.TotalStage7 = (uint)InstallerScript.Triggers.Length;
-            this.TotalStage8 = (uint)InstallerScript.Data.Length;
+            this.TotalStage3 = (uint)InstallerScript.Sequences.Count();
+            this.totalStage4 = (uint)InstallerScript.Tables.Count();
+            this.TotalStage5 = (uint)InstallerScript.Relations.Count();
+            this.TotalStage6 = (uint)InstallerScript.Packages.Count();
+            this.TotalStage7 = (uint)InstallerScript.Triggers.Count();
+            this.TotalStage8 = (uint)InstallerScript.Data.Count();
             this.Finished = false;
             this.Successfull = false;
             this.Stage = 1;
@@ -534,7 +534,14 @@ namespace SemestralProject.ViewModel.Installer
                                 bool exists = await this.model.Database.ObjectExistsAsync(obj, objName);
                                 if (exists == true)
                                 {
-                                    result = await this.model.Database.ExecuteAsync(InstallerScript.Drops[obj][objName]);
+                                    foreach(string sql in InstallerScript.Drops[obj][objName])
+                                    {
+                                        result = await this.model.Database.ExecuteAsync(sql);
+                                        if (result == false)
+                                        {
+                                            break;
+                                        }
+                                    }
                                     if (result == false)
                                     {
                                         break;
@@ -716,13 +723,13 @@ namespace SemestralProject.ViewModel.Installer
         /// <summary>
         /// Runs SQL scripts.
         /// </summary>
-        /// <param name="scripts">Array with SQL scripts which will be run.</param>
+        /// <param name="scripts">SQL scripts which will be run.</param>
         /// <param name="increment">Flag, whether actual counter of stage should be incremented (TRUE) or not (FALSE).</param>
         /// <returns>
         /// TRUE, if all scripts has been successfully run,
         /// FALSE otherwise.
         /// </returns>
-        private bool RunScripts(string[] scripts, bool increment = true)
+        private bool RunScripts(IStringProvider scripts, bool increment = true)
         {
             bool reti = true;
             if (this.model.Database == null)
@@ -750,14 +757,14 @@ namespace SemestralProject.ViewModel.Installer
         /// <summary>
         /// Runs SQL scripts asynchronously
         /// </summary>
-        /// <param name="scripts">Array with SQL scripts which will be run.</param>
+        /// <param name="scripts">SQL scripts which will be run.</param>
         /// <param name="increment">Flag, whether actual counter of stage should be incremented (TRUE) or not (FALSE).</param>
         /// <returns>
         /// Task which resolves into:
         /// TRUE, if all scripts has been successfully run,
         /// FALSE otherwise.
         /// </returns>
-        private Task<bool> RunScriptsAsync(string[] scripts, bool increment = true)
+        private Task<bool> RunScriptsAsync(IStringProvider scripts, bool increment = true)
         {
             return Task<bool>.Run(() =>
             {
