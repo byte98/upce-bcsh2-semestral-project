@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SemestralProject.Common.StringProviders;
+using SemestralProject.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,36 +14,21 @@ namespace SemestralProject.Data
     public static class TruncateScript
     {
         /// <summary>
-        /// Array with tables which needed to be truncated
-        /// in this specific sequence.
+        /// SQL statements which truncates all tables.
         /// </summary>
-        public static readonly string[] Tables = new string[]
-        {
-            "soupravy_metra",
-            "zabezpecovace",
-            "trolejbusy",
-            "tramvaje",
-            "autobusy",
-            "prevodovky",
-            "skutecne_rady",
-            "plany_smen",
-            "jizdni_rady",
-            "zastavky",
-            "linky",
-            "smeny",
-            "vozidla",
-            "modely",
-            "vyrobci",
-            "provozy",
-            "cipove_karty",
-            "uzivatele",
-            "stavy",
-            "role",
-            "zamestnanci",
-            "osoby",
-            "adresy",
-            "obce",
-            "staty"
-        };
+        public static IStringProvider Tables = new CombinedStringProvider(
+            new ConstantStringProvider("SET TRANSACTION READ WRITE"),
+            new FileLinesStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "TRUNCATE")),
+            new ConstantStringProvider("COMMIT")
+        );
+
+        /// <summary>
+        /// SQL statements which resets all sequences.
+        /// </summary>
+        public static IStringProvider Sequences = new CombinedStringProvider(
+            new ConstantStringProvider("SET TRANSACTION READ WRITE"),
+            new FileLinesStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "RESTART")),
+            new ConstantStringProvider("COMMIT")
+        );
     }
 }

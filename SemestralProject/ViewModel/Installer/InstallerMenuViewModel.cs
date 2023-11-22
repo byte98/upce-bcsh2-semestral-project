@@ -4,6 +4,7 @@ using SemestralProject.Common;
 using SemestralProject.Model;
 using SemestralProject.View;
 using SemestralProject.View.Installer;
+using SemestralProject.View.Installer.Truncate;
 using SemestralProject.View.Navigation;
 using System;
 using System.Collections.Generic;
@@ -140,6 +141,15 @@ namespace SemestralProject.ViewModel.Installer
         private void ButtonManageDatabaseClicked()
         {
             this.Navigate(new ManageDatabase());
+        }
+
+        /// <summary>
+        /// Handles click on 'delete data' button.
+        /// </summary>
+        [RelayCommand]
+        private void ButtonDeleteDataClicked()
+        {
+            this.Navigate(new TruncateProcess());
         }
     }
 }

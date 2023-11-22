@@ -102,6 +102,28 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ALTER SEQUENCE adresy_seq RESTART
+        ///ALTER SEQUENCE cipove_karty_seq RESTART
+        ///ALTER SEQUENCE jizdni_rady_seq RESTART
+        ///ALTER SEQUENCE linky_seq RESTART
+        ///ALTER SEQUENCE modely_seq RESTART
+        ///ALTER SEQUENCE obce_seq RESTART
+        ///ALTER SEQUENCE osoby_seq RESTART
+        ///ALTER SEQUENCE osobni_cisla_seq RESTART
+        ///ALTER SEQUENCE plany_smen_seq RESTART
+        ///ALTER SEQUENCE prevodovky_seq RESTART
+        ///ALTER SEQUENCE provozy_seq RESTART
+        ///ALTER SEQUENCE role_seq RESTART
+        ///ALTER SEQUENCE skutecne_rady_seq RESTART
+        ///ALTER SEQUENCE smeny_seq RESTA [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string RESTART {
+            get {
+                return ResourceManager.GetString("RESTART", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to INSERT INTO role (id_role, nazev) VALUES (0, &apos;SUPERUŽIVATEL&apos;)
         ///.
         /// </summary>
@@ -381,6 +403,30 @@ namespace SemestralProject.Resources {
         internal static string TABLES {
             get {
                 return ResourceManager.GetString("TABLES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TRUNCATE TABLE soupravy_metra CASCADE
+        ///TRUNCATE TABLE zabezpecovace CASCADE
+        ///TRUNCATE TABLE trolejbusy CASCADE
+        ///TRUNCATE TABLE tramvaje CASCADE
+        ///TRUNCATE TABLE autobusy CASCADE
+        ///TRUNCATE TABLE prevodovky CASCADE
+        ///TRUNCATE TABLE skutecne_rady CASCADE
+        ///TRUNCATE TABLE plany_smen CASCADE
+        ///TRUNCATE TABLE jizdni_rady CASCADE
+        ///TRUNCATE TABLE zastavky CASCADE
+        ///TRUNCATE TABLE linky CASCADE
+        ///TRUNCATE TABLE smeny CASCADE
+        ///TRUNCATE TABLE vozidla CASCADE
+        ///TRUNCATE TABLE modely CASCADE
+        ///TRUNCATE TABLE vyrobci CASCADE
+        ///TR [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TRUNCATE {
+            get {
+                return ResourceManager.GetString("TRUNCATE", resourceCulture);
             }
         }
     }
