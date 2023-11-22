@@ -28,6 +28,11 @@ namespace SemestralProject.Model.Entities
         public static readonly Role Superuser = new Role(0, "SUPERUŽIVATEL");
 
         /// <summary>
+        /// Lowest user role in system.
+        /// </summary>
+        public static readonly Role User = new Role(1, "Uživatel");
+
+        /// <summary>
         /// Creates new role.
         /// </summary>
         /// <param name="id">Identifier of role.</param>

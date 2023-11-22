@@ -125,6 +125,7 @@ namespace SemestralProject.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to INSERT INTO role (id_role, nazev) VALUES (0, &apos;SUPERUŽIVATEL&apos;)
+        ///INSERT INTO role (id_role, nazev) VALUES (1, &apos;Uživatel&apos;)
         ///.
         /// </summary>
         internal static string ROLES {

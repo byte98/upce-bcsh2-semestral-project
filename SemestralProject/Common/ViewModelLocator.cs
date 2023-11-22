@@ -177,7 +177,21 @@ namespace SemestralProject.Common
         public static object? GetViewToModel(object model)
         {
             object? reti = null;
-            Type modelType = model.GetType();
+            reti = ViewModelLocator.GetViewToModel(model.GetType());
+            return reti;
+        }
+
+        /// <summary>
+        /// Gets view connected with model.
+        /// </summary>
+        /// <param name="modelType">Data type of view model of view.</param>
+        /// <returns>
+        /// Object representing view connected to view model,
+        /// or NULL if there is no such view.
+        /// </returns>
+        public static object? GetViewToModel(Type modelType)
+        {
+            object? reti = null;
             string? modelName = modelType.FullName;
             if (modelName != null)
             {

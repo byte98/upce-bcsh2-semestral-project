@@ -1,8 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using SemestralProject.Model;
 using SemestralProject.Model.Entities;
+using SemestralProject.Utils;
+using SemestralProject.View;
+using SemestralProject.View.Components;
 using SemestralProject.View.Navigation;
+using SemestralProject.ViewModel.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,7 +85,7 @@ namespace SemestralProject.ViewModel.Components
             this.ControlsEnabled = false;
             this.LoginVisibility = Visibility.Visible;
             this.ErrorVisibility = Visibility.Collapsed;
-            Login login = new Login(this.Password ?? string.Empty, this.PersonalNumber);
+            Model.Login login = new Model.Login(this.Password ?? string.Empty, this.PersonalNumber);
             User? user = await login.CheckAsync();
             this.ControlsEnabled = true;
             this.LoginVisibility = Visibility.Collapsed;
@@ -91,7 +96,13 @@ namespace SemestralProject.ViewModel.Components
             }
             else
             {
-                // TODO: Redirect to the main window.
+                WeakReferenceMessenger.Default.Send<LoggedUserChangedMessage>(
+                    new LoggedUserChangedMessage(user)
+                    );
+                WeakReferenceMessenger.Default.Send<LoggedRoleChangedMessage>(
+                    new LoggedRoleChangedMessage(user.Role)
+                );
+                WindowUtils.CloseForModel(typeof(MainWindowViewModel));
             }
         }
 
@@ -110,7 +121,7 @@ namespace SemestralProject.ViewModel.Components
         [RelayCommand(CanExecute =nameof(IsEnabled))]
         private void Register()
         {
-
+            this.Navigate(new Register());
         }
 
         /// <summary>

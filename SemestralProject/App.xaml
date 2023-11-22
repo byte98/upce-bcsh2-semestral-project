@@ -4,28 +4,17 @@
              xmlns:local="clr-namespace:SemestralProject"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
-             StartupUri="/View/MainWindow.xaml">
+             StartupUri="/View/MasterWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemeResources />
                 <ui:XamlControlsResources />
                 <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="Styles/Colors.xaml" />
+                <ResourceDictionary Source="Styles/PrimaryButton.xaml" />
+                <ResourceDictionary Source="Styles/MenuButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="Button" x:Key="PrimaryButton" BasedOn="{StaticResource ButtonAccentRevealStyle}">
-                <Setter Property="Background" Value="{DynamicResource AccentButtonBackground}" />
-                <Setter Property="Foreground" Value="{DynamicResource SystemBaseHighColorBursh}" />
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource SystemBaseHighColorBursh}"  />
-                    </Trigger>
-                    <Trigger Property="IsMouseDirectlyOver" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource SystemBaseHighColorBursh}"  />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <Color x:Key="ErrorColor">#FF8080</Color>
-            <SolidColorBrush x:Key="ErrorColorBrush" Color="{StaticResource ErrorColor}" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

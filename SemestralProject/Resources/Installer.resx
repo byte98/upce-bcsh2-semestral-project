@@ -158,7 +158,7 @@
     <value>SEMPR_UTILS_HEADER.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="SEQUENCES" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>SEQUENCES.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>SEQUENCES.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="STATES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>STATES.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

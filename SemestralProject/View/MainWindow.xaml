@@ -14,7 +14,7 @@
         fw:AcrylicWindow.Enabled="True"
         fw:AcrylicWindow.ExtendViewIntoTitleBar="True"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="{x:Null}">
+        Title="MainWindow" Height="612" Width="800" Background="{x:Null}" WindowStartupLocation="CenterScreen">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}" />
