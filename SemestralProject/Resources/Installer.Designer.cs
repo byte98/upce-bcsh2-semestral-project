@@ -366,9 +366,9 @@ namespace SemestralProject.Resources {
         ///CREATE SEQUENCE linky_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE modely_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE obce_seq START WITH 1 NOCACHE ORDER
+        ///CREATE SEQUENCE opravneni_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE osoby_seq START WITH 1 NOCACHE ORDER
-        ///CREATE SEQUENCE osobni_cisla_seq START WITH 100005 NOCACHE ORDER
-        ///CREATE SEQUENCE plany_smen_seq START WITH 1 NOCACHE OR [rest of string was truncated]&quot;;.
+        ///CREATE SEQUENCE osobni_cisla_seq START WITH 100005 NOCACHE ORD [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEQUENCES {
             get {

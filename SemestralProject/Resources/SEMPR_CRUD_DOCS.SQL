@@ -375,7 +375,7 @@
      * :param p_id: Identifier of searched data.
      * :returns:    Table with searched data from 'stavy'.
      */
-    
+  --  
 
 
 
@@ -424,3 +424,40 @@
      * :returns:    Table with all searched from 'uzivatele'.
      */
 --
+
+
+
+
+
+     /* CRUD operations over 'opravneni' */
+
+     /*
+      * Creates new 'opravneni'.
+      * :param p_name:      Name of new object.
+      * :param p_sysname:   System name of new object.
+      */
+--
+
+     /*
+      * Updates 'opravneni'.
+      * :param p_id:       Identifier of object which will be updated.
+      * :param p_name:     New name of 'opravneni'.
+      * :param p_sysname:  New system name of 'opravneni'.
+      */
+--
+
+     /*
+      * Deletes 'opravneni'.
+      * :param p_id: Identifier of object which will be deleted.
+      */
+--
+     /*
+      * Reads all data from 'opravneni'.
+      * :returns: Table with data from 'opravneni'.
+      */
+--
+     /*
+      * Reads data from 'opravneni'.
+      * :param p_id: Identifier of searched object.
+      * :returns:    Table with searched data from 'opravneni'.
+      */

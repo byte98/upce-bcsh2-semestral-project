@@ -152,5 +152,20 @@ PACKAGE sempr_crud AS
 --
     FUNCTION  func_uzivatele_read(p_id IN uzivatele.id_uzivatel%TYPE) RETURN t_uzivatele PIPELINED;
 --
+    /*
+     * Type definition of table of 'opravneni'
+     */
+    TYPE t_opravneni IS TABLE OF opravneni%ROWTYPE;
+--
+    PROCEDURE proc_opravneni_create(p_name IN opravneni.nazev%TYPE, p_sysname IN opravneni.systemovy_nazev%TYPE);
+--
+    PROCEDURE proc_opravneni_update(p_id IN opravneni.id_opravneni%TYPE, p_name IN opravneni.nazev%TYPE, p_sysname IN opravneni.systemovy_nazev%TYPE);
+--
+    PROCEDURE proc_opravneni_delete(p_id IN opravneni.id_opravneni%TYPE);
+--
+    PROCEDURE func_opravneni_read RETURN t_opravneni PIPELINED;
+--
+    FUNCTION  func_opravneni_read(p_id IN opravneni.id%TYPE) RETURN t_opravneni PIPELINED;
+
 END sempr_crud;
 

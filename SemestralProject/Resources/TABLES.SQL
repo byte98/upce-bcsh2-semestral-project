@@ -82,6 +82,14 @@ e_mail   VARCHAR2(320) NOT NULL,
 telefon  CHAR(14) NOT NULL
 )
 
+CREATE TABLE opravneni (
+    id_opravneni    INTEGER DEFAULT opravneni_seq.nextval NOT NULL,
+    nazev           VARCHAR2(64) NOT NULL,
+    systemovy_nazev VARCHAR2(64) NOT NULL
+)
+
+ALTER TABLE opravneni ADD CONSTRAINT opravneni_pk PRIMARY KEY ( id_opravneni )
+
 ALTER TABLE osoby ADD CONSTRAINT osoby_pk PRIMARY KEY(id_osoba )
 
 CREATE TABLE plany_smen(
@@ -91,6 +99,14 @@ jizdni_rad INTEGER NOT NULL
 )
 
 ALTER TABLE plany_smen ADD CONSTRAINT rel_smena_jizdni_rad_pk PRIMARY KEY(id_plan_smeny )
+
+CREATE TABLE prava (
+    id_pravo  INTEGER DEFAULT prava_seq.nextval NOT NULL,
+    role      INTEGER NOT NULL,
+    opravneni INTEGER NOT NULL
+)
+
+ALTER TABLE prava ADD CONSTRAINT prava_pk PRIMARY KEY ( id_pravo )
 
 CREATE TABLE prevodovky(
 id_prevodovka INTEGER DEFAULT prevodovky_seq.nextval NOT NULL,

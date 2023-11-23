@@ -526,5 +526,51 @@ PACKAGE BODY sempr_crud AS
         END LOOP;
         CLOSE v_cursor;
     END func_uzivatele_read;
+--
+    PROCEDURE proc_opravneni_create(p_name IN opravneni.nazev%TYPE, p_sysname IN opravneni.systemovy_nazev%TYPE) AS
+    BEGIN
+        INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (p_name, p_sysname0);
+    END proc_opravneni_create;
+--
+    PROCEDURE proc_opravneni_update(p_id IN opravneni.id_opravneni%TYPE, p_name IN opravneni.nazev%TYPE, p_sysname IN opravneni.systemovy_nazev%TYPE) AS
+    BEGIN
+        UPDATE opravneni SET nazev=p_name, systemovy_nazev=p_sysname
+        WHERE id_opravneni=p_id;
+    END proc_opravneni_update;
+--
+    PROCEDURE proc_opravneni_delete(p_id IN opravneni.id_opravneni%TYPE) AS
+    BEGIN
+        DELETE FROM opravneni WHERE id_opravneni=p_id;
+    END proc_opravneni_delete;
+--
+    FUNCTION func_opravneni_read RETURN t_opravneni PIPELINED AS
+        v_cursor    SYS_REFCURSOR;
+        v_opravneni opravneni%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM opravneni;
+        LOOP
+            FETCH v_cursor INTO v_opravneni;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_opravneni);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_opravneni_read;
+--
+    FUNCTION  func_opravneni_read(p_id IN opravneni.id%TYPE) RETURN t_opravneni PIPELINED AS
+        v_cursor    SYS_REFCURSOR;
+        v_opravneni opravneni%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM opravneni WHERE id_opravneni=p_id;
+        LOOP
+            FETCH v_cursor INTO v_opravneni;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_opravneni);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_opravneni_read;
 
 END sempr_crud;
