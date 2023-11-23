@@ -107,5 +107,16 @@ namespace SemestralProject.ViewModel
                 WindowUtils.MaximizeForModel(this);
             }
         }
+
+        /// <summary>
+        /// Handles logout of user.
+        /// </summary>
+        [RelayCommand]
+        private void Logout()
+        {
+            MainWindow main = new MainWindow();
+            main.Show();
+            WindowUtils.HideForModel(this);
+        }
     }
 }

@@ -56,7 +56,7 @@
                     <ui:FlyoutService.Flyout>
                         <ui:CommandBarFlyout Placement="Bottom">
                             <ui:AppBarElementContainer>
-                                <Button Background="Transparent">
+                                <Button Background="Transparent" Command="{Binding LogoutCommand}">
                                     <StackPanel Orientation="Horizontal">
                                         <Label FontFamily="Segoe MDL2 Assets" Content="&#xE7E8;" Margin="0,0,8,0"/>
                                         <Label Content="Odhlásit se" />

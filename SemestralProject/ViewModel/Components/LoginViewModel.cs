@@ -136,6 +136,7 @@ namespace SemestralProject.ViewModel.Components
                     new LoggedRoleChangedMessage(user.Role)
                 );
                 WindowUtils.CloseForModel(typeof(MainWindowViewModel));
+                WindowUtils.ShowForModel(typeof(MasterWindowViewModel));
             }
         }
 

@@ -55,6 +55,19 @@ namespace SemestralProject.Utils
         /// <summary>
         /// Shows window connected with view model.
         /// </summary>
+        /// <param name="model">Data type of view model which window will be shown.</param>
+        public static void ShowForModel(Type model)
+        {
+            Window? window = WindowUtils.GetWindowForModel(model);
+            if (window != null)
+            {
+                window.Show();
+            }
+        }
+
+        /// <summary>
+        /// Shows window connected with view model.
+        /// </summary>
         /// <param name="model">View model which window will be shown.</param>
         public static void ShowForModel(object model)
         {
