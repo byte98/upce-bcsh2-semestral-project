@@ -143,13 +143,5 @@ namespace SemestralProject.ViewModel.Installer
             this.Navigate(new ManageDatabase());
         }
 
-        /// <summary>
-        /// Handles click on 'delete data' button.
-        /// </summary>
-        [RelayCommand]
-        private void ButtonDeleteDataClicked()
-        {
-            this.Navigate(new TruncateProcess());
-        }
     }
 }

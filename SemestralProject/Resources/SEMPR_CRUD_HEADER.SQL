@@ -128,5 +128,7 @@ PACKAGE sempr_crud AS
 --
     FUNCTION  func_uzivatele_read(p_id IN uzivatele.id_uzivatel%TYPE) RETURN t_uzivatele PIPELINED;
 --
+    FUNCTION func_uzivatele_read_superusers RETURN t_uzivatele PIPELINED AS
+--
 END sempr_crud;
 

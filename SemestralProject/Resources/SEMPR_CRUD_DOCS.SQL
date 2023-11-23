@@ -464,3 +464,9 @@
      * :returns:    Table with all searched from 'uzivatele'.
      */
 --
+
+     /*
+      * Reads all superusers.
+      * :returns: Table with all superusers.
+      */
+--
