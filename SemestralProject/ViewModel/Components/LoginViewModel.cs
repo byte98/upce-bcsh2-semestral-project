@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using SemestralProject.Model;
 using SemestralProject.Model.Entities;
+using SemestralProject.Model.Persistence;
 using SemestralProject.Utils;
 using SemestralProject.View;
 using SemestralProject.View.Components;
@@ -24,6 +25,11 @@ namespace SemestralProject.ViewModel.Components
     [ObservableObject]
     public partial class LoginViewModel : NavigationSource
     {
+        /// <summary>
+        /// Name of personal number value in secure storage.
+        /// </summary>
+        private const string SecStoragePersonalNumber = "login.personal_number";
+
         /// <summary>
         /// Personal number of user.
         /// </summary>
@@ -77,6 +83,20 @@ namespace SemestralProject.ViewModel.Components
         }
 
         /// <summary>
+        /// Handles loading procedure.
+        /// </summary>
+        [RelayCommand]
+        private void ControlLoaded()
+        {
+            string? secStValue = SecureStorage.Default.Load(LoginViewModel.SecStoragePersonalNumber);
+            int loadedVal = this.PersonalNumber;
+            if (secStValue != null && int.TryParse(secStValue, out loadedVal))
+            {
+                this.PersonalNumber = loadedVal;
+            }
+        }
+
+        /// <summary>
         /// Performs log in of user.
         /// </summary>
         [RelayCommand(CanExecute = nameof(CanLogin))]
@@ -87,6 +107,10 @@ namespace SemestralProject.ViewModel.Components
             this.ErrorVisibility = Visibility.Collapsed;
             Model.Login login = new Model.Login(this.Password ?? string.Empty, this.PersonalNumber);
             User? user = await login.CheckAsync();
+            if (user != null)
+            {
+                await SecureStorage.Default.SaveAsync(LoginViewModel.SecStoragePersonalNumber, user.Employee.PersonalNumber.ToString());
+            }
             this.ControlsEnabled = true;
             this.LoginVisibility = Visibility.Collapsed;
             if (user == null)

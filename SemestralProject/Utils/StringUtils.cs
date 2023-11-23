@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SemestralProject.Utils
 {
@@ -25,14 +27,16 @@ namespace SemestralProject.Utils
             byte[] arr;
             using (Aes aes = Aes.Create())
             {
+                int maxSize = aes.LegalKeySizes.Max((keySize) =>  keySize.MaxSize);
+                key = StringUtils.EnsizeBytes(key, maxSize / 8);
                 aes.Key = Encoding.UTF8.GetBytes(key);
                 aes.IV = iv;
                 ICryptoTransform cryptoTransform = aes.CreateEncryptor(aes.Key, aes.IV);
-                using (MemoryStream  ms = new MemoryStream())
+                using (MemoryStream ms = new MemoryStream())
                 {
                     using (CryptoStream cs = new CryptoStream(ms, cryptoTransform, CryptoStreamMode.Write))
                     {
-                        using (StreamWriter  sw = new StreamWriter(cs))
+                        using (StreamWriter sw = new StreamWriter(cs))
                         {
                             sw.Write(input);
                         }
@@ -41,6 +45,60 @@ namespace SemestralProject.Utils
                 }
             }
             return Convert.ToBase64String(arr);
+        }
+
+        /// <summary>
+        /// Changes size of string.
+        /// If required string is longer, remaining space is filled with defined fill,
+        /// if required string is shorter, string is trimmed.
+        /// </summary>
+        /// <param name="str">String which size will be changed.</param>
+        /// <param name="size">Required size of string.</param>
+        /// <param name="fill">String which will occupy remaining space.</param>
+        /// <returns>New string with required size.</returns>
+        public static string Ensize(string str, int size, string fill = " ")
+        {
+            string reti = string.Empty;
+            for (int i = 0; i < size; i++)
+            {
+                if (i < str.Length)
+                {
+                    reti += str[i];
+                }
+                else
+                {
+                    reti += fill;
+                }
+            }
+            return reti;
+        }
+
+        /// <summary>
+        /// Changes size (in bytes) of string.
+        /// If required string is longer, remaining space is filled with predefined fill,
+        /// if required string is shorter, string is trimmed.
+        /// </summary>
+        /// <param name="str">String which size will be changed.</param>
+        /// <param name="size">Required size of string (in bytes).</param>
+        /// <param name="fill">String which will occupy remaining space.</param>
+        /// <returns>New string with required size.</returns>
+        public static string EnsizeBytes(string str, int size, string fill = " ")
+        {
+            string reti = string.Empty;
+            int idx = 0;
+            while (Encoding.UTF8.GetByteCount(reti) < size)
+            {
+                if (idx < str.Length)
+                {
+                    reti += str[idx];
+                }
+                else
+                {
+                    reti += fill;
+                }
+                idx++;
+            }
+            return reti;
         }
 
         /// <summary>
@@ -58,6 +116,8 @@ namespace SemestralProject.Utils
                 byte[] arr = Convert.FromBase64String(input);
                 using (Aes aes = Aes.Create())
                 {
+                    int maxSize = aes.LegalKeySizes.Max((keySize) => keySize.MaxSize);
+                    key = StringUtils.EnsizeBytes(key, maxSize / 8);
                     aes.Key = Encoding.UTF8.GetBytes(key);
                     aes.IV = iv;
                     ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
@@ -147,6 +207,68 @@ namespace SemestralProject.Utils
                 sb.Append(b.ToString("X2"));
             }
             return sb.ToString();
+        }
+
+
+        /// <summary>
+        /// String which contains whole english alphabet (in unspecified case).
+        /// </summary>
+        public static string EnglishAlphabet => "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        /// <summary>
+        /// String which contains whole english in lower case.
+        /// </summary>
+        public static string EnglishAlphabetLower => StringUtils.EnglishAlphabet.ToLower();
+
+        /// <summary>
+        /// String which contains whole english in upper case.
+        /// </summary>
+        public static string EnglishAlphabetUpper => StringUtils.EnglishAlphabet.ToUpper();
+
+        /// <summary>
+        /// String which contains whole english alphabet in both cases (AaBbCcDdEeFf...)
+        /// </summary>
+        public static string EnglishAlphabetBoth
+        {
+            get
+            {
+                StringBuilder buffer = new StringBuilder();
+                for (int i = 0; i < StringUtils.EnglishAlphabetUpper.Length; i++)
+                {
+                    buffer.Append(StringUtils.EnglishAlphabetUpper[i]);
+                    buffer.Append(StringUtils.EnglishAlphabetLower[i]);
+                }
+                return buffer.ToString();
+            }
+        }
+
+        /// <summary>
+        /// String which contains all numeric characters.
+        /// </summary>
+        public static string Numbers => "0123456789";
+
+        /// <summary>
+        /// String which contains whole english alphabet in both cases and numeric characters.
+        /// </summary>
+        public static string EnglishBothAndNumbers => StringUtils.EnglishAlphabetBoth + StringUtils.Numbers;
+
+        /// <summary>
+        /// Shuffles string.
+        /// </summary>
+        /// <param name="str">String which characters will be shuffled.</param>
+        /// <returns>String with shuffled characters.</returns>
+        public static string Shuffle(string str)
+        {
+            IList<char> chars = new List<char>(str.ToCharArray());
+            StringBuilder reti = new StringBuilder();
+            Random rnd = new Random();
+            while(chars.Count > 0)
+            {
+                int idx = rnd.Next(0, chars.Count);
+                reti.Append(chars[idx]);
+                chars.RemoveAt(idx);
+            }
+            return reti.ToString();
         }
     }
 }

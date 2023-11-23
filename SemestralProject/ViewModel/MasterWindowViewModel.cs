@@ -45,6 +45,12 @@ namespace SemestralProject.ViewModel
         private string name = string.Empty;
 
         /// <summary>
+        /// Displayed role of user.
+        /// </summary>
+        [ObservableProperty]
+        private string displayRole = string.Empty;
+
+        /// <summary>
         /// Creates new handler of master window.
         /// </summary>
         public MasterWindowViewModel() : base()
@@ -79,7 +85,8 @@ namespace SemestralProject.ViewModel
         /// <param name="role">New role of user.</param>
         private void RoleChanged(Role role)
         {
-            this.role = role;   
+            this.role = role;
+            this.DisplayRole = role.Name;
         }
 
         /// <summary>

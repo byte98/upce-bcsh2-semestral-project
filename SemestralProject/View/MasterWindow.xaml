@@ -48,7 +48,10 @@
                 <Button Background="Transparent" Padding="8,4,8,4" Style="{StaticResource ButtonRevealStyle}">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
                         <Image Source="{Binding Image}" Width="32" Height="32" Margin="0,0,8,0"/>
-                        <Label Content="{Binding Name}" Margin="0,4,0,0"/>
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="{Binding Name}" Margin="0,0,0,4"/>
+                            <Label Content="{Binding DisplayRole}" Foreground="{DynamicResource SystemBaseMediumColorBrush}"/>
+                        </StackPanel>
                     </StackPanel>
                     <ui:FlyoutService.Flyout>
                         <ui:CommandBarFlyout Placement="Bottom">
