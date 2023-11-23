@@ -10,6 +10,9 @@ CREATE OR REPLACE
  */
 PACKAGE sempr_crud AS 
 --
+    /*
+     * Type definition of data stored in 'staty' table
+     */
     TYPE t_staty IS TABLE OF staty%ROWTYPE;
 --
     PROCEDURE proc_staty_create(p_name IN staty.nazev%TYPE);
@@ -24,6 +27,9 @@ PACKAGE sempr_crud AS
 --
     FUNCTION  func_staty_read(p_name IN staty.nazev%TYPE) RETURN t_staty PIPELINED;
 --
+    /*
+     * Type definition of data stored in 'obce' table.
+     */
     TYPE t_obce IS TABLE OF obce%ROWTYPE;
 --
     PROCEDURE proc_obce_create(p_name IN obce.nazev%TYPE, p_zip IN obce.psc%TYPE, p_country in obce.stat%TYPE);
@@ -40,6 +46,9 @@ PACKAGE sempr_crud AS
 --
     FUNCTION func_obce_read(p_id IN obce.id_obec%TYPE) RETURN t_obce PIPELINED;
 --
+    /*
+     * Type definition of data stored in 'adresy' table.
+     */
     TYPE t_adresy IS TABLE OF adresy%ROWTYPE;    
 --
     PROCEDURE proc_adresy_create(p_street IN adresy.ulice%TYPE, p_home IN adresy.cislo_popisne%TYPE, p_municipality IN adresy.obec%TYPE);
@@ -64,6 +73,9 @@ PACKAGE sempr_crud AS
 --
     FUNCTION func_adresy_read(p_id IN adresy.id_adresa%TYPE) RETURN t_adresy PIPELINED;
 --
+    /*
+     * Type definition of data stored in 'osoby' table.
+     */
     TYPE t_osoby IS TABLE OF osoby%ROWTYPE;
 --
     PROCEDURE proc_osoby_create(p_name IN osoby.jmeno%TYPE, p_surname IN osoby.prijmeni%TYPE, p_email IN osoby.e_mail%TYPE, p_phone IN osoby.telefon%TYPE);
@@ -76,6 +88,9 @@ PACKAGE sempr_crud AS
 --
     FUNCTION  func_osoby_read(p_id IN osoby.id_osoba%TYPE) RETURN t_osoby PIPELINED;
 --
+    /*
+     * Type definition of table 'zamestnanci'.
+     */
     TYPE t_zamestnanci IS TABLE OF zamestnanci%ROWTYPE;
 --
     PROCEDURE proc_zamestnanci_create(p_personal_number IN zamestnanci.osobni_cislo%TYPE, p_date IN zamestnanci.datum_nastupu%TYPE, p_residence IN zamestnanci.bydliste%TYPE, p_personal_data IN zamestnanci.osobni_udaje%TYPE);
@@ -92,6 +107,9 @@ PACKAGE sempr_crud AS
 --
     FUNCTION  func_zamestnanci_read(p_id IN zamestnanci.id_zamestnanec%TYPE) RETURN t_zamestnanci PIPELINED;
 --
+    /*
+     * Type definition of table with data from 'role'.
+     */
     TYPE t_role IS TABLE OF role%ROWTYPE;
 --
     PROCEDURE proc_role_create(p_name IN role.nazev%TYPE);
@@ -104,6 +122,9 @@ PACKAGE sempr_crud AS
 --
     FUNCTION  func_role_read(p_id IN role.id_role%TYPE) RETURN t_role PIPELINED;
 --
+    /*
+     * Type definition of table with data from 'stavy'.
+     */
     TYPE t_stavy IS TABLE OF stavy%ROWTYPE;
 --
     PROCEDURE proc_stavy_create(p_name IN stavy.nazev%TYPE);
@@ -116,6 +137,9 @@ PACKAGE sempr_crud AS
 --
     FUNCTION  func_stavy_read(p_id IN stavy.id_stav%TYPE) RETURN t_stavy PIPELINED;
 --
+    /*
+     * Type definition of table of 'uzivatele'.
+     */
     TYPE t_uzivatele IS TABLE OF uzivatele%ROWTYPE;
 --
     PROCEDURE proc_uzivatele_create(p_pwd IN uzivatele.heslo%TYPE, p_reg IN uzivatele.datum_registrace%TYPE, p_pict IN uzivatele.obrazek%TYPE, p_role IN uzivatele.role%TYPE, p_state IN uzivatele.stav%TYPE, p_empl IN uzivatele.zamestnanec%TYPE);
@@ -127,8 +151,6 @@ PACKAGE sempr_crud AS
     FUNCTION  func_uzivatele_read RETURN t_uzivatele PIPELINED;
 --
     FUNCTION  func_uzivatele_read(p_id IN uzivatele.id_uzivatel%TYPE) RETURN t_uzivatele PIPELINED;
---
-    FUNCTION func_uzivatele_read_superusers RETURN t_uzivatele PIPELINED AS
 --
 END sempr_crud;
 

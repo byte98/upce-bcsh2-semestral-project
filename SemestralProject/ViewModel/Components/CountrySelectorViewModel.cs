@@ -75,6 +75,10 @@ namespace SemestralProject.ViewModel.Components
             {
                 this.SelectedCountry = ArrayUtils<Country>.Random(countries);
             }
+            if (this.SelectedCountry != null)
+            {
+                WeakReferenceMessenger.Default.Send<SelectedCountryChangedMessage>(new SelectedCountryChangedMessage(this.SelectedCountry));
+            }
             this.LoaderVisibility = Visibility.Collapsed;
             this.ComboBoxVisibility = Visibility.Visible;
         }

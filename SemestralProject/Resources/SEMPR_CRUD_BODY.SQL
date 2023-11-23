@@ -526,18 +526,5 @@ PACKAGE BODY sempr_crud AS
         END LOOP;
         CLOSE v_cursor;
     END func_uzivatele_read;
---
-    FUNCTION func_uzivatele_read_superusers RETURN t_uzivatele PIPELINED AS
-        v_cursor   SYS_REFCURSOR;
-        v_uzivatel uzivatele%ROWTYPE;
-    BEGIN
-        SET TRANSACTION READ ONLY;
-        OPEN v_cursor FOR
-            SELECT * FROM uzivatele WHERE role=0;
-        LOOP
-            FETCH v_cursor INTO v_uzivatel;
-            EXIT WHEN v_cursor%NOTFOUND;
-            PIPE ROW (v_uzivatel);
-        END LOOP;
-        CLOSE v_cursor;
+
 END sempr_crud;

@@ -10,5 +10,7 @@ PACKAGE sempr_utils AS
 
 --
     FUNCTION func_last_seq(p_seq VARCHAR2) RETURN NUMBER;
+--
+    FUNCTION func_next_seq(p_seq VARCHAR2) RETURN NUMBER;
 
 END sempr_utils;

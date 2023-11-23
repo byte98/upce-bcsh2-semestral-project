@@ -78,7 +78,7 @@ namespace SemestralProject.Model.Entities
                 }
             }
             
-            return reti.Order().ToArray();
+            return reti.ToArray();
         }
 
         /// <summary>

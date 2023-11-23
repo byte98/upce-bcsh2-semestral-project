@@ -4,12 +4,7 @@
      
      
      /* CRUD operations over 'staty' table */
-                    
-    /*
-     * Type definition of data stored in 'staty' table
-     */
---
-
+        
     /*
      * Creates new 'staty' object.
      * :param p_name: Name of new 'staty' object.
@@ -54,11 +49,6 @@
 
 
     /* CRUD operations over 'obce' table */
-
-    /*
-     * Type definition of data stored in 'obce' table.
-     */
---
 
     /*
      * Creates new 'obce' object.
@@ -119,11 +109,6 @@
 
 
     /* CRUD operations over 'adresy' table */
-
-    /*
-     * Type definition of data stored in 'adresy' table.
-     */
---
 
     /*
      * Creates new object 'adresy'.
@@ -214,11 +199,6 @@
     /* CRUD operations over 'osoby' table */
 
     /*
-     * Type definition of data stored in 'osoby' table.
-     */
---
-    
-    /*
      * Creates new 'osoby' object.
      * :param p_name:    Name of new 'osoby'.
      * :param p_surname: Surname of new 'osoby'.
@@ -262,11 +242,6 @@
     
     /* CRUD operations over 'zamestnanci' table. */
 
-    /*
-     * Type definition of table 'zamestnanci'.
-     */
---
-    
     /*
      * Creates new object 'zamestnanci'.
      * :param p_personal_number: Personal number of new 'zamestnanci' object.
@@ -333,11 +308,6 @@
     /* CRUD operations over 'role' table. */
     
     /*
-     * Type definition of table with data from 'role'.
-     */
---
-
-    /*
      * Creates object 'role'.
      * :param p_name: Name of new 'role' object.
      */
@@ -374,11 +344,6 @@
 
 
     /* CRUD operations over 'stavy' table. */
-
-    /*
-     * Type definition of table with data from 'stavy'.
-     */
---
 
     /*
      * Creates new 'stavy' object.
@@ -419,11 +384,6 @@
     /* CRUD operations over 'uzivatele' table. */
 
     /*
-     * Type definition of table of 'uzivatele'.
-     */
---
-    
-    /*
      * Creates new 'uzivatele' object.
      * :param p_pwd:   Password of new 'uzivatele'.
      * :param p_reg:   Date and time of registration of new 'uzivatele'.
@@ -463,10 +423,4 @@
      * :param p_id: Identifier of searched data.
      * :returns:    Table with all searched from 'uzivatele'.
      */
---
-
-     /*
-      * Reads all superusers.
-      * :returns: Table with all superusers.
-      */
 --

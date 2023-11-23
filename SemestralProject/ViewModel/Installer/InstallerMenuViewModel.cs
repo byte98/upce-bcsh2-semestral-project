@@ -4,7 +4,6 @@ using SemestralProject.Common;
 using SemestralProject.Model;
 using SemestralProject.View;
 using SemestralProject.View.Installer;
-using SemestralProject.View.Installer.Truncate;
 using SemestralProject.View.Navigation;
 using System;
 using System.Collections.Generic;

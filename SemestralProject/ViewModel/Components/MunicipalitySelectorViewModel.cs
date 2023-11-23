@@ -78,6 +78,10 @@ namespace SemestralProject.ViewModel.Components
                 this.AvailableMunicipalities.Add(mun);
             }
             this.SelectedMunicipality = ArrayUtils<Municipality>.Random(municipalities);
+            if (this.SelectedMunicipality != null)
+            {
+                WeakReferenceMessenger.Default.Send<SelectedMunicipalityChangedMessage>(new SelectedMunicipalityChangedMessage(this.SelectedMunicipality));
+            }
             this.LoaderVisibility = Visibility.Collapsed;
             this.ComboboxVisibility = Visibility.Visible;
         }

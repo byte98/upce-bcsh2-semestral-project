@@ -228,12 +228,7 @@ namespace SemestralProject.Resources {
         ///     
         ///     
         ///     /* CRUD operations over &apos;staty&apos; table */
-        ///                    
-        ///    /*
-        ///     * Type definition of data stored in &apos;staty&apos; table
-        ///     */
-        ///--
-        ///
+        ///        
         ///    /*
         ///     * Creates new &apos;staty&apos; object.
         ///     * :param p_name: Name of new &apos;staty&apos; object.
@@ -249,7 +244,12 @@ namespace SemestralProject.Resources {
         ///
         ///    /*
         ///     * Deletes &apos;staty&apos; object.
-        ///     * :param  [rest of string was truncated]&quot;;.
+        ///     * :param p_id: Identifier of object which will be deleted.
+        ///     */
+        ///--
+        ///
+        ///    /*
+        ///     * Reads all  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEMPR_CRUD_DOCS {
             get {
@@ -270,13 +270,14 @@ namespace SemestralProject.Resources {
         /// */
         ///PACKAGE sempr_crud AS 
         ///--
+        ///    /*
+        ///     * Type definition of data stored in &apos;staty&apos; table
+        ///     */
         ///    TYPE t_staty IS TABLE OF staty%ROWTYPE;
         ///--
         ///    PROCEDURE proc_staty_create(p_name IN staty.nazev%TYPE);
         ///--
-        ///    PROCEDURE proc_staty_update(p_id IN staty.id_stat%TYPE, p_name IN staty.nazev%TYPE);
-        ///--
-        ///     [rest of string was truncated]&quot;;.
+        ///    PROCEDURE proc_staty_ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEMPR_CRUD_HEADER {
             get {
@@ -312,9 +313,16 @@ namespace SemestralProject.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to     /*
-        ///     * Gets last generated number of sequence
+        ///     * Gets last generated number of sequence.
         ///     * :param p_seq: Name of sequence.
         ///     * :returns:     Last generated number of sequence,
+        ///     *               or -2147483648 if any error occurs.
+        ///     */
+        ///--
+        ///    /*
+        ///     * Gets next number from sequence.
+        ///     * :param p_seq: Name of sequence.
+        ///     * :returns:     Next number from sequence, 
         ///     *               or -2147483648 if any error occurs.
         ///     */
         ///--
@@ -339,6 +347,8 @@ namespace SemestralProject.Resources {
         ///
         ///--
         ///    FUNCTION func_last_seq(p_seq VARCHAR2) RETURN NUMBER;
+        ///--
+        ///    FUNCTION func_next_seq(p_seq VARCHAR2) RETURN NUMBER;
         ///
         ///END sempr_utils;
         ///.

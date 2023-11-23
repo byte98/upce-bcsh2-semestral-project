@@ -86,6 +86,10 @@ namespace SemestralProject.ViewModel.Components
                 this.AvailableAddresses.Add(address);
             }
             this.SelectedAddress = ArrayUtils<Address>.Random(addresses);
+            if (this.SelectedAddress != null)
+            {
+                WeakReferenceMessenger.Default.Send<SelectedAddressChangedMessage>(new SelectedAddressChangedMessage(this.SelectedAddress));
+            }
             this.LoaderVisibility = Visibility.Collapsed;
             this.ComboBoxVisibility = Visibility.Visible;
         }
