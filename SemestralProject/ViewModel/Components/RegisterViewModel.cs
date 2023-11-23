@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using SemestralProject.Model;
 using SemestralProject.Model.Entities;
+using SemestralProject.Model.Persistence;
 using SemestralProject.View.Navigation;
 using SemestralProject.ViewModel.Messaging;
 using System;
@@ -97,12 +99,27 @@ namespace SemestralProject.ViewModel.Components
         /// Handles click on 'register' button.
         /// </summary>
         [RelayCommand(CanExecute =nameof(CanRegister))]
-        private void Register()
+        private async Task Register()
         {
-            this.ControlsEnabled = false;
-            this.ButtonTextVisibility = Visibility.Collapsed;
-            this.ButtonProgressVisibility = Visibility.Visible;
-
+            if (this.Address != null)
+            {
+                this.ControlsEnabled = false;
+                this.ButtonTextVisibility = Visibility.Collapsed;
+                this.ButtonProgressVisibility = Visibility.Visible;
+                Registration registration = new Registration(
+                    this.Name, this.Surname, this.Email, this.Phone, this.Password, this.Address
+                );
+                bool registered = registration.Register();
+                this.RestartForm();
+                if (registered == true)
+                {
+                    await SecureStorage.Default.SaveAsync(LoginViewModel.SecStoragePersonalNumber, registration.PersonalNumber.ToString());
+                    this.NavigateBack();
+                    WeakReferenceMessenger.Default.Send<UserRegisteredMessage>(new UserRegisteredMessage(registration.PersonalNumber));
+                    MessageBox.Show("Registrace byla úspešně dokončená. Nyní se lze přihlásit. Vaše osobní číslo je " + registration.PersonalNumber + ".", "Úspěšná registrace", MessageBoxButton.OK, MessageBoxImage.Information);
+                    
+                }
+            }
         }
 
         /// <summary>

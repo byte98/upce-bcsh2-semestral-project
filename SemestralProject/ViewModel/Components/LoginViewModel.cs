@@ -28,7 +28,7 @@ namespace SemestralProject.ViewModel.Components
         /// <summary>
         /// Name of personal number value in secure storage.
         /// </summary>
-        private const string SecStoragePersonalNumber = "login.personal_number";
+        public const string SecStoragePersonalNumber = "login.personal_number";
 
         /// <summary>
         /// Personal number of user.
@@ -64,6 +64,7 @@ namespace SemestralProject.ViewModel.Components
         [ObservableProperty]
         private Visibility errorVisibility = Visibility.Collapsed;
 
+
         /// <summary>
         /// Checks, whether user can logi n.
         /// </summary>
@@ -80,6 +81,14 @@ namespace SemestralProject.ViewModel.Components
                 this.Password.Length > 0 &&
                 this.IsEnabled() == true
             );
+        }
+
+        /// <summary>
+        /// Creates new view model for login form.
+        /// </summary>
+        public LoginViewModel()
+        {
+            
         }
 
         /// <summary>
