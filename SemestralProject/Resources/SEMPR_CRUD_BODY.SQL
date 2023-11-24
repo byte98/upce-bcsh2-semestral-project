@@ -529,7 +529,7 @@ PACKAGE BODY sempr_crud AS
 --
     PROCEDURE proc_opravneni_create(p_name IN opravneni.nazev%TYPE, p_sysname IN opravneni.systemovy_nazev%TYPE) AS
     BEGIN
-        INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (p_name, p_sysname0);
+        INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (p_name, p_sysname);
     END proc_opravneni_create;
 --
     PROCEDURE proc_opravneni_update(p_id IN opravneni.id_opravneni%TYPE, p_name IN opravneni.nazev%TYPE, p_sysname IN opravneni.systemovy_nazev%TYPE) AS
@@ -558,7 +558,7 @@ PACKAGE BODY sempr_crud AS
         CLOSE v_cursor;
     END func_opravneni_read;
 --
-    FUNCTION  func_opravneni_read(p_id IN opravneni.id%TYPE) RETURN t_opravneni PIPELINED AS
+    FUNCTION  func_opravneni_read(p_id IN opravneni.id_opravneni%TYPE) RETURN t_opravneni PIPELINED AS
         v_cursor    SYS_REFCURSOR;
         v_opravneni opravneni%ROWTYPE;
     BEGIN

@@ -375,7 +375,7 @@
      * :param p_id: Identifier of searched data.
      * :returns:    Table with searched data from 'stavy'.
      */
-  --  
+--  
 
 
 
@@ -461,3 +461,4 @@
       * :param p_id: Identifier of searched object.
       * :returns:    Table with searched data from 'opravneni'.
       */
+--

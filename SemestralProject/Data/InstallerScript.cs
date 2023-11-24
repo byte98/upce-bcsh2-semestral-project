@@ -161,38 +161,38 @@ namespace SemestralProject.Data
         public static readonly IStringProvider Packages = new CombinedStringProvider(
             new CompactStringProvider(
                 new MergedStringProvider(
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_HEADER"), "--" + Environment.NewLine),
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_DOCS"), "--" + Environment.NewLine)
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_HEADER"), "--" , true),
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_DOCS"), "--" , true)
                 )
             ),
             new CompactStringProvider(
                 new MergedStringProvider(
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_BODY"), "--" + Environment.NewLine),
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_DOCS"), "--" + Environment.NewLine)
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_BODY"), "--" , true),
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_DOCS"), "--" , true)
                 )
             ),
             new CompactStringProvider(
                 new MergedStringProvider(
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_HEADER"), "--" + Environment.NewLine),
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_DOCS"), "--" + Environment.NewLine)
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_HEADER"), "--" , true),
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_DOCS"), "--" , true)
                 )
             ),
             new CompactStringProvider(
                 new MergedStringProvider(
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_BODY"), "--" + Environment.NewLine),
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_DOCS"), "--" + Environment.NewLine)
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_BODY"), "--" , true),
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_DOCS"), "--" , true)
                 )
             ),
             new CompactStringProvider(
                 new MergedStringProvider(
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_HEADER"), "--" + Environment.NewLine),
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_DOCS"), "--" + Environment.NewLine)
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_HEADER"), "--" , true),
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_DOCS"), "--" , true)
                 )
             ),
             new CompactStringProvider(
                 new MergedStringProvider(
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_BODY"), "--" + Environment.NewLine),
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_DOCS"), "--" + Environment.NewLine)
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_BODY"), "--" , true),
+                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_DOCS"), "--" , true)
                 )
             )
         );

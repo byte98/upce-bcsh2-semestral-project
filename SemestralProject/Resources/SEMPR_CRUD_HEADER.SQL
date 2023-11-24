@@ -163,9 +163,9 @@ PACKAGE sempr_crud AS
 --
     PROCEDURE proc_opravneni_delete(p_id IN opravneni.id_opravneni%TYPE);
 --
-    PROCEDURE func_opravneni_read RETURN t_opravneni PIPELINED;
+    FUNCTION func_opravneni_read RETURN t_opravneni PIPELINED;
 --
-    FUNCTION  func_opravneni_read(p_id IN opravneni.id%TYPE) RETURN t_opravneni PIPELINED;
+    FUNCTION  func_opravneni_read(p_id IN opravneni.id_opravneni%TYPE) RETURN t_opravneni PIPELINED;
 
 END sempr_crud;
 
