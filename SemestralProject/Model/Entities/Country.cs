@@ -15,11 +15,6 @@ namespace SemestralProject.Model.Entities
     public class Country: AsynchronousEntity
     {
         /// <summary>
-        /// Identifier of country.
-        /// </summary>
-        public int Id { get; init; }
-
-        /// <summary>
         /// Name of country.
         /// </summary>
         public string Name { get; set; }

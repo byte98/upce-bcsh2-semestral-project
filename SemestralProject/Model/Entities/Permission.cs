@@ -13,11 +13,6 @@ namespace SemestralProject.Model.Entities
     public class Permission: AsynchronousEntity
     {
         /// <summary>
-        /// Identifier of permission.
-        /// </summary>
-        public int Id { get; init; }
-
-        /// <summary>
         /// Name of permission.
         /// </summary>
         public string Name { get; set; }

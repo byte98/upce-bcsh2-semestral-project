@@ -13,11 +13,6 @@ namespace SemestralProject.Model.Entities
     public class State: AsynchronousEntity
     {
         /// <summary>
-        /// Identifier of state.
-        /// </summary>
-        public int Id { get; init; }
-
-        /// <summary>
         /// Name of state.
         /// </summary>
         public string Name { get; set; }

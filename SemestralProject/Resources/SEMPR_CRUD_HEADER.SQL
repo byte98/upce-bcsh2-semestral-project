@@ -163,9 +163,19 @@ PACKAGE sempr_crud AS
 --
     PROCEDURE proc_opravneni_delete(p_id IN opravneni.id_opravneni%TYPE);
 --
-    FUNCTION func_opravneni_read RETURN t_opravneni PIPELINED;
+    FUNCTION  func_opravneni_read RETURN t_opravneni PIPELINED;
 --
     FUNCTION  func_opravneni_read(p_id IN opravneni.id_opravneni%TYPE) RETURN t_opravneni PIPELINED;
-
+--
+    /*
+     * Type definition of table of 'prava'
+     */
+    TYPE t_prava IS TABLE OF prava%ROWTYPE;
+--
+    PROCEDURE proc_prava_create(p_role IN prava.role%TYPE, p_perm IN prava.opravneni%TYPE);
+--
+    PROCEDURE proc_prava_delete(p_id IN prava.id_pravo%TYPE);
+--
+    FUNCTION  func_prava_read(p_role IN prava.role%TYPE) RETURN t_prava PIPELINED;
 END sempr_crud;
 

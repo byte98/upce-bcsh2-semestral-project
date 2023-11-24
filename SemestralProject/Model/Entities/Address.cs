@@ -14,11 +14,6 @@ namespace SemestralProject.Model.Entities
     public class Address: AsynchronousEntity
     {
         /// <summary>
-        /// Identifier of address.
-        /// </summary>
-        public int Id { get; init; }
-
-        /// <summary>
         /// Street part of address.
         /// </summary>
         public string? Street { get; set; }

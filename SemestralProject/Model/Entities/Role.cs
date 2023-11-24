@@ -1,4 +1,5 @@
 ﻿using SemestralProject.Common;
+using SemestralProject.Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,6 @@ namespace SemestralProject.Model.Entities
     /// </summary>
     public class Role: AsynchronousEntity
     {
-        /// <summary>
-        /// Identifier of role.
-        /// </summary>
-        public int Id { get; init; }
-
         /// <summary>
         /// Name of role.
         /// </summary>
@@ -33,6 +29,11 @@ namespace SemestralProject.Model.Entities
         public static readonly Role User = new Role(1, "Uživatel");
 
         /// <summary>
+        /// Array of permissions associated with role.
+        /// </summary>
+        private Permission[] permissions;
+
+        /// <summary>
         /// Creates new role.
         /// </summary>
         /// <param name="id">Identifier of role.</param>
@@ -41,6 +42,90 @@ namespace SemestralProject.Model.Entities
         {
             this.Id = id;
             this.Name = name;
+            this.permissions = new Permission[0];
+        }
+
+
+        /// <summary>
+        /// Checks, whether role has associated permission.
+        /// </summary>
+        /// <param name="name">System name of permission.</param>
+        /// <returns>
+        /// TRUE if user role has associated permission,
+        /// FALSE otherwise.
+        /// </returns>
+        public bool HasPermission(PermissionNames name)
+        {
+            bool reti = false;
+            if (this.permissions.Length == 0)
+            {
+                this.LoadPermissions();
+            }
+            foreach(Permission permission in this.permissions)
+            {
+                if (permission.Name == PermissionNamesConvertor.ToName(name))
+                {
+                    reti = true;
+                    break;
+                }
+            }
+            return reti;
+        }
+
+        /// <summary>
+        /// Checks, whether role has associated permission asynchronously.
+        /// </summary>
+        /// <param name="name">System name of permission.</param>
+        /// <returns>
+        /// Task which resolves into:
+        /// TRUE if user role has associated permission,
+        /// FALSE otherwise.
+        /// </returns>
+        public Task<bool> HasPermissionAsync(PermissionNames name)
+        {
+            return Task<bool>.Run(() =>
+            {
+                return this.HasPermission(name);
+            });
+        }
+
+        /// <summary>
+        /// Gets all permissions associated with role.
+        /// </summary>
+        /// <returns>Array of all permissions associated with user role.</returns>
+        public Permission[] GetPermissions()
+        {
+            if (this.permissions.Length == 0)
+            {
+                this.LoadPermissions();
+            }
+            return this.permissions;
+        }
+
+        /// <summary>
+        /// Gets all permissions associated with role asynchronously.
+        /// </summary>
+        /// <returns>Task which resolves into array of all permissions associated with user role.</returns>
+        public Task<Permission[]> GetPermissionsAsync()
+        {
+            return Task<Permission[]>.Run(() =>
+            {
+                return this.GetPermissions();
+            });
+        }
+
+        /// <summary>
+        /// Loads all available permissions to user role.
+        /// </summary>
+        private void LoadPermissions()
+        {
+            Rights[] rights = Rights.GetByRole(this);
+            IList<Permission> loaded = new List<Permission>();
+            foreach(Rights right in rights)
+            {
+                loaded.Add(right.Permission);
+            }
+            this.permissions = loaded.ToArray();
         }
 
         /// <summary>

@@ -15,6 +15,11 @@ namespace SemestralProject.Model
     public abstract class Entity
     {
         /// <summary>
+        /// Identifier of entity.
+        /// </summary>
+        public int Id { get; init; }
+
+        /// <summary>
         /// Updates entity.
         /// </summary>
         /// <returns>TRUE if entity has been successfully updated, FALSE otherwise.</returns>
@@ -62,6 +67,25 @@ namespace SemestralProject.Model
             reti = connection.Query(cmd);
             connection.Execute("COMMIT");
             return reti;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            bool reti = false;
+            if (obj != null)
+            {
+                if (obj.GetType() == this.GetType())
+                {
+                    Entity e = (Entity)obj;
+                    return e.Id == this.Id;
+                }
+            }
+            return reti;
+        }
+
+        public override int GetHashCode()
+        {
+            return (this.GetType().GetHashCode() ^ this.Id);
         }
     }
 }

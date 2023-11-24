@@ -529,18 +529,24 @@ PACKAGE BODY sempr_crud AS
 --
     PROCEDURE proc_opravneni_create(p_name IN opravneni.nazev%TYPE, p_sysname IN opravneni.systemovy_nazev%TYPE) AS
     BEGIN
+        SET TRANSACTION READ WRITE;
         INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (p_name, p_sysname);
+        COMMIT;
     END proc_opravneni_create;
 --
     PROCEDURE proc_opravneni_update(p_id IN opravneni.id_opravneni%TYPE, p_name IN opravneni.nazev%TYPE, p_sysname IN opravneni.systemovy_nazev%TYPE) AS
     BEGIN
+        SET TRANSACTION READ WRITE;
         UPDATE opravneni SET nazev=p_name, systemovy_nazev=p_sysname
         WHERE id_opravneni=p_id;
+        COMMIT;
     END proc_opravneni_update;
 --
     PROCEDURE proc_opravneni_delete(p_id IN opravneni.id_opravneni%TYPE) AS
     BEGIN
+        SET TRANSACTION READ WRITE;
         DELETE FROM opravneni WHERE id_opravneni=p_id;
+        COMMIT;
     END proc_opravneni_delete;
 --
     FUNCTION func_opravneni_read RETURN t_opravneni PIPELINED AS
@@ -572,5 +578,34 @@ PACKAGE BODY sempr_crud AS
         END LOOP;
         CLOSE v_cursor;
     END func_opravneni_read;
-
+--
+    PROCEDURE proc_prava_create(p_role IN prava.role%TYPE, p_perm IN prava.opravneni%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        INSERT INTO prava(role,opravneni) VALUES(p_role, p_perm);
+        COMMIT;
+    END proc_prava_create;
+--
+    PROCEDURE proc_prava_delete(p_id IN prava.id_pravo%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        DELETE FROM prava WHERE id_pravo=p_id;
+        COMMIT;
+    END proc_prava_delete;
+--
+    FUNCTION  func_prava_read(p_role IN prava.role%TYPE) RETURN t_prava PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_pravo   prava%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM prava WHERE role=p_role;
+        LOOP
+            FETCH v_cursor INTO v_pravo;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_pravo);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_prava_read;
+    
 END sempr_crud;

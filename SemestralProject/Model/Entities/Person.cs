@@ -14,11 +14,6 @@ namespace SemestralProject.Model.Entities
     public class Person: AsynchronousEntity
     {
         /// <summary>
-        /// Identifier of personal data.
-        /// </summary>
-        public int Id { get; init; }
-
-        /// <summary>
         /// Name of person.
         /// </summary>
         public string Name { get; set; }

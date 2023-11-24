@@ -17,11 +17,6 @@ namespace SemestralProject.Model.Entities
     public class User: AsynchronousEntity
     {
         /// <summary>
-        /// Identifier of user.
-        /// </summary>
-        public int Id { get; init; }
-
-        /// <summary>
         /// Attribute which holds password of user.
         /// </summary>
         private string password;

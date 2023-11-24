@@ -462,3 +462,27 @@
       * :returns:    Table with searched data from 'opravneni'.
       */
 --
+
+
+
+
+
+
+     /* CRUD operations over 'prava' */
+
+     /*
+      * Creates new row in 'prava'.
+      * :param p_role:  Identifier of 'role' to which new 'opravneni' will be assigned.
+      * :param p_perm:  Identifier of 'opravneni' which will be assigned to 'role'
+      */
+--
+     /*
+      * Deletes row in 'prava'.
+      * :param p_id: Identifier of row which will be deleted.
+      */
+--
+     /*
+      * Reads all 'prava' assigned to 'role'.
+      * :param p_role: Identifier of 'role'.
+      * :returns:      Table with data from 'prava' with 'prava' assigned to searched 'role'.
+      */
