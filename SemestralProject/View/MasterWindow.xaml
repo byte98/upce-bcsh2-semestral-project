@@ -26,13 +26,14 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top">
-            <components:MenuButton Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Orientation="Vertical" VerticalAlignment="Top">
+            <components:MenuButton IsChecked="True" Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
-                    <ui:SymbolIcon Symbol="Home" Margin="0,0,8,0"/>
-                    <Label Content="Domů"/>
+                    <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xE136;" Margin="8,0,16,0"/>
+                    <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Moje údaje"/>
                 </StackPanel>
             </components:MenuButton>
         </StackPanel>
@@ -54,19 +55,32 @@
                         </StackPanel>
                     </StackPanel>
                     <ui:FlyoutService.Flyout>
-                        <ui:CommandBarFlyout Placement="Bottom">
-                            <ui:AppBarElementContainer>
-                                <Button Background="Transparent" Command="{Binding LogoutCommand}">
+                        <ui:MenuFlyout>
+                            <MenuItem Command="{Binding LogoutCommand}">
+                                <MenuItem.Header>
                                     <StackPanel Orientation="Horizontal">
-                                        <Label FontFamily="Segoe MDL2 Assets" Content="&#xE7E8;" Margin="0,0,8,0"/>
+                                        <Label FontFamily="Segoe MDL2 Assets" Content="&#xE7E8;" Margin="0,2,8,0"/>
                                         <Label Content="Odhlásit se" />
                                     </StackPanel>
-                                </Button>
-                            </ui:AppBarElementContainer>
-                        </ui:CommandBarFlyout>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem Visibility="{Binding ChangeRoleVisibility}" Command="{Binding ChangeRoleCommand}">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label FontFamily="Segoe MDL2 Assets" Content="&#xE748;" Margin="0,2,8,0"/>
+                                        <Label Content="Změnit roli" />
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                        </ui:MenuFlyout>
                     </ui:FlyoutService.Flyout>
                 </Button>
             </StackPanel>
         </Grid>
+        <ScrollViewer Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ui:Frame Padding="8,8,8,8" Background="{StaticResource SystemAltHighColorBrush}" x:Name="FrameContent">
+
+            </ui:Frame>
+        </ScrollViewer>
     </Grid>
 </Window>

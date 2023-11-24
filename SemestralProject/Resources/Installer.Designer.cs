@@ -78,6 +78,19 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Změnit svoji roli za běhu&apos;, &apos;role.modify.runtime&apos;)
+        ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Změnit svoji roli&apos;, &apos;role.modify.own&apos;)
+        ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Změnit své údaje&apos;, &apos;user.modify.own&apos;)
+        ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Změnit své osobní číslo&apos;, &apos;employee.personal_number.modify.own&apos;)
+        ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Změnit svůj datum nástupu&apos;, &apos;employee.da [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string PERMISSIONS {
+            get {
+                return ResourceManager.GetString("PERMISSIONS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ALTER TABLE adresy
         ///    ADD CONSTRAINT adresy_obce_fk FOREIGN KEY ( obec )
         ///    REFERENCES obce ( id_obec )
@@ -385,6 +398,18 @@ namespace SemestralProject.Resources {
         internal static string STATES {
             get {
                 return ResourceManager.GetString("STATES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INSERT INTO prava (role, opravneni)
+        ///SELECT 0 AS role_id, o.id_opravneni AS opravneni_id
+        ///FROM opravneni o
+        ///.
+        /// </summary>
+        internal static string SUPERUSER {
+            get {
+                return ResourceManager.GetString("SUPERUSER", resourceCulture);
             }
         }
         

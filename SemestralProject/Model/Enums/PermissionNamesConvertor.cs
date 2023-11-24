@@ -22,7 +22,12 @@ namespace SemestralProject.Model.Enums
             string reti = string.Empty;
             switch(name)
             {
-                case PermissionNames.ChangeRoleRuntime: reti = "role.change.runtime"; break;
+                case PermissionNames.ChangeRoleRuntime:         reti = "role.modify.runtime";                 break;
+                case PermissionNames.ChangeRoleOwn:             reti = "role.modify.own";                     break;
+                case PermissionNames.ChangeUserOwn:             reti = "user.modify.own";                     break;
+                case PermissionNames.ChangePersonalNumberOwn:   reti = "employee.personal_number.modify.own"; break;
+                case PermissionNames.ChangeEmploymentDateOwn:   reti = "employee.date.modify.own";            break;
+                case PermissionNames.ChangeRegistrationDateOwn: reti = "user.date.modify.own";                break;
             }
             return reti;
         }

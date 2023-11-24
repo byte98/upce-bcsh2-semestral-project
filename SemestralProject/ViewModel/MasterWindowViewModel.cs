@@ -5,6 +5,9 @@ using SemestralProject.Common;
 using SemestralProject.Model.Entities;
 using SemestralProject.Utils;
 using SemestralProject.View;
+using SemestralProject.View.Components;
+using SemestralProject.View.Navigation;
+using SemestralProject.View.Pages;
 using SemestralProject.ViewModel.Messaging;
 using System;
 using System.Collections.Generic;
@@ -12,6 +15,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace SemestralProject.ViewModel
@@ -19,7 +23,8 @@ namespace SemestralProject.ViewModel
     /// <summary>
     /// Class which handles behaviour of master window.
     /// </summary>
-    public partial class MasterWindowViewModel : ObservableObject
+    [ObservableObject]
+    public partial class MasterWindowViewModel : NavigationSource
     {
 
         /// <summary>
@@ -51,6 +56,12 @@ namespace SemestralProject.ViewModel
         private string displayRole = string.Empty;
 
         /// <summary>
+        /// Visibility of change role button.
+        /// </summary>
+        [ObservableProperty]
+        private Visibility changeRoleVisibility = Visibility.Collapsed;
+
+        /// <summary>
         /// Creates new handler of master window.
         /// </summary>
         public MasterWindowViewModel() : base()
@@ -72,11 +83,18 @@ namespace SemestralProject.ViewModel
         /// Handles change of logged user.
         /// </summary>
         /// <param name="user">New logged user.</param>
-        private void UserChanged(User user)
+        private async void UserChanged(User user)
         {
+            this.ChangeRoleVisibility = Visibility.Collapsed;
             this.user = user;
             this.Image = this.user.Image.ToImage();
             this.Name = this.user.Employee.PersonalData.Name + " " + this.user.Employee.PersonalData.Surname;
+            bool canChangeRole = await this.CanChangeRoleAsync();
+            if (canChangeRole == true)
+            {
+                this.ChangeRoleVisibility = Visibility.Visible;
+            }
+            WeakReferenceMessenger.Default.Send<InfoUserMessage>(new InfoUserMessage(user));
         }
         
         /// <summary>
@@ -87,6 +105,8 @@ namespace SemestralProject.ViewModel
         {
             this.role = role;
             this.DisplayRole = role.Name;
+
+            WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(role));
         }
 
         /// <summary>
@@ -105,6 +125,16 @@ namespace SemestralProject.ViewModel
             else
             {
                 WindowUtils.MaximizeForModel(this);
+                this.Navigate(new MyPage());
+                if (this.user != null)
+                {
+                    WeakReferenceMessenger.Default.Send<InfoUserMessage>(new InfoUserMessage(this.user));
+                }
+                if (this.role != null)
+                {
+                    WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.role));
+                }
+                
             }
         }
 
@@ -117,6 +147,50 @@ namespace SemestralProject.ViewModel
             MainWindow main = new MainWindow();
             main.Show();
             WindowUtils.HideForModel(this);
+        }
+
+        /// <summary>
+        /// Checks, whether user can change role.
+        /// </summary>
+        /// <returns>TRUE if user can change role, FALSE otherwise.</returns>
+        private bool CanChangeRole()
+        {
+            bool reti = false;
+            if (this.user != null)
+            {
+                if (user.Role.HasPermission(Model.Enums.PermissionNames.ChangeRoleRuntime))
+                {
+                    reti = true;
+                }
+            }
+            return reti;
+        }
+
+        /// <summary>
+        /// Checks, whether user can change role asynchronously.
+        /// </summary>
+        /// <returns>Task which resolves into TRUE if user can change role, FALSE otherwise.</returns>
+        private Task<bool> CanChangeRoleAsync()
+        {
+            return Task<bool>.Run(() =>
+            {
+                return this.CanChangeRole();
+            });
+        }
+
+        /// <summary>
+        /// Handles change of role.
+        /// </summary>
+        [RelayCommand]
+        private void ChangeRole()
+        {
+            WeakReferenceMessenger.Default.Register<SelectedRoleChangedMessage>(this, (sender, args) =>
+            {
+                this.RoleChanged(args.Value);
+            });
+            RoleSelectionWindow roleSelection = new RoleSelectionWindow();
+            roleSelection.ShowDialog();
+            WeakReferenceMessenger.Default.Unregister<SelectedRoleChangedMessage>(this);
         }
     }
 }

@@ -137,6 +137,7 @@ namespace SemestralProject.ViewModel.Components
                 );
                 WindowUtils.CloseForModel(typeof(MainWindowViewModel));
                 WindowUtils.ShowForModel(typeof(MasterWindowViewModel));
+                Navigator.Instance.Context = MasterWindow.ContentFrame;
             }
         }
 

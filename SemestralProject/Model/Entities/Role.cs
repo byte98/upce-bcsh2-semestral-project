@@ -63,7 +63,7 @@ namespace SemestralProject.Model.Entities
             }
             foreach(Permission permission in this.permissions)
             {
-                if (permission.Name == PermissionNamesConvertor.ToName(name))
+                if (permission.SystemName == PermissionNamesConvertor.ToName(name))
                 {
                     reti = true;
                     break;
@@ -237,6 +237,11 @@ namespace SemestralProject.Model.Entities
             string sql = $"sempr_crud.proc_role_delete({this.Id})";
             IConnection connection = OracleConnector.Load();
             return connection.Execute(sql);
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
         }
     }
 }

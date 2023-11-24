@@ -152,6 +152,8 @@ namespace SemestralProject.Data
             new FileLinesStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "ROLES")),
             new FileLinesStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "COUNTRIES")),
             new FileLinesStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "STATES")),
+            new FileLinesStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "PERMISSIONS")),
+            new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SUPERUSER")),
             new ConstantStringProvider("COMMIT")
         );
 

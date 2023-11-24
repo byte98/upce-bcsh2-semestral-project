@@ -14,6 +14,31 @@ namespace SemestralProject.Model.Enums
         /// <summary>
         /// Permission of changing role during program runtime.
         /// </summary>
-        ChangeRoleRuntime
+        ChangeRoleRuntime,
+
+        /// <summary>
+        /// Permission of changing own role.
+        /// </summary>
+        ChangeRoleOwn,
+
+        /// <summary>
+        /// Permission of changing own user data.
+        /// </summary>
+        ChangeUserOwn,
+
+        /// <summary>
+        /// Permission of changing own personal number.
+        /// </summary>
+        ChangePersonalNumberOwn,
+
+        /// <summary>
+        /// Permission of changing date of registration.
+        /// </summary>
+        ChangeRegistrationDateOwn,
+
+        /// <summary>
+        /// Permission of changing employment date.
+        /// </summary>
+        ChangeEmploymentDateOwn
     }
 }

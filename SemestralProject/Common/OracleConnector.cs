@@ -156,11 +156,16 @@ namespace SemestralProject.Common
         /// <param name="text">Text which will be written to log file.</param>
         private void Log(string text)
         {
-            using (StreamWriter sw = File.AppendText("db.log"))
+            try
             {
-                sw.WriteLine(DateTime.Now.ToString() + ": " + text);
-                //sw.WriteLine(text);
+                using (StreamWriter sw = File.AppendText("db.log"))
+                {
+                    sw.WriteLine(DateTime.Now.ToString() + ": " + text);
+                    //sw.WriteLine(text);
+                }
             }
+            catch { }
+            
         }
 
         public bool Connect()

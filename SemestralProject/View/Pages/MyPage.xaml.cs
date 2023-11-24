@@ -10,24 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SemestralProject.View
+namespace SemestralProject.View.Pages
 {
     /// <summary>
-    /// Interaction logic for MasterWindow.xaml
+    /// Interaction logic for MyPage.xaml
     /// </summary>
-    public partial class MasterWindow : Window
+    public partial class MyPage : Page
     {
-        /// <summary>
-        /// Frame with main content of page.
-        /// </summary>
-        public static Frame? ContentFrame = null;
-
-        public MasterWindow()
+        public MyPage()
         {
             InitializeComponent();
-            MasterWindow.ContentFrame = this.FrameContent;
         }
     }
 }

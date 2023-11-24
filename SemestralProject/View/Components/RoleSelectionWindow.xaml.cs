@@ -12,22 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SemestralProject.View
+namespace SemestralProject.View.Components
 {
     /// <summary>
-    /// Interaction logic for MasterWindow.xaml
+    /// Interaction logic for RoleSelectionWindow.xaml
     /// </summary>
-    public partial class MasterWindow : Window
+    public partial class RoleSelectionWindow : Window
     {
-        /// <summary>
-        /// Frame with main content of page.
-        /// </summary>
-        public static Frame? ContentFrame = null;
-
-        public MasterWindow()
+        public RoleSelectionWindow()
         {
             InitializeComponent();
-            MasterWindow.ContentFrame = this.FrameContent;
         }
     }
 }

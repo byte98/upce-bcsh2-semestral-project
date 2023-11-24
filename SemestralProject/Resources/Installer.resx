@@ -121,6 +121,9 @@
   <data name="COUNTRIES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>COUNTRIES.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="PERMISSIONS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PERMISSIONS.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="RELATIONS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>RELATIONS.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -162,6 +165,9 @@
   </data>
   <data name="STATES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>STATES.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="SUPERUSER" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>SUPERUSER.SQl;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="TABLES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>TABLES.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
