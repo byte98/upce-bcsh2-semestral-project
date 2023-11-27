@@ -78,6 +78,7 @@ namespace SemestralProject.Model
         private static bool Execute(string sql)
         {
             bool reti = false;
+            if (sql.EndsWith(";") == false) sql = sql + ";";
             IConnection connection = OracleConnector.Load();
             string cmd = $"BEGIN\n    {sql}\nEND;";
             reti = connection.Execute(cmd);

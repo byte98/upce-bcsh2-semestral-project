@@ -431,6 +431,7 @@ namespace SemestralProject.ViewModel.Pages
                 }
                 this.User.Registration = this.Registration;
                 await this.User.UpdateAsync();
+                WeakReferenceMessenger.Default.Send<LoggedUserChangedMessage>(new LoggedUserChangedMessage(this.User));
             }
             this.Saving = false;
             this.ReEnable();
