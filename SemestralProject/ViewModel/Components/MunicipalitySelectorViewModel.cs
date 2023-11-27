@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using SemestralProject.Model.Entities;
 using SemestralProject.Utils;
+using SemestralProject.View;
 using SemestralProject.View.Components;
 using SemestralProject.ViewModel.Messaging;
 using System;
@@ -12,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace SemestralProject.ViewModel.Components
 {
@@ -115,6 +117,18 @@ namespace SemestralProject.ViewModel.Components
         /// TRUE, if finding municipality is allowed,
         /// FALSE otherwise.
         /// </returns>
-        private bool FindAllowed() => this.ComboboxVisibility == Visibility.Visible; 
+        private bool FindAllowed() => this.ComboboxVisibility == Visibility.Visible;
+
+        /// <summary>
+        /// Handles change of selection.
+        /// </summary>
+        [RelayCommand]
+        private void SelectionChanged()
+        {
+            if (this.SelectedMunicipality != null)
+            {
+                WeakReferenceMessenger.Default.Send<SelectedMunicipalityChangedMessage>(new SelectedMunicipalityChangedMessage(this.SelectedMunicipality));
+            }
+        }
     }
 }

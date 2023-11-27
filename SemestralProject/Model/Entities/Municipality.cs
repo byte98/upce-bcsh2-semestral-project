@@ -168,8 +168,7 @@ namespace SemestralProject.Model.Entities
         public override bool Delete()
         {
             string sql = $"sempr_crud.proc_obce_delete({this.Id})";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return Municipality.Delete(sql);
         }
 
         public override bool Update()
@@ -179,8 +178,7 @@ namespace SemestralProject.Model.Entities
             {
                 sql = $"sempr_crud.proc_obce_update({this.Id}, '{this.Name}', '{this.Part}', '{this.ZIP}', {this.Country.Id})";
             }
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return Municipality.Update(sql);
         }
 
         public override string ToString()

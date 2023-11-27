@@ -268,16 +268,14 @@ namespace SemestralProject.Model.Entities
 
         public override bool Update()
         {
-            string sql = $"sempr_crud.proc_uzivatele_update({this.Id}, '{this.Password}', {DateUtils.ToSQL(this.Registration)}, '{this.Image.ToContent()}', {this.Role.Id}, {this.State.Id}, {this.Employee.Id})";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            string sql = $"sempr_crud.proc_uzivatele_update({this.Id}, '{this.Password}', {DateUtils.ToSQL(this.Registration)}, '{this.Image.ToClob()}', {this.Role.Id}, {this.State.Id}, {this.Employee.Id})";
+            return User.Update(sql);
         }
 
         public override bool Delete()
         {
             string sql = $"sempr_crud.proc_uzivatele_delete({this.Id})";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return User.Delete(sql);
         }
     }
 }

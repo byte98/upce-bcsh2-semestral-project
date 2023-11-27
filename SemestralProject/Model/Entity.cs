@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -68,6 +69,42 @@ namespace SemestralProject.Model
             connection.Execute("COMMIT");
             return reti;
         }
+
+        /// <summary>
+        /// Executes call of PL/SQL function.
+        /// </summary>
+        /// <param name="sql">PL/SQL function which will be executed.</param>
+        /// <returns>TRUE if execution has been successfull, FALSE otherwise.</returns>
+        private static bool Execute(string sql)
+        {
+            bool reti = false;
+            IConnection connection = OracleConnector.Load();
+            string cmd = $"BEGIN\n    {sql}\nEND;";
+            reti = connection.Execute(cmd);
+            connection.Execute("COMMIT");
+            return reti;
+        }
+        
+        /// <summary>
+        /// Performs update of entity.
+        /// </summary>
+        /// <param name="sql">SQL query which peforms update.</param>
+        /// <returns>TRUE if update has been successfull, FALSE otherwise.</returns>
+        protected static bool Update(string sql)
+        {
+            return Entity.Execute(sql);
+        }
+
+        /// <summary>
+        /// Performs deletion of entity.
+        /// </summary>
+        /// <param name="sql">SQL query which performs deletion.</param>
+        /// <returns>TRUE if deletion has been successfull, FALSE otherwise.</returns>
+        protected static bool Delete(string sql)
+        {
+            return Entity.Execute(sql);
+        }
+        
 
         public override bool Equals(object? obj)
         {

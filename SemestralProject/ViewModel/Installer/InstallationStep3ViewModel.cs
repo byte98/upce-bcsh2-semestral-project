@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using SemestralProject.Common;
 using SemestralProject.Model;
 using SemestralProject.Model.Entities;
+using SemestralProject.View;
 using SemestralProject.View.Installer;
 using SemestralProject.View.Navigation;
 using SemestralProject.ViewModel.Messaging;

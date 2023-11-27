@@ -30,7 +30,13 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <ComboBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  ItemsSource="{Binding AvailableAddresses}" SelectedItem="{Binding SelectedAddress}" Margin="0,0,8,0" />
+            <ComboBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  ItemsSource="{Binding AvailableAddresses}" SelectedItem="{Binding SelectedAddress}" Margin="0,0,8,0">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
             <Button Style="{StaticResource ButtonRevealStyle}" Grid.Row="0" Grid.Column="1"  Padding="8,8,8,8" Command="{Binding FindAddressCommand}">
                 <ui:SymbolIcon Symbol="Find" />
             </Button>

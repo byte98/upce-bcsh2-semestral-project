@@ -228,15 +228,13 @@ namespace SemestralProject.Model.Entities
         public override bool Update()
         {
             string sql = $"sempr_crud.proc_role_update({this.Id}, '{this.Name}')";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return Role.Update(sql);
         }
 
         public override bool Delete()
         {
             string sql = $"sempr_crud.proc_role_delete({this.Id})";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return Role.Delete(sql);
         }
 
         public override string ToString()

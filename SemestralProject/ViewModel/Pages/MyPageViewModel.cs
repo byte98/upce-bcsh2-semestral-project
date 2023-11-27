@@ -4,6 +4,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using SemestralProject.Common;
 using SemestralProject.Model.Entities;
 using SemestralProject.Model.Enums;
+using SemestralProject.View;
+using SemestralProject.View.Components;
 using SemestralProject.ViewModel.Messaging;
 using System;
 using System.Collections.Generic;
@@ -31,6 +33,8 @@ namespace SemestralProject.ViewModel.Pages
         /// <summary>
         /// Role of actual user.
         /// </summary>
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ChangeRoleCommand))]
         private Role? role;
 
         /// <summary>
@@ -101,10 +105,20 @@ namespace SemestralProject.ViewModel.Pages
         private bool readonlyData = true;
 
         /// <summary>
-        /// Flag of registration should be read only.
+        /// Flag gathered from user, whether data should be read only.
+        /// </summary>
+        private bool userReadOnlyData = true;
+
+        /// <summary>
+        /// Flag of registration should be editable.
         /// </summary>
         [ObservableProperty]
         private bool editableRegistration = false;
+
+        /// <summary>
+        /// Flag gathered from user, whether registration should be editable.
+        /// </summary>
+        private bool userEditableRegistration = false;
 
         /// <summary>
         /// Flag, whether employment date should be editable;
@@ -113,16 +127,31 @@ namespace SemestralProject.ViewModel.Pages
         private bool editableEmployment = false;
 
         /// <summary>
+        /// Flag gathered from user, whether employment date should be editable.
+        /// </summary>
+        private bool userEditableEmployement = false;
+
+        /// <summary>
         /// Flag, whether personal number should be editable.
         /// </summary>
         [ObservableProperty]
         private bool editablePersonalNumber = false;
 
         /// <summary>
+        /// Flag gathered from user, whether personal number should be editable.
+        /// </summary>
+        private bool userEditablePersonalNumber = false;
+
+        /// <summary>
         /// Flag, whether image should be editable.
         /// </summary>
         [ObservableProperty]
         private bool editableImage = false;
+
+        /// <summary>
+        /// Flag gathered from user, whether image should be editable.
+        /// </summary>
+        private bool userEditableImage = false;
 
         /// <summary>
         /// Visibility of save button.
@@ -163,6 +192,18 @@ namespace SemestralProject.ViewModel.Pages
         private Role? selectedRole;
 
         /// <summary>
+        /// Text representation of actually selected role.
+        /// </summary>
+        [ObservableProperty]
+        private string selectedRoleText = string.Empty;
+
+        /// <summary>
+        /// Flag, whether role of user should be changed when message
+        /// informing about change of user is recevied.
+        /// </summary>
+        private bool changeRole = true;
+
+        /// <summary>
         /// Creates new handler of page with users data.
         /// </summary>
         public MyPageViewModel()
@@ -174,7 +215,7 @@ namespace SemestralProject.ViewModel.Pages
             });
             WeakReferenceMessenger.Default.Register<InfoRoleMessage>(this, (sender, args) =>
             {
-                this.role = args.Value;
+                this.Role = args.Value;
                 this.RoleChanged();
             });
 
@@ -214,6 +255,8 @@ namespace SemestralProject.ViewModel.Pages
                 this.Registration = this.User.Registration;
                 this.Employment = this.User.Employee.EmploymentDate;
                 this.SelectedRole = this.User.Role;
+                this.SelectedRoleText = this.SelectedRole.Name;
+                this.Address = this.User.Employee.Residence;
             }
         }
 
@@ -222,32 +265,42 @@ namespace SemestralProject.ViewModel.Pages
         /// </summary>
         private async void RoleChanged()
         {
-            this.ReadonlyData = true;
-            this.EditableImage = false;
-            this.EditableEmployment = false;
-            this.EditablePersonalNumber = false;
-            this.EditableRegistration = false;
-            this.RoleSelectVisibility = Visibility.Collapsed;
-            this.SaveVisibility = Visibility.Hidden;
-            if (this.role != null)
+            if (this.changeRole == true)
             {
-                bool editPerm = await this.role.HasPermissionAsync(PermissionNames.ChangeUserOwn);
-                bool changePersonalPerm = await this.role.HasPermissionAsync(PermissionNames.ChangePersonalNumberOwn);
-                bool changeRegPerm = await this.role.HasPermissionAsync(PermissionNames.ChangeRegistrationDateOwn);
-                bool changeEmplPerm = await this.role.HasPermissionAsync(PermissionNames.ChangeEmploymentDateOwn);
-                bool changeRolePerm = await this.role.HasPermissionAsync(PermissionNames.ChangeRoleOwn);
-                if (changeRolePerm)
+
+                this.ReadonlyData = true;
+                this.EditableImage = false;
+                this.EditableEmployment = false;
+                this.EditablePersonalNumber = false;
+                this.EditableRegistration = false;
+                this.RoleSelectVisibility = Visibility.Collapsed;
+                this.SaveVisibility = Visibility.Hidden;
+                if (this.Role != null)
                 {
-                    this.RoleSelectVisibility = Visibility.Visible;
-                }
-                this.EditableEmployment = (editPerm && changeEmplPerm);
-                this.EditablePersonalNumber = (editPerm && changePersonalPerm);
-                this.EditableRegistration = (editPerm && changeRegPerm);
-                this.ReadonlyData = !editPerm;
-                this.EditableImage = editPerm;
-                if (editPerm == true)
-                {
-                    this.SaveVisibility = Visibility.Visible;
+                    bool editPerm = await this.Role.HasPermissionAsync(PermissionNames.ChangeUserOwn);
+                    bool changePersonalPerm = await this.Role.HasPermissionAsync(PermissionNames.ChangePersonalNumberOwn);
+                    bool changeRegPerm = await this.Role.HasPermissionAsync(PermissionNames.ChangeRegistrationDateOwn);
+                    bool changeEmplPerm = await this.Role.HasPermissionAsync(PermissionNames.ChangeEmploymentDateOwn);
+                    bool changeRolePerm = await this.Role.HasPermissionAsync(PermissionNames.ChangeRoleOwn);
+                    if (changeRolePerm)
+                    {
+                        this.RoleSelectVisibility = Visibility.Visible;
+                    }
+                    this.EditableEmployment = (editPerm && changeEmplPerm);
+                    this.EditablePersonalNumber = (editPerm && changePersonalPerm);
+                    this.EditableRegistration = (editPerm && changeRegPerm);
+                    this.ReadonlyData = !editPerm;
+                    this.EditableImage = editPerm;
+
+                    this.userEditableEmployement = this.EditableEmployment;
+                    this.userEditablePersonalNumber = this.EditablePersonalNumber;
+                    this.userEditableRegistration = this.EditableRegistration;
+                    this.userEditableImage = this.EditableImage;
+                    this.userReadOnlyData = this.ReadonlyData;
+                    if (editPerm == true)
+                    {
+                        this.SaveVisibility = Visibility.Visible;
+                    }
                 }
             }
         }
@@ -269,24 +322,85 @@ namespace SemestralProject.ViewModel.Pages
         }
 
         /// <summary>
+        /// Disables all controls.
+        /// </summary>
+        private void Disable()
+        {
+            this.ReadonlyData = true;
+            this.EditableRegistration = false;
+            this.EditableEmployment = false;
+            this.EditableImage = false;
+            this.EditablePersonalNumber = false;
+        }
+
+        /// <summary>
+        /// Re-enables all controls.
+        /// </summary>
+        private void ReEnable()
+        {
+            this.ReadonlyData = this.userReadOnlyData;
+            this.EditableRegistration = this.userEditableRegistration;
+            this.EditableEmployment = this.userEditableEmployement;
+            this.EditableImage = this.userEditableImage;
+            this.EditablePersonalNumber = this.userEditablePersonalNumber;
+        }
+
+        /// <summary>
         /// Checks, whether save button should be enabled.
         /// </summary>
         /// <returns>
         /// TRUE if save button should be enabled,
         /// FALSE otherwise.
         /// </returns>
-        private bool IsSaveEnabled() =>
-            (
-            this.ReadonlyData == false &&
-            this.Saving == false &&
-            this.Address != null &&
-            this.User != null &&
-            this.SelectedRole != null &&
-            this.Name != null && this.Name.Length > 0 &&
-            this.Surname != null && this.Surname.Length > 0 &&
-            this.Email != null && this.Email.Length > 0 &&
-            this.Phone != null && this.Phone.Length > 0
-            );
+        private bool IsSaveEnabled()
+        {
+            bool isNotReadOnly = false,
+                 isNotSaving = false,
+                 userIsNotNull = false,
+                 roleIsNotNull = false,
+                 nameIsNotEmpty = false,
+                 surnameIsNotEmpty = false,
+                 emailIsNotEmpty = false,
+                 phoneIsNotEmpty = false;
+            isNotReadOnly = this.ReadonlyData == false;
+            isNotSaving = this.Saving == false;
+            userIsNotNull = this.User != null;
+            roleIsNotNull = this.SelectedRole != null;
+            nameIsNotEmpty = this.Name != null && this.Name.Length > 0;
+            surnameIsNotEmpty = this.Surname != null && this.Surname.Length > 0;
+            emailIsNotEmpty = this.Email != null && this.Email.Length > 0;
+            phoneIsNotEmpty = this.Phone != null && this.Phone.Length > 0;
+            return (isNotReadOnly && isNotSaving && userIsNotNull && roleIsNotNull &&
+                nameIsNotEmpty && surnameIsNotEmpty && emailIsNotEmpty && phoneIsNotEmpty);
+        }
+
+        /// <summary>
+        /// Checks, whtether user can change its role.
+        /// </summary>
+        /// <returns>TRUE if user can change its role, FALSE otherwise.</returns>
+        private bool CanChangeRole() => this.Role != null && this.Role.HasPermission(PermissionNames.ChangeRoleOwn);
+
+        /// <summary>
+        /// Handles click on change role button.
+        /// </summary>
+        [RelayCommand(CanExecute =nameof(CanChangeRole))]
+        private void ChangeRole()
+        {
+            RoleSelectionWindow window = new RoleSelectionWindow();
+            if (this.SelectedRole != null)
+            {
+                this.changeRole = false;
+                WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.SelectedRole));
+                this.changeRole = true;
+            }
+            WeakReferenceMessenger.Default.Register<SelectedRoleChangedMessage>(this, (sender, args) =>
+            {
+                this.SelectedRole = args.Value;
+                this.SelectedRoleText = this.SelectedRole.Name;
+            });
+            window.ShowDialog();
+            WeakReferenceMessenger.Default.Unregister<SelectedRoleChangedMessage>(this);
+        }
 
         /// <summary>
         /// Handles click on save button.
@@ -296,12 +410,32 @@ namespace SemestralProject.ViewModel.Pages
         {
             this.SaveTextVisibility = Visibility.Collapsed;
             this.SaveProgressVisibility = Visibility.Visible;
+            this.Saving = true;
+            this.Disable();
             if (this.User != null && this.Address != null)
             {
-
+                Person p = this.User.Employee.PersonalData;
+                p.Name = this.Name;
+                p.Email = this.Email;
+                p.Phone = this.Phone;
+                p.Surname = this.Surname;
+                await p.UpdateAsync();
+                Employee e = this.User.Employee;
+                e.Residence = this.Address;
+                e.EmploymentDate = this.Employment;
+                e.PersonalNumber = this.PersonalNumber;
+                await e.UpdateAsync();
+                if (this.image != null)
+                {
+                    this.User.Image = this.image;
+                }
+                this.User.Registration = this.Registration;
+                await this.User.UpdateAsync();
             }
-            this.SaveTextVisibility = Visibility.Collapsed;
-            this.SaveProgressVisibility = Visibility.Visible;
+            this.Saving = false;
+            this.ReEnable();
+            this.SaveTextVisibility = Visibility.Visible;
+            this.SaveProgressVisibility = Visibility.Collapsed;
         }
     }
 }

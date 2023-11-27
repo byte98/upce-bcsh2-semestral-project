@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using SemestralProject.Model.Entities;
 using SemestralProject.Utils;
+using SemestralProject.View;
 using SemestralProject.View.Components;
 using SemestralProject.ViewModel.Messaging;
 using System;
@@ -18,7 +19,7 @@ namespace SemestralProject.ViewModel.Components
     /// <summary>
     /// View model for address selector control.
     /// </summary>
-    public partial class AddressSelectorViewModel: ObservableObject
+    public partial class AddressSelectorViewModel : ObservableObject
     {
         /// <summary>
         /// Visibility of loading progress ring.
@@ -97,11 +98,12 @@ namespace SemestralProject.ViewModel.Components
         /// <summary>
         /// Handles finding address.
         /// </summary>
-        [RelayCommand(CanExecute =nameof(FindAllowed))]
+        [RelayCommand(CanExecute = nameof(FindAllowed))]
         private void FindAddress()
         {
             AddressSelectorWindow addressSelectorWindow = new AddressSelectorWindow();
             addressSelectorWindow.ShowDialog();
+
         }
 
         /// <summary>
@@ -112,5 +114,17 @@ namespace SemestralProject.ViewModel.Components
         /// FALSE otherwise.
         /// </returns>
         private bool FindAllowed() => this.ComboBoxVisibility == Visibility.Visible;
+
+        /// <summary>
+        /// Handles change of selection.
+        /// </summary>
+        [RelayCommand]
+        private void SelectionChanged()
+        {
+            if (this.SelectedAddress != null)
+            {
+                WeakReferenceMessenger.Default.Send<SelectedAddressChangedMessage>(new SelectedAddressChangedMessage(this.SelectedAddress));
+            }
+        }
     }
 }

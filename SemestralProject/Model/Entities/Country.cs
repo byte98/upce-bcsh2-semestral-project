@@ -151,15 +151,13 @@ namespace SemestralProject.Model.Entities
         public override bool Update()
         {
             string sql = $"sempr_crud.proc_staty_update('{this.Name}',{this.Id})";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return Country.Update(sql);
         }
 
         public override bool Delete()
         {
             string sql = $"sempr_crud.proc_staty_delete({this.Id})";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return Country.Delete(sql);
         }
 
         public override string? ToString()

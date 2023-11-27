@@ -143,15 +143,13 @@ namespace SemestralProject.Model.Entities
         public override bool Update()
         {
             string sql = $"sempr_crud.proc_stavy_update({this.Id}, '{this.Name}')";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return State.Update(sql);
         }
 
         public override bool Delete()
         {
             string sql = $"sempr_crud.proc_stavy_delete({this.Id})";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return State.Delete(sql);
         }
     }
 }

@@ -256,8 +256,7 @@ namespace SemestralProject.Model.Entities
         public override bool Delete()
         {
             string sql = $"sempr_crud.proc_adresy_delete({this.Id})";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return Address.Delete(sql);
         }
 
         public override bool Update()
@@ -275,8 +274,7 @@ namespace SemestralProject.Model.Entities
             {
                 sql = $"sempr_crud.proc_adresy_update({this.Id}, {this.HouseNumber} ,{this.Municipality.Id})";
             }
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return Address.Update(sql);
         }
 
         public override string? ToString()

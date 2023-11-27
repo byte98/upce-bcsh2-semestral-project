@@ -57,6 +57,17 @@ namespace SemestralProject.ViewModel.Components
         private IList<Role> roles = new List<Role>();
 
         /// <summary>
+        /// Creates new model view for role selection window.
+        /// </summary>
+        public RoleSelectionWindowViewModel()
+        {
+            WeakReferenceMessenger.Default.Register<InfoRoleMessage>(this, (sender, args) =>
+            {
+                this.SelectedRole = args.Value;
+            });
+        }
+
+        /// <summary>
         /// Handles loading of all data after window is loaded.
         /// </summary>
         [RelayCommand]

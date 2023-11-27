@@ -161,16 +161,14 @@ namespace SemestralProject.Model.Entities
 
         public override bool Update()
         {
-            string sql = $"sempr_crud.proc_osoby_update({this.Id}, '{this.Name}', '{this.Surname}', '{this.Email}', '{this.Phone}'";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            string sql = $"sempr_crud.proc_osoby_update({this.Id}, '{this.Name}', '{this.Surname}', '{this.Email}', '{this.Phone}')";
+            return Person.Update(sql);
         }
 
         public override bool Delete()
         {
             string sql = $"sempr_crud.proc_osoby_delete({this.Id})";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return Person.Delete(sql);
         }
     }
 }

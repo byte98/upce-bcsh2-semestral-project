@@ -77,10 +77,18 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <ScrollViewer Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <ui:Frame Padding="8,8,8,8" Background="{StaticResource SystemAltHighColorBrush}" x:Name="FrameContent">
+        <Grid Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{StaticResource SystemAltHighColorBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                <ui:Frame Padding="8,8,8,8"  x:Name="FrameContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-            </ui:Frame>
-        </ScrollViewer>
+                </ui:Frame>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>

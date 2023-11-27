@@ -189,6 +189,10 @@ namespace SemestralProject.ViewModel
                 this.RoleChanged(args.Value);
             });
             RoleSelectionWindow roleSelection = new RoleSelectionWindow();
+            if (this.role != null)
+            {
+                WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.role));
+            }
             roleSelection.ShowDialog();
             WeakReferenceMessenger.Default.Unregister<SelectedRoleChangedMessage>(this);
         }

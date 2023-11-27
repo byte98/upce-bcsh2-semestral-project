@@ -112,8 +112,7 @@ namespace SemestralProject.Model.Entities
         public override bool Delete()
         {
             string sql = $"sempr_crud.proc_prava_delete({this.Id})";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return Rights.Delete(sql);
         }
     }
 }

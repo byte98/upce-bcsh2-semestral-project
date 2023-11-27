@@ -135,15 +135,13 @@ namespace SemestralProject.Model.Entities
         public override bool Update()
         {
             string sql = $"sempr_crud.proc_opravneni_update('{this.Name}', '{this.SystemName}')";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return Permission.Update(sql);
         }
 
         public override bool Delete()
         {
             string sql = $"sempr_crud.proc_opravneni_delete({this.Id})";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return Permission.Delete(sql);
         }
     }
 }

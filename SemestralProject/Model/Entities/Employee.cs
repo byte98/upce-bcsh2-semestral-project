@@ -7,6 +7,7 @@ using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace SemestralProject.Model.Entities
 {
@@ -213,15 +214,13 @@ namespace SemestralProject.Model.Entities
                 sql += $", {this.Superior.Id}";
             }
             sql += ")";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return Employee.Update(sql);
         }
 
         public override bool Delete()
         {
             string sql = $"sempr_crud.proc_zamestnanci_delete({this.Id})";
-            IConnection connection = OracleConnector.Load();
-            return connection.Execute(sql);
+            return Employee.Delete(sql);
         }
     }
 }
