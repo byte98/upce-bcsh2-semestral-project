@@ -486,3 +486,45 @@
       * :param p_role: Identifier of 'role'.
       * :returns:      Table with data from 'prava' with 'prava' assigned to searched 'role'.
       */
+--
+
+
+
+
+
+     /* CRUD operations over 'cipove karty'. */
+
+     /*
+      * Creates new 'cipove karty' object.
+      * :p_number:   Number of new 'cipove karty'.
+      * :p_issued:   Date of issue of new 'cipove karty'.
+      * :p_validity: Date of validity of new 'cipove karty'.
+      * :p_allowed:  Flag, whether new 'cipove karty' is valid.
+      * :p_holder:   Identifier of 'uzivatele' of holder of the new 'cipove karty'.
+      */
+--
+     /*
+      * Updates 'cipove karty' object.
+      * :p_id:       Identifier of 'cipove karty' which will be updated.
+      * :p_number:   New number of 'cipove karty'.
+      * :p_issued:   New date of issue of 'cipove karty'.
+      * :p_validity: New date of validity of 'cipove karty'.
+      * :p_allowed:  New flag, whether 'cipove karty' is valid.
+      * :p_holder:   New identifier of 'uzivatele' of holder of 'cipove karty'.
+      */
+--
+     /*
+      * Deletes 'cipove karty'.
+      * :p_id: Identifier of 'cipove karty' which will be deleted.
+      */
+--
+     /*
+      * Reads all data from 'cipove karty'.
+      * :returns: Table with all data from 'cipove karty'.
+      */
+--
+     /*
+      * Reads data from 'cipove karty' with searched identifier.
+      * :param p_id: Identifier of searched 'cipove karty'.
+      * :returns:    Table with data from 'cipove karty' with searched identifier.
+      */

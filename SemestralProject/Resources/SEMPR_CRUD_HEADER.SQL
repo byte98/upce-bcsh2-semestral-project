@@ -153,7 +153,7 @@ PACKAGE sempr_crud AS
     FUNCTION  func_uzivatele_read(p_id IN uzivatele.id_uzivatel%TYPE) RETURN t_uzivatele PIPELINED;
 --
     /*
-     * Type definition of table of 'opravneni'
+     * Type definition of table of 'opravneni'.
      */
     TYPE t_opravneni IS TABLE OF opravneni%ROWTYPE;
 --
@@ -168,7 +168,7 @@ PACKAGE sempr_crud AS
     FUNCTION  func_opravneni_read(p_id IN opravneni.id_opravneni%TYPE) RETURN t_opravneni PIPELINED;
 --
     /*
-     * Type definition of table of 'prava'
+     * Type definition of table of 'prava'.
      */
     TYPE t_prava IS TABLE OF prava%ROWTYPE;
 --
@@ -177,5 +177,21 @@ PACKAGE sempr_crud AS
     PROCEDURE proc_prava_delete(p_id IN prava.id_pravo%TYPE);
 --
     FUNCTION  func_prava_read(p_role IN prava.role%TYPE) RETURN t_prava PIPELINED;
+--
+    /*
+     * Type definition of table of 'cipove karty'.
+     */
+    TYPE t_cipove_karty IS TABLE OF cipove_karty%ROWTYPE;
+--
+    PROCEDURE proc_karty_create(p_number IN cipove_karty.cislo_karty%TYPE, p_issued IN cipove_karty.datum_vydani%TYPE, p_validity IN cipove_karty.datum_platnosti%TYPE, p_allowed in cipove_karty.povolena%TYPE, p_holder IN cipove_karty.drzitel%TYPE);
+--
+    PROCEDURE proc_karty_update(p_id IN cipove_karty.id_cipova_karta%TYPE, p_number IN cipove_karty.cislo_karty%TYPE, p_issued IN cipove_karty.datum_vydani%TYPE, p_validity IN cipove_karty.datum_platnosti%TYPE, p_allowed in cipove_karty.povolena%TYPE, p_holder IN cipove_karty.drzitel%TYPE);
+--
+    PROCEDURE proc_karty_delete(p_id IN cipove_karty.id_cipova_karta%TYPE);
+--
+    FUNCTION func_karty_read RETURN t_cipove_karty PIPELINED;
+--
+    FUNCTION func_karty_read(p_id IN cipove_karty.id_cipova_karta%TYPE) RETURN t_cipove_karty PIPELINED;
+    
 END sempr_crud;
 

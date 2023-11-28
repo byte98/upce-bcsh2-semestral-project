@@ -92,7 +92,7 @@ namespace SemestralProject.ViewModel.Installer
         /// </summary>
         [RelayCommand]
         private async Task PageLoaded()
-        {
+        {   
             IConnection conn = await OracleConnector.ReloadAsync();
             this.Server = conn.ConnectionModel.Server;
             this.Port = conn.ConnectionModel.Port;
