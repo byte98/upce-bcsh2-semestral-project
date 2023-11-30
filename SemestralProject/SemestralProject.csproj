@@ -46,6 +46,10 @@
         <ProjectReference Include="..\AsynchronousMethod\AsynchronousMethod.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" PrivateAssets="all" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\DatabaseObject\DatabaseObject.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="true" PrivateAssets="all" />
+    </ItemGroup>
+
 
     <ItemGroup>
         <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.cs" />

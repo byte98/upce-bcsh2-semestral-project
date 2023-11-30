@@ -17,6 +17,7 @@ namespace SemestralProject.AsynchronousMethod
     [Generator]
     public class AsynchronousMethodGenerator : ISourceGenerator
     {
+        /// <inheritdoc/>
         public void Execute(GeneratorExecutionContext context)
         {
             // Load required types
