@@ -1,4 +1,6 @@
-﻿using SemestralProject.Common;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using SemestralProject.AsynchronousMethod;
+using SemestralProject.Common;
 using SemestralProject.Model.Enums;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,7 @@ namespace SemestralProject.Model.Entities
     /// <summary>
     /// Class which represents users role.
     /// </summary>
-    public class Role: AsynchronousEntity
+    public partial class Role: AsynchronousEntity
     {
         /// <summary>
         /// Name of role.
@@ -29,6 +31,11 @@ namespace SemestralProject.Model.Entities
         public static readonly Role User = new Role(1, "Uživatel");
 
         /// <summary>
+        /// String containing number of permissions associated with role.
+        /// </summary>
+        public string PermissionsString { get; private set; } = string.Empty;
+
+        /// <summary>
         /// Array of permissions associated with role.
         /// </summary>
         private Permission[] permissions;
@@ -43,6 +50,7 @@ namespace SemestralProject.Model.Entities
             this.Id = id;
             this.Name = name;
             this.permissions = new Permission[0];
+            this.PermissionsString = "0 oprávnění";
         }
 
 
@@ -117,7 +125,8 @@ namespace SemestralProject.Model.Entities
         /// <summary>
         /// Loads all available permissions to user role.
         /// </summary>
-        private void LoadPermissions()
+        [AsynchronousMethod]
+        public void LoadPermissions()
         {
             Rights[] rights = Rights.GetByRole(this);
             IList<Permission> loaded = new List<Permission>();
@@ -126,6 +135,7 @@ namespace SemestralProject.Model.Entities
                 loaded.Add(right.Permission);
             }
             this.permissions = loaded.ToArray();
+            this.PermissionsString = this.permissions.Length + " oprávnění";
         }
 
         /// <summary>

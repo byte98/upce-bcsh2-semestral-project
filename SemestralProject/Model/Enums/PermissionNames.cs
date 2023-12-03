@@ -189,6 +189,16 @@ namespace SemestralProject.Model.Enums
         /// <summary>
         /// Permission to modify managed models of vehicles.
         /// </summary>
-        ModelsModify
+        ModelsModify,
+
+        /// <summary>
+        /// Permission to read all available roles.
+        /// </summary>
+        RolesRead,
+
+        /// <summary>
+        /// Permission to modify roles.
+        /// </summary>
+        RolesModify
     }
 }

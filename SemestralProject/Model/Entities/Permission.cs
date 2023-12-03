@@ -132,6 +132,11 @@ namespace SemestralProject.Model.Entities
             });
         }
 
+        public override string? ToString()
+        {
+            return this.Name;
+        }
+
         public override bool Update()
         {
             string sql = $"sempr_crud.proc_opravneni_update('{this.Name}', '{this.SystemName}')";

@@ -8,6 +8,8 @@ INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst zaměstnance', 'em
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Měnit zaměstnance', 'employees.modify')
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst uživatelské role', 'users.read')
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Měnit uživatelské role', 'users.modify')
+INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst role', 'roles.read')
+INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Měnit role', 'roles.modify')
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst linky', 'lines.read')
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Měnit linky', 'lines.modify')
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst zastávky', 'stops.read')

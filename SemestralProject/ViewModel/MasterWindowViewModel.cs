@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using SemestralProject.Common;
 using SemestralProject.Model.Entities;
+using SemestralProject.Model.Enums;
 using SemestralProject.Utils;
 using SemestralProject.View;
 using SemestralProject.View.Components;
@@ -62,6 +63,40 @@ namespace SemestralProject.ViewModel
         private Visibility changeRoleVisibility = Visibility.Collapsed;
 
         /// <summary>
+        /// Visibility of role management.
+        /// </summary>
+        [ObservableProperty]
+        private Visibility rolesVisibility = Visibility.Collapsed;
+
+        /// <summary>
+        /// Page with users details.
+        /// </summary>
+        private MyPage myPage;
+
+        /// <summary>
+        /// Page with permissions manager.
+        /// </summary>
+        private PermissionsPage permPage;
+
+        /// <summary>
+        /// Flag, whether my page menu item is checked.
+        /// </summary>
+        [ObservableProperty]
+        private bool myPageCheck;
+
+        /// <summary>
+        /// Flag, whether permissions menu item is checked.
+        /// </summary>
+        [ObservableProperty]
+        private bool permCheck;
+
+        /// <summary>
+        /// Visibility of wait window.
+        /// </summary>
+        [ObservableProperty]
+        private Visibility waitVisibility;
+
+        /// <summary>
         /// Creates new handler of master window.
         /// </summary>
         public MasterWindowViewModel() : base()
@@ -77,6 +112,11 @@ namespace SemestralProject.ViewModel
                 this.RoleChanged(args.Value);
             });
             this.image = UserImage.Default.ToImage();
+            this.waitVisibility = Visibility.Visible;
+            this.myPageCheck = false;
+            this.permCheck = false;
+            this.myPage = new MyPage();
+            this.permPage = new PermissionsPage();
         }
 
         /// <summary>
@@ -85,6 +125,7 @@ namespace SemestralProject.ViewModel
         /// <param name="user">New logged user.</param>
         private async void UserChanged(User user)
         {
+            this.WaitVisibility = Visibility.Visible;
             this.ChangeRoleVisibility = Visibility.Collapsed;
             this.user = user;
             this.Image = this.user.Image.ToImage();
@@ -95,6 +136,7 @@ namespace SemestralProject.ViewModel
                 this.ChangeRoleVisibility = Visibility.Visible;
             }
             WeakReferenceMessenger.Default.Send<InfoUserMessage>(new InfoUserMessage(user));
+            this.WaitVisibility = Visibility.Collapsed;
         }
         
         /// <summary>
@@ -103,10 +145,30 @@ namespace SemestralProject.ViewModel
         /// <param name="role">New role of user.</param>
         private void RoleChanged(Role role)
         {
+            this.WaitVisibility = Visibility.Visible;
             this.role = role;
             this.DisplayRole = role.Name;
 
             WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(role));
+            this.WaitVisibility = Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// Displays menu items according to the actual role.
+        /// </summary>
+        private async void RoleMenu()
+        {
+            if (this.role != null)
+            {
+                this.WaitVisibility = Visibility.Visible;
+                this.RolesVisibility = (await this.role.HasPermissionAsync(PermissionNames.RolesRead) ? Visibility.Visible : Visibility.Collapsed);
+
+                this.ResetChecks();
+
+
+                this.MyPage();
+                this.WaitVisibility = Visibility.Collapsed;
+            }
         }
 
         /// <summary>
@@ -125,7 +187,6 @@ namespace SemestralProject.ViewModel
             else
             {
                 WindowUtils.MaximizeForModel(this);
-                this.Navigate(new MyPage());
                 if (this.user != null)
                 {
                     WeakReferenceMessenger.Default.Send<InfoUserMessage>(new InfoUserMessage(this.user));
@@ -133,6 +194,7 @@ namespace SemestralProject.ViewModel
                 if (this.role != null)
                 {
                     WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.role));
+                    this.RoleMenu();
                 }
                 
             }
@@ -192,9 +254,49 @@ namespace SemestralProject.ViewModel
             if (this.role != null)
             {
                 WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.role));
+                this.RoleMenu();
             }
             roleSelection.ShowDialog();
             WeakReferenceMessenger.Default.Unregister<SelectedRoleChangedMessage>(this);
+        }
+
+        /// <summary>
+        /// Resets all checks from menu items.
+        /// </summary>
+        private void ResetChecks()
+        {
+            this.MyPageCheck = false;
+            this.PermCheck = false;
+        }
+
+        /// <summary>
+        /// Handles click on 'my page' menu item.
+        /// </summary>
+        [RelayCommand]
+        private void MyPage()
+        {
+            this.ResetChecks();
+            this.MyPageCheck = true;
+            if (this.role != null)
+            {
+                WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.role));
+            }
+            this.Navigate(this.myPage);
+        }
+
+        /// <summary>
+        /// Handles click on 'permissions' menu item.
+        /// </summary>
+        [RelayCommand]
+        private void Permission()
+        {
+            this.ResetChecks();
+            this.PermCheck = true;
+            if (this.role != null)
+            {
+                WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.role));
+            }
+            this.Navigate(this.permPage);
         }
     }
 }
