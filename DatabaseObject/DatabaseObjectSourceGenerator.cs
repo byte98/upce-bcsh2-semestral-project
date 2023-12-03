@@ -759,6 +759,7 @@ namespace DatabaseObject
             reti.AppendLine("#nullable enable");
             reti.AppendLine();
             reti.AppendLine("using System;");
+            reti.AppendLine("using System.Linq;");
             reti.AppendLine("using System.Collections.Generic;");
             reti.AppendLine("using System.Threading.Tasks;");
             reti.AppendLine("using SemestralProject.Utils;");
