@@ -618,8 +618,12 @@ PACKAGE BODY sempr_crud AS
     BEGIN
         SET TRANSACTION READ WRITE;
         UPDATE cipove_karty
-        SET cislo_karty=p_number, datum_vydani=p_issued,k datum_platnosti=p_validity, povolena=p_allowed, drzitel=p_holder
-        WHERE id_cipova_karta=p_id;
+        SET cislo_karty = p_number,
+            datum_vydani = p_issued,
+            datum_platnosti = p_validity,
+            povolena = p_allowed,
+            drzitel = p_holder
+        WHERE id_cipova_karta = p_id;
         COMMIT;
     END proc_karty_update;
 --

@@ -78,11 +78,11 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Změnit svoji roli za běhu&apos;, &apos;role.modify.runtime&apos;)
-        ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Změnit svoji roli&apos;, &apos;role.modify.own&apos;)
-        ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Změnit své údaje&apos;, &apos;user.modify.own&apos;)
-        ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Změnit své osobní číslo&apos;, &apos;employee.personal_number.modify.own&apos;)
-        ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Změnit svůj datum nástupu&apos;, &apos;employee.da [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Měnit svoji roli za běhu&apos;, &apos;role.modify.runtime&apos;)
+        ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Měnit svoji roli&apos;, &apos;role.modify.own&apos;)
+        ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Měnit své údaje&apos;, &apos;user.modify.own&apos;)
+        ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Měnit své osobní číslo&apos;, &apos;employee.personal_number.modify.own&apos;)
+        ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Měnit svůj datum nástupu&apos;, &apos;employee.date.mo [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PERMISSIONS {
             get {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SemestralProject.Model.Enums
@@ -20,14 +21,19 @@ namespace SemestralProject.Model.Enums
         public static string ToName(PermissionNames name)
         {
             string reti = string.Empty;
-            switch(name)
+            string[] parts = Regex.Split(name.ToString(), @"(?<!^)(?=[A-Z])");
+            if (parts.Length > 0 )
             {
-                case PermissionNames.ChangeRoleRuntime:         reti = "role.modify.runtime";                 break;
-                case PermissionNames.ChangeRoleOwn:             reti = "role.modify.own";                     break;
-                case PermissionNames.ChangeUserOwn:             reti = "user.modify.own";                     break;
-                case PermissionNames.ChangePersonalNumberOwn:   reti = "employee.personal_number.modify.own"; break;
-                case PermissionNames.ChangeEmploymentDateOwn:   reti = "employee.date.modify.own";            break;
-                case PermissionNames.ChangeRegistrationDateOwn: reti = "user.date.modify.own";                break;
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < parts.Length; i++)
+                {
+                    sb.Append(parts[i].ToLower());
+                    if (i < parts.Length - 1)
+                    {
+                        sb.Append(".");
+                    }
+                }
+                reti = sb.ToString();
             }
             return reti;
         }

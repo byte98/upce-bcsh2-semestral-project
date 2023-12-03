@@ -277,11 +277,11 @@ namespace SemestralProject.ViewModel.Pages
                 this.SaveVisibility = Visibility.Hidden;
                 if (this.Role != null)
                 {
-                    bool editPerm = await this.Role.HasPermissionAsync(PermissionNames.ChangeUserOwn);
-                    bool changePersonalPerm = await this.Role.HasPermissionAsync(PermissionNames.ChangePersonalNumberOwn);
-                    bool changeRegPerm = await this.Role.HasPermissionAsync(PermissionNames.ChangeRegistrationDateOwn);
-                    bool changeEmplPerm = await this.Role.HasPermissionAsync(PermissionNames.ChangeEmploymentDateOwn);
-                    bool changeRolePerm = await this.Role.HasPermissionAsync(PermissionNames.ChangeRoleOwn);
+                    bool editPerm = await this.Role.HasPermissionAsync(PermissionNames.UserModifyOwn);
+                    bool changePersonalPerm = await this.Role.HasPermissionAsync(PermissionNames.EmployeePersonal_numberModifyOwn);
+                    bool changeRegPerm = await this.Role.HasPermissionAsync(PermissionNames.UserDateModifyOwn);
+                    bool changeEmplPerm = await this.Role.HasPermissionAsync(PermissionNames.EmployeeDateModifyOwn);
+                    bool changeRolePerm = await this.Role.HasPermissionAsync(PermissionNames.RoleModifyOwn);
                     if (changeRolePerm)
                     {
                         this.RoleSelectVisibility = Visibility.Visible;
@@ -378,7 +378,7 @@ namespace SemestralProject.ViewModel.Pages
         /// Checks, whtether user can change its role.
         /// </summary>
         /// <returns>TRUE if user can change its role, FALSE otherwise.</returns>
-        private bool CanChangeRole() => this.Role != null && this.Role.HasPermission(PermissionNames.ChangeRoleOwn);
+        private bool CanChangeRole() => this.Role != null && this.Role.HasPermission(PermissionNames.RoleModifyOwn);
 
         /// <summary>
         /// Handles click on change role button.

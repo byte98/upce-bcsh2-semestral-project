@@ -158,7 +158,7 @@ namespace SemestralProject.ViewModel
             bool reti = false;
             if (this.user != null)
             {
-                if (user.Role.HasPermission(Model.Enums.PermissionNames.ChangeRoleRuntime))
+                if (user.Role.HasPermission(Model.Enums.PermissionNames.RoleModifyRuntime))
                 {
                     reti = true;
                 }
