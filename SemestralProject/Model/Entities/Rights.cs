@@ -32,6 +32,7 @@ namespace SemestralProject.Model.Entities
         /// <param name="permission">Permission associated with rights.</param>
         private Rights(int id, int role, Permission permission)
         {
+            this.Id = id;
             this.Role = role;
             this.Permission = permission;
         }
@@ -79,8 +80,9 @@ namespace SemestralProject.Model.Entities
                 Permission? permission = Permission.GetById((int)(row["opravneni"] ?? int.MinValue));
                 if (permission != null)
                 {
+                    int id = (int)(row["id_pravo"] ?? int.MinValue);
                     reti.Add(new Rights(
-                        (int)(row["id_pravo"] ?? int.MinValue),
+                        id,
                         (int)(row["role"] ?? int.MinValue),
                         permission
                     ));

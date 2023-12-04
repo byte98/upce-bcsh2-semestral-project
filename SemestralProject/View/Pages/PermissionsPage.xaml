@@ -10,10 +10,14 @@
       xmlns:components="clr-namespace:SemestralProject.View.Components"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:model="clr-namespace:SemestralProject.Model.Entities"
+      xmlns:converters="clr-namespace:SemestralProject.View.Converters"
       vml:ViewModelLocator.AutoHookedUpViewModel="True"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PermissionsPage">
+    <Page.Resources>
+        <converters:RolePermissionsCounterConverter x:Key="RolePermissionConverter" />
+    </Page.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding PageLoadedCommand}" />
@@ -37,15 +41,41 @@
                 <ui:ProgressRing Width="32" Height="32" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
             </StackPanel>
         </Grid>
-        <Grid Visibility="{Binding ContentVisibility}">
+        <Grid Visibility="{Binding ContentVisibility}" fw:PointerTracker.Enabled="True">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <ui:ToggleSwitch OnContent="Skrýt detaily" OffContent="Zobrazit detaily" Grid.Row="0" Grid.Column="1" IsOn="{Binding DetailsVisible}" Margin="0,0,8,0"/>
+            <Button Width="96" Visibility="{Binding EditVisibility}" Style="{DynamicResource ButtonRevealStyle}" Content="Přidat roli" Padding="8,8,8,8" Margin="4,4,8,4" Grid.Row="0" Grid.Column="0">
+                <ui:FlyoutService.Flyout>
+                    <ui:Flyout x:Name="FlyoutNewRole">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBox Text="{Binding NewRoleName}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >
+                                <ui:ControlHelper.Header>
+                                    <Label Content="Název nové role" />
+                                </ui:ControlHelper.Header>
+                            </TextBox>
+                            <Button Width="96" Click="ButtonFlyoutCancel_Click" Style="{DynamicResource ButtonRevealStyle}" Grid.Row="2" Grid.Column="0" Margin="0,4,4,0" Content="Zrušit" Padding="8,8,8,8"/>
+                            <Button Click="ButtonFlyoutCancel_Click" Command="{Binding NewRoleCommand}" Width="96" Style="{DynamicResource PrimaryButton}" Grid.Row="2" Grid.Column="1" Margin="4,4,0,0" Padding="8,8,8,8" Content="OK"/>
+                        </Grid>
+                    </ui:Flyout>
+                </ui:FlyoutService.Flyout>
+            </Button>
+            <Button Command="{Binding DeleteRoleCommand}" Width="96" Visibility="{Binding EditVisibility}" Style="{DynamicResource ButtonRevealStyle}" Content="Odebrat roli" Padding="8,8,8,8" Margin="4,4,8,4" Grid.Row="0" Grid.Column="1" />
+            <ui:ToggleSwitch OnContent="Skrýt detaily" OffContent="Zobrazit detaily" Grid.Row="0" Grid.Column="3" IsOn="{Binding DetailsVisible}" Margin="0,0,8,0"/>
         </Grid>
         <ui:SplitView DisplayMode="Inline" IsPaneOpen="{Binding DetailsVisible, Mode=TwoWay}"  Visibility="{Binding ContentVisibility}" PanePlacement="Right" PaneBackground="{DynamicResource SystemAltHighColorBrush}">
             <ui:ListView VirtualizingPanel.IsVirtualizingWhenGrouping="True" VirtualizingPanel.VirtualizationMode="Recycling" SelectedItem="{Binding SelectedRole}" ItemsSource="{Binding AllRoles}">
@@ -58,7 +88,7 @@
                     <DataTemplate DataType="model:Role">
                         <StackPanel Orientation="Vertical" Margin="0,4,0,4">
                             <Label Content="{Binding Name}" Margin="0,0,0,4" />
-                            <Label Content="{Binding PermissionsString}" Foreground="{DynamicResource SystemBaseMediumColorBrush}" Margin="0,0,0,4" />
+                            <Label Content="{Binding Converter={StaticResource RolePermissionConverter}}" Foreground="{DynamicResource SystemBaseMediumColorBrush}" Margin="0,0,0,4" />
                         </StackPanel>
                     </DataTemplate>
                 </ui:ListView.ItemTemplate>
@@ -72,7 +102,17 @@
                             <Label FontWeight="Bold" FontSize="20" Content="Informace o vybrané roli"/>
                         </StackPanel>
                         <Label FontWeight="Bold" Content="Název" Margin="0,8,0,0" />
-                        <Label Content="{Binding SelectedRole.Name}" FontWeight="ExtraLight" FontSize="24"  Margin="0,0,0,8"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding SelectedRoleName}" IsReadOnly="{Binding NameReadOnly}" FontWeight="ExtraLight" FontSize="24"  Margin="0,0,0,8" />
+                            <Button Grid.Row="0" Grid.Column="1" Background="Transparent" Visibility="{Binding EditVisibility}" Style="{DynamicResource ButtonRevealStyle}" Margin="8,-4,0,0"  Padding="8,8,8,8" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Segoe UI Symbol" FontWeight="Bold" Content="&#xE17E;&#xE105;" Command="{Binding SaveNameCommand}"/>
+                        </Grid>
                         <Grid Margin="0,0,0,2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*"/>
@@ -82,7 +122,7 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Label VerticalAlignment="Bottom" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Content="Oprávnění" />
-                            <Button Command="{Binding ChangePermissionsCommand}" VerticalAlignment="Bottom" FontWeight="ExtraBlack" FontFamily="Segoe UI Symbol" Content="&#xE17E;&#xE104;" Padding="8,8,8,8" Style="{DynamicResource ButtonRevealStyle}" Grid.Row="0" Grid.Column="1" Background="Transparent" />
+                            <Button Visibility="{Binding EditVisibility}" Command="{Binding ChangePermissionsCommand}" VerticalAlignment="Bottom" FontWeight="ExtraBlack" FontFamily="Segoe UI Symbol" Content="&#xE17E;&#xE104;" Padding="8,8,8,8" Style="{DynamicResource ButtonRevealStyle}" Grid.Row="0" Grid.Column="1" Background="Transparent" />
                         </Grid>
                         <ItemsControl ItemsSource="{Binding SelectedPermissions}" AlternationCount="2">
                             <ItemsControl.ItemTemplate>

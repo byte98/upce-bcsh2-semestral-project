@@ -44,6 +44,18 @@ namespace SemestralProject.ViewModel.Pages
         private Visibility waitVisibility;
 
         /// <summary>
+        /// Visibility of editing controls.
+        /// </summary>
+        [ObservableProperty]
+        private Visibility editVisibility;
+
+        /// <summary>
+        /// Flag, whether name of role should be read only.
+        /// </summary>
+        [ObservableProperty]
+        private bool nameReadOnly;
+
+        /// <summary>
         /// Collection of all available roles.
         /// </summary>
         [ObservableProperty]
@@ -53,13 +65,31 @@ namespace SemestralProject.ViewModel.Pages
         /// Actually selected role.
         /// </summary>
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(DeleteRoleCommand))]
         private Role? selectedRole;
+
+        /// <summary>
+        /// Name of selected role.
+        /// </summary>
+        [ObservableProperty]
+        private string selectedRoleName;
 
         /// <summary>
         /// Collection of permissions of selected role.
         /// </summary>
         [ObservableProperty]
         private ObservableCollection<Permission> selectedPermissions;
+
+        /// <summary>
+        /// Name of new role.
+        /// </summary>
+        [ObservableProperty]
+        private string newRoleName;
+
+        /// <summary>
+        /// Flag, whether user can edit data.
+        /// </summary>
+        private bool canEdit;
 
         /// <summary>
         /// Creates new handler of permissions page.
@@ -70,9 +100,59 @@ namespace SemestralProject.ViewModel.Pages
             this.loaderVisibility = Visibility.Visible;
             this.contentVisibility = Visibility.Collapsed;
             this.waitVisibility = Visibility.Collapsed;
+            this.editVisibility = Visibility.Collapsed;
+            this.newRoleName = string.Empty;
+            this.nameReadOnly = true;
+            this.selectedRoleName = string.Empty;
             this.allRoles = new ObservableCollection<Role>();
             this.selectedPermissions = new ObservableCollection<Permission>();
             this.AllRoles.Clear();
+            WeakReferenceMessenger.Default.Register<RolesChangedMessage>(this, (sender, args) =>
+            {
+                this.Reload();
+            });
+            WeakReferenceMessenger.Default.Register<LoggedRoleChangedMessage>(this, (sender, args) =>
+            {
+                this.UserRoleChanged(args.Value);
+            });
+            WeakReferenceMessenger.Default.Register<InfoRoleMessage>(this, (sender, args) =>
+            {
+                this.UserRoleChanged(args.Value);
+            });
+        }
+
+        /// <summary>
+        /// Handles change of user role.
+        /// </summary>
+        /// <param name="role"></param>
+        private void UserRoleChanged(Role role)
+        {
+            this.EditVisibility = Visibility.Collapsed;
+            this.NameReadOnly = true;
+            this.canEdit = role.HasPermission(Model.Enums.PermissionNames.RolesModify);
+            if (this.canEdit)
+            {
+                this.EditVisibility = Visibility.Visible;
+                this.NameReadOnly = false;
+            }
+        }
+
+        /// <summary>
+        /// Reloads content of page.
+        /// </summary>
+        private async void Reload()
+        {
+            this.WaitVisibility = Visibility.Visible;
+            this.ContentVisibility = Visibility.Collapsed;
+            this.AllRoles.Clear();
+            Role[] loadedRoles = await Role.GetAllAsync();
+            foreach (Role r in loadedRoles)
+            {
+                this.AllRoles.Add(r);
+            }
+            this.SelectedRoleName = string.Empty;
+            this.WaitVisibility = Visibility.Collapsed;
+            this.ContentVisibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -86,12 +166,6 @@ namespace SemestralProject.ViewModel.Pages
             this.ContentVisibility = Visibility.Collapsed;
             this.AllRoles.Clear();
             Role[] loadedRoles = await Role.GetAllAsync();
-            IList<Task> loadingTasks = new List<Task>();
-            foreach (Role r in loadedRoles)
-            {
-                loadingTasks.Add(r.LoadPermissionsAsync());
-            }
-            await Task.WhenAll(loadingTasks);
             foreach (Role r in loadedRoles)
             {
                 this.AllRoles.Add(r);
@@ -109,10 +183,17 @@ namespace SemestralProject.ViewModel.Pages
             this.SelectedPermissions.Clear();
             if (this.SelectedRole != null)
             {
-                await this.SelectedRole.LoadPermissionsAsync();
-                foreach(Permission p in this.SelectedRole.GetPermissions())
+                this.SelectedRoleName = this.SelectedRole.Name;
+                if (this.SelectedRole != null)
                 {
-                    this.SelectedPermissions.Add(p);
+                    await this.SelectedRole.LoadPermissionsAsync();
+                    if (this.SelectedRole != null)
+                    {
+                        foreach (Permission p in this.SelectedRole.GetPermissions())
+                        {
+                            this.SelectedPermissions.Add(p);
+                        }
+                    }
                 }
             }
         }
@@ -145,20 +226,75 @@ namespace SemestralProject.ViewModel.Pages
                             tasks.Add(r.DeleteAsync());
                         }
                         await Task.WhenAll(tasks);
-                        tasks.Clear();
-                        foreach(Permission perm in args.Value)
+                        IList<Task> tasks2 = new List<Task>();
+                        foreach (Permission perm in args.Value)
                         {
-                            tasks.Add(Rights.CreateAsync(this.SelectedRole, perm));
+                            tasks2.Add(Rights.CreateAsync(this.SelectedRole, perm));
                         }
-                        await Task.WhenAll();
+                        await Task.WhenAll(tasks2);
                     });
                     this.ContentVisibility = Visibility.Visible;
                     this.WaitVisibility = Visibility.Collapsed;
+                    this.Reload();
                 });
                 window.ShowDialog();
                 WeakReferenceMessenger.Default.Unregister<SelectedPermissionsChangedMessage>(this);
             }
-            
+        }
+
+        /// <summary>
+        /// Handles click on save name button.
+        /// </summary>
+        [RelayCommand]
+        private async Task SaveName()
+        {
+            this.ContentVisibility = Visibility.Collapsed;
+            this.WaitVisibility = Visibility.Visible;
+            if (this.SelectedRole != null)
+            {
+                this.SelectedRole.Name = this.SelectedRoleName;
+                await this.SelectedRole.UpdateAsync();
+            }
+            this.Reload();
+        }
+
+        /// <summary>
+        /// Handles click on adding new role.
+        /// </summary>
+        [RelayCommand]
+        private async Task NewRole()
+        {
+            if (this.NewRoleName.Length > 0)
+            {
+                this.ContentVisibility = Visibility.Collapsed;
+                this.WaitVisibility = Visibility.Visible;
+                await Role.CreateAsync(this.NewRoleName);
+                this.Reload();
+                this.NewRoleName = string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Checks, whether selected role is NOT NULL.
+        /// </summary>
+        /// <returns>TRUE if selected role is NOT NULL, FALSE otherwise.</returns>
+        private bool SelectedNonNull() => this.SelectedRole != null;
+
+        /// <summary>
+        /// Handles click on delete role.
+        /// </summary>
+        /// <returns></returns>
+        [RelayCommand(CanExecute =nameof(SelectedNonNull))]
+        private async Task DeleteRole()
+        {
+            if (this.SelectedRole != null)
+            {
+                this.ContentVisibility = Visibility.Collapsed;
+                this.WaitVisibility = Visibility.Visible;
+                await this.SelectedRole.DeleteAsync();
+                this.SelectedRole = null;
+                this.Reload();
+            }
         }
     }
 }

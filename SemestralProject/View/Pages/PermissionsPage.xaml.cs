@@ -24,5 +24,15 @@ namespace SemestralProject.View.Pages
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Handles click on close add new role cancel button.
+        /// </summary>
+        /// <param name="sender">Sender of event.</param>
+        /// <param name="e">Arguments of event.</param>
+        private void ButtonFlyoutCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.FlyoutNewRole.Hide();
+        }
     }
 }

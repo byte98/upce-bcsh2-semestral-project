@@ -62,12 +62,6 @@ namespace SemestralProject.ViewModel.Components
         private Visibility contentVisibility;
 
         /// <summary>
-        /// Visibility of edit controls.
-        /// </summary>
-        [ObservableProperty]
-        private Visibility editVisibility;
-
-        /// <summary>
         /// Creates new view model for permission selector window.
         /// </summary>
         public PermissionSelectorWindowViewModel()
@@ -77,15 +71,6 @@ namespace SemestralProject.ViewModel.Components
             this.permissions = new List<Permission>();
             this.loaderVisibility = Visibility.Visible;
             this.contentVisibility = Visibility.Hidden;
-            this.editVisibility = Visibility.Hidden;
-            WeakReferenceMessenger.Default.Register<LoggedRoleChangedMessage>(this, (sender, args) =>
-            {
-                this.RoleChanged(args.Value);
-            });
-            WeakReferenceMessenger.Default.Register<InfoRoleMessage>(this, (sender, args) =>
-            {
-                this.RoleChanged(args.Value);
-            });
             WeakReferenceMessenger.Default.Register<SelectedPermissionsChangedMessage>(this, (sender, args) =>
             {
                 this.SelectedPermissions.Clear();
@@ -94,20 +79,6 @@ namespace SemestralProject.ViewModel.Components
                     this.SelectedPermissions.Add(perm);
                 }
             });
-        }
-
-        /// <summary>
-        /// Handles change of role.
-        /// </summary>
-        /// <param name="role">Role which is currently actual.</param>
-        private async void RoleChanged(Role role)
-        {
-            this.EditVisibility = Visibility.Collapsed;
-            bool canEdit = await role.HasPermissionAsync(Model.Enums.PermissionNames.RolesModify);
-            if (canEdit)
-            {
-                this.EditVisibility = Visibility.Visible;
-            }
         }
 
         /// <summary>
@@ -188,6 +159,12 @@ namespace SemestralProject.ViewModel.Components
         [RelayCommand]
         private void OK()
         {
+            
+            IList<Permission> reti = new List<Permission>();
+            foreach(Permission perm in this.SelectedPermissions)
+            {
+                reti.Add(perm);
+            }
             WeakReferenceMessenger.Default.Send<SelectedPermissionsChangedMessage>(new SelectedPermissionsChangedMessage(this.SelectedPermissions));
             WindowUtils.CloseForModel(this);
         }

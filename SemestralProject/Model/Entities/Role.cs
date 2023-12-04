@@ -31,11 +31,6 @@ namespace SemestralProject.Model.Entities
         public static readonly Role User = new Role(1, "Uživatel");
 
         /// <summary>
-        /// String containing number of permissions associated with role.
-        /// </summary>
-        public string PermissionsString { get; private set; } = string.Empty;
-
-        /// <summary>
         /// Array of permissions associated with role.
         /// </summary>
         private Permission[] permissions;
@@ -50,7 +45,6 @@ namespace SemestralProject.Model.Entities
             this.Id = id;
             this.Name = name;
             this.permissions = new Permission[0];
-            this.PermissionsString = "0 oprávnění";
         }
 
 
@@ -135,7 +129,6 @@ namespace SemestralProject.Model.Entities
                 loaded.Add(right.Permission);
             }
             this.permissions = loaded.ToArray();
-            this.PermissionsString = this.permissions.Length + " oprávnění";
         }
 
         /// <summary>
