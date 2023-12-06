@@ -42,7 +42,7 @@ namespace SemestralProject.Model.Entities
         /// <returns>Newly created card. </returns>
         public static Card Create(int number, DateTime issued, DateTime validity, bool allowed, Employee holder)
         {
-            string sql = $"sempr_crud.proc_karty_create({number}, {DateUtils.ToSQL(issued)}, {DateUtils.ToSQL(validity)}, {allowed}, {holder})";
+            string sql = $"sempr_crud.proc_karty_create({number}, {DateUtils.ToSQL(issued)}, {DateUtils.ToSQL(validity)}, {BoolUtils.ToQuery(allowed)}, {holder})";
             int id = Card.Create(sql, "cipove_karty_seq");
             return new Card(id, number, issued, validity, allowed, holder);
         }
@@ -147,7 +147,7 @@ namespace SemestralProject.Model.Entities
             int number = (int)(data["cislo_karty"] ?? int.MinValue);
             DateTime issued = (DateTime)(DateUtils.FromQuery(data["datum_vydani"]) ?? DateTime.Now);
             DateTime validity = (DateTime)(DateUtils.FromQuery(data["datum_platnosti"]) ?? DateTime.Now);
-            bool allowed = (bool)(data["povolena"] ?? false);
+            bool allowed = BoolUtils.FromQuery(data["povolena"]);
             Employee? holder = Employee.GetById((int)(data["drzitel"] ?? int.MinValue));
             if (holder != null)
             {
@@ -159,7 +159,7 @@ namespace SemestralProject.Model.Entities
         /// <inheritdoc/>
         public override bool Update()
         {
-            string sql = $"sempr_crud.proc_karty_update({this.Id}, {this.Number}, {DateUtils.ToSQL(this.Issued)}, {DateUtils.ToSQL(this.Validity)}, {this.Allowed.ToString().ToLower()}, {this.Holder.Id})";
+            string sql = $"sempr_crud.proc_karty_update({this.Id}, {this.Number}, {DateUtils.ToSQL(this.Issued)}, {DateUtils.ToSQL(this.Validity)}, {BoolUtils.ToQuery(this.Allowed)}, {this.Holder.Id})";
             return Card.Update(sql);
         }
 

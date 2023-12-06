@@ -154,9 +154,9 @@ namespace DatabaseObject
                 else if (type == "bool")
                 {
                     reti.Append("{");
-                    reti.Append("this.");
+                    reti.Append("BoolUtils.ToQuery(this.");
                     reti.Append(properties[i][DatabaseObjectSourceGenerator.Name]);
-                    reti.Append(".ToString().ToLower()");
+                    reti.Append(")");
                     reti.Append("}");
                 }
                 else if (type == "DateTime")
@@ -284,18 +284,23 @@ namespace DatabaseObject
             StringBuilder nullables = new StringBuilder();
             foreach (string[] prop in properties)
             {
-                if (prop[DatabaseObjectSourceGenerator.Type] == "int" || prop[DatabaseObjectSourceGenerator.Type] == "bool" || prop[DatabaseObjectSourceGenerator.Type] == "string" || prop[DatabaseObjectSourceGenerator.Type] == "double" || prop[DatabaseObjectSourceGenerator.Type] == "float")
+                if (prop[DatabaseObjectSourceGenerator.Type] == "int" || prop[DatabaseObjectSourceGenerator.Type] == "string" || prop[DatabaseObjectSourceGenerator.Type] == "double" || prop[DatabaseObjectSourceGenerator.Type] == "float")
                 {
                     reti.Append(this.Insets(3, $"{prop[DatabaseObjectSourceGenerator.Type]} {prop[DatabaseObjectSourceGenerator.Name].ToLower()} = ({prop[DatabaseObjectSourceGenerator.Type]})(data[\"{prop[DatabaseObjectSourceGenerator.Column]}\"] ?? "));
                     switch(prop[DatabaseObjectSourceGenerator.Type])
                     {
                         case "int": reti.Append("int.MinValue"); break;
-                        case "bool": reti.Append("false"); break;
                         case "string": reti.Append("string.Empty"); break;
                         case "double": reti.Append("double.NaN"); break;
                         case "float": reti.Append("float.NaN"); break;                        
                     }
                     reti.AppendLine(");");
+                }
+                else if (prop[DatabaseObjectSourceGenerator.Type] == "bool")
+                {
+                    reti.Append(this.Insets(3));
+                    reti.Append($"{prop[DatabaseObjectSourceGenerator.Type]} {prop[DatabaseObjectSourceGenerator.Name].ToLower()} = ");
+                    reti.AppendLine($"BoolUtils.FromQuery(data[\"{prop[DatabaseObjectSourceGenerator.Column]}\"]);");
                 }
                 else if (prop[DatabaseObjectSourceGenerator.Type] == "DateTime")
                 {
@@ -502,6 +507,12 @@ namespace DatabaseObject
                 else if (properties[i][DatabaseObjectSourceGenerator.Type].Trim().ToLower() == "datetime")
                 {
                     reti.Append("{DateUtils.ToSQL(");
+                    reti.Append(properties[i][DatabaseObjectSourceGenerator.Name].ToLower());
+                    reti.Append(")}");
+                }
+                else if (properties[i][DatabaseObjectSourceGenerator.Type].Trim().ToLower() == "bool")
+                {
+                    reti.Append("{BoolUtils.ToQuery(");
                     reti.Append(properties[i][DatabaseObjectSourceGenerator.Name].ToLower());
                     reti.Append(")}");
                 }

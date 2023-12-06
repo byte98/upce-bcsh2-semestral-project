@@ -420,15 +420,15 @@ PACKAGE BODY sempr_crud AS
         CLOSE v_cursor;
     END func_role_read;
 --
-    PROCEDURE proc_stavy_create(p_name IN stavy.nazev%TYPE) AS
+    PROCEDURE proc_stavy_create(p_name IN stavy.nazev%TYPE, p_loginable IN stavy.prihlasitelny%TYPE) AS
     BEGIN
-        INSERT INTO stavy(nazev) VALUES(p_name);
+        INSERT INTO stavy(nazev, prihlasitelny) VALUES(p_name, p_loginable);
     END proc_stavy_create;
 --
-    PROCEDURE proc_stavy_update(p_id IN stavy.id_stav%TYPE, p_name IN stavy.nazev%TYPE) AS
+    PROCEDURE proc_stavy_update(p_id IN stavy.id_stav%TYPE, p_name IN stavy.nazev%TYPE, p_loginable IN stavy.prihlasitelny%TYPE) AS
     BEGIN
         SET TRANSACTION READ WRITE;
-        UPDATE stavy SET nazev=p_name WHERE id_stav=p_id;
+        UPDATE stavy SET nazev=p_name, prihlasitelny=p_loginable WHERE id_stav=p_id;
         COMMIT;
     END proc_stavy_update;
 --

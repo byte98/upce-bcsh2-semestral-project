@@ -1,4 +1,6 @@
 ﻿using SemestralProject.Common;
+using SemestralProject.DatabaseObject.DatabaseClass;
+using SemestralProject.DatabaseObject.DatabaseColummn;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,146 +12,35 @@ namespace SemestralProject.Model.Entities
     /// <summary>
     /// Class which represents state of user.
     /// </summary>
-    public class State: AsynchronousEntity
+    [DatabaseClass("proc_stavy_create", "func_stavy_read", "proc_stavy_update", "proc_stavy_delete", "stavy_seq", "id_stav")]
+    public partial class State
     {
         /// <summary>
         /// Name of state.
         /// </summary>
+        [DatabaseColumn("nazev")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Flag, whether user can log in.
+        /// </summary>
+        [DatabaseColumn("prihlasitelny")]
+        public bool Loginable { get; set; }
 
         /// <summary>
         /// Active state of user.
         /// </summary>
-        public static readonly State Active = new State(0, "Aktivní");
+        public static readonly State Active = new State(0, "Aktivní", true);
 
         /// <summary>
         /// Blocked state of user.
         /// </summary>
-        public static readonly State Blocked = new State(1, "Blokovaný");
+        public static readonly State Blocked = new State(1, "Blokovaný", false);
 
         /// <summary>
         /// Deleted state of user.
         /// </summary>
-        public static readonly State Deleted = new State(2, "Smazaný");
+        public static readonly State Deleted = new State(2, "Smazaný", false);
 
-        /// <summary>
-        /// Creates new state.
-        /// </summary>
-        /// <param name="id">Identifier of state.</param>
-        /// <param name="name">Name of state.</param>
-        private State(int id, string name)
-        {
-            this.Id = id;
-            this.Name = name;
-        }
-
-        /// <summary>
-        /// Creates new state.
-        /// </summary>
-        /// <param name="name">Name of new state.</param>
-        /// <returns>Newly created state.</returns>
-        public static State Create(string name)
-        {
-            string sql = $"sempr_crud.proc_stavy_create('{name}')";
-            int id = State.Create(sql, "role_seq");
-            return new State(id, name);
-        }
-
-        /// <summary>
-        /// Creates new state asynchronously.
-        /// </summary>
-        /// <param name="name">Name of new state.</param>
-        /// <returns>Task which resolves into newly created state.</returns>
-        public static Task<State> CreateAsync(string name)
-        {
-            return Task<State>.Run(() =>
-            {
-                return State.Create(name);
-            });
-        }
-
-        /// <summary>
-        /// Gets all available states.
-        /// </summary>
-        /// <returns>Array with all available states.</returns>
-        public static State[] GetAll()
-        {
-            IList<State> reti = new List<State>();
-            IDictionary<string, object?>[] results = State.Read("sempr_crud.func_stavy_read()");
-            if (results.Length > 0)
-            {
-                foreach (IDictionary<string, object?> row in results)
-                {
-                    reti.Add(new State(
-                        (int)(row["id_stav"] ?? int.MinValue),
-                        (string)(row["nazev"] ?? string.Empty)
-                    ));
-                }
-            }
-            return reti.ToArray();
-        }
-
-        /// <summary>
-        /// Gets all available states asynchronously.
-        /// </summary>
-        /// <returns>Task which resolves into array with all available states.</returns>
-        public static Task<State[]> GetAllAsync()
-        {
-            return Task<State[]>.Run(() =>
-            {
-                return State.GetAll();
-            });
-        }
-
-        /// <summary>
-        /// Gets state by its identifier.
-        /// </summary>
-        /// <param name="id">Identifier of state.</param>
-        /// <returns>
-        /// State with searched identifier,
-        /// or NULL if there is no such state.
-        /// </returns>
-        public static State? GetById(int id)
-        {
-            State? reti = null;
-            IDictionary<string, object?>[] results = Role.Read($"sempr_crud.func_stavy_read({id})");
-            if (results.Length > 0)
-            {
-                reti = new State(
-                        (int)(results[0]["id_stav"] ?? int.MinValue),
-                        (string)(results[0]["nazev"] ?? string.Empty)
-                );
-            }
-            return reti;
-        }
-
-        /// <summary>
-        /// Gets state by its identifier asynchronously.
-        /// </summary>
-        /// <param name="id">Identifier of state.</param>
-        /// <returns>
-        /// Task which resolves into:
-        /// state with searched identifier,
-        /// or NULL if there is no such state.
-        /// </returns>
-        public static Task<State?> GetByIdAsync(int id)
-        {
-            return Task<State?>.Run(() =>
-            {
-                return State.GetById(id);
-            });
-        }
-
-        public override bool Update()
-        {
-            string sql = $"sempr_crud.proc_stavy_update({this.Id}, '{this.Name}')";
-            return State.Update(sql);
-        }
-
-        public override bool Delete()
-        {
-            string sql = $"sempr_crud.proc_stavy_delete({this.Id})";
-            return State.Delete(sql);
-        }
     }
 }

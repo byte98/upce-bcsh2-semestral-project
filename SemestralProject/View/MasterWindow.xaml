@@ -54,6 +54,12 @@
                     <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Správa oprávnění"/>
                 </StackPanel>
             </components:MenuButton>
+            <components:MenuButton Command="{Binding UsersCommand}" Visibility="{Binding UsersVisibility}" IsChecked="{Binding UsersCheck}" Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
+                    <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xE7EE;" Margin="8,0,16,0"/>
+                    <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Uživatelé"/>
+                </StackPanel>
+            </components:MenuButton>
         </StackPanel>
         <Grid Grid.Column="1" Grid.Row="0" Background="{StaticResource SystemAltHighColorBrush}">
             <Grid.RowDefinitions>

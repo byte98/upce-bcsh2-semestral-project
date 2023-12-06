@@ -127,9 +127,9 @@ PACKAGE sempr_crud AS
      */
     TYPE t_stavy IS TABLE OF stavy%ROWTYPE;
 --
-    PROCEDURE proc_stavy_create(p_name IN stavy.nazev%TYPE);
+    PROCEDURE proc_stavy_create(p_name IN stavy.nazev%TYPE, p_loginable IN stavy.prihlasitelny%TYPE);
 --
-    PROCEDURE proc_stavy_update(p_id IN stavy.id_stav%TYPE, p_name IN stavy.nazev%TYPE);
+    PROCEDURE proc_stavy_update(p_id IN stavy.id_stav%TYPE, p_name IN stavy.nazev%TYPE, p_loginable IN stavy.prihlasitelny%TYPE);
 --
     PROCEDURE proc_stavy_delete(p_id IN stavy.id_stav%TYPE);
 --

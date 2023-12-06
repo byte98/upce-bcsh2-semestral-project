@@ -390,9 +390,9 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO stavy(id_stav, nazev) VALUES (0, &apos;Aktivní&apos;)
-        ///INSERT INTO stavy(id_stav, nazev) VALUES (1, &apos;Blokovaný&apos;)
-        ///INSERT INTO stavy(id_stav, nazev) VALUES (2, &apos;Smazaný&apos;)
+        ///   Looks up a localized string similar to INSERT INTO stavy(id_stav, nazev, prihlasitelny) VALUES (0, &apos;Aktivní&apos;, 0)
+        ///INSERT INTO stavy(id_stav, nazev, prihlasitelny) VALUES (1, &apos;Blokovaný&apos;, 1)
+        ///INSERT INTO stavy(id_stav, nazev, prihlasitelny) VALUES (2, &apos;Smazaný&apos;, 1)
         ///.
         /// </summary>
         internal static string STATES {

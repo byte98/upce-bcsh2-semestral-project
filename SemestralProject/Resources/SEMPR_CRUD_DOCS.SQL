@@ -347,14 +347,16 @@
 
     /*
      * Creates new 'stavy' object.
-     * :param p_name: Name of new 'stavy' object.
+     * :param p_name:      Name of new 'stavy' object.
+     * :param p_loginable: Flag, whether user can log in in set 'stavy'.
      */
 --
 
     /*
      * Updates 'stavy' object.
-     * :param p_id:   Identifier of object which will be updated.
-     * :param p_name: New name of 'stavy' object.
+     * :param p_id:        Identifier of object which will be updated.
+     * :param p_name:      New name of 'stavy' object.
+     * :param p_loginable: Flag, whether user can log in in set 'stavy'.
      */
 --
     

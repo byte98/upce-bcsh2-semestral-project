@@ -168,7 +168,8 @@ ALTER TABLE staty ADD CONSTRAINT stat_un UNIQUE(nazev )
 
 CREATE TABLE stavy(
 id_stav INTEGER DEFAULT stavy_seq.nextval NOT NULL,
-nazev VARCHAR2(16) NOT NULL
+nazev VARCHAR2(16) NOT NULL,
+prihlasitelny NUMBER NOT NULL
 )
 
 ALTER TABLE stavy ADD CONSTRAINT stav_pk PRIMARY KEY(id_stav )

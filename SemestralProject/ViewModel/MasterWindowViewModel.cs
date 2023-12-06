@@ -69,6 +69,12 @@ namespace SemestralProject.ViewModel
         private Visibility rolesVisibility = Visibility.Collapsed;
 
         /// <summary>
+        /// Visibility of users menu item.
+        /// </summary>
+        [ObservableProperty]
+        private Visibility usersVisibility = Visibility.Collapsed;
+
+        /// <summary>
         /// Page with users details.
         /// </summary>
         private MyPage myPage;
@@ -77,6 +83,11 @@ namespace SemestralProject.ViewModel
         /// Page with permissions manager.
         /// </summary>
         private PermissionsPage permPage;
+
+        /// <summary>
+        /// Page with all users in system.
+        /// </summary>
+        private UsersPage usersPage;
 
         /// <summary>
         /// Flag, whether my page menu item is checked.
@@ -89,6 +100,12 @@ namespace SemestralProject.ViewModel
         /// </summary>
         [ObservableProperty]
         private bool permCheck;
+
+        /// <summary>
+        /// Flag, whether users menu item is checked.
+        /// </summary>
+        [ObservableProperty]
+        private bool usersCheck;
 
         /// <summary>
         /// Visibility of wait window.
@@ -115,8 +132,10 @@ namespace SemestralProject.ViewModel
             this.waitVisibility = Visibility.Visible;
             this.myPageCheck = false;
             this.permCheck = false;
+            this.usersCheck = false;
             this.myPage = new MyPage();
             this.permPage = new PermissionsPage();
+            this.usersPage = new UsersPage();
         }
 
         /// <summary>
@@ -148,7 +167,7 @@ namespace SemestralProject.ViewModel
             this.WaitVisibility = Visibility.Visible;
             this.role = role;
             this.DisplayRole = role.Name;
-
+            this.RoleMenu();
             WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(role));
             this.WaitVisibility = Visibility.Collapsed;
         }
@@ -162,6 +181,7 @@ namespace SemestralProject.ViewModel
             {
                 this.WaitVisibility = Visibility.Visible;
                 this.RolesVisibility = (await this.role.HasPermissionAsync(PermissionNames.RolesRead) ? Visibility.Visible : Visibility.Collapsed);
+                this.UsersVisibility = (await this.role.HasPermissionAsync(PermissionNames.UsersRead) ? Visibility.Visible : Visibility.Collapsed);
 
                 this.ResetChecks();
 
@@ -297,6 +317,21 @@ namespace SemestralProject.ViewModel
                 WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.role));
             }
             this.Navigate(this.permPage);
+        }
+
+        /// <summary>
+        /// Handles click on 'users' menu item.
+        /// </summary>
+        [RelayCommand]
+        private void Users()
+        {
+            this.ResetChecks();
+            this.UsersCheck = true;
+            if (this.role != null)
+            {
+                WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.role));
+            }
+            this.Navigate(this.usersPage);
         }
     }
 }
