@@ -170,5 +170,17 @@ PACKAGE sempr_crud AS
 
     FUNCTIOn func_linky_read(p_id IN linky.id_linka%TYPE) RETURN t_linky PIPELINED;
 
+    TYPE t_zastavky is TABLE of zastavky%ROWTYPE;
+
+    PROCEDURE proc_zastavky_create(p_name IN zastavky.nazev%TYPE, p_code IN zastavky.kod%TYPE);
+
+    PROCEDURE proc_zastavky_update(p_id IN zastavky.id_zastavka%TYPE, p_name IN zastavky.nazev%TYPE, p_code IN zastavky.kod%TYPE);
+
+    PROCEDURE proc_zastavky_delete(p_id IN zastavky.id_zastavka%TYPE);
+
+    FUNCTION func_zastavky_read RETURN t_zastavky PIPELINED;
+
+    FUNCTIOn func_zastavky_read(p_id IN zastavky.id_zastavka%TYPE) RETURN t_zastavky PIPELINED;
+
 END sempr_crud;
 

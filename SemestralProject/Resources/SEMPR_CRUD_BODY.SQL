@@ -662,5 +662,61 @@ PACKAGE BODY sempr_crud AS
         END LOOP;
         CLOSE v_cursor;
     END func_linky_read;
+--
+--
 
+    PROCEDURE proc_zastavky_create(p_name IN zastavky.nazev%TYPE, p_code IN zastavky.kod%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        INSERT INTO zastavky(kod) VALUES (p_code);
+        COMMIT;
+    END proc_zastavky_create;
+--
+    PROCEDURE proc_zastavky_update(p_id IN zastavky.id_zastavka%TYPE, p_name IN zastavky.nazev%TYPE, p_code IN zastavky.kod%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE zastavky SET nazev=p_name, kod=p_code
+        WHERE id_zastavka=p_id;
+        COMMIT;
+    END proc_zastavky_update;
+--
+    PROCEDURE proc_zastavky_delete(p_id IN zastavky.id_zastavka%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        DELETE FROM zastavky
+        WHERE id_zastavka=p_id;
+        COMMIT;
+    END proc_zastavky_delete;
+--
+
+    FUNCTION func_zastavky_read RETURN t_zastavky PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_zastavka   zastavky%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM zastavky;
+        LOOP
+            FETCH v_cursor INTO v_zastavka;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_zastavka);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_zastavky_read;
+--
+    FUNCTION func_zastavky_read(p_id IN zastavky.id_zastavka%TYPE) RETURN t_zastavky PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_zastavka   zastavky%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM zastavky WHERE id_zastavka=p_id;
+        LOOP
+            FETCH v_cursor INTO v_zastavka;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_zastavka);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_zastavky_read;
+--
 END sempr_crud;
