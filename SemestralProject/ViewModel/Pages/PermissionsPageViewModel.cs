@@ -115,10 +115,6 @@ namespace SemestralProject.ViewModel.Pages
             {
                 this.UserRoleChanged(args.Value);
             });
-            WeakReferenceMessenger.Default.Register<InfoRoleMessage>(this, (sender, args) =>
-            {
-                this.UserRoleChanged(args.Value);
-            });
         }
 
         /// <summary>

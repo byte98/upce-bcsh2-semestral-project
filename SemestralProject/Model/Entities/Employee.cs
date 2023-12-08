@@ -63,7 +63,6 @@ namespace SemestralProject.Model.Entities
         /// <summary>
         /// Creates new employee.
         /// </summary>
-        /// <param name="id">Identifier of employee.</param>
         /// <param name="personalNumber">Personal number of employee.</param>
         /// <param name="employmentDate">Date of employment start.</param>
         /// <param name="residence">Address of residence of employee.</param>
@@ -85,7 +84,6 @@ namespace SemestralProject.Model.Entities
         /// <summary>
         /// Creates new employee asynchronously.
         /// </summary>
-        /// <param name="id">Identifier of employee.</param>
         /// <param name="personalNumber">Personal number of employee.</param>
         /// <param name="employmentDate">Date of employment start.</param>
         /// <param name="residence">Address of residence of employee.</param>
@@ -107,6 +105,42 @@ namespace SemestralProject.Model.Entities
         }
 
         /// <summary>
+        /// Creates new employee.
+        /// </summary>
+        /// <param name="residence">Address of residence of employee.</param>
+        /// <param name="personalData">Personal data of employee.</param>
+        /// <returns>Newly created employee.</returns>
+        public static Employee Create(Address residence, Person personalData)
+        {
+            int number = int.MinValue;
+            IConnection connection = OracleConnector.Load();
+            IDictionary<string, object?>[] result = connection.Query($"SELECT sempr_utils.func_next_seq('OSOBNI_CISLA_SEQ') AS next FROM dual");
+            if (result.Length > 0)
+            {
+                number = (int)(result[0]["next"] ?? int.MinValue);
+            }
+            connection.Execute("COMMIT");
+            return Employee.Create(number, DateTime.Now, residence, personalData, null);
+        }
+
+        /// <summary>
+        /// Creates new employee asynchronously.
+        /// </summary>
+        /// <param name="residence">Address of residence of employee.</param>
+        /// <param name="personalData">Personal data of employee.</param>
+        /// <returns>Task which resolves into newly created employee.</returns>
+        public static Task<Employee> CreateAsync(Address residence, Person personalData)
+        {
+            return Task<Employee>.Run(() =>
+            {
+                return Employee.Create(
+                    residence,
+                    personalData
+                );
+            });
+        }
+
+        /// <summary>
         /// Gets all available employees.
         /// </summary>
         /// <returns>Array with all available employees.</returns>
@@ -119,20 +153,17 @@ namespace SemestralProject.Model.Entities
                 Address? address = Address.GetById((int)(row["bydliste"] ?? int.MinValue));
                 Person?  person  = Person.GetById((int)(row["osobni_udaje"] ?? int.MinValue));
                 Employee? superior = Employee.GetById((int)(row["nadrizeny"] ?? int.MinValue));
-                DateTime date;
-                if (DateTime.TryParse((string)(row["datum_nastupu"] ?? string.Empty), out date))
+                DateTime? date = DateUtils.FromQuery(row["datum_nastupu"]);
+                if (address != null && person != null && date != null)
                 {
-                    if (address != null && person != null)
-                    {
-                        reti.Add(new Employee(
-                            (int)(row["id_zamestnanec"] ?? int.MinValue),
-                            (int)(row["osobni_cislo"] ?? int.MinValue),
-                            date,
-                            address,
-                            person,
-                            superior
-                        ));
-                    }
+                    reti.Add(new Employee(
+                        (int)(row["id_zamestnanec"] ?? int.MinValue),
+                        (int)(row["osobni_cislo"] ?? int.MinValue),
+                        (DateTime)date,
+                        address,
+                        person,
+                        superior
+                    ));
                 }
             }
             return reti.ToArray();

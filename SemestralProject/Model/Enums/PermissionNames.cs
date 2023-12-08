@@ -199,6 +199,11 @@ namespace SemestralProject.Model.Enums
         /// <summary>
         /// Permission to modify roles.
         /// </summary>
-        RolesModify
+        RolesModify,
+
+        /// <summary>
+        /// Permission to read logs.
+        /// </summary>
+        LogsRead
     }
 }

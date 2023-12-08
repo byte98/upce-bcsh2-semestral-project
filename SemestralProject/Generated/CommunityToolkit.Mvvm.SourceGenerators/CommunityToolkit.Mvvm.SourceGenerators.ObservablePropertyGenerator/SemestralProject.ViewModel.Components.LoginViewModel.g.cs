@@ -67,8 +67,8 @@ namespace SemestralProject.ViewModel.Components
                     OnControlsEnabledChanged(value);
                     OnControlsEnabledChanged(default, value);
                     OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ControlsEnabled);
-                    LoginCommand.NotifyCanExecuteChanged();
                     RegisterCommand.NotifyCanExecuteChanged();
+                    LoginCommand.NotifyCanExecuteChanged();
                 }
             }
         }

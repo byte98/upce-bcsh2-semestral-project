@@ -2,7 +2,10 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using SemestralProject.AsynchronousMethod;
+using SemestralProject.Common;
 using SemestralProject.Model.Entities;
+using SemestralProject.Model.Enums;
+using SemestralProject.View.Pages;
 using SemestralProject.ViewModel.Messaging;
 using System;
 using System.Collections.Generic;
@@ -11,32 +14,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SemestralProject.ViewModel.Pages
 {
     /// <summary>
     /// Class which handles behaviour of users page.
     /// </summary>
-    public partial class UsersPageViewModel: ObservableObject
+    public partial class UsersPageViewModel : AbstractPageViewModel
     {
-        /// <summary>
-        /// Visibility of waiting ring.
-        /// </summary>
-        [ObservableProperty]
-        private Visibility waitVisibility;
-
-        /// <summary>
-        /// Visibility of content.
-        /// </summary>
-        [ObservableProperty]
-        private Visibility contentVisibility;
-
-        /// <summary>
-        /// Visibility of editing controls.
-        /// </summary>
-        [ObservableProperty]
-        private Visibility editVisibility;
-
         /// <summary>
         /// Collection of all available user states.
         /// </summary>
@@ -73,6 +59,8 @@ namespace SemestralProject.ViewModel.Pages
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(ChangeRoleCommand))]
         [NotifyCanExecuteChangedFor(nameof(ChangeStateCommand))]
+        [NotifyCanExecuteChangedFor(nameof(ChangePasswordCommand))]
+        [NotifyCanExecuteChangedFor(nameof(ChangeImageCommand)), NotifyCanExecuteChangedFor(nameof(ChangePasswordCommand))]
         private User? selectedUser;
 
         /// <summary>
@@ -83,12 +71,8 @@ namespace SemestralProject.ViewModel.Pages
         /// <summary>
         /// Creates new handler of users page.
         /// </summary>
-        public UsersPageViewModel()
+        public UsersPageViewModel(): base(PermissionNames.UsersModify)
         {
-            this.waitVisibility = Visibility.Visible;
-            this.contentVisibility = Visibility.Hidden;
-            this.editVisibility = Visibility.Hidden;
-            this.canEdit = false;
             this.states = new ObservableCollection<State>();
             this.roles = new ObservableCollection<Role>();
             this.users = new ObservableCollection<User>();
@@ -96,33 +80,11 @@ namespace SemestralProject.ViewModel.Pages
             {
                 this.Load();
             });
-            WeakReferenceMessenger.Default.Register<InfoRoleMessage>(this, (sender, args) =>
+            WeakReferenceMessenger.Default.Register<UsersChangedMessage>(this, (sender, args) =>
             {
-                this.RoleChanged(args.Value);
+                this.Load();
             });
-            WeakReferenceMessenger.Default.Register<LoggedRoleChangedMessage>(this, (sender, args) =>
-            {
-                this.RoleChanged(args.Value);
-            });
-        }
 
-        /// <summary>
-        /// Handles change of role of user.
-        /// </summary>
-        /// <param name="role">New role of actually logged user.</param>
-        private async void RoleChanged(Role role)
-        {
-            this.WaitVisibility = Visibility.Visible;
-            this.ContentVisibility = Visibility.Collapsed;
-            this.EditVisibility = Visibility.Collapsed;
-            this.canEdit = await role.HasPermissionAsync(Model.Enums.PermissionNames.UsersModify);
-            if (this.canEdit)
-            {
-                this.EditVisibility = Visibility.Visible;
-            }
-
-            this.WaitVisibility = Visibility.Collapsed;
-            this.ContentVisibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -135,21 +97,21 @@ namespace SemestralProject.ViewModel.Pages
 
             this.States.Clear();
             State[] loadedStates = await State.GetAllAsync();
-            foreach(State s in loadedStates)
+            foreach (State s in loadedStates)
             {
                 this.States.Add(s);
             }
 
             this.Roles.Clear();
             Role[] loadedRoles = await Role.GetAllAsync();
-            foreach(Role r in loadedRoles)
+            foreach (Role r in loadedRoles)
             {
                 this.Roles.Add(r);
             }
 
             this.Users.Clear();
             User[] loadedUsers = await User.GetAllAsync();
-            foreach(User u in loadedUsers)
+            foreach (User u in loadedUsers)
             {
                 this.Users.Add(u);
             }
@@ -189,7 +151,7 @@ namespace SemestralProject.ViewModel.Pages
         /// <summary>
         /// Handles change of role.
         /// </summary>
-        [RelayCommand(CanExecute =nameof(IsSelected))]
+        [RelayCommand(CanExecute = nameof(IsSelected))]
         private async Task ChangeRole()
         {
             if (this.SelectedUser != null && this.SelectedRole != null)
@@ -205,7 +167,7 @@ namespace SemestralProject.ViewModel.Pages
         /// <summary>
         /// Handles change of state.
         /// </summary>
-        [RelayCommand(CanExecute =nameof(IsSelected))]
+        [RelayCommand(CanExecute = nameof(IsSelected))]
         private async Task ChangeState()
         {
             if (this.SelectedUser != null && this.SelectedState != null)
@@ -213,6 +175,45 @@ namespace SemestralProject.ViewModel.Pages
                 this.WaitVisibility = Visibility.Visible;
                 this.ContentVisibility = Visibility.Collapsed;
                 this.SelectedUser.State = this.SelectedState;
+                await this.SelectedUser.UpdateAsync();
+                this.Load();
+            }
+        }
+
+        /// <summary>
+        /// Handles change of password.
+        /// </summary>
+        [RelayCommand(CanExecute = nameof(IsSelected))]
+        private async Task ChangePassword()
+        {
+            if (this.SelectedUser != null)
+            {
+                this.WaitVisibility = Visibility.Visible;
+                this.ContentVisibility = Visibility.Collapsed;
+                this.SelectedUser.Password = UsersPage.Password;
+                await this.SelectedUser.UpdateAsync();
+                UsersPage.ClearPassword();
+                this.Load();
+            }
+        }
+
+
+        /// <summary>
+        /// Handles change of image.
+        /// </summary>
+        [RelayCommand(CanExecute = nameof(IsSelected))]
+        private async Task ChangeImage()
+        {
+            Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+            dialog.Filter = "Všechny obrázky | *.bmp;*.gif;*jpg;*.jpeg;*.png";
+            bool? result = dialog.ShowDialog();
+            if (result != null && result == true && this.SelectedUser != null)
+            {
+                this.WaitVisibility = Visibility.Visible;
+                this.ContentVisibility = Visibility.Collapsed;
+                string file = dialog.FileName;
+                UserImage image = UserImage.FromFile(file);
+                this.SelectedUser.Image = image;
                 await this.SelectedUser.UpdateAsync();
                 this.Load();
             }

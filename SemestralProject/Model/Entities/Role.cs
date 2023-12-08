@@ -35,6 +35,12 @@ namespace SemestralProject.Model.Entities
         /// </summary>
         private Permission[] permissions;
 
+
+        /// <summary>
+        /// Array with all available permissions.
+        /// </summary>
+        private Permission[] allPermissions;
+
         /// <summary>
         /// Creates new role.
         /// </summary>
@@ -44,9 +50,34 @@ namespace SemestralProject.Model.Entities
         {
             this.Id = id;
             this.Name = name;
+            
             this.permissions = new Permission[0];
+            this.allPermissions = new Permission[0];
+            this.LoadPermissions();
         }
 
+        /// <summary>
+        /// Gets permission by its name.
+        /// </summary>
+        /// <param name="name">Name of permission.</param>
+        /// <returns>Permission with defined name or NULL if there is no such permission.</returns>
+        private Permission? GetPermissionByName(PermissionNames name)
+        {
+            Permission? reti = null;
+            if (this.allPermissions.Length == 0)
+            {
+                this.LoadPermissions();
+            }
+            foreach(Permission perm in this.allPermissions)
+            {
+                if (perm.SystemName == PermissionNamesConvertor.ToName(name))
+                {
+                    reti = perm;
+                    break;
+                }
+            }
+            return reti;
+        }
 
         /// <summary>
         /// Checks, whether role has associated permission.
@@ -59,17 +90,22 @@ namespace SemestralProject.Model.Entities
         public bool HasPermission(PermissionNames name)
         {
             bool reti = false;
-            if (this.permissions.Length == 0)
+            if (this.permissions.Length == 0 || this.allPermissions.Length == 0)
             {
                 this.LoadPermissions();
             }
-            foreach(Permission permission in this.permissions)
+            Permission? searched = this.GetPermissionByName(name);
+            if (searched != null)
             {
-                if (permission.SystemName == PermissionNamesConvertor.ToName(name))
+                foreach (Permission permission in this.permissions)
                 {
-                    reti = true;
-                    break;
+                    if (permission.Equals(searched))
+                    {
+                        reti = true;
+                        break;
+                    }
                 }
+
             }
             return reti;
         }
@@ -97,7 +133,7 @@ namespace SemestralProject.Model.Entities
         /// <returns>Array of all permissions associated with user role.</returns>
         public Permission[] GetPermissions()
         {
-            if (this.permissions.Length == 0)
+            if (this.permissions.Length == 0 || this.allPermissions.Length == 0)
             {
                 this.LoadPermissions();
             }
@@ -122,13 +158,21 @@ namespace SemestralProject.Model.Entities
         [AsynchronousMethod]
         public void LoadPermissions()
         {
-            Rights[] rights = Rights.GetByRole(this);
-            IList<Permission> loaded = new List<Permission>();
-            foreach(Rights right in rights)
+            lock (this)
             {
-                loaded.Add(right.Permission);
+                if (this.permissions.Length == 0 || this.allPermissions.Length == 0)
+                {
+                    Rights[] rights = Rights.GetByRole(this);
+                    IList<Permission> loaded = new List<Permission>();
+                    foreach (Rights right in rights)
+                    {
+                        loaded.Add(right.Permission);
+                    }
+                    this.permissions = loaded.ToArray();
+                    this.allPermissions = Permission.GetAll();
+                }
             }
-            this.permissions = loaded.ToArray();
+            
         }
 
         /// <summary>

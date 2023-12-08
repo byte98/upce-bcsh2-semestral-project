@@ -75,7 +75,7 @@ namespace SemestralProject.Model.Entities
         private User(int id, string password, DateTime registration, UserImage image, Role role, State state, Employee employee)
         {
             this.Id = id;
-            this.password = User.HashPassword(password);
+            this.password = password;
             this.Registration = registration;
             this.Image = image;
             this.Role = role;
@@ -152,11 +152,12 @@ namespace SemestralProject.Model.Entities
                 State? state = State.GetById((int)(row["stav"] ?? int.MinValue));
                 Role? role = Role.GetById((int)(row["role"] ?? int.MinValue));
                 DateTime? date = DateUtils.FromQuery(row["datum_registrace"]);
-                if (date != null && employee != null && state != null && role != null)
+                string? password = (string?)row["heslo"];
+                if (date != null && employee != null && state != null && role != null && password != null)
                 {
                     reti.Add(new User(
                         (int)(row["id_uzivatel"] ?? int.MinValue),
-                        (string)(row["heslo"] ?? string.Empty),
+                        (string)password,
                         (DateTime)date,
                         UserImage.FromContent((string)(row["obrazek"] ?? string.Empty)),
                         role,

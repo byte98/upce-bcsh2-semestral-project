@@ -75,6 +75,12 @@ namespace SemestralProject.ViewModel
         private Visibility usersVisibility = Visibility.Collapsed;
 
         /// <summary>
+        /// Visibility of employees menu item.
+        /// </summary>
+        [ObservableProperty]
+        private Visibility employeesVisibility = Visibility.Collapsed;
+
+        /// <summary>
         /// Page with users details.
         /// </summary>
         private MyPage myPage;
@@ -88,6 +94,11 @@ namespace SemestralProject.ViewModel
         /// Page with all users in system.
         /// </summary>
         private UsersPage usersPage;
+
+        /// <summary>
+        /// Page with employees.
+        /// </summary>
+        private EmployeesPage employeesPage;
 
         /// <summary>
         /// Flag, whether my page menu item is checked.
@@ -106,6 +117,12 @@ namespace SemestralProject.ViewModel
         /// </summary>
         [ObservableProperty]
         private bool usersCheck;
+
+        /// <summary>
+        /// Flag, whether employees menu item is checked.
+        /// </summary>
+        [ObservableProperty]
+        private bool employeesCheck;
 
         /// <summary>
         /// Visibility of wait window.
@@ -133,9 +150,11 @@ namespace SemestralProject.ViewModel
             this.myPageCheck = false;
             this.permCheck = false;
             this.usersCheck = false;
+            this.employeesCheck = false;
             this.myPage = new MyPage();
             this.permPage = new PermissionsPage();
             this.usersPage = new UsersPage();
+            this.employeesPage = new EmployeesPage();
         }
 
         /// <summary>
@@ -149,7 +168,8 @@ namespace SemestralProject.ViewModel
             this.user = user;
             this.Image = this.user.Image.ToImage();
             this.Name = this.user.Employee.PersonalData.Name + " " + this.user.Employee.PersonalData.Surname;
-            bool canChangeRole = await this.CanChangeRoleAsync();
+            await this.user.Role.LoadPermissionsAsync();
+            bool canChangeRole = this.CanChangeRole();
             if (canChangeRole == true)
             {
                 this.ChangeRoleVisibility = Visibility.Visible;
@@ -157,7 +177,7 @@ namespace SemestralProject.ViewModel
             WeakReferenceMessenger.Default.Send<InfoUserMessage>(new InfoUserMessage(user));
             this.WaitVisibility = Visibility.Collapsed;
         }
-        
+
         /// <summary>
         /// Handles change of role of user.
         /// </summary>
@@ -168,7 +188,6 @@ namespace SemestralProject.ViewModel
             this.role = role;
             this.DisplayRole = role.Name;
             this.RoleMenu();
-            WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(role));
             this.WaitVisibility = Visibility.Collapsed;
         }
 
@@ -180,9 +199,10 @@ namespace SemestralProject.ViewModel
             if (this.role != null)
             {
                 this.WaitVisibility = Visibility.Visible;
-                this.RolesVisibility = (await this.role.HasPermissionAsync(PermissionNames.RolesRead) ? Visibility.Visible : Visibility.Collapsed);
-                this.UsersVisibility = (await this.role.HasPermissionAsync(PermissionNames.UsersRead) ? Visibility.Visible : Visibility.Collapsed);
-
+                await this.role.LoadPermissionsAsync();
+                this.RolesVisibility = this.role.HasPermission(PermissionNames.RolesRead) ? Visibility.Visible : Visibility.Collapsed;
+                this.UsersVisibility = this.role.HasPermission(PermissionNames.UsersRead) ? Visibility.Visible : Visibility.Collapsed;
+                this.EmployeesVisibility = this.role.HasPermission(PermissionNames.EmployeesRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.ResetChecks();
 
 
@@ -216,7 +236,7 @@ namespace SemestralProject.ViewModel
                     WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.role));
                     this.RoleMenu();
                 }
-                
+
             }
         }
 
@@ -266,23 +286,19 @@ namespace SemestralProject.ViewModel
         [RelayCommand]
         private void ChangeRole()
         {
-            WeakReferenceMessenger.Default.Register<SelectedRoleChangedMessage>(this, (sender, args) =>
-            {
-                this.RoleChanged(args.Value);
-            });
             RoleSelectionWindow roleSelection = new RoleSelectionWindow();
             if (this.role != null)
             {
                 WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.role));
                 this.RoleMenu();
             }
-            roleSelection.ShowDialog();
-            WeakReferenceMessenger.Default.Unregister<SelectedRoleChangedMessage>(this);
-            if (this.role != null)
+            WeakReferenceMessenger.Default.Register<SelectedRoleChangedMessage>(this, (sender, args) =>
             {
-                WeakReferenceMessenger.Default.Send<SelectedRoleChangedMessage>(new SelectedRoleChangedMessage(this.role));
-            }
-            
+                WeakReferenceMessenger.Default.Send<LoggedRoleChangedMessage>(new LoggedRoleChangedMessage(args.Value));
+            });
+            roleSelection.ShowDialog();
+            WeakReferenceMessenger.Default.Unregister<InfoRoleMessage>(this);
+            WeakReferenceMessenger.Default.Unregister<SelectedRoleChangedMessage>(this);
         }
 
         /// <summary>
@@ -337,6 +353,21 @@ namespace SemestralProject.ViewModel
                 WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.role));
             }
             this.Navigate(this.usersPage);
+        }
+
+        /// <summary>
+        /// Handles click on 'employees menu item'.
+        /// </summary>
+        [RelayCommand]
+        private void Employees()
+        {
+            this.ResetChecks();
+            this.EmployeesCheck = true;
+            if (this.role != null)
+            {
+                WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.role));
+            }
+            this.Navigate(this.employeesPage);
         }
     }
 }

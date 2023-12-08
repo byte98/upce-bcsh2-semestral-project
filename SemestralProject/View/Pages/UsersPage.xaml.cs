@@ -20,9 +20,32 @@ namespace SemestralProject.View.Pages
     /// </summary>
     public partial class UsersPage : Page
     {
+        /// <summary>
+        /// Currently set password.
+        /// </summary>
+        public static string Password = string.Empty;
+
+        /// <summary>
+        /// Instance of this page.
+        /// </summary>
+        private static UsersPage? instance;
+
         public UsersPage()
         {
             InitializeComponent();
+            UsersPage.instance = this;
+        }
+
+        /// <summary>
+        /// Clears entered password.
+        /// </summary>
+        public static void ClearPassword()
+        {
+            if (UsersPage.instance != null)
+            {
+                UsersPage.instance.passwordBox.Password = string.Empty;
+                UsersPage.Password = string.Empty;
+            }
         }
 
         /// <summary>
@@ -43,6 +66,26 @@ namespace SemestralProject.View.Pages
         private void ButtonFlyoutRoleCancel_Click(object sender, RoutedEventArgs e)
         {
             this.FlyoutRole.Hide();
+        }
+
+        /// <summary>
+        /// Handles click on cancel button in password flyout.
+        /// </summary>
+        /// <param name="sender">Sender of event.</param>
+        /// <param name="e">Arguments of event.</param>
+        private void ButtonFlyoutPasswordCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.FlyoutPassword.Hide();
+        }
+
+        /// <summary>
+        /// Handles change of password.
+        /// </summary>
+        /// <param name="sender">Sender of event.</param>
+        /// <param name="e">Arguments of event.</param>
+        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            UsersPage.Password = this.passwordBox.Password;
         }
     }
 }

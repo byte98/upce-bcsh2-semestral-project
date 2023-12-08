@@ -208,12 +208,12 @@ namespace SemestralProject.ViewModel.Pages
         /// </summary>
         public MyPageViewModel()
         {
-            WeakReferenceMessenger.Default.Register<InfoUserMessage>(this, (sender, args) =>
+            WeakReferenceMessenger.Default.Register<LoggedUserChangedMessage>(this, (sender, args) =>
             {
-                this.user = args.Value;
+                this.User = args.Value;
                 this.UserChanged();
             });
-            WeakReferenceMessenger.Default.Register<InfoRoleMessage>(this, (sender, args) =>
+            WeakReferenceMessenger.Default.Register<LoggedRoleChangedMessage>(this, (sender, args) =>
             {
                 this.Role = args.Value;
                 this.RoleChanged();
@@ -277,11 +277,12 @@ namespace SemestralProject.ViewModel.Pages
                 this.SaveVisibility = Visibility.Hidden;
                 if (this.Role != null)
                 {
-                    bool editPerm = await this.Role.HasPermissionAsync(PermissionNames.UserModifyOwn);
-                    bool changePersonalPerm = await this.Role.HasPermissionAsync(PermissionNames.EmployeePersonal_numberModifyOwn);
-                    bool changeRegPerm = await this.Role.HasPermissionAsync(PermissionNames.UserDateModifyOwn);
-                    bool changeEmplPerm = await this.Role.HasPermissionAsync(PermissionNames.EmployeeDateModifyOwn);
-                    bool changeRolePerm = await this.Role.HasPermissionAsync(PermissionNames.RoleModifyOwn);
+                    await this.Role.LoadPermissionsAsync();
+                    bool editPerm = this.Role.HasPermission(PermissionNames.UserModifyOwn);
+                    bool changePersonalPerm = this.Role.HasPermission(PermissionNames.EmployeePersonal_numberModifyOwn);
+                    bool changeRegPerm = this.Role.HasPermission(PermissionNames.UserDateModifyOwn);
+                    bool changeEmplPerm = this.Role.HasPermission(PermissionNames.EmployeeDateModifyOwn);
+                    bool changeRolePerm = this.Role.HasPermission(PermissionNames.RoleModifyOwn);
                     if (changeRolePerm)
                     {
                         this.RoleSelectVisibility = Visibility.Visible;

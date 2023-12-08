@@ -6,69 +6,6 @@ namespace SemestralProject.ViewModel.Pages
     /// <inheritdoc/>
     partial class UsersPageViewModel
     {
-        /// <inheritdoc cref="waitVisibility"/>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-        public global::System.Windows.Visibility WaitVisibility
-        {
-            get => waitVisibility;
-            set
-            {
-                if (!global::System.Collections.Generic.EqualityComparer<global::System.Windows.Visibility>.Default.Equals(waitVisibility, value))
-                {
-                    OnWaitVisibilityChanging(value);
-                    OnWaitVisibilityChanging(default, value);
-                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.WaitVisibility);
-                    waitVisibility = value;
-                    OnWaitVisibilityChanged(value);
-                    OnWaitVisibilityChanged(default, value);
-                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.WaitVisibility);
-                }
-            }
-        }
-
-        /// <inheritdoc cref="contentVisibility"/>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-        public global::System.Windows.Visibility ContentVisibility
-        {
-            get => contentVisibility;
-            set
-            {
-                if (!global::System.Collections.Generic.EqualityComparer<global::System.Windows.Visibility>.Default.Equals(contentVisibility, value))
-                {
-                    OnContentVisibilityChanging(value);
-                    OnContentVisibilityChanging(default, value);
-                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ContentVisibility);
-                    contentVisibility = value;
-                    OnContentVisibilityChanged(value);
-                    OnContentVisibilityChanged(default, value);
-                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ContentVisibility);
-                }
-            }
-        }
-
-        /// <inheritdoc cref="editVisibility"/>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-        public global::System.Windows.Visibility EditVisibility
-        {
-            get => editVisibility;
-            set
-            {
-                if (!global::System.Collections.Generic.EqualityComparer<global::System.Windows.Visibility>.Default.Equals(editVisibility, value))
-                {
-                    OnEditVisibilityChanging(value);
-                    OnEditVisibilityChanging(default, value);
-                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.EditVisibility);
-                    editVisibility = value;
-                    OnEditVisibilityChanged(value);
-                    OnEditVisibilityChanged(default, value);
-                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.EditVisibility);
-                }
-            }
-        }
-
         /// <inheritdoc cref="states"/>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -196,76 +133,13 @@ namespace SemestralProject.ViewModel.Pages
                     OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedUser);
                     ChangeRoleCommand.NotifyCanExecuteChanged();
                     ChangeStateCommand.NotifyCanExecuteChanged();
+                    ChangePasswordCommand.NotifyCanExecuteChanged();
+                    ChangeImageCommand.NotifyCanExecuteChanged();
+                    ChangePasswordCommand.NotifyCanExecuteChanged();
                 }
             }
         }
 
-        /// <summary>Executes the logic for when <see cref="WaitVisibility"/> is changing.</summary>
-        /// <param name="value">The new property value being set.</param>
-        /// <remarks>This method is invoked right before the value of <see cref="WaitVisibility"/> is changed.</remarks>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnWaitVisibilityChanging(global::System.Windows.Visibility value);
-        /// <summary>Executes the logic for when <see cref="WaitVisibility"/> is changing.</summary>
-        /// <param name="oldValue">The previous property value that is being replaced.</param>
-        /// <param name="newValue">The new property value being set.</param>
-        /// <remarks>This method is invoked right before the value of <see cref="WaitVisibility"/> is changed.</remarks>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnWaitVisibilityChanging(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
-        /// <summary>Executes the logic for when <see cref="WaitVisibility"/> just changed.</summary>
-        /// <param name="value">The new property value that was set.</param>
-        /// <remarks>This method is invoked right after the value of <see cref="WaitVisibility"/> is changed.</remarks>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnWaitVisibilityChanged(global::System.Windows.Visibility value);
-        /// <summary>Executes the logic for when <see cref="WaitVisibility"/> just changed.</summary>
-        /// <param name="oldValue">The previous property value that was replaced.</param>
-        /// <param name="newValue">The new property value that was set.</param>
-        /// <remarks>This method is invoked right after the value of <see cref="WaitVisibility"/> is changed.</remarks>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnWaitVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
-        /// <summary>Executes the logic for when <see cref="ContentVisibility"/> is changing.</summary>
-        /// <param name="value">The new property value being set.</param>
-        /// <remarks>This method is invoked right before the value of <see cref="ContentVisibility"/> is changed.</remarks>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnContentVisibilityChanging(global::System.Windows.Visibility value);
-        /// <summary>Executes the logic for when <see cref="ContentVisibility"/> is changing.</summary>
-        /// <param name="oldValue">The previous property value that is being replaced.</param>
-        /// <param name="newValue">The new property value being set.</param>
-        /// <remarks>This method is invoked right before the value of <see cref="ContentVisibility"/> is changed.</remarks>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnContentVisibilityChanging(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
-        /// <summary>Executes the logic for when <see cref="ContentVisibility"/> just changed.</summary>
-        /// <param name="value">The new property value that was set.</param>
-        /// <remarks>This method is invoked right after the value of <see cref="ContentVisibility"/> is changed.</remarks>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnContentVisibilityChanged(global::System.Windows.Visibility value);
-        /// <summary>Executes the logic for when <see cref="ContentVisibility"/> just changed.</summary>
-        /// <param name="oldValue">The previous property value that was replaced.</param>
-        /// <param name="newValue">The new property value that was set.</param>
-        /// <remarks>This method is invoked right after the value of <see cref="ContentVisibility"/> is changed.</remarks>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnContentVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
-        /// <summary>Executes the logic for when <see cref="EditVisibility"/> is changing.</summary>
-        /// <param name="value">The new property value being set.</param>
-        /// <remarks>This method is invoked right before the value of <see cref="EditVisibility"/> is changed.</remarks>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnEditVisibilityChanging(global::System.Windows.Visibility value);
-        /// <summary>Executes the logic for when <see cref="EditVisibility"/> is changing.</summary>
-        /// <param name="oldValue">The previous property value that is being replaced.</param>
-        /// <param name="newValue">The new property value being set.</param>
-        /// <remarks>This method is invoked right before the value of <see cref="EditVisibility"/> is changed.</remarks>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnEditVisibilityChanging(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
-        /// <summary>Executes the logic for when <see cref="EditVisibility"/> just changed.</summary>
-        /// <param name="value">The new property value that was set.</param>
-        /// <remarks>This method is invoked right after the value of <see cref="EditVisibility"/> is changed.</remarks>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnEditVisibilityChanged(global::System.Windows.Visibility value);
-        /// <summary>Executes the logic for when <see cref="EditVisibility"/> just changed.</summary>
-        /// <param name="oldValue">The previous property value that was replaced.</param>
-        /// <param name="newValue">The new property value that was set.</param>
-        /// <remarks>This method is invoked right after the value of <see cref="EditVisibility"/> is changed.</remarks>
-        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnEditVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
         /// <summary>Executes the logic for when <see cref="States"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="States"/> is changed.</remarks>

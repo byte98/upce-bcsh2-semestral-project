@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Permissions;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 

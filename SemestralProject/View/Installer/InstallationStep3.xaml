@@ -127,7 +127,7 @@
                     <Label Content="Telefonní číslo (vč. předvolby, např. 00420)"/>
                 </ui:ControlHelper.Header>
             </TextBox>
-            <ui:NumberBox Minimum="100000" Maximum="999999" Margin="8,0,0,16" Grid.Row="2" Grid.Column="1" Text="{Binding PersonalNumber}">
+            <ui:NumberBox IsEnabled="False"  Minimum="100000" Maximum="999999" Margin="8,0,0,16" Grid.Row="2" Grid.Column="1" Text="{Binding PersonalNumber}">
                 <ui:ControlHelper.Header>
                     <Label Content="Osobní číslo"/>
                 </ui:ControlHelper.Header>

@@ -135,6 +135,27 @@ namespace SemestralProject.ViewModel
             }
         }
 
+        /// <inheritdoc cref="employeesVisibility"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::System.Windows.Visibility EmployeesVisibility
+        {
+            get => employeesVisibility;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Windows.Visibility>.Default.Equals(employeesVisibility, value))
+                {
+                    OnEmployeesVisibilityChanging(value);
+                    OnEmployeesVisibilityChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.EmployeesVisibility);
+                    employeesVisibility = value;
+                    OnEmployeesVisibilityChanged(value);
+                    OnEmployeesVisibilityChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.EmployeesVisibility);
+                }
+            }
+        }
+
         /// <inheritdoc cref="myPageCheck"/>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -194,6 +215,27 @@ namespace SemestralProject.ViewModel
                     OnUsersCheckChanged(value);
                     OnUsersCheckChanged(default, value);
                     OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.UsersCheck);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="employeesCheck"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public bool EmployeesCheck
+        {
+            get => employeesCheck;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<bool>.Default.Equals(employeesCheck, value))
+                {
+                    OnEmployeesCheckChanging(value);
+                    OnEmployeesCheckChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.EmployeesCheck);
+                    employeesCheck = value;
+                    OnEmployeesCheckChanged(value);
+                    OnEmployeesCheckChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.EmployeesCheck);
                 }
             }
         }
@@ -351,6 +393,28 @@ namespace SemestralProject.ViewModel
         /// <remarks>This method is invoked right after the value of <see cref="UsersVisibility"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnUsersVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="EmployeesVisibility"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="EmployeesVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnEmployeesVisibilityChanging(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="EmployeesVisibility"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="EmployeesVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnEmployeesVisibilityChanging(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="EmployeesVisibility"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="EmployeesVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnEmployeesVisibilityChanged(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="EmployeesVisibility"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="EmployeesVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnEmployeesVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
         /// <summary>Executes the logic for when <see cref="MyPageCheck"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="MyPageCheck"/> is changed.</remarks>
@@ -417,6 +481,28 @@ namespace SemestralProject.ViewModel
         /// <remarks>This method is invoked right after the value of <see cref="UsersCheck"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnUsersCheckChanged(bool oldValue, bool newValue);
+        /// <summary>Executes the logic for when <see cref="EmployeesCheck"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="EmployeesCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnEmployeesCheckChanging(bool value);
+        /// <summary>Executes the logic for when <see cref="EmployeesCheck"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="EmployeesCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnEmployeesCheckChanging(bool oldValue, bool newValue);
+        /// <summary>Executes the logic for when <see cref="EmployeesCheck"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="EmployeesCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnEmployeesCheckChanged(bool value);
+        /// <summary>Executes the logic for when <see cref="EmployeesCheck"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="EmployeesCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnEmployeesCheckChanged(bool oldValue, bool newValue);
         /// <summary>Executes the logic for when <see cref="WaitVisibility"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="WaitVisibility"/> is changed.</remarks>

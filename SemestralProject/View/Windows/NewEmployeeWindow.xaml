@@ -1,0 +1,71 @@
+﻿<Window x:Class="SemestralProject.View.Windows.NewEmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SemestralProject.View.Windows"
+        xmlns:ui="http://schemas.modernwpf.com/2019"  
+        xmlns:vml="clr-namespace:SemestralProject.Common"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:components="clr-namespace:SemestralProject.View.Components"
+        vml:ViewModelLocator.AutoHookedUpViewModel="True"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        fw:AcrylicWindow.ExtendViewIntoTitleBar="True"
+        mc:Ignorable="d"
+        Title="NewEmployeeWindow" Height="616" Width="400
+        " WindowStyle="ToolWindow" ResizeMode="NoResize">
+    <StackPanel Margin="8,8,8,8">
+        <TextBlock Style="{DynamicResource HeaderTextBlockStyle}" Text="Nový zaměstnanec"/>
+        <TextBox Margin="0,16,0,0" Text="{Binding Name}" IsEnabled="{Binding ControlsEnabled}">
+            <ui:ControlHelper.Header>
+                <Label Content="Jméno" />
+            </ui:ControlHelper.Header>
+        </TextBox>
+        <TextBox Margin="0,16,0,0" Text="{Binding Surname}" IsEnabled="{Binding ControlsEnabled}" >
+            <ui:ControlHelper.Header>
+                <Label Content="Příjmení" />
+            </ui:ControlHelper.Header>
+        </TextBox>
+        <TextBox Margin="0,16,0,0" Text="{Binding Email}" IsEnabled="{Binding ControlsEnabled}">
+            <ui:ControlHelper.Header>
+                <Label Content="E-mail" />
+            </ui:ControlHelper.Header>
+        </TextBox>
+        <TextBox Margin="0,16,0,0" Text="{Binding Phone}" IsEnabled="{Binding ControlsEnabled}">
+            <ui:ControlHelper.Header>
+                <Label Content="Telefonní číslo" />
+            </ui:ControlHelper.Header>
+        </TextBox>
+        <PasswordBox x:Name="passwordBox" Margin="0,16,0,0" IsEnabled="{Binding ControlsEnabled}">
+            <ui:ControlHelper.Header>
+                <Label Content="Heslo" />
+            </ui:ControlHelper.Header>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PasswordChanged">
+                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=passwordBox}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </PasswordBox>
+        <components:AddressSelector Margin="0,16,0,0"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="1" Grid.Column="1" fw:PointerTracker.Enabled="True" Orientation="Horizontal" Margin="0,32,0,0">
+                <Button Command="{Binding OKCommand}" Style="{DynamicResource PrimaryButton}" Padding="8,8,8,8" Width="116" Margin="0,0,8,0">
+                    <StackPanel>
+                        <Label Visibility="{Binding TextVisibility}" Content="OK" />
+                        <ui:ProgressRing  Visibility="{Binding ProgressVisibility}" Width="16" Height="16" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}"  HorizontalAlignment="Center" Margin="0,0,16,0"/>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding CancelCommand}" Style="{DynamicResource ButtonRevealStyle}" Padding="8,8,8,8" Content="Zrušit" Width="116"/>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</Window>

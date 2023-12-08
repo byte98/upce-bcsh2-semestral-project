@@ -165,7 +165,7 @@ namespace SemestralProject.ViewModel.Components
             {
                 reti.Add(perm);
             }
-            WeakReferenceMessenger.Default.Send<SelectedPermissionsChangedMessage>(new SelectedPermissionsChangedMessage(this.SelectedPermissions));
+            WeakReferenceMessenger.Default.Send<SelectedPermissionsChangedMessage>(new SelectedPermissionsChangedMessage(reti));
             WindowUtils.CloseForModel(this);
         }
 

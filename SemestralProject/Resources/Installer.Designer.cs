@@ -61,6 +61,30 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE OR REPLACE TRIGGER arc_vozidla_arc_trolejbusy BEFORE
+        ///    INSERT OR UPDATE OF id_vozidlo ON trolejbusy
+        ///    FOR EACH ROW
+        ///DECLARE
+        ///    d CHAR(3);
+        ///BEGIN
+        ///    SELECT
+        ///        a.typ_vozidla
+        ///    INTO d
+        ///    FROM
+        ///        vozidla a
+        ///    WHERE
+        ///        a.id_vozidlo = :new.id_vozidlo;
+        ///
+        ///    IF ( d IS NULL OR d &lt;&gt; &apos;TRO&apos; ) THEN
+        ///        raise_application_error(-20223, &apos;FK TROLEJBUS_VOZIDLO_FK in Table TROLEJBUSY violates Arc constraint on Table VOZIDLA - discriminator column typ_vozidla doesn&apos;&apos;t have value [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ARCS {
+            get {
+                return ResourceManager.GetString("ARCS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  INSERT INTO staty(nazev) VALUES (&apos;Afghánská islámská republika&apos;)
         /// INSERT INTO staty(nazev) VALUES (&apos;Provincie Alandy&apos;)
         /// INSERT INTO staty(nazev) VALUES (&apos;Albánská republika&apos;)
@@ -159,10 +183,9 @@ namespace SemestralProject.Resources {
         ///--
         ///    FUNCTION func_users_login(p_personal_nr IN zamestnanci.osobni_cislo%TYPE, p_password IN uzivatele.heslo%TYPE) RETURN uzivatele.id_uzivatel%TYPE AS
         ///        v_reti uzivatele.id_uzivatel%TYPE      := -2147483648;
+        ///        v_loggable stavy.prihlasitelny%TYPE    := 1;
         ///    BEGIN
-        ///        SELECT id_uzivatel INTO v_reti
-        ///        FROM uzivatele
-        ///      [rest of string was truncated]&quot;;.
+        ///        FOR use [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEMPR_API_BODY {
             get {

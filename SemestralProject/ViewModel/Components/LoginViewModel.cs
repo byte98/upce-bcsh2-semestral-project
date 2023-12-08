@@ -48,8 +48,7 @@ namespace SemestralProject.ViewModel.Components
         /// Flag, whether controls in form should be enabled.
         /// </summary>
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(LoginCommand))]
-        [NotifyCanExecuteChangedFor(nameof(RegisterCommand))]
+        [NotifyCanExecuteChangedFor(nameof(RegisterCommand)), NotifyCanExecuteChangedFor(nameof(LoginCommand))]
         private bool controlsEnabled = true;
 
         /// <summary>
