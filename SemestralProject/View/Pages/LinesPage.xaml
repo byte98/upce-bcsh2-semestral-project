@@ -35,7 +35,7 @@
             </StackPanel>
         </Grid>
         <StackPanel Margin="4,8,4,16" Visibility="{Binding ContentVisibility}" Orientation="Horizontal">
-            <Button Click="Button_Click" Style="{DynamicResource ButtonRevealStyle}" Content="Přidat linku" Padding="8,8,8,8" Width="96" Margin="0,0,8,0">
+            <Button Visibility="{Binding EditVisibility}" Click="Button_Click" Style="{DynamicResource ButtonRevealStyle}" Content="Přidat linku" Padding="8,8,8,8" Width="96" Margin="0,0,8,0">
                 <ui:FlyoutService.Flyout>
                     <ui:Flyout fw:PointerTracker.Enabled="True" x:Name="flyout">
                         <StackPanel>
@@ -49,7 +49,7 @@
                     </ui:Flyout>
                 </ui:FlyoutService.Flyout>
             </Button>
-            <Button  Command="{Binding RemoveCommand}" Style="{DynamicResource ButtonRevealStyle}" Content="Odebrat linku" Padding="8,8,8,8" Width="96" />
+            <Button Visibility="{Binding EditVisibility}"  Command="{Binding RemoveCommand}" Style="{DynamicResource ButtonRevealStyle}" Content="Odebrat linku" Padding="8,8,8,8" Width="96" />
         </StackPanel>
         <ui:ListView Visibility="{Binding ContentVisibility}" ItemsSource="{Binding Lines}" SelectedItem="{Binding SelectedLine}">
             <ui:ListView.ItemTemplate>

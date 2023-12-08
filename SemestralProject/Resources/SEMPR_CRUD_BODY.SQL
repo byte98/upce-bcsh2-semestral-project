@@ -665,10 +665,10 @@ PACKAGE BODY sempr_crud AS
 --
 --
 
-    PROCEDURE proc_zastavky_create(p_name IN zastavky.nazev%TYPE, p_code IN zastavky.kod%TYPE) AS
+    PROCEDURE proc_zastavky_create(p_code IN zastavky.kod%TYPE, p_name IN zastavky.nazev%TYPE) AS
     BEGIN
         SET TRANSACTION READ WRITE;
-        INSERT INTO zastavky(kod) VALUES (p_code);
+        INSERT INTO zastavky(nazev, kod) VALUES (p_name, p_code);
         COMMIT;
     END proc_zastavky_create;
 --

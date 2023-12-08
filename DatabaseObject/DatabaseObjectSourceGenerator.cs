@@ -529,7 +529,7 @@ namespace DatabaseObject
             }
             reti.AppendLine(")\";");
             reti.Append(this.Insets(3));
-            reti.AppendLine($"int id = {className}.Create(sql, \"{sequence}\");");
+            reti.AppendLine($"int id = Entity.Create(sql, \"{sequence}\");");
             reti.Append(this.Insets(3));
             reti.Append("return new ");
             reti.Append(className);

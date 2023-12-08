@@ -14,45 +14,51 @@ using System.Windows;
 
 namespace SemestralProject.ViewModel.Pages
 {
-
     /// <summary>
-    /// View model of lines page.
+    /// Class which handles behaviour of stops page.
     /// </summary>
-    public partial class LinesPageViewModel: AbstractPageViewModel
+    public partial class StopsPageViewModel: AbstractPageViewModel
     {
         /// <summary>
-        /// Collection with all available lines.
+        /// Collection of all available stops.
         /// </summary>
         [ObservableProperty]
-        private ObservableCollection<Line> lines;
+        private ObservableCollection<Stop> stops;
 
         /// <summary>
-        /// Code of new line.
+        /// Actually selected stop.
         /// </summary>
         [ObservableProperty]
-        private string lineCode = string.Empty;
+        private Stop? selectedStop;
 
         /// <summary>
-        /// Actually selected line.
+        /// Code of new stop. 
         /// </summary>
         [ObservableProperty]
-        private Line? selectedLine;
+        private string stopCode = string.Empty;
 
         /// <summary>
-        /// Creates new page for lines page.
+        /// Name of new stop.
         /// </summary>
-        public LinesPageViewModel() : base(PermissionNames.LinesModify)
+        [ObservableProperty]
+        private string stopName = string.Empty; 
+
+
+        /// <summary>
+        /// Creates new view model for stops page.
+        /// </summary>
+        public StopsPageViewModel(): base(PermissionNames.StopsModify)
         {
-            this.lines = new ObservableCollection<Line>();
-            WeakReferenceMessenger.Default.Register<LinesChangedMessage>(this, async (sender, args) =>
+            this.stops = new ObservableCollection<Stop>();
+            WeakReferenceMessenger.Default.Register<StopsChangedMessage>(this, async (sender, args) =>
             {
                 this.WaitVisibility = Visibility.Visible;
                 this.ContentVisibility = Visibility.Collapsed;
-                Line[] loadedLines = await Line.GetAllAsync();
-                this.Lines.Clear();
-                foreach (Line l in loadedLines.OrderBy(line => line.Code))
+                this.Stops.Clear();
+                Stop[] loaded = await Stop.GetAllAsync();
+                foreach (Stop s in loaded)
                 {
-                    this.Lines.Add(l);
+                    this.Stops.Add(s);
                 }
                 this.WaitVisibility = Visibility.Collapsed;
                 this.ContentVisibility = Visibility.Visible;
@@ -67,42 +73,37 @@ namespace SemestralProject.ViewModel.Pages
         {
             this.WaitVisibility = Visibility.Visible;
             this.ContentVisibility = Visibility.Collapsed;
-            Line[] loadedLines = await Line.GetAllAsync();
-            this.Lines.Clear();
-            foreach (Line l in loadedLines.OrderBy(line => line.Code))
+            this.Stops.Clear();
+            Stop[] loaded = await Stop.GetAllAsync();
+            foreach(Stop s in loaded)
             {
-                this.Lines.Add(l);
+                this.Stops.Add(s);
             }
             this.WaitVisibility = Visibility.Collapsed;
             this.ContentVisibility = Visibility.Visible;
         }
 
         /// <summary>
-        /// Handles click on new line button.
+        /// Handles click on new button.
         /// </summary>
         [RelayCommand]
         private async Task New()
         {
-            if (this.LineCode.Length == 3)
-            {
-                await Line.CreateAsync(this.LineCode);
-                this.LineCode = string.Empty;
-                WeakReferenceMessenger.Default.Send<LinesChangedMessage>(new LinesChangedMessage());
-            }
+            await Stop.CreateAsync(this.StopCode, this.StopName);
+            WeakReferenceMessenger.Default.Send<StopsChangedMessage>(new StopsChangedMessage());
         }
 
         /// <summary>
-        /// Handles click on remove line button.
+        /// Handles click on remove button.
         /// </summary>
         [RelayCommand]
         private async Task Remove()
         {
-            if (this.SelectedLine != null)
+            if (this.SelectedStop != null)
             {
-                await this.SelectedLine.DeleteAsync();
-                WeakReferenceMessenger.Default.Send<LinesChangedMessage>(new LinesChangedMessage());
+                await this.SelectedStop.DeleteAsync();
+                WeakReferenceMessenger.Default.Send<StopsChangedMessage>(new StopsChangedMessage());
             }
         }
-
     }
 }

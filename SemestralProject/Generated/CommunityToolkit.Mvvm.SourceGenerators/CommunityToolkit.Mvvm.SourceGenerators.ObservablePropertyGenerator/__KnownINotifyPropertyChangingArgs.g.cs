@@ -598,6 +598,22 @@ namespace CommunityToolkit.Mvvm.ComponentModel.__Internals
         [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
         [global::System.Obsolete("This field is not intended to be referenced directly by user code")]
         public static readonly global::System.ComponentModel.PropertyChangingEventArgs NewRoleName = new global::System.ComponentModel.PropertyChangingEventArgs("NewRoleName");
+        /// <summary>The cached <see cref="global::System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Stops" generated properties.</summary>
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        [global::System.Obsolete("This field is not intended to be referenced directly by user code")]
+        public static readonly global::System.ComponentModel.PropertyChangingEventArgs Stops = new global::System.ComponentModel.PropertyChangingEventArgs("Stops");
+        /// <summary>The cached <see cref="global::System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedStop" generated properties.</summary>
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        [global::System.Obsolete("This field is not intended to be referenced directly by user code")]
+        public static readonly global::System.ComponentModel.PropertyChangingEventArgs SelectedStop = new global::System.ComponentModel.PropertyChangingEventArgs("SelectedStop");
+        /// <summary>The cached <see cref="global::System.ComponentModel.PropertyChangingEventArgs"/> instance for all "StopCode" generated properties.</summary>
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        [global::System.Obsolete("This field is not intended to be referenced directly by user code")]
+        public static readonly global::System.ComponentModel.PropertyChangingEventArgs StopCode = new global::System.ComponentModel.PropertyChangingEventArgs("StopCode");
+        /// <summary>The cached <see cref="global::System.ComponentModel.PropertyChangingEventArgs"/> instance for all "StopName" generated properties.</summary>
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        [global::System.Obsolete("This field is not intended to be referenced directly by user code")]
+        public static readonly global::System.ComponentModel.PropertyChangingEventArgs StopName = new global::System.ComponentModel.PropertyChangingEventArgs("StopName");
         /// <summary>The cached <see cref="global::System.ComponentModel.PropertyChangingEventArgs"/> instance for all "States" generated properties.</summary>
         [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
         [global::System.Obsolete("This field is not intended to be referenced directly by user code")]

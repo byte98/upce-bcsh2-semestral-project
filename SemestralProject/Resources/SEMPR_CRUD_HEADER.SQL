@@ -172,7 +172,7 @@ PACKAGE sempr_crud AS
 
     TYPE t_zastavky is TABLE of zastavky%ROWTYPE;
 
-    PROCEDURE proc_zastavky_create(p_name IN zastavky.nazev%TYPE, p_code IN zastavky.kod%TYPE);
+    PROCEDURE proc_zastavky_create(p_code IN zastavky.kod%TYPE, p_name IN zastavky.nazev%TYPE);
 
     PROCEDURE proc_zastavky_update(p_id IN zastavky.id_zastavka%TYPE, p_name IN zastavky.nazev%TYPE, p_code IN zastavky.kod%TYPE);
 

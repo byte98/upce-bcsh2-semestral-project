@@ -31,12 +31,7 @@ namespace SemestralProject.Data
         {
             {
                 IConnection.DatabaseObject.Trigger, new Dictionary<string, IStringProvider>()
-                {
-                    {"ARC_VOZIDLA_ARC_TRAMVAJE", new ConstantStringProvider("DROP TRIGGER arc_vozidla_arc_tramvaje")},
-                    {"ARC_VOZIDLA_ARC_AUTOBUSY", new ConstantStringProvider("DROP TRIGGER arc_vozidla_arc_autobusy")},
-                    {"ARC_VOZIDLA_ARC_TROLEJBUSY", new ConstantStringProvider("DROP TRIGGER arc_vozidla_arc_trolejbusy")},
-                    {"ARC_VOZIDLA_ARC_SOUPRAVY_METRA", new ConstantStringProvider("DROP TRIGGER arc_vozidla_arc_soupravy_metra")}
-                }
+                { }
             },
             {
                 IConnection.DatabaseObject.Table, new Dictionary<string, IStringProvider>()
@@ -57,7 +52,8 @@ namespace SemestralProject.Data
                     {"UZIVATELE", new ConstantStringProvider("DROP TABLE uzivatele CASCADE CONSTRAINTS PURGE")},
                     {"VYROBCI", new ConstantStringProvider("DROP TABLE vyrobci CASCADE CONSTRAINTS PURGE")},
                     {"ZAMESTNANCI", new ConstantStringProvider("DROP TABLE zamestnanci CASCADE CONSTRAINTS PURGE")},
-                    {"ZASTAVKY", new ConstantStringProvider("DROP TABLE zastavky CASCADE CONSTRAINTS PURGE")}
+                    {"ZASTAVKY", new ConstantStringProvider("DROP TABLE zastavky CASCADE CONSTRAINTS PURGE")},
+                    {"LOGS", new ConstantStringProvider("DROP TABLE logs CASCADE CONSTRAINTS PURGE")}
                 }
             },
             {
@@ -80,7 +76,8 @@ namespace SemestralProject.Data
                     {"STAVY_SEQ", new ConstantStringProvider("DROP SEQUENCE stavy_seq")},
                     {"UZIVATELE_SEQ", new ConstantStringProvider("DROP SEQUENCE uzivatele_seq")},
                     {"ZASTAVKY_SEQ", new ConstantStringProvider("DROP SEQUENCE zastavky_seq")},
-                    {"ZAMESTNANCI_SEQ", new ConstantStringProvider("DROP SEQUENCE zamestnanci_seq")}
+                    {"ZAMESTNANCI_SEQ", new ConstantStringProvider("DROP SEQUENCE zamestnanci_seq")},
+                    {"LOGS_SEQ", new ConstantStringProvider("DROP SEQUENCE logs_seq")}
                 }
             },
             {
@@ -125,7 +122,7 @@ namespace SemestralProject.Data
         /// <summary>
         /// SQL statements which creates all triggers.
         /// </summary>
-        public static readonly IStringProvider Triggers = new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "ARCS"), "--");
+        public static readonly IStringProvider Triggers = new EmptyStringProvider();
 
         /// <summary>
         ///  SQL statements which inserts all data into database.

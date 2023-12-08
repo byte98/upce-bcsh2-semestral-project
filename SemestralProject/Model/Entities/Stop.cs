@@ -14,6 +14,7 @@ namespace SemestralProject.Model.Entities
     [DatabaseClass("proc_zastavky_create", "func_zastavky_read", "proc_zastavky_update", "proc_zastavky_delete", "zastavky_seq", "id_zastavka")]
     public partial class Stop
     {
+        
         /// <summary>
         /// Code of the stop.
         /// </summary>

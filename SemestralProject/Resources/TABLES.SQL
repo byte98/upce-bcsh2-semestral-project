@@ -155,11 +155,7 @@ ALTER TABLE zamestnanci ADD CONSTRAINT zamestnanec_osoba_un UNIQUE ( osobni_udaj
 CREATE TABLE zastavky (
     id_zastavka        INTEGER DEFAULT zastavky_seq.nextval NOT NULL,
     nazev              VARCHAR2(32) NOT NULL,
-    gps_severni_sirka  NUMBER NOT NULL,
-    gps_vychodni_delka NUMBER NOT NULL,
-    kod                VARCHAR2(5) NOT NULL,
-    bezbarierova       NUMBER NOT NULL,
-    na_znameni         NUMBER NOT NULL
+    kod                VARCHAR2(5) NOT NULL
 )
 
 ALTER TABLE zastavky ADD CONSTRAINT zastavka_pk PRIMARY KEY ( id_zastavka )
