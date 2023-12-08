@@ -307,14 +307,14 @@ namespace SemestralProject.Resources {
         /// *          Jiri Skoda &lt;jiri.skoda@student.upce.cz&gt;
         /// */
         ///PACKAGE sempr_utils AS
-        ///
+        ///-- 
+        ///    FUNCTION get_employee_hierarchy(p_employee_id IN INTEGER) RETURN SYS_REFCURSOR;
+        ///--
+        ///    FUNCTION get_top_managers(p_employee_id IN INTEGER) RETURN SYS_REFCURSOR;
         ///--
         ///    FUNCTION func_last_seq(p_seq VARCHAR2) RETURN NUMBER;
         ///--
-        ///    FUNCTION func_next_seq(p_seq VARCHAR2) RETURN NUMBER;
-        ///
-        ///END sempr_utils;
-        ///.
+        ///    FUNCTION func_next_seq(p_seq VARCHAR2) RETURN NUMBE [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEMPR_UTILS_HEADER {
             get {
