@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ARCS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>ARCS.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="COUNTRIES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>COUNTRIES.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -139,26 +136,17 @@
   <data name="SEMPR_API_BODY" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SEMPR_API_BODY.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="SEMPR_API_DOCS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>SEMPR_API_DOCS.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="SEMPR_API_HEADER" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SEMPR_API_HEADER.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="SEMPR_CRUD_BODY" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SEMPR_CRUD_BODY.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="SEMPR_CRUD_DOCS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>SEMPR_CRUD_DOCS.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="SEMPR_CRUD_HEADER" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SEMPR_CRUD_HEADER.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="SEMPR_UTILS_BODY" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SEMPR_UTILS_BODY.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="SEMPR_UTILS_DOCS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>SEMPR_UTILS_DOCS.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="SEMPR_UTILS_HEADER" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SEMPR_UTILS_HEADER.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>

@@ -61,30 +61,6 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CREATE OR REPLACE TRIGGER arc_vozidla_arc_trolejbusy BEFORE
-        ///    INSERT OR UPDATE OF id_vozidlo ON trolejbusy
-        ///    FOR EACH ROW
-        ///DECLARE
-        ///    d CHAR(3);
-        ///BEGIN
-        ///    SELECT
-        ///        a.typ_vozidla
-        ///    INTO d
-        ///    FROM
-        ///        vozidla a
-        ///    WHERE
-        ///        a.id_vozidlo = :new.id_vozidlo;
-        ///
-        ///    IF ( d IS NULL OR d &lt;&gt; &apos;TRO&apos; ) THEN
-        ///        raise_application_error(-20223, &apos;FK TROLEJBUS_VOZIDLO_FK in Table TROLEJBUSY violates Arc constraint on Table VOZIDLA - discriminator column typ_vozidla doesn&apos;&apos;t have value [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string ARCS {
-            get {
-                return ResourceManager.GetString("ARCS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to  INSERT INTO staty(nazev) VALUES (&apos;Afghánská islámská republika&apos;)
         /// INSERT INTO staty(nazev) VALUES (&apos;Provincie Alandy&apos;)
         /// INSERT INTO staty(nazev) VALUES (&apos;Albánská republika&apos;)
@@ -117,20 +93,21 @@ namespace SemestralProject.Resources {
         /// <summary>
         ///   Looks up a localized string similar to ALTER TABLE adresy
         ///    ADD CONSTRAINT adresy_obce_fk FOREIGN KEY ( obec )
-        ///    REFERENCES obce ( id_obec )
+        ///        REFERENCES obce ( id_obec );
         ///
-        ///ALTER TABLE autobusy
-        ///    ADD CONSTRAINT autobus_prevodovka_fk FOREIGN KEY(prevodovka )
-        ///    REFERENCES prevodovky(id_prevodovka )
+        ///ALTER TABLE jizdni_rady
+        ///    ADD CONSTRAINT jizdni_rady_linky_fk FOREIGN KEY ( linka )
+        ///        REFERENCES linky ( id_linka );
         ///
-        ///ALTER TABLE autobusy
-        ///    ADD CONSTRAINT autobus_vozidlo_fk FOREIGN KEY(id_vozidlo )
-        ///    REFERENCES vozidla(id_vozidlo )
-        ///    ON DELETE CASCADE
+        ///ALTER TABLE jizdni_rady
+        ///    ADD CONSTRAINT jizdni_rady_zastavka_fk FOREIGN KEY ( zastavka )
+        ///        REFERENCES zastavky ( id_zastavka );
         ///
-        ///ALTER TABLE cipove_karty
-        ///    ADD CONSTRAINT cipove_karty_zamestnanec_fk FOREIGN KEY(drzitel )
-        ///    REFERENCES zamestna [rest of string was truncated]&quot;;.
+        ///ALTER TABLE obce
+        ///    ADD CONSTRAINT obce_stat_fk FOREIGN KEY ( stat )
+        ///        REFERENCES staty ( id_stat );
+        ///
+        ///ALTER TABLE [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RELATIONS {
             get {
@@ -194,23 +171,6 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to     /*
-        ///     * Logins user to the system.
-        ///     * :param p_personal_nr: Personal number of user.
-        ///     * :param p_password:    Entered password.
-        ///     * :returns:             Identifier of user with matching personal number and password
-        ///     *                       or -2147483648 if there is no such user.
-        ///     */
-        ///--
-        ///.
-        /// </summary>
-        internal static string SEMPR_API_DOCS {
-            get {
-                return ResourceManager.GetString("SEMPR_API_DOCS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to CREATE OR REPLACE
         ////*
         /// * Package with some API functions.
@@ -254,42 +214,6 @@ namespace SemestralProject.Resources {
         internal static string SEMPR_CRUD_BODY {
             get {
                 return ResourceManager.GetString("SEMPR_CRUD_BODY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to      
-        ///     
-        ///     
-        ///     
-        ///     
-        ///     /* CRUD operations over &apos;staty&apos; table */
-        ///        
-        ///    /*
-        ///     * Creates new &apos;staty&apos; object.
-        ///     * :param p_name: Name of new &apos;staty&apos; object.
-        ///     */
-        ///--
-        ///
-        ///    /*
-        ///     * Updates &apos;staty&apos; object.
-        ///     * :param p_id:   Identifier of object which will be updated.
-        ///     * :param p_name: New name of object.
-        ///     */
-        ///--
-        ///
-        ///    /*
-        ///     * Deletes &apos;staty&apos; object.
-        ///     * :param p_id: Identifier of object which will be deleted.
-        ///     */
-        ///--
-        ///
-        ///    /*
-        ///     * Reads all  [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string SEMPR_CRUD_DOCS {
-            get {
-                return ResourceManager.GetString("SEMPR_CRUD_DOCS", resourceCulture);
             }
         }
         
@@ -348,29 +272,6 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to     /*
-        ///     * Gets last generated number of sequence.
-        ///     * :param p_seq: Name of sequence.
-        ///     * :returns:     Last generated number of sequence,
-        ///     *               or -2147483648 if any error occurs.
-        ///     */
-        ///--
-        ///    /*
-        ///     * Gets next number from sequence.
-        ///     * :param p_seq: Name of sequence.
-        ///     * :returns:     Next number from sequence, 
-        ///     *               or -2147483648 if any error occurs.
-        ///     */
-        ///--
-        ///.
-        /// </summary>
-        internal static string SEMPR_UTILS_DOCS {
-            get {
-                return ResourceManager.GetString("SEMPR_UTILS_DOCS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to CREATE OR REPLACE
         ///
         ////*
@@ -397,14 +298,14 @@ namespace SemestralProject.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to CREATE SEQUENCE adresy_seq START WITH 1 NOCACHE ORDER
-        ///CREATE SEQUENCE cipove_karty_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE jizdni_rady_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE linky_seq START WITH 1 NOCACHE ORDER
-        ///CREATE SEQUENCE modely_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE obce_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE opravneni_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE osoby_seq START WITH 1 NOCACHE ORDER
-        ///CREATE SEQUENCE osobni_cisla_seq START WITH 100005 NOCACHE ORD [rest of string was truncated]&quot;;.
+        ///CREATE SEQUENCE osobni_cisla_seq START WITH 100005 NOCACHE ORDER
+        ///CREATE SEQUENCE plany_smen_seq START WITH 1 NOCACHE ORDER
+        ///CREATE SEQUENCE prava_seq START WITH 1 NOCACHE ORDER        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEQUENCES {
             get {
@@ -437,27 +338,21 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 
-        ///CREATE TABLE adresy (
-        ///id_adresa        INTEGER DEFAULT adresy_seq.nextval NOT NULL,
-        ///ulice            VARCHAR2(64),
-        ///cislo_popisne    INTEGER NOT NULL,
-        ///cislo_orientacni INTEGER,
-        ///obec             INTEGER NOT NULL
-        ///)
+        ///   Looks up a localized string similar to CREATE TABLE adresy (
+        ///    id_adresa        INTEGER NOT NULL DEFAULT adresy_seq.nextval,
+        ///    ulice            VARCHAR2(64),
+        ///    cislo_popisne    INTEGER NOT NULL,
+        ///    cislo_orientacni INTEGER,
+        ///    obec             INTEGER NOT NULL
+        ///);
         ///
-        ///ALTER TABLE adresy ADD CONSTRAINT adresy_pk PRIMARY KEY(id_adresa )
+        ///ALTER TABLE adresy ADD CONSTRAINT adresy_pk PRIMARY KEY ( id_adresa );
         ///
-        ///CREATE TABLE autobusy(
-        ///id_vozidlo INTEGER NOT NULL,
-        ///kloubovy NUMBER NOT NULL,
-        ///prevodovka INTEGER NOT NULL
-        ///)
-        ///
-        ///ALTER TABLE autobusy ADD CONSTRAINT autobus_pk PRIMARY KEY(id_vozidlo )
-        ///
-        ///CREATE TABLE cipove_karty(
-        /// [rest of string was truncated]&quot;;.
+        ///CREATE TABLE jizdni_rady (
+        ///    id_jizdni_rad  INTEGER NOT NULL DEFAULT jizdni_rady_seq.nextval,
+        ///    cas_prijezdu   DATE NOT NULL,
+        ///    cas_odjezdu    DATE NOT NULL,
+        ///    poradove_cislo INTEGER N [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TABLES {
             get {

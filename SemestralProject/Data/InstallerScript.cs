@@ -42,30 +42,20 @@ namespace SemestralProject.Data
                 IConnection.DatabaseObject.Table, new Dictionary<string, IStringProvider>()
                 {
                     {"ADRESY", new ConstantStringProvider("DROP TABLE adresy CASCADE CONSTRAINTS PURGE")},
-                    {"AUTOBUSY", new ConstantStringProvider("DROP TABLE autobusy CASCADE CONSTRAINTS PURGE")},
-                    {"CIPOVE_KARTY", new ConstantStringProvider("DROP TABLE cipove_karty CASCADE CONSTRAINTS PURGE")},
                     {"JIZDNI_RADY", new ConstantStringProvider("DROP TABLE jizdni_rady CASCADE CONSTRAINTS PURGE")},
                     {"LINKY", new ConstantStringProvider("DROP TABLE linky CASCADE CONSTRAINTS PURGE")},
-                    {"MODELY", new ConstantStringProvider("DROP TABLE modely CASCADE CONSTRAINTS PURGE")},
                     {"OBCE", new ConstantStringProvider("DROP TABLE obce CASCADE CONSTRAINTS PURGE")},
                     {"OPRAVNENI", new ConstantStringProvider("DROP TABLE opravneni CASCADE CONSTRAINTS PURGE")},
                     {"OSOBY", new ConstantStringProvider("DROP TABLE osoby CASCADE CONSTRAINTS PURGE")},
                     {"PLANY_SMEN", new ConstantStringProvider("DROP TABLE plany_smen CASCADE CONSTRAINTS PURGE")},
                     {"PRAVA", new ConstantStringProvider("DROP TABLE prava CASCADE CONSTRAINTS PURGE")},
-                    {"PREVODOVKY", new ConstantStringProvider("DROP TABLE prevodovky CASCADE CONSTRAINTS PURGE")},
-                    {"PROVOZY", new ConstantStringProvider("DROP TABLE provozy CASCADE CONSTRAINTS PURGE")},
                     {"ROLE", new ConstantStringProvider("DROP TABLE role CASCADE CONSTRAINTS PURGE")},
                     {"SKUTECNE_RADY", new ConstantStringProvider("DROP TABLE skutecne_rady CASCADE CONSTRAINTS PURGE")},
                     {"SMENY", new ConstantStringProvider("DROP TABLE smeny CASCADE CONSTRAINTS PURGE")},
-                    {"SOUPRAVY_METRA", new ConstantStringProvider("DROP TABLE soupravy_metra CASCADE CONSTRAINTS PURGE")},
                     {"STATY", new ConstantStringProvider("DROP TABLE staty CASCADE CONSTRAINTS PURGE")},
                     {"STAVY", new ConstantStringProvider("DROP TABLE stavy CASCADE CONSTRAINTS PURGE")},
-                    {"TRAMVAJE", new ConstantStringProvider("DROP TABLE tramvaje CASCADE CONSTRAINTS PURGE")},
-                    {"TROLEJBUSY", new ConstantStringProvider("DROP TABLE trolejbusy CASCADE CONSTRAINTS PURGE")},
                     {"UZIVATELE", new ConstantStringProvider("DROP TABLE uzivatele CASCADE CONSTRAINTS PURGE")},
-                    {"VOZIDLA", new ConstantStringProvider("DROP TABLE vozidla CASCADE CONSTRAINTS PURGE")},
                     {"VYROBCI", new ConstantStringProvider("DROP TABLE vyrobci CASCADE CONSTRAINTS PURGE")},
-                    {"ZABEZPECOVACE", new ConstantStringProvider("DROP TABLE zabezpecovace CASCADE CONSTRAINTS PURGE")},
                     {"ZAMESTNANCI", new ConstantStringProvider("DROP TABLE zamestnanci CASCADE CONSTRAINTS PURGE")},
                     {"ZASTAVKY", new ConstantStringProvider("DROP TABLE zastavky CASCADE CONSTRAINTS PURGE")}
                 }
@@ -74,28 +64,21 @@ namespace SemestralProject.Data
                 IConnection.DatabaseObject.Sequence, new Dictionary<string, IStringProvider>()
                 {
                     {"ADRESY_SEQ", new ConstantStringProvider("DROP SEQUENCE adresy_seq")},
-                    {"CIPOVE_KARTY_SEQ", new ConstantStringProvider("DROP SEQUENCE cipove_karty_seq")},
                     {"JIZDNI_RADY_SEQ", new ConstantStringProvider("DROP SEQUENCE jizdni_rady_seq")},
                     {"LINKY_SEQ", new ConstantStringProvider("DROP SEQUENCE linky_seq")},
-                    {"MODELY_SEQ", new ConstantStringProvider("DROP SEQUENCE modely_seq")},
                     {"OBCE_SEQ", new ConstantStringProvider("DROP SEQUENCE obce_seq")},
                     {"OPRAVNENI_SEQ", new ConstantStringProvider("DROP SEQUENCE opravneni_seq")},
                     {"OSOBY_SEQ", new ConstantStringProvider("DROP SEQUENCE osoby_seq")},
                     {"OSOBNI_CISLA_SEQ", new ConstantStringProvider("DROP SEQUENCE osobni_cisla_seq")},
                     {"PLANY_SMEN_SEQ", new ConstantStringProvider("DROP SEQUENCE plany_smen_seq")},
                     {"PRAVA_SEQ", new ConstantStringProvider("DROP SEQUENCE prava_seq")},
-                    {"PREVODOVKY_SEQ", new ConstantStringProvider("DROP SEQUENCE prevodovky_seq")},
                     {"PROVOZY_SEQ", new ConstantStringProvider("DROP SEQUENCE provozy_seq")},
                     {"ROLE_SEQ", new ConstantStringProvider("DROP SEQUENCE role_seq")},
                     {"SKUTECNE_RADY_SEQ", new ConstantStringProvider("DROP SEQUENCE skutecne_rady_seq")},
                     {"SMENY_SEQ", new ConstantStringProvider("DROP SEQUENCE smeny_seq")},
                     {"STATY_SEQ", new ConstantStringProvider("DROP SEQUENCE staty_seq")},
                     {"STAVY_SEQ", new ConstantStringProvider("DROP SEQUENCE stavy_seq")},
-                    {"TYPY_VOZIDEL_SEQ", new ConstantStringProvider("DROP SEQUENCE typy_vozidel_seq")},
                     {"UZIVATELE_SEQ", new ConstantStringProvider("DROP SEQUENCE uzivatele_seq")},
-                    {"VOZIDLA_SEQ", new ConstantStringProvider("DROP SEQUENCE vozidla_seq")},
-                    {"VYROBCI_SEQ", new ConstantStringProvider("DROP SEQUENCE vyrobci_seq")},
-                    {"ZABEZPECOVACE_SEQ", new ConstantStringProvider("DROP SEQUENCE zabezpecovace_seq")},
                     {"ZASTAVKY_SEQ", new ConstantStringProvider("DROP SEQUENCE zastavky_seq")},
                     {"ZAMESTNANCI_SEQ", new ConstantStringProvider("DROP SEQUENCE zamestnanci_seq")}
                 }
@@ -162,40 +145,12 @@ namespace SemestralProject.Data
         /// </summary>
         public static readonly IStringProvider Packages = new CombinedStringProvider(
             new CompactStringProvider(
-                new MergedStringProvider(
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_HEADER"), "--" , true),
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_DOCS"), "--" , true)
-                )
-            ),
-            new CompactStringProvider(
-                new MergedStringProvider(
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_BODY"), "--" , true),
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_DOCS"), "--" , true)
-                )
-            ),
-            new CompactStringProvider(
-                new MergedStringProvider(
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_HEADER"), "--" , true),
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_DOCS"), "--" , true)
-                )
-            ),
-            new CompactStringProvider(
-                new MergedStringProvider(
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_BODY"), "--" , true),
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_DOCS"), "--" , true)
-                )
-            ),
-            new CompactStringProvider(
-                new MergedStringProvider(
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_HEADER"), "--" , true),
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_DOCS"), "--" , true)
-                )
-            ),
-            new CompactStringProvider(
-                new MergedStringProvider(
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_BODY"), "--" , true),
-                    new SeparatedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_DOCS"), "--" , true)
-                )
+                new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_HEADER")),
+                new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_BODY")),
+                new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_HEADER")),
+                new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_BODY")),
+                new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_HEADER")),
+                new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_API_BODY"))
             )
         );
 
