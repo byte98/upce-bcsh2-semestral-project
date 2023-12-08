@@ -93,21 +93,21 @@ namespace SemestralProject.Resources {
         /// <summary>
         ///   Looks up a localized string similar to ALTER TABLE adresy
         ///    ADD CONSTRAINT adresy_obce_fk FOREIGN KEY ( obec )
-        ///        REFERENCES obce ( id_obec );
+        ///        REFERENCES obce ( id_obec )
         ///
         ///ALTER TABLE jizdni_rady
         ///    ADD CONSTRAINT jizdni_rady_linky_fk FOREIGN KEY ( linka )
-        ///        REFERENCES linky ( id_linka );
+        ///        REFERENCES linky ( id_linka )
         ///
         ///ALTER TABLE jizdni_rady
         ///    ADD CONSTRAINT jizdni_rady_zastavka_fk FOREIGN KEY ( zastavka )
-        ///        REFERENCES zastavky ( id_zastavka );
+        ///        REFERENCES zastavky ( id_zastavka )
         ///
         ///ALTER TABLE obce
         ///    ADD CONSTRAINT obce_stat_fk FOREIGN KEY ( stat )
-        ///        REFERENCES staty ( id_stat );
+        ///        REFERENCES staty ( id_stat )
         ///
-        ///ALTER TABLE [rest of string was truncated]&quot;;.
+        ///ALTER TABLE pra [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RELATIONS {
             get {
@@ -229,15 +229,15 @@ namespace SemestralProject.Resources {
         /// *          Jiri Skoda &lt;jiri.skoda@student.upce.cz&gt;
         /// */
         ///PACKAGE sempr_crud AS 
-        ///--
-        ///    /*
-        ///     * Type definition of data stored in &apos;staty&apos; table
-        ///     */
+        ///
+        ///
         ///    TYPE t_staty IS TABLE OF staty%ROWTYPE;
-        ///--
+        ///
         ///    PROCEDURE proc_staty_create(p_name IN staty.nazev%TYPE);
-        ///--
-        ///    PROCEDURE proc_staty_ [rest of string was truncated]&quot;;.
+        ///
+        ///    PROCEDURE proc_staty_update(p_id IN staty.id_stat%TYPE, p_name IN staty.nazev%TYPE);
+        ///
+        ///    PROCED [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEMPR_CRUD_HEADER {
             get {
@@ -339,20 +339,20 @@ namespace SemestralProject.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to CREATE TABLE adresy (
-        ///    id_adresa        INTEGER NOT NULL DEFAULT adresy_seq.nextval,
+        ///    id_adresa        INTEGER DEFAULT adresy_seq.nextval NOT NULL,
         ///    ulice            VARCHAR2(64),
         ///    cislo_popisne    INTEGER NOT NULL,
         ///    cislo_orientacni INTEGER,
         ///    obec             INTEGER NOT NULL
-        ///);
+        ///)
         ///
-        ///ALTER TABLE adresy ADD CONSTRAINT adresy_pk PRIMARY KEY ( id_adresa );
+        ///ALTER TABLE adresy ADD CONSTRAINT adresy_pk PRIMARY KEY ( id_adresa )
         ///
         ///CREATE TABLE jizdni_rady (
-        ///    id_jizdni_rad  INTEGER NOT NULL DEFAULT jizdni_rady_seq.nextval,
+        ///    id_jizdni_rad  INTEGER DEFAULT jizdni_rady_seq.nextval NOT NULL,
         ///    cas_prijezdu   DATE NOT NULL,
         ///    cas_odjezdu    DATE NOT NULL,
-        ///    poradove_cislo INTEGER N [rest of string was truncated]&quot;;.
+        ///    poradove_cislo INTEGER NOT [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TABLES {
             get {

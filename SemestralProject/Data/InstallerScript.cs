@@ -144,7 +144,7 @@ namespace SemestralProject.Data
         /// SQl statements which creates all used packages.
         /// </summary>
         public static readonly IStringProvider Packages = new CombinedStringProvider(
-            new CompactStringProvider(
+            new CombinedStringProvider(
                 new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_HEADER")),
                 new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_CRUD_BODY")),
                 new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_UTILS_HEADER")),
