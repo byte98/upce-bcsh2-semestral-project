@@ -28,6 +28,49 @@ namespace SemestralProject.ViewModel.Pages
             }
         }
 
+        /// <inheritdoc cref="lineCode"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public string LineCode
+        {
+            get => lineCode;
+            [global::System.Diagnostics.CodeAnalysis.MemberNotNull("lineCode")]
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(lineCode, value))
+                {
+                    OnLineCodeChanging(value);
+                    OnLineCodeChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.LineCode);
+                    lineCode = value;
+                    OnLineCodeChanged(value);
+                    OnLineCodeChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.LineCode);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="selectedLine"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::SemestralProject.Model.Entities.Line? SelectedLine
+        {
+            get => selectedLine;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::SemestralProject.Model.Entities.Line?>.Default.Equals(selectedLine, value))
+                {
+                    OnSelectedLineChanging(value);
+                    OnSelectedLineChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedLine);
+                    selectedLine = value;
+                    OnSelectedLineChanged(value);
+                    OnSelectedLineChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedLine);
+                }
+            }
+        }
+
         /// <summary>Executes the logic for when <see cref="Lines"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="Lines"/> is changed.</remarks>
@@ -50,5 +93,49 @@ namespace SemestralProject.ViewModel.Pages
         /// <remarks>This method is invoked right after the value of <see cref="Lines"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnLinesChanged(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.Entities.Line>? oldValue, global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.Entities.Line> newValue);
+        /// <summary>Executes the logic for when <see cref="LineCode"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="LineCode"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnLineCodeChanging(string value);
+        /// <summary>Executes the logic for when <see cref="LineCode"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="LineCode"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnLineCodeChanging(string? oldValue, string newValue);
+        /// <summary>Executes the logic for when <see cref="LineCode"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="LineCode"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnLineCodeChanged(string value);
+        /// <summary>Executes the logic for when <see cref="LineCode"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="LineCode"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnLineCodeChanged(string? oldValue, string newValue);
+        /// <summary>Executes the logic for when <see cref="SelectedLine"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="SelectedLine"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedLineChanging(global::SemestralProject.Model.Entities.Line? value);
+        /// <summary>Executes the logic for when <see cref="SelectedLine"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="SelectedLine"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedLineChanging(global::SemestralProject.Model.Entities.Line? oldValue, global::SemestralProject.Model.Entities.Line? newValue);
+        /// <summary>Executes the logic for when <see cref="SelectedLine"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="SelectedLine"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedLineChanged(global::SemestralProject.Model.Entities.Line? value);
+        /// <summary>Executes the logic for when <see cref="SelectedLine"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="SelectedLine"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedLineChanged(global::SemestralProject.Model.Entities.Line? oldValue, global::SemestralProject.Model.Entities.Line? newValue);
     }
 }

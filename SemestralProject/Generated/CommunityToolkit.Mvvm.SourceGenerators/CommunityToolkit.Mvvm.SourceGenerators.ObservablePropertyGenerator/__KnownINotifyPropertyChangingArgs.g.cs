@@ -510,6 +510,14 @@ namespace CommunityToolkit.Mvvm.ComponentModel.__Internals
         [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
         [global::System.Obsolete("This field is not intended to be referenced directly by user code")]
         public static readonly global::System.ComponentModel.PropertyChangingEventArgs Lines = new global::System.ComponentModel.PropertyChangingEventArgs("Lines");
+        /// <summary>The cached <see cref="global::System.ComponentModel.PropertyChangingEventArgs"/> instance for all "LineCode" generated properties.</summary>
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        [global::System.Obsolete("This field is not intended to be referenced directly by user code")]
+        public static readonly global::System.ComponentModel.PropertyChangingEventArgs LineCode = new global::System.ComponentModel.PropertyChangingEventArgs("LineCode");
+        /// <summary>The cached <see cref="global::System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedLine" generated properties.</summary>
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        [global::System.Obsolete("This field is not intended to be referenced directly by user code")]
+        public static readonly global::System.ComponentModel.PropertyChangingEventArgs SelectedLine = new global::System.ComponentModel.PropertyChangingEventArgs("SelectedLine");
         /// <summary>The cached <see cref="global::System.ComponentModel.PropertyChangingEventArgs"/> instance for all "User" generated properties.</summary>
         [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
         [global::System.Obsolete("This field is not intended to be referenced directly by user code")]

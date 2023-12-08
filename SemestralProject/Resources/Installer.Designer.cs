@@ -246,6 +246,32 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 
+        ///
+        ///CREATE OR REPLACE TRIGGER log_trigger_adresy
+        ///AFTER DELETE OR UPDATE OR ALTER ON adresy
+        ///FOR EACH ROW
+        ///DECLARE
+        ///    v_action VARCHAR2(10);
+        ///BEGIN
+        ///    IF DELETING THEN v_action := &apos;DELETE&apos;;
+        ///    ELSIF UPDATING THEN v_action := &apos;UPDATE&apos;;
+        ///    ELSE v_action := &apos;ALTER&apos;;
+        ///    END IF;
+        ///    INSERT INTO logs (table_name, message)
+        ///    VALUES (&apos;adresy&apos;, &apos;Action: &apos; || v_action || &apos;, Row ID: &apos; || :OLD.id);
+        ///END; 
+        ////
+        ///CREATE OR REPLACE TRIGGER log_trigger_jizdni_rady
+        ///AFTER DELETE OR UPDATE OR ALTER ON jizdni_rady [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SEMPR_TRIGGERS {
+            get {
+                return ResourceManager.GetString("SEMPR_TRIGGERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CREATE OR REPLACE
         ////*
         /// * Body of package with utility functions.
@@ -300,12 +326,13 @@ namespace SemestralProject.Resources {
         ///   Looks up a localized string similar to CREATE SEQUENCE adresy_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE jizdni_rady_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE linky_seq START WITH 1 NOCACHE ORDER
+        ///CREATE SEQUENCE logs_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE obce_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE opravneni_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE osoby_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE osobni_cisla_seq START WITH 100005 NOCACHE ORDER
         ///CREATE SEQUENCE plany_smen_seq START WITH 1 NOCACHE ORDER
-        ///CREATE SEQUENCE prava_seq START WITH 1 NOCACHE ORDER        /// [rest of string was truncated]&quot;;.
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEQUENCES {
             get {
@@ -357,6 +384,30 @@ namespace SemestralProject.Resources {
         internal static string TABLES {
             get {
                 return ResourceManager.GetString("TABLES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- Vložení mockových dat do tabulky adresy
+        ///INSERT INTO adresy (ulice, cislo_popisne, cislo_orientacni, obec)
+        ///VALUES
+        ///    (&apos;Hlavní&apos;, 123, NULL, 1),
+        ///    (&apos;Náměstí&apos;, 456, 25, 2),
+        ///    (&apos;Ulice Česká&apos;, 789, NULL, 3),
+        ///    (&apos;Masarykova&apos;, 101, 7, 4),
+        ///    (&apos;Školní&apos;, 222, NULL, 5),
+        ///    (&apos;Jiráskova&apos;, 333, 15, 6),
+        ///    (&apos;5. května&apos;, 444, NULL, 7),
+        ///    (&apos;Lidická&apos;, 555, 30, 8),
+        ///    (&apos;Riegrova&apos;, 666, NULL, 9),
+        ///    (&apos;Komenského&apos;, 777, 10, 10);
+        ///
+        ///-- Vložení mockových dat do tabulky jizdni_rady
+        ///INSERT INTO jizdni_ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TABLES_MOCK {
+            get {
+                return ResourceManager.GetString("TABLES_MOCK", resourceCulture);
             }
         }
         

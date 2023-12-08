@@ -609,5 +609,58 @@ PACKAGE BODY sempr_crud AS
     END func_prava_read;
 --
 
+    PROCEDURE proc_linky_create(p_code IN linky.kod%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        INSERT INTO linky(kod) VALUES (p_code);
+        COMMIT;
+    END proc_linky_create;
+--
+    PROCEDURE proc_linky_update(p_id IN linky.id_linka%TYPE, p_code IN linky.kod%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE linky SET kod=p_code
+        WHERE id_linka=p_id;
+        COMMIT;
+    END proc_linky_update;
+--
+    PROCEDURE proc_linky_delete(p_id IN linky.id_linka%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        DELETE FROM linky
+        WHERE id_linka=p_id;
+        COMMIT;
+    END proc_linky_delete;
+--
+
+    FUNCTION func_linky_read RETURN t_linky PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_linka   linky%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM linky;
+        LOOP
+            FETCH v_cursor INTO v_linka;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_linka);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_linky_read;
+--
+    FUNCTION func_linky_read(p_id IN linky.id_linka%TYPE) RETURN t_linky PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_linka   linky%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM linky WHERE id_linka=p_id;
+        LOOP
+            FETCH v_cursor INTO v_linka;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_linka);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_linky_read;
 
 END sempr_crud;

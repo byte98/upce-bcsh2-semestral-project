@@ -158,7 +158,17 @@ PACKAGE sempr_crud AS
 
     FUNCTION  func_prava_read(p_role IN prava.role%TYPE) RETURN t_prava PIPELINED;
 
+    TYPE t_linky is TABLE of linky%ROWTYPE;
 
-    
+    PROCEDURE proc_linky_create(p_code IN linky.kod%TYPE);
+
+    PROCEDURE proc_linky_update(p_id IN linky.id_linka%TYPE, p_code IN linky.kod%TYPE);
+
+    PROCEDURE proc_linky_delete(p_id IN linky.id_linka%TYPE);
+
+    FUNCTION func_linky_read RETURN t_linky PIPELINED;
+
+    FUNCTIOn func_linky_read(p_id IN linky.id_linka%TYPE) RETURN t_linky PIPELINED;
+
 END sempr_crud;
 
