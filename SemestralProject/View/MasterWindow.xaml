@@ -137,12 +137,14 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <ScrollViewer Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                 <ui:Frame Padding="8,8,8,8"  x:Name="FrameContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
                 </ui:Frame>
             </ScrollViewer>
+            <Button Margin="4,128,4,4" Command="{Binding LogsCommand}">Logy</Button>
         </Grid>
     </Grid>
 </Window>

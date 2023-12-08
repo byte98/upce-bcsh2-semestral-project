@@ -9,6 +9,7 @@ using SemestralProject.View;
 using SemestralProject.View.Components;
 using SemestralProject.View.Navigation;
 using SemestralProject.View.Pages;
+using SemestralProject.View.Windows;
 using SemestralProject.ViewModel.Messaging;
 using System;
 using System.Collections.Generic;
@@ -330,6 +331,13 @@ namespace SemestralProject.ViewModel
             MainWindow main = new MainWindow();
             main.Show();
             WindowUtils.HideForModel(this);
+        }
+
+        [RelayCommand]
+        private void Logs()
+        {
+            LogsWindow window = new LogsWindow();
+            window.Show();
         }
 
         /// <summary>

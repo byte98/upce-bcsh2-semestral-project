@@ -331,8 +331,8 @@ namespace SemestralProject.Resources {
         ///CREATE SEQUENCE opravneni_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE osoby_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE osobni_cisla_seq START WITH 100005 NOCACHE ORDER
-        ///CREATE SEQUENCE plany_smen_seq START WITH 1 NOCACHE ORDER
-        /// [rest of string was truncated]&quot;;.
+        ///CREATE SEQUENCE prava_seq START WITH 1 NOCACHE ORDER
+        ///CREAT [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEQUENCES {
             get {
