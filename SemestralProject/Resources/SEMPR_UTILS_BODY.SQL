@@ -29,6 +29,34 @@ PACKAGE BODY sempr_utils AS
             RETURN v_reti;
     END func_last_seq;
 --
+    FUNCTION get_employee_hierarchy(p_employee_id IN INTEGER) RETURN SYS_REFCURSOR IS
+        v_cursor SYS_REFCURSOR;
+    BEGIN
+        OPEN v_cursor FOR
+        SELECT id_zamestnanec,
+                CONNECT_BY_ROOT id_zamestnanec AS root_id,
+                LEVEL AS hierarchy_level
+        FROM zamestnanci
+        CONNECT BY PRIOR id_zamestnanec = nadrizeny
+        START WITH id_zamestnanec = p_employee_id;
+        
+        RETURN v_cursor;
+    END get_employee_hierarchy;
+--
+    FUNCTION get_top_managers(p_employee_id IN INTEGER) RETURN SYS_REFCURSOR 
+        IS v_result SYS_REFCURSOR;
+    BEGIN
+        OPEN v_result FOR
+        SELECT id_zamestnanec,
+            CONNECT_BY_ROOT id_zamestnanec AS root_id,
+            LEVEL AS hierarchy_level
+        FROM zamestnanci
+        WHERE CONNECT_BY_ISLEAF = 1
+        CONNECT BY PRIOR id_zamestnanec = nadrizeny
+        START WITH nadrizeny IS NULL AND id_zamestnanec = p_employee_id;
+    RETURN v_result;
+    END get_top_managers;
+--
     FUNCTION func_next_seq(p_seq VARCHAR2) RETURN NUMBER AS
         v_reti NUMBER := -2147483648;
         v_sequence_exists NUMBER;
