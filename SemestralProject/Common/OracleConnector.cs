@@ -151,7 +151,10 @@ namespace SemestralProject.Common
         /// </summary>
         private void UpdateConnectionString()
         {
-            this.connectionString = $"Data Source={this.ConnectionModel.Server}:{this.ConnectionModel.Port}/{this.ConnectionModel.Database};User ID={this.ConnectionModel.Username};Password={this.ConnectionModel.Password};Connection Timeout=30; Persist Security Info=false";
+            //this.connectionString = $"Data Source={this.ConnectionModel.Server}:{this.ConnectionModel.Port}/{this.ConnectionModel.Database};User ID={this.ConnectionModel.Username};Password={this.ConnectionModel.Password};";
+            //this.connectionString = $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={this.ConnectionModel.Server})(PORT={this.ConnectionModel.Port})))\r\n(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME={this.ConnectionModel.Database})));User Id={this.ConnectionModel.Username};\r\nPassword={this.ConnectionModel.Password}";
+            //this.connectionString = $"Data Source={this.ConnectionModel.Username}/{this.ConnectionModel.Password}@//{this.ConnectionModel.Server}:{this.ConnectionModel.Port}/{this.ConnectionModel.Database};";
+            this.connectionString = $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={this.ConnectionModel.Server})(PORT={this.ConnectionModel.Port})))(CONNECT_DATA=(SID={this.ConnectionModel.Database})));User ID={this.ConnectionModel.Username};Password={this.ConnectionModel.Password}";
         }
 
         /// <summary>

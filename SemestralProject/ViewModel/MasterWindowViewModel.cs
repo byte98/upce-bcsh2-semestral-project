@@ -81,6 +81,12 @@ namespace SemestralProject.ViewModel
         private Visibility employeesVisibility = Visibility.Collapsed;
 
         /// <summary>
+        /// Visibility of lines menu item.
+        /// </summary>
+        [ObservableProperty]
+        private Visibility linesVisibility = Visibility.Collapsed;
+
+        /// <summary>
         /// Visibility of super tool menu item.
         /// </summary>
         [ObservableProperty]
@@ -105,6 +111,11 @@ namespace SemestralProject.ViewModel
         /// Page with employees.
         /// </summary>
         private EmployeesPage employeesPage;
+
+        /// <summary>
+        /// Page with lines.
+        /// </summary>
+        private LinesPage linesPage;
 
         /// <summary>
         /// Page with database supertool.
@@ -134,6 +145,12 @@ namespace SemestralProject.ViewModel
         /// </summary>
         [ObservableProperty]
         private bool employeesCheck;
+
+        /// <summary>
+        /// Flag, whether lines menu item is checked.
+        /// </summary>
+        [ObservableProperty]
+        private bool linesCheck;
 
         /// <summary>
         /// Flag, whether supertool menu item is checked.
@@ -168,11 +185,13 @@ namespace SemestralProject.ViewModel
             this.permCheck = false;
             this.usersCheck = false;
             this.employeesCheck = false;
+            this.linesCheck = false;
             this.supertoolCheck = false;
             this.myPage = new MyPage();
             this.permPage = new PermissionsPage();
             this.usersPage = new UsersPage();
             this.employeesPage = new EmployeesPage();
+            this.linesPage = new LinesPage();
             this.supertoolPage = new DatabasePage();
         }
 
@@ -222,6 +241,7 @@ namespace SemestralProject.ViewModel
                 this.RolesVisibility = this.role.HasPermission(PermissionNames.RolesRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.UsersVisibility = this.role.HasPermission(PermissionNames.UsersRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.EmployeesVisibility = this.role.HasPermission(PermissionNames.EmployeesRead) ? Visibility.Visible : Visibility.Collapsed;
+                this.LinesVisibility = this.role.HasPermission(PermissionNames.LinesRead) ? Visibility.Visible : Visibility.Collapsed;
 
                 this.SupertoolVisibility = this.role.HasPermission(PermissionNames.EmployeesRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.ResetChecks();
@@ -389,6 +409,17 @@ namespace SemestralProject.ViewModel
                 WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.role));
             }
             this.Navigate(this.employeesPage);
+        }
+
+        /// <summary>
+        /// Handles click on 'lines' menu item.
+        /// </summary>
+        [RelayCommand]
+        private void Lines()
+        {
+            this.ResetChecks();
+            this.LinesCheck = true;
+            this.Navigate(this.linesPage);
         }
 
         /// <summary>
