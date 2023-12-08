@@ -85,7 +85,7 @@ namespace SemestralProject.ViewModel.Pages
         }
 
         /// <summary>
-        /// Handlews click on edit button.
+        /// Handles click on edit button.
         /// </summary>
         [RelayCommand]
         private void Edit()
@@ -98,6 +98,29 @@ namespace SemestralProject.ViewModel.Pages
                 WeakReferenceMessenger.Default.Send<EmployeesChangedMessage>(new EmployeesChangedMessage());
             }
             
+        }
+
+        /// <summary>
+        /// Handles click on delete button.
+        /// </summary>
+        [RelayCommand]
+        private async Task Delete()
+        {
+            if (this.SelectedEmployee != null)
+            {
+                User[] users = await User.GetAllAsync();
+                foreach(User user in users)
+                {
+                    if (user.Employee.Equals(this.SelectedEmployee))
+                    {
+                        await user.DeleteAsync();
+                        WeakReferenceMessenger.Default.Send<UsersChangedMessage>(new UsersChangedMessage());
+                        break;
+                    }
+                }
+                await this.SelectedEmployee.DeleteAsync();
+                WeakReferenceMessenger.Default.Send<EmployeesChangedMessage>(new EmployeesChangedMessage());
+            }
         }
     }
 }

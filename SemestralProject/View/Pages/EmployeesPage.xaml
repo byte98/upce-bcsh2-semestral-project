@@ -49,7 +49,7 @@
             </Grid.RowDefinitions>
             <Button  Command="{Binding EditCommand}" Visibility="{Binding EditVisibility}" Grid.Row="0" Grid.Column="0" Style="{DynamicResource ButtonRevealStyle}" Content="Upravit zaměstnance" Padding="8,8,8,8" Width="168" Margin="0,0,8,0"/>
             <Button Command="{Binding NewCommand}" Visibility="{Binding EditVisibility}" Grid.Row="0" Grid.Column="1" Style="{DynamicResource ButtonRevealStyle}" Content="Nový zaměstnanec" Padding="8,8,8,8" Width="168" Margin="0,0,8,0"/>
-            <Button Visibility="{Binding EditVisibility}" Grid.Row="0" Grid.Column="2" Style="{DynamicResource ButtonRevealStyle}" Content="Odebrat zaměstnance" Padding="8,8,8,8" Width="168" Margin="0,0,8,0"/>
+            <Button Command="{Binding DeleteCommand}" Visibility="{Binding EditVisibility}" Grid.Row="0" Grid.Column="2" Style="{DynamicResource ButtonRevealStyle}" Content="Odebrat zaměstnance" Padding="8,8,8,8" Width="168" Margin="0,0,8,0"/>
         </Grid>
         <ui:ListView Visibility="{Binding ContentVisibility}" ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}" x:Name="listView">
             <ui:ListView.ItemTemplate>
