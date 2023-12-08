@@ -516,6 +516,12 @@ namespace DatabaseObject
                     reti.Append(properties[i][DatabaseObjectSourceGenerator.Name].ToLower());
                     reti.Append(")}");
                 }
+                else if (properties[i][DatabaseObjectSourceGenerator.Type].Trim().ToLower() != "int")
+                {
+                    reti.Append("{");
+                    reti.Append(properties[i][DatabaseObjectSourceGenerator.Name].ToLower());
+                    reti.Append(".Id}");
+                }
                 else
                 {
                     reti.Append("{");

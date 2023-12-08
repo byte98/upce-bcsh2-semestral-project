@@ -719,4 +719,60 @@ PACKAGE BODY sempr_crud AS
         CLOSE v_cursor;
     END func_zastavky_read;
 --
+
+
+
+
+    PROCEDURE proc_jizdni_rady_create(p_arrival IN jizdni_rady.cas_prijezdu%TYPE, p_departure IN jizdni_rady.cas_odjezdu%TYPE, p_nr IN jizdni_rady.poradove_cislo%TYPE, p_variant IN jizdni_rady.varianta%TYPE, p_line IN jizdni_rady.linka%TYPE, p_stop IN jizdni_rady.zastavka%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        INSERT INTO jizdni_rady(cas_prijezdu, cas_odjezdu, poradove_cislo, varianta, linka, zastavka)
+        VALUES (p_arrival, p_departure, p_nr, p_variant, p_line, p_stop);
+        COMMIT;
+    END proc_jizdni_rady_create;
+
+    PROCEDURE proc_jizdni_rady_update(p_id IN jizdni_rady.id_jizdni_rad%TYPE, p_arrival IN jizdni_rady.cas_prijezdu%TYPE, p_departure IN jizdni_rady.cas_odjezdu%TYPE, p_nr IN jizdni_rady.poradove_cislo%TYPE, p_variant IN jizdni_rady.varianta%TYPE, p_line IN jizdni_rady.linka%TYPE, p_stop IN jizdni_rady.zastavka%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE jizdni_rady
+        SET cas_prijezdu=p_arrival, cas_odjezdu=p_departure, poradove_cislo=p_nr, varianta=p_variant, linka=p_line, zastavka=p_stop
+        WHERE id_jizdni_rad=p_id;
+        COMMIT;
+    END proc_jizdni_rady_update;
+
+    PROCEDURE proc_jizdni_rady_delete(p_id IN jizdni_rady.id_jizdni_rad%TYPE) AS
+    BEGIN
+        DELETE FROM jizdni_rady WHERE id_jizdni_rad=p_id;
+    END proc_jizdni_rady_delete;
+
+    FUNCTION func_jizdni_rady_read RETURN t_jizdni_rady PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_jizdni_rad   jizdni_rady%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM jizdni_rady;
+        LOOP
+            FETCH v_cursor INTO v_jizdni_rad;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_jizdni_rad);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_jizdni_rady_read;
+
+    FUNCTION func_jizdni_rady_read(p_id IN jizdni_rady.id_jizdni_rad%TYPE) RETURN t_jizdni_rady PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_jizdni_rad   jizdni_rady%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM jizdni_rady WHERE id_jizdni_rad=p_id;
+        LOOP
+            FETCH v_cursor INTO v_jizdni_rad;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_jizdni_rad);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_jizdni_rady_read;
+
 END sempr_crud;

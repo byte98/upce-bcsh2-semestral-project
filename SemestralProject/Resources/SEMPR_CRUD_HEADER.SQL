@@ -158,6 +158,8 @@ PACKAGE sempr_crud AS
 
     FUNCTION  func_prava_read(p_role IN prava.role%TYPE) RETURN t_prava PIPELINED;
 
+
+
     TYPE t_linky is TABLE of linky%ROWTYPE;
 
     PROCEDURE proc_linky_create(p_code IN linky.kod%TYPE);
@@ -170,6 +172,8 @@ PACKAGE sempr_crud AS
 
     FUNCTIOn func_linky_read(p_id IN linky.id_linka%TYPE) RETURN t_linky PIPELINED;
 
+
+
     TYPE t_zastavky is TABLE of zastavky%ROWTYPE;
 
     PROCEDURE proc_zastavky_create(p_code IN zastavky.kod%TYPE, p_name IN zastavky.nazev%TYPE);
@@ -180,7 +184,20 @@ PACKAGE sempr_crud AS
 
     FUNCTION func_zastavky_read RETURN t_zastavky PIPELINED;
 
-    FUNCTIOn func_zastavky_read(p_id IN zastavky.id_zastavka%TYPE) RETURN t_zastavky PIPELINED;
+    FUNCTION func_zastavky_read(p_id IN zastavky.id_zastavka%TYPE) RETURN t_zastavky PIPELINED;
+
+
+    TYPE t_jizdni_rady is TABLE of jizdni_rady%ROWTYPE;
+
+    PROCEDURE proc_jizdni_rady_create(p_arrival IN jizdni_rady.cas_prijezdu%TYPE, p_departure IN jizdni_rady.cas_odjezdu%TYPE, p_nr IN jizdni_rady.poradove_cislo%TYPE, p_variant IN jizdni_rady.varianta%TYPE, p_line IN jizdni_rady.linka%TYPE, p_stop IN jizdni_rady.zastavka%TYPE);
+
+    PROCEDURE proc_jizdni_rady_update(p_id IN jizdni_rady.id_jizdni_rad%TYPE, p_arrival IN jizdni_rady.cas_prijezdu%TYPE, p_departure IN jizdni_rady.cas_odjezdu%TYPE, p_nr IN jizdni_rady.poradove_cislo%TYPE, p_variant IN jizdni_rady.varianta%TYPE, p_line IN jizdni_rady.linka%TYPE, p_stop IN jizdni_rady.zastavka%TYPE);
+
+    PROCEDURE proc_jizdni_rady_delete(p_id IN jizdni_rady.id_jizdni_rad%TYPE);
+
+    FUNCTION func_jizdni_rady_read RETURN t_jizdni_rady PIPELINED;
+
+    FUNCTION func_jizdni_rady_read(p_id IN jizdni_rady.id_jizdni_rad%TYPE) RETURN t_jizdni_rady PIPELINED;
 
 END sempr_crud;
 

@@ -65,14 +65,6 @@ CREATE TABLE osoby (
 
 ALTER TABLE osoby ADD CONSTRAINT osoby_pk PRIMARY KEY ( id_osoba )
 
-CREATE TABLE plany_smen (
-    id_plan_smeny INTEGER DEFAULT plany_smen_seq.nextval NOT NULL,
-    smena         INTEGER NOT NULL,
-    jizdni_rad    INTEGER NOT NULL
-)
-
-ALTER TABLE plany_smen ADD CONSTRAINT rel_smena_jizdni_rad_pk PRIMARY KEY ( id_plan_smeny )
-
 CREATE TABLE prava (
     id_pravo  INTEGER DEFAULT prava_seq.nextval NOT NULL,
     role      INTEGER NOT NULL,
@@ -96,14 +88,6 @@ CREATE TABLE skutecne_rady (
 )
 
 ALTER TABLE skutecne_rady ADD CONSTRAINT skutecny_rad_pk PRIMARY KEY ( id_skutecny_rad )
-
-CREATE TABLE smeny (
-    id_smena    INTEGER DEFAULT smeny_seq.nextval NOT NULL,
-    vozidlo     INTEGER NOT NULL,
-    zamestnanec INTEGER NOT NULL
-)
-
-ALTER TABLE smeny ADD CONSTRAINT smena_pk PRIMARY KEY ( id_smena )
 
 CREATE TABLE staty (
     id_stat INTEGER DEFAULT staty_seq.nextval NOT NULL,

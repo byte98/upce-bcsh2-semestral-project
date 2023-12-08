@@ -26,5 +26,10 @@ namespace SemestralProject.Model.Entities
         /// </summary>
         [DatabaseColumn("nazev")]
         public string Name { get; set; } = string.Empty;
+
+        public override string? ToString()
+        {
+            return this.Name;
+        }
     }
 }

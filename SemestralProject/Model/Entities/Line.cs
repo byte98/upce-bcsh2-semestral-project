@@ -19,5 +19,10 @@ namespace SemestralProject.Model.Entities
         /// </summary>
         [DatabaseColumn("kod")]
         public string Code { get; set; } = string.Empty;
+
+        public override string? ToString()
+        {
+            return this.Code;
+        }
     }
 }

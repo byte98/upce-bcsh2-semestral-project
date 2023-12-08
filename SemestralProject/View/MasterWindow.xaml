@@ -78,6 +78,12 @@
                     <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Zastávky"/>
                 </StackPanel>
             </components:MenuButton>
+            <components:MenuButton Command="{Binding SchedulesCommand}" Visibility="{Binding SchedulesVisibility}" IsChecked="{Binding SchedulesCheck}" Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
+                    <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xE161;" Margin="8,0,16,0"/>
+                    <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Jízdní řády"/>
+                </StackPanel>
+            </components:MenuButton>
             <components:MenuButton Command="{Binding SupertoolCommand}" Visibility="{Binding SupertoolVisibility}" IsChecked="{Binding SupertoolCheck}" Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
                     <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xEE94;" Margin="8,0,16,0"/>

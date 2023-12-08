@@ -22,21 +22,9 @@ ALTER TABLE prava
     ADD CONSTRAINT prava_role_fk FOREIGN KEY ( role )
         REFERENCES role ( id_role )
 
-ALTER TABLE plany_smen
-    ADD CONSTRAINT rel_smena_jizdni_rad_jizdni_rad_fk FOREIGN KEY ( jizdni_rad )
-        REFERENCES jizdni_rady ( id_jizdni_rad )
-
-ALTER TABLE plany_smen
-    ADD CONSTRAINT rel_smena_jizdni_rad_smena_fk FOREIGN KEY ( smena )
-        REFERENCES smeny ( id_smena )
-
 ALTER TABLE skutecne_rady
     ADD CONSTRAINT skutecne_rady_plany_smen_fk FOREIGN KEY ( plan )
         REFERENCES plany_smen ( id_plan_smeny )
-
-ALTER TABLE smeny
-    ADD CONSTRAINT smeny_zamestnanec_fk FOREIGN KEY ( zamestnanec )
-        REFERENCES zamestnanci ( id_zamestnanec )
 
 ALTER TABLE uzivatele
     ADD CONSTRAINT uzivatel_role_fk FOREIGN KEY ( role )

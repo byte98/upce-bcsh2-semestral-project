@@ -92,46 +92,6 @@ namespace SemestralProject.Model.Enums
         SchedulesModify,
 
         /// <summary>
-        /// Permission to read shift plans.
-        /// </summary>
-        ShiftPlansRead,
-
-        /// <summary>
-        /// Permission to modify shift plans.
-        /// </summary>
-        ShiftPlansModify,
-
-        /// <summary>
-        /// Permission to read actual real schedules.
-        /// </summary>
-        SchedulesRealRead,
-
-        /// <summary>
-        /// Permission to modify actual real schedules.
-        /// </summary>
-        SchedulesRealModify,
-
-        /// <summary>
-        /// Permission to modify actual real schedules of own shifts.
-        /// </summary>
-        SchedulesRealModifyOwn,
-
-        /// <summary>
-        /// Permission to read all assigned shifts.
-        /// </summary>
-        ShiftsRead,
-
-        /// <summary>
-        /// Permission to read own shift.
-        /// </summary>
-        ShiftsReadOwn,
-
-        /// <summary>
-        /// Permission to modify all shifts.
-        /// </summary>
-        ShiftsModify,
-
-        /// <summary>
         /// Permission to read all available roles.
         /// </summary>
         RolesRead,
@@ -144,11 +104,6 @@ namespace SemestralProject.Model.Enums
         /// <summary>
         /// Permission to read logs.
         /// </summary>
-        LogsRead,
-
-        /// <summary>
-        /// Permission to use databaze supertool.
-        /// </summary>
-        DatabaseSupertool
+        LogsRead
     }
 }

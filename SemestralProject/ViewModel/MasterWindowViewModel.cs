@@ -87,10 +87,16 @@ namespace SemestralProject.ViewModel
         private Visibility linesVisibility = Visibility.Collapsed;
 
         /// <summary>
-        /// Visibility of lines menu item.
+        /// Visibility of stops menu item.
         /// </summary>
         [ObservableProperty]
         private Visibility stopsVisibility = Visibility.Collapsed;
+
+        /// <summary>
+        /// Visibility of schedules menu item.
+        /// </summary>
+        [ObservableProperty]
+        private Visibility schedulesVisibility = Visibility.Collapsed;
 
         /// <summary>
         /// Visibility of super tool menu item.
@@ -127,6 +133,11 @@ namespace SemestralProject.ViewModel
         /// Page with stops.
         /// </summary>
         private StopsPage stopsPage;
+
+        /// <summary>
+        /// Page with schedules.
+        /// </summary>
+        private SchedulesPage schedulesPage;
 
         /// <summary>
         /// Page with database supertool.
@@ -170,6 +181,12 @@ namespace SemestralProject.ViewModel
         private bool stopsCheck;
 
         /// <summary>
+        /// Flag, whether schedules menu item is checked.
+        /// </summary>
+        [ObservableProperty]
+        private bool schedulesCheck;
+
+        /// <summary>
         /// Flag, whether supertool menu item is checked.
         /// </summary>
         [ObservableProperty]
@@ -203,6 +220,7 @@ namespace SemestralProject.ViewModel
             this.usersCheck = false;
             this.employeesCheck = false;
             this.linesCheck = false;
+            this.schedulesCheck = false;
             this.supertoolCheck = false;
             this.stopsCheck = false;
             this.myPage = new MyPage();
@@ -211,6 +229,7 @@ namespace SemestralProject.ViewModel
             this.employeesPage = new EmployeesPage();
             this.linesPage = new LinesPage();
             this.stopsPage = new StopsPage();
+            this.schedulesPage = new SchedulesPage();
             this.supertoolPage = new DatabasePage();
         }
 
@@ -262,6 +281,7 @@ namespace SemestralProject.ViewModel
                 this.EmployeesVisibility = this.role.HasPermission(PermissionNames.EmployeesRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.LinesVisibility = this.role.HasPermission(PermissionNames.LinesRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.StopsVisibility = this.role.HasPermission(PermissionNames.StopsRead) ? Visibility.Visible : Visibility.Collapsed;
+                this.SchedulesVisibility = this.role.HasPermission(PermissionNames.SchedulesRead) ? Visibility.Visible : Visibility.Collapsed;
 
                 this.SupertoolVisibility = this.role.HasPermission(PermissionNames.EmployeesRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.ResetChecks();
@@ -451,6 +471,17 @@ namespace SemestralProject.ViewModel
             this.ResetChecks();
             this.StopsCheck = true;
             this.Navigate(this.stopsPage);
+        }
+
+        /// <summary>
+        /// Handles click on 'schedules' menu item.
+        /// </summary>
+        [RelayCommand]
+        private void Schedules()
+        {
+            this.ResetChecks();
+            this.SchedulesCheck = true;
+            this.Navigate(this.schedulesPage);
         }
 
         /// <summary>
