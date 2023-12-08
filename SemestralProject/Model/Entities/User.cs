@@ -151,21 +151,18 @@ namespace SemestralProject.Model.Entities
                 Employee? employee = Employee.GetById((int)(row["zamestnanec"] ?? int.MinValue));
                 State? state = State.GetById((int)(row["stav"] ?? int.MinValue));
                 Role? role = Role.GetById((int)(row["role"] ?? int.MinValue));
-                DateTime date;
-                if (DateTime.TryParse((string)(row["datum_registrace"] ?? string.Empty), out date))
+                DateTime? date = DateUtils.FromQuery(row["datum_registrace"]);
+                if (date != null && employee != null && state != null && role != null)
                 {
-                    if (employee != null && state != null && role != null)
-                    {
-                        reti.Add(new User(
-                            (int)(row["id_uzivatel"] ?? int.MinValue),
-                            (string)(row["heslo"] ?? string.Empty),
-                            date,
-                            UserImage.FromContent((string)(row["obrazek"] ?? string.Empty)),
-                            role,
-                            state,
-                            employee
-                        ));
-                    }
+                    reti.Add(new User(
+                        (int)(row["id_uzivatel"] ?? int.MinValue),
+                        (string)(row["heslo"] ?? string.Empty),
+                        (DateTime)date,
+                        UserImage.FromContent((string)(row["obrazek"] ?? string.Empty)),
+                        role,
+                        state,
+                        employee
+                    ));
                 }
             }
             return reti.ToArray();
@@ -268,7 +265,7 @@ namespace SemestralProject.Model.Entities
 
         public override bool Update()
         {
-            string sql = $"sempr_crud.proc_uzivatele_update({this.Id}, '{this.Password}', {DateUtils.ToSQL(this.Registration)}, '{this.Image.ToClob()}', {this.Role.Id}, {this.State.Id}, {this.Employee.Id})";
+            string sql = $"sempr_crud.proc_uzivatele_update({this.Id}, '{this.Password}', {DateUtils.ToSQL(this.Registration)}, {this.Image.ToClob()}, {this.Role.Id}, {this.State.Id}, {this.Employee.Id})";
             return User.Update(sql);
         }
 

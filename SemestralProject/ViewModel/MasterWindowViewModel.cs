@@ -278,6 +278,11 @@ namespace SemestralProject.ViewModel
             }
             roleSelection.ShowDialog();
             WeakReferenceMessenger.Default.Unregister<SelectedRoleChangedMessage>(this);
+            if (this.role != null)
+            {
+                WeakReferenceMessenger.Default.Send<SelectedRoleChangedMessage>(new SelectedRoleChangedMessage(this.role));
+            }
+            
         }
 
         /// <summary>

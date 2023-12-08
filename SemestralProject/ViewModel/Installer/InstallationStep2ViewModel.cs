@@ -526,8 +526,11 @@ namespace SemestralProject.ViewModel.Installer
                 if (this.model.Database != null)
                 {
                     bool result = true;
-                    foreach (IConnection.DatabaseObject obj in InstallerScript.Drops.Keys)
+                    IConnection.DatabaseObject[] objects = InstallerScript.Drops.Keys.ToArray();
+                    int objIdx = 0;
+                    while (objIdx < objects.Length)
                     {
+                        IConnection.DatabaseObject obj = objects[objIdx];
                         if (result == true)
                         {
                             foreach (string objName in InstallerScript.Drops[obj].Keys)
@@ -557,11 +560,16 @@ namespace SemestralProject.ViewModel.Installer
                                     this.IncrementCounter();
                                 }
                             }
+                            if (result == false)
+                            {
+                                break;
+                            }
                         }
                         else
                         {
                             break;
                         }
+                        objIdx++;
                         
                     }
                     if (result == true)

@@ -42,5 +42,9 @@ namespace SemestralProject.Model.Entities
         /// </summary>
         public static readonly State Deleted = new State(2, "Smazaný", false);
 
+        public override string? ToString()
+        {
+            return this.Name;
+        }
     }
 }

@@ -138,7 +138,11 @@ namespace SemestralProject.Common
             }
             if (this.connection != null && this.connection.State  != System.Data.ConnectionState.Open)
             {
-                this.connection.Open();
+                try
+                {
+                    this.connection.Open();
+                }
+                catch { }
             }
         }
 
@@ -325,7 +329,7 @@ namespace SemestralProject.Common
         /// <returns>TRUE if table exists in database, FALSE otherwise.</returns>
         private bool TableExists(string name)
         {
-            string sql = "SELECT COUNT(*) AS COUNT FROM all_tables WHERE table_name='" + name + "'";
+            string sql = "SELECT COUNT(*) AS COUNT FROM user_tables WHERE table_name='" + name + "'";
             return this.ExistsQuery(sql, "COUNT");
         }
 
@@ -336,7 +340,7 @@ namespace SemestralProject.Common
         /// <returns>TRUE if view exists in database, FALSE otherwise.</returns>
         private bool ViewExists(string name)
         {
-            string sql = "SELECT COUNT(*) AS COUNT FROM all_views WHERE view_name='" + name + "'";
+            string sql = "SELECT COUNT(*) AS COUNT FROM user_views WHERE view_name='" + name + "'";
             return this.ExistsQuery(sql, "COUNT");
         }
 
@@ -347,7 +351,7 @@ namespace SemestralProject.Common
         /// <returns>TRUE if sequence exists in database, FALSE otherwise.</returns>
         private bool SequenceExists(string name)
         {
-            string sql = "SELECT COUNT(*) AS COUNT FROM all_sequences WHERE sequence_name='" + name + "'";
+            string sql = "SELECT COUNT(*) AS COUNT FROM user_sequences WHERE sequence_name='" + name + "'";
             return this.ExistsQuery(sql, "COUNT");
         }
 
@@ -358,7 +362,7 @@ namespace SemestralProject.Common
         /// <returns>TRUE if trigger exists in database, FALSE otherwise.</returns>
         private bool TriggerExists(string name)
         {
-            string sql = "SELECT COUNT(*) AS COUNT FROM all_triggers WHERE trigger_name='" + name + "'";
+            string sql = "SELECT COUNT(*) AS COUNT FROM user_triggers WHERE trigger_name='" + name + "'";
             return this.ExistsQuery(sql, "COUNT");
         }
 
@@ -369,7 +373,7 @@ namespace SemestralProject.Common
         /// <returns>TRUE if procedure exists in database, FALSE otherwise.</returns>
         private bool ProcedureExists(string name)
         {
-            string sql = "SELECT COUNT(*) AS COUNT FROM all_procedures WHERE object_type='PROCEDURE' AND object_name='" + name + "'";
+            string sql = "SELECT COUNT(*) AS COUNT FROM user_procedures WHERE object_type='PROCEDURE' AND object_name='" + name + "'";
             return this.ExistsQuery(sql, "COUNT");
         }
 
@@ -380,7 +384,7 @@ namespace SemestralProject.Common
         /// <returns>TRUE if function exists in database, FALSE otherwise.</returns>
         private bool FunctionExists(string name)
         {
-            string sql = "SELECT COUNT(*) AS COUNT FROM all_procedures WHERE object_type='FUNCTION' AND object_name='" + name + "'";
+            string sql = "SELECT COUNT(*) AS COUNT FROM user_procedures WHERE object_type='FUNCTION' AND object_name='" + name + "'";
             return this.ExistsQuery(sql, "COUNT");
         }
 
@@ -391,7 +395,7 @@ namespace SemestralProject.Common
         /// <returns>TRUE if package exists in database, FALSE otherwise.</returns>
         private bool PackageExists(string name)
         {
-            string sql = "SELECT COUNT(*) AS COUNT FROM all_objects WHERE object_type='PACKAGE' AND object_name='" + name + "'";
+            string sql = "SELECT COUNT(*) AS COUNT FROM user_objects WHERE object_type='PACKAGE' AND object_name='" + name + "'";
             return this.ExistsQuery(sql, "COUNT");
         }
 
