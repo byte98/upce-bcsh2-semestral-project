@@ -25,4 +25,5 @@ INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst směny', 'shifts.r
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst svoje směny', 'shifts.read.own')
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Měnit směny', 'shifts.modify')
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst logy', 'logs.read')
+INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Používát supernástroj databáze', 'database.supertool')
 INSERT INTO prava(role, opravneni) VALUES (1, 3)

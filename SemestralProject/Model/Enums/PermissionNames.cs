@@ -144,6 +144,11 @@ namespace SemestralProject.Model.Enums
         /// <summary>
         /// Permission to read logs.
         /// </summary>
-        LogsRead
+        LogsRead,
+
+        /// <summary>
+        /// Permission to use databaze supertool.
+        /// </summary>
+        DatabaseSupertool
     }
 }

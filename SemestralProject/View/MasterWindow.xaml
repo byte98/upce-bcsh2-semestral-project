@@ -66,6 +66,18 @@
                     <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Zaměstnanci"/>
                 </StackPanel>
             </components:MenuButton>
+            <components:MenuButton Command="{Binding LinesCommand}" Visibility="{Binding LinesVisibility}" IsChecked="{Binding LinesCheck}" Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
+                    <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xF003;" Margin="8,0,16,0"/>
+                    <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Linky"/>
+                </StackPanel>
+            </components:MenuButton>
+            <components:MenuButton Command="{Binding SupertoolCommand}" Visibility="{Binding SupertoolVisibility}" IsChecked="{Binding SupertoolCheck}" Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
+                    <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xEE94;" Margin="8,0,16,0"/>
+                    <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Supernástroj databáze"/>
+                </StackPanel>
+            </components:MenuButton>
         </StackPanel>
         <Grid Grid.Column="1" Grid.Row="0" Background="{StaticResource SystemAltHighColorBrush}">
             <Grid.RowDefinitions>

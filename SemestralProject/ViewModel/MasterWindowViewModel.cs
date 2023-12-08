@@ -81,6 +81,12 @@ namespace SemestralProject.ViewModel
         private Visibility employeesVisibility = Visibility.Collapsed;
 
         /// <summary>
+        /// Visibility of super tool menu item.
+        /// </summary>
+        [ObservableProperty]
+        private Visibility supertoolVisibility = Visibility.Collapsed;
+
+        /// <summary>
         /// Page with users details.
         /// </summary>
         private MyPage myPage;
@@ -99,6 +105,11 @@ namespace SemestralProject.ViewModel
         /// Page with employees.
         /// </summary>
         private EmployeesPage employeesPage;
+
+        /// <summary>
+        /// Page with database supertool.
+        /// </summary>
+        private DatabasePage supertoolPage;
 
         /// <summary>
         /// Flag, whether my page menu item is checked.
@@ -123,6 +134,12 @@ namespace SemestralProject.ViewModel
         /// </summary>
         [ObservableProperty]
         private bool employeesCheck;
+
+        /// <summary>
+        /// Flag, whether supertool menu item is checked.
+        /// </summary>
+        [ObservableProperty]
+        private bool supertoolCheck;
 
         /// <summary>
         /// Visibility of wait window.
@@ -151,10 +168,12 @@ namespace SemestralProject.ViewModel
             this.permCheck = false;
             this.usersCheck = false;
             this.employeesCheck = false;
+            this.supertoolCheck = false;
             this.myPage = new MyPage();
             this.permPage = new PermissionsPage();
             this.usersPage = new UsersPage();
             this.employeesPage = new EmployeesPage();
+            this.supertoolPage = new DatabasePage();
         }
 
         /// <summary>
@@ -203,6 +222,8 @@ namespace SemestralProject.ViewModel
                 this.RolesVisibility = this.role.HasPermission(PermissionNames.RolesRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.UsersVisibility = this.role.HasPermission(PermissionNames.UsersRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.EmployeesVisibility = this.role.HasPermission(PermissionNames.EmployeesRead) ? Visibility.Visible : Visibility.Collapsed;
+
+                this.SupertoolVisibility = this.role.HasPermission(PermissionNames.EmployeesRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.ResetChecks();
 
 
@@ -368,6 +389,17 @@ namespace SemestralProject.ViewModel
                 WeakReferenceMessenger.Default.Send<InfoRoleMessage>(new InfoRoleMessage(this.role));
             }
             this.Navigate(this.employeesPage);
+        }
+
+        /// <summary>
+        /// Handles click on 'supertool' button.
+        /// </summary>
+        [RelayCommand]
+        private void Supertool()
+        {
+            this.ResetChecks();
+            this.SupertoolCheck = true;
+            this.Navigate(this.supertoolPage);
         }
     }
 }
