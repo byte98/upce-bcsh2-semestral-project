@@ -1,0 +1,288 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DatabaseObject</name>
+    </assembly>
+    <members>
+        <member name="T:SemestralProject.DatabaseObject.DatabaseClass.DatabaseClassAttribute">
+            <summary>
+            Class which defines new attribute for classes with some kind of reflection to the database.
+            </summary>
+        </member>
+        <member name="P:SemestralProject.DatabaseObject.DatabaseClass.DatabaseClassAttribute.CreateMethod">
+            <summary>
+            Name of method which performs creating of database object.
+            </summary>
+        </member>
+        <member name="P:SemestralProject.DatabaseObject.DatabaseClass.DatabaseClassAttribute.ReadMethod">
+            <summary>
+            Name of method which has ability to read database object from database.
+            </summary>
+        </member>
+        <member name="P:SemestralProject.DatabaseObject.DatabaseClass.DatabaseClassAttribute.UpdateMethod">
+            <summary>
+            Name of method which performs updating of database object.
+            </summary>
+        </member>
+        <member name="P:SemestralProject.DatabaseObject.DatabaseClass.DatabaseClassAttribute.DeleteMethod">
+            <summary>
+            Name of method which performs deleting of database object.
+            </summary>
+        </member>
+        <member name="P:SemestralProject.DatabaseObject.DatabaseClass.DatabaseClassAttribute.Sequence">
+            <summary>
+            Name of sequence which generates identifiers of database object.
+            </summary>
+        </member>
+        <member name="P:SemestralProject.DatabaseObject.DatabaseClass.DatabaseClassAttribute.IdColumn">
+            <summary>
+            Name of column in database with identifier of database object.
+            </summary>
+        </member>
+        <member name="M:SemestralProject.DatabaseObject.DatabaseClass.DatabaseClassAttribute.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates new attribute for classes with some kind of reflection to the database.
+            </summary>
+            <param name="createMethod">Name of method which performs creating of database object.</param>
+            <param name="readMethod">Name of method which has ability to read database object from database.</param>
+            <param name="updateMethod">Name of method which performs updating of database object.</param>
+            <param name="deleteMethod">Name of method which performs deleting of database object.</param>
+            <param name="sequence">Name of sequence which generates identifiers of database object.</param>
+            <param name="idCol">Name of column in database with identifier of database object.</param>
+        </member>
+        <member name="T:SemestralProject.DatabaseObject.DatabaseColummn.DatabaseColumnAttribute">
+            <summary>
+            Class which represents property of object which is represented by column in database.
+            </summary>
+        </member>
+        <member name="P:SemestralProject.DatabaseObject.DatabaseColummn.DatabaseColumnAttribute.Name">
+            <summary>
+            Name of column in database.
+            </summary>
+        </member>
+        <member name="M:SemestralProject.DatabaseObject.DatabaseColummn.DatabaseColumnAttribute.#ctor(System.String)">
+            <summary>
+            Creates new class which represents property of object which is represented by column in database.
+            </summary>
+            <param name="name">Name of column in database.</param>
+        </member>
+        <member name="T:DatabaseObject.DatabaseObjectSourceGenerator">
+            <summary>
+            Class which performs generation of source code for database objects.
+            </summary>
+        </member>
+        <member name="F:DatabaseObject.DatabaseObjectSourceGenerator.Name">
+            <summary>
+            Index of name of property in array.
+            </summary>
+        </member>
+        <member name="F:DatabaseObject.DatabaseObjectSourceGenerator.Type">
+            <summary>
+            Index of type of property in array.
+            </summary>
+        </member>
+        <member name="F:DatabaseObject.DatabaseObjectSourceGenerator.Comment">
+            <summary>
+            Index of comment of property in array.
+            </summary>
+        </member>
+        <member name="F:DatabaseObject.DatabaseObjectSourceGenerator.Column">
+            <summary>
+            Index of column name of property in array.
+            </summary>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.Execute(Microsoft.CodeAnalysis.GeneratorExecutionContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetDeleteFunction(System.String,System.String)">
+            <summary>
+            Gets body of delete function.
+            </summary>
+            <param name="className">Name of database object which will be deleted.</param>
+            <param name="deleteFunction">Name of database function which performs data object deletion.</param>
+            <returns>String representing body of delete function.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetUpdateFunction(System.String,System.String,System.String[][])">
+            <summary>
+            Gets body of update function.
+            </summary>
+            <param name="className">Name of database object which will be updated.</param>
+            <param name="updateFunction">Name of database function which will perform data update.</param>
+            <param name="properties">Properties which will participate in database objecft update.</param>
+            <returns></returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetGetByIdAsyncFunction(System.String)">
+            <summary>
+            Gets body of function get by id asynchronously.
+            </summary>
+            <param name="className">Name of database object which will be searched.</param>
+            <returns>String representing body of function get by id asynchronously.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetGetByIdAsyncComment(System.String)">
+            <summary>
+            Gets documentation comment for get by id asynchronous function.
+            </summary>
+            <param name="className">Name of database object which will be searched.</param>
+            <returns>String representing documentation comment for get by id asynchronous function.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetGetByIdFunction(System.String,System.String)">
+            <summary>
+            Gets body of get by identifier function.
+            </summary>
+            <param name="className">Name of database object which will be searched.</param>
+            <param name="readFunction">Name of function which performs searching in database.</param>
+            <returns>String representing body of function.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetGetByIdComment(System.String)">
+            <summary>
+            Gets documentation comment for get by id function.
+            </summary>
+            <param name="className">Name of database object which will be searched.</param>
+            <returns>String representing documentation comment for get by id function.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetParseFunction(System.String,System.String[][],System.String)">
+            <summary>
+            Gets body of parsing function.
+            </summary>
+            <param name="className">Name of class which will be parsed.</param>
+            <param name="properties">Properties which will participate on parsing.</param>
+            <param name="idCol">Name of column with identifier of database object.</param>
+            <returns>String representing parsing function.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetParseComment(System.String)">
+            <summary>
+            Gets comment for parsing function.
+            </summary>
+            <param name="className">Name of class which will be parsed.</param>
+            <returns>String representing comment for parsing function.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetGetAllAsyncFunction(System.String)">
+            <summary>
+            Gets body of get all asynchronously function.
+            </summary>
+            <param name="className">Name of class which will be get asynchronously.</param>
+            <returns>String representing body of function to get all database objects asynchronously.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetGetAllAsyncComment(System.String)">
+            <summary>
+            Gets documentation comment for get all asynchronously function.
+            </summary>
+            <param name="className">Name of class which will be get asynchronously.</param>
+            <returns>String representing documentation comment for get all asynchronously function.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetGetAllFunction(System.String,System.String)">
+            <summary>
+            Generates body for get all function.
+            </summary>
+            <param name="className">Name of class which entities will be returned.</param>
+            <param name="readFunction">Name of database function which will be called.</param>
+            <returns>String representing body of get all function.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetGetAllComment(System.String,System.String)">
+            <summary>
+            Generates comment for get all function.
+            </summary>
+            <param name="className">Name of class which entities will be returned.</param>
+            <param name="readFunction">Name of database function which will be called.</param>
+            <returns>String representing comment for get all function.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetCreateFunction(System.String[][],System.String,System.String,System.String)">
+            <summary>
+            Generates creation function.
+            </summary>
+            <param name="properties">Properties used to create entity.</param>
+            <param name="className">Class name of entity which will be crated.</param>
+            <param name="createFunction">Name of creation function.</param>
+            <param name="sequence">Name of sequence responsible for creating identifiers.</param>
+            <returns>String representing body of creation function.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetCreateAsyncFunction(System.String[][],System.String)">
+            <summary>
+            Gets body of function for creation asynchronously.
+            </summary>
+            <param name="properties">Properties used to create entity.</param>
+            <param name="className">Class name of entity which will be crated.</param>
+            <returns>String which represents body of function for creation asynchronously.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetCreateAsyncComment(System.String[][],System.String)">
+            <summary>
+            Gets comment for asynchronous creation function.
+            </summary>
+            <param name="properties">Properties used to create entity.</param>
+            <param name="className">Class name of entity which will be crated.</param>
+            <returns>String representing comment for asynchronous creation function.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetCreateComment(System.String[][],System.String)">
+            <summary>
+            Gets comment for creation function.
+            </summary>
+            <param name="properties">Properties used to create entity.</param>
+            <param name="className">Class name of entity which will be crated.</param>
+            <returns>String representing comment for creation function.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetParamsComment(System.String[][])">
+            <summary>
+            Gets comment which describes parameters of function.
+            </summary>
+            <param name="properties">Properties which will be participiating in function.</param>
+            <returns>String representing comment which describes paramaters of function.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetConstructorComment(System.String[][],System.String)">
+            <summary>
+            Generates comment for constructor.
+            </summary>
+            <param name="properties">Properties which will be passed to constructor.</param>
+            <param name="className">Name of class which constructor will be created.</param>
+            <returns>String representing comment of constructor.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetConstructor(System.String[][],System.String)">
+            <summary>
+            Generates constructor for class.
+            </summary>
+            <param name="properties">Properties of class which will be initialized by constructor.</param>
+            <param name="className">Name of class which will be created.</param>
+            <returns>String representing body of constructor.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetPropertyComments(Microsoft.CodeAnalysis.CSharp.Syntax.PropertyDeclarationSyntax,Microsoft.CodeAnalysis.SyntaxTree)">
+            <summary>
+            Gets comment associated with property.
+            </summary>
+            <param name="property">Property which comment will be returned.</param>
+            <param name="syntaxTree">Syntax tree in which is property defined.</param>
+            <returns>String representing comment associated with property.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GetDatabaseClassProperties(Microsoft.CodeAnalysis.AttributeData)">
+            <summary>
+            Gets properties of database class anotation.
+            </summary>
+            <param name="attributeData">Data containing property values.</param>
+            <returns>Dictionary with property values of database class anotation.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.GenerateCodeForClass(Microsoft.CodeAnalysis.ISymbol,System.String)">
+            <summary>
+            Generates source code for class.
+            </summary>
+            <param name="classSymbol">Symbol defining class.</param>
+            <param name="content">Content of the class.</param>
+            <returns>String reperesenting source code generated for class.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.Insets(System.Int32)">
+            <summary>
+            Generates insets.
+            </summary>
+            <param name="i">Size of insets.</param>
+            <returns>String representing insets.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.Insets(System.Int32,System.String)">
+            <summary>
+            Generates string with left side insets.
+            </summary>
+            <param name="i">Size of insets in base units.</param>
+            <param name="str">String which will be inset.</param>
+            <returns>String with left insets.</returns>
+        </member>
+        <member name="M:DatabaseObject.DatabaseObjectSourceGenerator.Initialize(Microsoft.CodeAnalysis.GeneratorInitializationContext)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>
