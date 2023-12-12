@@ -96,7 +96,7 @@ namespace SemestralProject.ViewModel.Pages
         /// </summary>
         public PermissionsPageViewModel()
         {
-            this.detailsVisible = true;
+            this.detailsVisible = false;
             this.loaderVisibility = Visibility.Visible;
             this.contentVisibility = Visibility.Collapsed;
             this.waitVisibility = Visibility.Collapsed;

@@ -102,6 +102,9 @@ namespace SemestralProject.ViewModel.Windows
             }
         }
 
+        /// <summary>
+        /// Handles change of departure time.
+        /// </summary>
         [RelayCommand]
         private void DepChanged()
         {
@@ -112,6 +115,9 @@ namespace SemestralProject.ViewModel.Windows
             }
         }
 
+        /// <summary>
+        /// Handles change of arrivat time.
+        /// </summary>
         [RelayCommand]
         private void ArrChanged()
         {
@@ -122,6 +128,9 @@ namespace SemestralProject.ViewModel.Windows
             }
         }
 
+        /// <summary>
+        /// Adds new row in set schedules.
+        /// </summary>
         [RelayCommand]
         private void Add()
         {
@@ -134,6 +143,9 @@ namespace SemestralProject.ViewModel.Windows
             
         }
 
+        /// <summary>
+        /// Removes row from set schedules.
+        /// </summary>
         [RelayCommand]
         private void Remove()
         {
@@ -145,6 +157,9 @@ namespace SemestralProject.ViewModel.Windows
             }
         }
 
+        /// <summary>
+        /// Handles click on OK button.
+        /// </summary>
         [RelayCommand]
         private void OK()
         {

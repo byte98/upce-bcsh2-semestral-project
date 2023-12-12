@@ -284,7 +284,7 @@ namespace SemestralProject.ViewModel
                 this.StopsVisibility = this.role.HasPermission(PermissionNames.StopsRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.SchedulesVisibility = this.role.HasPermission(PermissionNames.SchedulesRead) ? Visibility.Visible : Visibility.Collapsed;
 
-                this.SupertoolVisibility = this.role.HasPermission(PermissionNames.EmployeesRead) ? Visibility.Visible : Visibility.Collapsed;
+                this.SupertoolVisibility = this.role.HasPermission(PermissionNames.Supertool) ? Visibility.Visible : Visibility.Collapsed;
                 this.ResetChecks();
 
 
@@ -331,13 +331,6 @@ namespace SemestralProject.ViewModel
             MainWindow main = new MainWindow();
             main.Show();
             WindowUtils.HideForModel(this);
-        }
-
-        [RelayCommand]
-        private void Logs()
-        {
-            LogsWindow window = new LogsWindow();
-            window.Show();
         }
 
         /// <summary>

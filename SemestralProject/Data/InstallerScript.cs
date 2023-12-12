@@ -122,7 +122,8 @@ namespace SemestralProject.Data
         /// <summary>
         /// SQL statements which creates all triggers.
         /// </summary>
-        public static readonly IStringProvider Triggers = new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_TRIGGERS"));
+        //public static readonly IStringProvider Triggers = new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_TRIGGERS"));
+        public static readonly IStringProvider Triggers = new EmptyStringProvider();
 
         /// <summary>
         ///  SQL statements which inserts all data into database.

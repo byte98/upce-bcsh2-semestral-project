@@ -18,4 +18,5 @@ INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst jízdní řády', 
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Měnit jízdní řády', 'schedules.modify')
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Měnit směny', 'shifts.modify')
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst logy', 'logs.read')
+INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Používat supernástroj databáze', 'supertool')
 INSERT INTO prava(role, opravneni) VALUES (1, 3)
