@@ -11,6 +11,7 @@ xmlns:components="clr-namespace:SemestralProject.View.Components"
 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 xmlns:model="clr-namespace:SemestralProject.Model.Entities"
 xmlns:converters="clr-namespace:SemestralProject.View.Converters"
+      xmlns:view="clr-namespace:SemestralProject.View"
 vml:ViewModelLocator.AutoHookedUpViewModel="True"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -36,16 +37,19 @@ vml:ViewModelLocator.AutoHookedUpViewModel="True"
         </Grid>
         <TabControl Visibility="{Binding ContentVisibility}" Style="{StaticResource TabControlPivotStyle}">
             <TabItem Header="Tabulky">
-                <ComboBox ItemsSource="{Binding Tables}" Margin="0,16,0,16" SelectedItem="{Binding SelectedTable}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                            <i:InvokeCommandAction Command="{Binding SelectedTableChangedCommand}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <ui:ControlHelper.Header>
-                        <Label Content="Tabulka" />
-                    </ui:ControlHelper.Header>
-                </ComboBox>
+                <StackPanel>
+                    <ComboBox ItemsSource="{Binding Tables}" Margin="0,16,0,16" SelectedItem="{Binding SelectedTable}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedTableChangedCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ui:ControlHelper.Header>
+                            <Label Content="Tabulka" />
+                        </ui:ControlHelper.Header>
+                    </ComboBox>
+                    <DataGrid ItemsSource="{Binding TableData}" AutoGenerateColumns="True" SelectionMode="Single"/>
+                </StackPanel>
             </TabItem>
         </TabControl>
     </StackPanel>

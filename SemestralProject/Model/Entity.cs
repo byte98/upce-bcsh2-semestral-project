@@ -47,13 +47,20 @@ namespace SemestralProject.Model
             if (sql.All(c => char.IsUpper(c)) == false) seq = seq.ToUpper();
             IConnection connection = OracleConnector.Load();
             connection.Execute("SET TRANSACTION READ WRITE");
-            connection.Execute("BEGIN\n    " + sql + "\nEND;");
-            IDictionary<string, object?>[] result = connection.Query($"SELECT sempr_utils.func_last_seq('{seq}') AS last_id FROM dual");
-            if (result.Length > 0)
+            connection.Execute("SAVEPOINT entity_create_savepoint");
+            if (connection.Execute("BEGIN\n    " + sql + "\nEND;") == false)
             {
-                reti = (int)(result[0]["last_id"] ?? int.MinValue);
+                connection.Execute("ROLLBACK TO SAVEPOINT entity_create_savepoint");
             }
-            connection.Execute("COMMIT");
+            else
+            {
+                IDictionary<string, object?>[] result = connection.Query($"SELECT sempr_utils.func_last_seq('{seq}') AS last_id FROM dual");
+                if (result.Length > 0)
+                {
+                    reti = (int)(result[0]["last_id"] ?? int.MinValue);
+                }
+                connection.Execute("COMMIT");
+            }
             return reti;
         }
 

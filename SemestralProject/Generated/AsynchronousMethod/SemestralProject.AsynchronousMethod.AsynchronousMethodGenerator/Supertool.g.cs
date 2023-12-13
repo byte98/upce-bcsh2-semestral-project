@@ -18,5 +18,29 @@ namespace SemestralProject.Model
             });
         }
 
+        /// <summary>
+        /// Gets columns of table asynchronously.
+        /// </summary>
+        /// <param name="table">Name of table.</param>
+        /// <returns> Task which resolves into: array with table columns usable in data grid.</returns>
+        public static System.Threading.Tasks.Task<SemestralProject.Model.TableColumn[]> GetColumnsForTableAsync(string table)
+        {
+            return Task<SemestralProject.Model.TableColumn[]>.Run(() => {
+                return Supertool.GetColumnsForTable(table);
+            });
+        }
+
+        /// <summary>
+        /// Gets data from table asynchronously.
+        /// </summary>
+        /// <param name="table">Name of table.</param>
+        /// <returns> Task which resolves into: array with data from table.</returns>
+        public static System.Threading.Tasks.Task<dynamic[]> GetTableDataAsync(string table)
+        {
+            return Task<dynamic[]>.Run(() => {
+                return Supertool.GetTableData(table);
+            });
+        }
+
     }
 }
