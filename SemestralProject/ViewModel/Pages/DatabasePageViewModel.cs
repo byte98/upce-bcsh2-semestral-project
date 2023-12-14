@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -113,6 +114,24 @@ namespace SemestralProject.ViewModel.Pages
                     }
                     dataTable.Rows.Add(row);
                 }
+                dataTable.RowDeleting += async (sender, e) =>
+                {
+                    DataRow row = e.Row;
+                    IDictionary<string, object?>? data = this.GetSelectedData(row);
+                    this.WaitVisibility = Visibility.Visible;
+                    this.ContentVisibility = Visibility.Collapsed;
+                    await Task.Run(async () =>
+                    {
+                        
+                        if (data != null)
+                        {
+                            await Supertool.DeleteAsync(this.SelectedTable, data);
+                        }
+                    });
+                    
+                    this.SelectedTableChangedCommand.Execute(null);
+
+                };
                 dataTable.RowChanged += async (sender, e) =>
                 {
                     this.WaitVisibility = Visibility.Visible;
@@ -121,32 +140,11 @@ namespace SemestralProject.ViewModel.Pages
                     {
                         if (this.SelectedTableData != null)
                         {
-                            TableColumn[] columns = await Supertool.GetColumnsForTableAsync(this.SelectedTable);
-                            IDictionary<string, object?> newValues = new Dictionary<string, object?>();
-                            for(int i = 0; i < columns.Length; i++)
+                            IDictionary<string, object?>? data = this.GetSelectedData(this.SelectedTableData.Row);
+                            if (data != null)
                             {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                                if (i < this.SelectedTableData.Row.ItemArray.Length && this.SelectedTableData.Row.ItemArray[i] != null && this.SelectedTableData.Row.ItemArray[i].GetType() != null &&  this.SelectedTableData.Row.ItemArray[i].GetType() != typeof(DBNull))
-                                {
-                                    string stringVal = (string)(this.SelectedTableData.Row.ItemArray[i] ?? string.Empty);
-                                    int intVal = int.MinValue;
-                                    DateTime dtimeValue = DateTime.MinValue;
-                                    if (int.TryParse(stringVal, out intVal))
-                                    {
-                                        newValues.Add(columns[i].Name, intVal);
-                                    }
-                                    else if (DateTime.TryParse(stringVal, out dtimeValue))
-                                    {
-                                        newValues.Add(columns[i].Name, dtimeValue);
-                                    }
-                                    else
-                                    {
-                                        newValues.Add(columns[i].Name, this.SelectedTableData.Row.ItemArray[i]);
-                                    }
-                                }
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                                await Supertool.UpdateAsync(this.SelectedTable, data);
                             }
-                            await Supertool.UpdateAsync(this.SelectedTable, newValues);
                         }
                         
                     });
@@ -158,6 +156,42 @@ namespace SemestralProject.ViewModel.Pages
             this.ContentVisibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Gets dictionary with actually selected data.
+        /// </summary>
+        /// <param name="row">Row which contains data.</param>
+        /// <returns>Dictionary with actually selected data.</returns>
+        private IDictionary<string, object?>? GetSelectedData(DataRow row)
+        {
+            IDictionary<string, object?>? reti = null;
+            if (row != null && this.SelectedTable != null)
+            {
+                TableColumn[] columns = Supertool.GetColumnsForTable(this.SelectedTable);
+                reti = new Dictionary<string, object?>();
+                for (int i = 0; i < columns.Length; i++)
+                {
+                    if (i < row.ItemArray.Length && row.ItemArray[i] != null && row.ItemArray[i].GetType() != null && row.ItemArray[i].GetType() != typeof(DBNull))
+                    {
+                        string stringVal = (string)(row.ItemArray[i] ?? string.Empty);
+                        int intVal = int.MinValue;
+                        DateTime dtimeValue = DateTime.MinValue;
+                        if (int.TryParse(stringVal, out intVal))
+                        {
+                            reti.Add(columns[i].Name, intVal);
+                        }
+                        else if (DateTime.TryParse(stringVal, out dtimeValue))
+                        {
+                            reti.Add(columns[i].Name, dtimeValue);
+                        }
+                        else
+                        {
+                            reti.Add(columns[i].Name, row.ItemArray[i]);
+                        }
+                    }
+                }
+            }
+            return reti;
+        }
 
         /// <summary>
         /// Creates new header for table column.

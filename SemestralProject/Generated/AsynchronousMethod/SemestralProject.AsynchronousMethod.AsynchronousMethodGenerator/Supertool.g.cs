@@ -43,6 +43,22 @@ namespace SemestralProject.Model
         }
 
         /// <summary>
+        /// Deletes data from database asynchronously.
+        /// </summary>
+        /// <param name="table">Name of table from which data will be deleted.</param>
+        /// <param name="data">Data which will be deleted.</param>
+        /// <returns>
+        /// Task which 
+        /// deletes data from database asynchronously.
+        /// </returns>
+        public static System.Threading.Tasks.Task DeleteAsync(string table, System.Collections.Generic.IDictionary<string, object?> data)
+        {
+            return Task.Run(() => {
+                Supertool.Delete(table, data);
+            });
+        }
+
+        /// <summary>
         /// Updates data in database asynchronously.
         /// </summary>
         /// <param name="table">Name of table which data will be updated.</param>

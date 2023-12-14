@@ -5,6 +5,7 @@ using SemestralProject.Utils;
 using SemestralProject.View.Windows;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Dynamic;
 using System.Linq;
 using System.Resources;
@@ -36,7 +37,7 @@ namespace SemestralProject.Model
             IList<string> loadedData = new List<string>();
             if (results.Length > 0)
             {
-                foreach(IDictionary<string, object?> row in results)
+                foreach (IDictionary<string, object?> row in results)
                 {
                     string tabName = (string)(row["TABLE_NAME"] ?? string.Empty);
                     if (tabName.Length > 0)
@@ -63,7 +64,7 @@ namespace SemestralProject.Model
             IDictionary<string, object?>[] results = connection.Query(sql);
             if (results.Length > 0)
             {
-                foreach( IDictionary<string, object?> row in results)
+                foreach (IDictionary<string, object?> row in results)
                 {
                     string dtype = (string)(row["data_type"] ?? string.Empty);
                     string colName = (string)(row["column_name"] ?? string.Empty);
@@ -91,10 +92,10 @@ namespace SemestralProject.Model
             IDictionary<string, object?>[] result = connection.Query(sql);
             if (result.Length > 0)
             {
-                foreach(IDictionary<string, object?> row in result)
+                foreach (IDictionary<string, object?> row in result)
                 {
                     dynamic data = new ExpandoObject();
-                    foreach(KeyValuePair<string, object?> kvp in row)
+                    foreach (KeyValuePair<string, object?> kvp in row)
                     {
                         if (kvp.Value != null)
                         {
@@ -108,6 +109,62 @@ namespace SemestralProject.Model
         }
 
         /// <summary>
+        /// Gets identifier of data.
+        /// </summary>
+        /// <param name="data">Data which contains identifier.</param>
+        /// <returns>Identifier of data, or <see cref="int.MinValue"/> if data does not contains identifier.</returns>
+        private static int GetId(IDictionary<string, object?> data)
+        {
+            int reti = int.MinValue;
+            foreach (KeyValuePair<string, object?> row in data)
+            {
+                if (row.Key.ToLower().Trim().StartsWith("id_"))
+                {
+                    reti = (int)(row.Value ?? int.MinValue);
+                }
+            }
+            return reti;
+        }
+
+        /// <summary>
+        /// Gets name of column with identifier.
+        /// </summary>
+        /// <param name="data">Data containing name of column with identifier.</param>
+        /// <returns>String representing name of column with identifier, or <see cref="string.Empty"/> if no identifier can be found.</returns>
+        private static string GetIdCol(IDictionary<string, object?> data)
+        {
+            string reti = string.Empty;
+            foreach (KeyValuePair<string, object?> row in data)
+            {
+                if (row.Key.ToLower().Trim().StartsWith("id_"))
+                {
+                    reti = (string)row.Key;
+                }
+            }
+            return reti;
+        }
+
+        /// <summary>
+        /// Deletes data from database.
+        /// </summary>
+        /// <param name="table">Name of table from which data will be deleted.</param>
+        /// <param name="data">Data which will be deleted.</param>
+        [AsynchronousMethod]
+        public static void Delete(string table, IDictionary<string, object?> data)
+        {
+            int id = Supertool.GetId(data);
+            string idCol = Supertool.GetIdCol(data);
+            if (id != int.MinValue && idCol != string.Empty)
+            {
+                string sql = $"DELETE FROM {table} WHERE {idCol}={id}";
+                IConnection connection = OracleConnector.Load();
+                connection.Execute("SET TRANSACTION READ WRITE");
+                connection.Execute(sql);
+                connection.Execute("COMMIT");
+            }
+        }
+
+        /// <summary>
         /// Updates data in database.
         /// </summary>
         /// <param name="table">Name of table which data will be updated.</param>
@@ -115,55 +172,49 @@ namespace SemestralProject.Model
         [AsynchronousMethod]
         public static void Update(string table, IDictionary<string, object?> data)
         {
-            int id = int.MinValue;
-            string idCol = string.Empty;
-            foreach(KeyValuePair<string, object?> row in data)
+            int id = Supertool.GetId(data);
+            string idCol = Supertool.GetIdCol(data);
+            if (id != int.MinValue && idCol != string.Empty)
             {
-                if (row.Key.ToLower().Trim().StartsWith("id_"))
+                StringBuilder sql = new StringBuilder();
+                sql.Append("UPDATE ");
+                sql.Append(table);
+                sql.Append(" SET ");
+                for (int i = 0; i < data.Keys.Count; i++)
                 {
-                    id = (int)(row.Value ?? int.MinValue);
-                    idCol = (string)row.Key;
+                    sql.Append(data.Keys.ElementAt(i));
+                    sql.Append("=");
+                    if (data.Values.ElementAt(i) is int)
+                    {
+                        sql.Append(data.Values.ElementAt(i));
+                    }
+                    else if (data.Values.ElementAt(i) is DateTime)
+                    {
+                        sql.Append(DateUtils.ToSQL((DateTime)(data.Values.ElementAt(i) ?? DateTime.MinValue)));
+                    }
+                    else
+                    {
+                        sql.Append("'");
+                        sql.Append(data.Values.ElementAt(i));
+                        sql.Append("'");
+                    }
+                    if (i < data.Keys.Count - 1)
+                    {
+                        sql.Append(", ");
+                    }
+                }
+                if (idCol != string.Empty)
+                {
+                    sql.Append(" WHERE ");
+                    sql.Append(idCol);
+                    sql.Append("=");
+                    sql.Append(id);
+                    IConnection connection = OracleConnector.Load();
+                    connection.Execute("SET TRANSACTION READ WRITE");
+                    connection.Execute(sql.ToString());
+                    connection.Execute("COMMIT");
                 }
             }
-            StringBuilder sql = new StringBuilder();
-            sql.Append("UPDATE ");
-            sql.Append(table);
-            sql.Append(" SET ");
-            for (int i = 0; i < data.Keys.Count; i++)
-            {
-                sql.Append(data.Keys.ElementAt(i));
-                sql.Append("=");
-                if (data.Values.ElementAt(i) is int)
-                {
-                    sql.Append(data.Values.ElementAt(i));
-                }
-                else if (data.Values.ElementAt(i) is DateTime)
-                {
-                    sql.Append(DateUtils.ToSQL((DateTime)(data.Values.ElementAt(i) ?? DateTime.MinValue)));
-                }
-                else
-                {
-                    sql.Append("'");
-                    sql.Append(data.Values.ElementAt(i));
-                    sql.Append("'");
-                }
-                if (i < data.Keys.Count - 1)
-                {
-                    sql.Append(", ");
-                }
-            }
-            if (idCol != string.Empty)
-            {
-                sql.Append(" WHERE ");
-                sql.Append(idCol);
-                sql.Append("=");
-                sql.Append(id);
-                IConnection connection = OracleConnector.Load();
-                connection.Execute("SET TRANSACTION READ WRITE");
-                connection.Execute(sql.ToString());
-                connection.Execute("COMMIT");
-            }
-            
         }
     }
 }
