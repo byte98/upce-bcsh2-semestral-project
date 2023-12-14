@@ -1,11 +1,13 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using SemestralProject.AsynchronousMethod;
 using SemestralProject.Common;
+using SemestralProject.Utils;
 using SemestralProject.View.Windows;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -103,6 +105,65 @@ namespace SemestralProject.Model
                 }
             }
             return reti.ToArray();
+        }
+
+        /// <summary>
+        /// Updates data in database.
+        /// </summary>
+        /// <param name="table">Name of table which data will be updated.</param>
+        /// <param name="data">New values of data.</param>
+        [AsynchronousMethod]
+        public static void Update(string table, IDictionary<string, object?> data)
+        {
+            int id = int.MinValue;
+            string idCol = string.Empty;
+            foreach(KeyValuePair<string, object?> row in data)
+            {
+                if (row.Key.ToLower().Trim().StartsWith("id_"))
+                {
+                    id = (int)(row.Value ?? int.MinValue);
+                    idCol = (string)row.Key;
+                }
+            }
+            StringBuilder sql = new StringBuilder();
+            sql.Append("UPDATE ");
+            sql.Append(table);
+            sql.Append(" SET ");
+            for (int i = 0; i < data.Keys.Count; i++)
+            {
+                sql.Append(data.Keys.ElementAt(i));
+                sql.Append("=");
+                if (data.Values.ElementAt(i) is int)
+                {
+                    sql.Append(data.Values.ElementAt(i));
+                }
+                else if (data.Values.ElementAt(i) is DateTime)
+                {
+                    sql.Append(DateUtils.ToSQL((DateTime)(data.Values.ElementAt(i) ?? DateTime.MinValue)));
+                }
+                else
+                {
+                    sql.Append("'");
+                    sql.Append(data.Values.ElementAt(i));
+                    sql.Append("'");
+                }
+                if (i < data.Keys.Count - 1)
+                {
+                    sql.Append(", ");
+                }
+            }
+            if (idCol != string.Empty)
+            {
+                sql.Append(" WHERE ");
+                sql.Append(idCol);
+                sql.Append("=");
+                sql.Append(id);
+                IConnection connection = OracleConnector.Load();
+                connection.Execute("SET TRANSACTION READ WRITE");
+                connection.Execute(sql.ToString());
+                connection.Execute("COMMIT");
+            }
+            
         }
     }
 }

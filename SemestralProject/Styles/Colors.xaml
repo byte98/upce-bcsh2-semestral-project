@@ -4,8 +4,11 @@
     <SolidColorBrush x:Key="ErrorColorBrush" Color="{StaticResource ErrorColor}" />
     <Color x:Key="SuccessColor">#7fff7f</Color>
     <SolidColorBrush x:Key="SuccessColorBrush" Color="{StaticResource SuccessColor}"/>
+    <Color x:Key="WarningColor">#FFFF00</Color>
+    <SolidColorBrush x:Key="WarningColorBrush" Color="{StaticResource WarningColor}" />
+    <SolidColorBrush x:Key="WarningOpacityColorBrush" Color="{StaticResource WarningColor}" Opacity="0.5"/>
     <Color x:Key="InsertColor">#80ff80</Color>
-    <Color x:Key="UpdateColor">#8080ff</Color>
+    <Color x:Key="UpdateColor">#1080ff</Color>
     <Color x:Key="DeleteColor">#ff8080</Color>
     <Color x:Key="LoginColor">#c480ff</Color>
     <Color x:Key="LogoutColor">#eeff80</Color>

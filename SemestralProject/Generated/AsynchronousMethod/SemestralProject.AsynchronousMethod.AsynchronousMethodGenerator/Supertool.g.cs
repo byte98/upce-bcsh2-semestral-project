@@ -42,5 +42,21 @@ namespace SemestralProject.Model
             });
         }
 
+        /// <summary>
+        /// Updates data in database asynchronously.
+        /// </summary>
+        /// <param name="table">Name of table which data will be updated.</param>
+        /// <param name="data">New values of data.</param>
+        /// <returns>
+        /// Task which 
+        /// updates data in database asynchronously.
+        /// </returns>
+        public static System.Threading.Tasks.Task UpdateAsync(string table, System.Collections.Generic.IDictionary<string, object?> data)
+        {
+            return Task.Run(() => {
+                Supertool.Update(table, data);
+            });
+        }
+
     }
 }

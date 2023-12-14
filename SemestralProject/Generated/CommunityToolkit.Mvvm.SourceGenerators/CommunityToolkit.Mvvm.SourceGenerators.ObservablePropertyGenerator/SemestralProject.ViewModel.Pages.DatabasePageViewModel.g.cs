@@ -74,12 +74,12 @@ namespace SemestralProject.ViewModel.Pages
         /// <inheritdoc cref="selectedTableData"/>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-        public object? SelectedTableData
+        public global::System.Data.DataRowView? SelectedTableData
         {
             get => selectedTableData;
             set
             {
-                if (!global::System.Collections.Generic.EqualityComparer<object?>.Default.Equals(selectedTableData, value))
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Data.DataRowView?>.Default.Equals(selectedTableData, value))
                 {
                     OnSelectedTableDataChanging(value);
                     OnSelectedTableDataChanging(default, value);
@@ -162,23 +162,23 @@ namespace SemestralProject.ViewModel.Pages
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="SelectedTableData"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnSelectedTableDataChanging(object? value);
+        partial void OnSelectedTableDataChanging(global::System.Data.DataRowView? value);
         /// <summary>Executes the logic for when <see cref="SelectedTableData"/> is changing.</summary>
         /// <param name="oldValue">The previous property value that is being replaced.</param>
         /// <param name="newValue">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="SelectedTableData"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnSelectedTableDataChanging(object? oldValue, object? newValue);
+        partial void OnSelectedTableDataChanging(global::System.Data.DataRowView? oldValue, global::System.Data.DataRowView? newValue);
         /// <summary>Executes the logic for when <see cref="SelectedTableData"/> just changed.</summary>
         /// <param name="value">The new property value that was set.</param>
         /// <remarks>This method is invoked right after the value of <see cref="SelectedTableData"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnSelectedTableDataChanged(object? value);
+        partial void OnSelectedTableDataChanged(global::System.Data.DataRowView? value);
         /// <summary>Executes the logic for when <see cref="SelectedTableData"/> just changed.</summary>
         /// <param name="oldValue">The previous property value that was replaced.</param>
         /// <param name="newValue">The new property value that was set.</param>
         /// <remarks>This method is invoked right after the value of <see cref="SelectedTableData"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnSelectedTableDataChanged(object? oldValue, object? newValue);
+        partial void OnSelectedTableDataChanged(global::System.Data.DataRowView? oldValue, global::System.Data.DataRowView? newValue);
     }
 }

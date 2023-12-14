@@ -23,6 +23,23 @@ vml:ViewModelLocator.AutoHookedUpViewModel="True"
     </i:Interaction.Triggers>
     <StackPanel>
         <TextBlock Style="{DynamicResource HeaderTextBlockStyle}" Text="Supernástroj databáze"/>
+        <Border Margin="8,8,8,8" Background="{DynamicResource WarningOpacityColorBrush}" Padding="8,8,8,8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Label Margin="0,0,8,0" FontSize="24" Grid.Row="0" Grid.Column="0" Content="&#xE7BA;" FontFamily="Segoe MDL2 Assets" FontWeight="Bold" />
+                <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                    <Label Content="Tady opatrně" FontWeight="Bold" />
+                    <TextBlock Text="Veškeré změny jsou ihned přepisovány do databáze. Tento nástroj je určen pouze pro zkušené uživatele. Používat tento nástroj je doporučeno pouze uživatelům, kteří vědí co dělají." />
+                </StackPanel>
+            </Grid>
+        </Border>
         <Grid Margin="0,0,0,8" Visibility="{Binding WaitVisibility}"  Background="{DynamicResource SystemAltHighColorBrush}" Panel.ZIndex="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -34,23 +51,21 @@ vml:ViewModelLocator.AutoHookedUpViewModel="True"
                 <Label FontSize="24" Content="Počkejte prosím..." Margin="0,0,0,8" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 <ui:ProgressRing Width="32" Height="32" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
             </StackPanel>
-        </Grid>
-        <TabControl Visibility="{Binding ContentVisibility}" Style="{StaticResource TabControlPivotStyle}">
-            <TabItem Header="Tabulky">
-                <StackPanel>
-                    <ComboBox ItemsSource="{Binding Tables}" Margin="0,16,0,16" SelectedItem="{Binding SelectedTable}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding SelectedTableChangedCommand}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <ui:ControlHelper.Header>
-                            <Label Content="Tabulka" />
-                        </ui:ControlHelper.Header>
-                    </ComboBox>
-                    <DataGrid ItemsSource="{Binding TableData}" AutoGenerateColumns="True" SelectionMode="Single" SelectedItem="{Binding SelectedTableData}"/>
-                </StackPanel>
-            </TabItem>
-        </TabControl>
+        </Grid>        
+        <StackPanel Visibility="{Binding ContentVisibility}">
+            <ComboBox ItemsSource="{Binding Tables}" Margin="0,16,0,16" SelectedItem="{Binding SelectedTable}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelectedTableChangedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ui:ControlHelper.Header>
+                    <Label Content="Tabulka" />
+                </ui:ControlHelper.Header>
+            </ComboBox>
+            <DataGrid ItemsSource="{Binding TableData}" AutoGenerateColumns="True" SelectionMode="Single" SelectedItem="{Binding SelectedTableData}">
+
+            </DataGrid>
+        </StackPanel>
     </StackPanel>
 </Page>
