@@ -4,4 +4,15 @@
     <SolidColorBrush x:Key="ErrorColorBrush" Color="{StaticResource ErrorColor}" />
     <Color x:Key="SuccessColor">#7fff7f</Color>
     <SolidColorBrush x:Key="SuccessColorBrush" Color="{StaticResource SuccessColor}"/>
+    <Color x:Key="InsertColor">#80ff80</Color>
+    <Color x:Key="UpdateColor">#8080ff</Color>
+    <Color x:Key="DeleteColor">#ff8080</Color>
+    <Color x:Key="LoginColor">#c480ff</Color>
+    <Color x:Key="LogoutColor">#eeff80</Color>
+    <Color x:Key="SymbolColor">#808080</Color>
+    <SolidColorBrush x:Key="InsertColorBrush" Color="{StaticResource InsertColor}" Opacity="0.5"/>
+    <SolidColorBrush x:Key="UpdateColorBrush" Color="{StaticResource UpdateColor}" Opacity="0.5" />
+    <SolidColorBrush x:Key="DeleteColorBrush" Color="{StaticResource DeleteColor}" Opacity="0.5" />
+    <SolidColorBrush x:Key="LoginColorBrush" Color="{StaticResource LoginColor}" Opacity="0.5" />
+    <SolidColorBrush x:Key="LogoutColorBrush" Color="{StaticResource LogoutColor}" Opacity="0.5" />
 </ResourceDictionary>

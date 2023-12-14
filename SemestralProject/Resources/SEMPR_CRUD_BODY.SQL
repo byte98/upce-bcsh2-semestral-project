@@ -775,4 +775,34 @@ PACKAGE BODY sempr_crud AS
         CLOSE v_cursor;
     END func_jizdni_rady_read;
 
+    FUNCTION func_logy_read RETURN t_logy PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_log     logy%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM logy ORDER BY cas DESC;
+        LOOP
+            FETCH v_cursor INTO v_log;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_log);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_logy_read; 
+
+    FUNCTION func_logy_read(p_id IN logy.id_log%TYPE) RETURN t_logy PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_log     logy%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM logy WHERE id_log=p_id ORDER BY cas DESC;
+        LOOP
+            FETCH v_cursor INTO v_log;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_log);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_logy_read;
+
 END sempr_crud;

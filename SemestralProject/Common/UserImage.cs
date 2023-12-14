@@ -131,19 +131,7 @@ namespace SemestralProject.Common
         /// <returns>String representing conversion of content of image to CLOB data type.</returns>
         public string ToClob()
         {
-            StringBuilder reti = new StringBuilder();
-            string[] parts = StringUtils.SplitBySize(this.content, 1024);
-            for (int i = 0; i < parts.Length; i++)
-            {
-                reti.Append("TO_CLOB('");
-                reti.Append(parts[i]);
-                reti.Append("')");
-                if (i < parts.Length - 1)
-                {
-                    reti.Append("||");
-                }
-            }
-            return reti.ToString();
+            return StringUtils.ToClob(this.content);
         }
     }
 }

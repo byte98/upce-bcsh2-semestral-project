@@ -106,6 +106,12 @@ namespace SemestralProject.ViewModel
         private Visibility supertoolVisibility = Visibility.Collapsed;
 
         /// <summary>
+        /// Visibility of logs menu item.
+        /// </summary>
+        [ObservableProperty]
+        private Visibility logsVisibility = Visibility.Collapsed;
+
+        /// <summary>
         /// Page with users details.
         /// </summary>
         private MyPage myPage;
@@ -144,6 +150,11 @@ namespace SemestralProject.ViewModel
         /// Page with database supertool.
         /// </summary>
         private DatabasePage supertoolPage;
+
+        /// <summary>
+        /// Page with logs.
+        /// </summary>
+        private LogsPage logsPage;
 
         /// <summary>
         /// Flag, whether my page menu item is checked.
@@ -194,6 +205,12 @@ namespace SemestralProject.ViewModel
         private bool supertoolCheck;
 
         /// <summary>
+        /// Flag, whether logs menu item is checked.
+        /// </summary>
+        [ObservableProperty]
+        private bool logsCheck;
+
+        /// <summary>
         /// Visibility of wait window.
         /// </summary>
         [ObservableProperty]
@@ -223,6 +240,7 @@ namespace SemestralProject.ViewModel
             this.linesCheck = false;
             this.schedulesCheck = false;
             this.supertoolCheck = false;
+            this.logsCheck = false;
             this.stopsCheck = false;
             this.myPage = new MyPage();
             this.permPage = new PermissionsPage();
@@ -232,6 +250,7 @@ namespace SemestralProject.ViewModel
             this.stopsPage = new StopsPage();
             this.schedulesPage = new SchedulesPage();
             this.supertoolPage = new DatabasePage();
+            this.logsPage = new LogsPage();
         }
 
         /// <summary>
@@ -283,13 +302,29 @@ namespace SemestralProject.ViewModel
                 this.LinesVisibility = this.role.HasPermission(PermissionNames.LinesRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.StopsVisibility = this.role.HasPermission(PermissionNames.StopsRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.SchedulesVisibility = this.role.HasPermission(PermissionNames.SchedulesRead) ? Visibility.Visible : Visibility.Collapsed;
-
                 this.SupertoolVisibility = this.role.HasPermission(PermissionNames.Supertool) ? Visibility.Visible : Visibility.Collapsed;
+                this.LogsVisibility = this.role.HasPermission(PermissionNames.LogsRead) ? Visibility.Visible : Visibility.Collapsed;
+
                 this.ResetChecks();
 
 
                 this.MyPage();
                 this.WaitVisibility = Visibility.Collapsed;
+            }
+        }
+
+        /// <summary>
+        /// Handles closing window.
+        /// </summary>
+        [RelayCommand]
+        private void WindowClosing()
+        {
+            if (this.user != null)
+            {
+                string sql = $"sempr_api.proc_users_logout({this.user.Id})";
+                string cmd = $"BEGIN\n    {sql};\nEND;";
+                IConnection connection = OracleConnector.Load();
+                connection.Execute(cmd);
             }
         }
 
@@ -328,6 +363,14 @@ namespace SemestralProject.ViewModel
         [RelayCommand]
         private void Logout()
         {
+            if (this.user != null)
+            {
+                string sql = $"sempr_api.proc_users_logout({this.user.Id})";
+                string cmd = $"BEGIN\n    {sql};\nEND;";
+                IConnection connection = OracleConnector.Load();
+                connection.Execute(cmd);
+            }
+            this.user = null;
             MainWindow main = new MainWindow();
             main.Show();
             WindowUtils.HideForModel(this);
@@ -494,6 +537,17 @@ namespace SemestralProject.ViewModel
             this.ResetChecks();
             this.SupertoolCheck = true;
             this.Navigate(this.supertoolPage);
+        }
+
+        /// <summary>
+        /// Handles click on 'logs' button.
+        /// </summary>
+        [RelayCommand]
+        private void Logs()
+        {
+            this.ResetChecks();
+            this.LogsCheck = true;
+            this.Navigate(this.logsPage);
         }
     }
 }

@@ -78,6 +78,29 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DECLARE
+        ///    v_table_name VARCHAR2(128);
+        ///    v_sql CLOB;
+        ///BEGIN
+        ///    FOR tbl IN (SELECT table_name FROM user_tables WHERE table_name &lt;&gt; &apos;LOGY&apos;) LOOP
+        ///        v_table_name := tbl.table_name;
+        ///        v_sql := 
+        ///&apos;CREATE OR REPLACE TRIGGER trg_&apos; || v_table_name || &apos;
+        ///    BEFORE DELETE OR INSERT OR UPDATE ON &apos; || v_table_name ||&apos;
+        ///    FOR EACH ROW
+        ///    DECLARE
+        ///        v_old  logy.zprava%TYPE := &apos;&apos;[&apos;&apos;;
+        ///        v_new  logy.zprava%TYPE := &apos;&apos;[&apos;&apos;;
+        ///        v_op   logy.operace%TYPE;
+        ///        v_rows logy.pocet_radk [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string LOGGING {
+            get {
+                return ResourceManager.GetString("LOGGING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Měnit svoji roli za běhu&apos;, &apos;role.modify.runtime&apos;)
         ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Měnit svoji roli&apos;, &apos;role.modify.own&apos;)
         ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Měnit své údaje&apos;, &apos;user.modify.own&apos;)
@@ -161,8 +184,7 @@ namespace SemestralProject.Resources {
         ///    FUNCTION func_users_login(p_personal_nr IN zamestnanci.osobni_cislo%TYPE, p_password IN uzivatele.heslo%TYPE) RETURN uzivatele.id_uzivatel%TYPE AS
         ///        v_reti uzivatele.id_uzivatel%TYPE      := -2147483648;
         ///        v_loggable stavy.prihlasitelny%TYPE    := 1;
-        ///    BEGIN
-        ///        FOR use [rest of string was truncated]&quot;;.
+        ///        v_user uzivatele%R [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEMPR_API_BODY {
             get {
@@ -181,9 +203,10 @@ namespace SemestralProject.Resources {
         ///
         ///--
         ///    FUNCTION func_users_login(p_personal_nr IN zamestnanci.osobni_cislo%TYPE, p_password IN uzivatele.heslo%TYPE) RETURN uzivatele.id_uzivatel%TYPE;
-        ///
-        ///END sempr_api;
-        ///.
+        ///--
+        ///    PROCEDURE proc_users_logout(p_id IN uzivatele.id_uzivatel%TYPE);
+        ///--
+        ///    PROCEDURE proc_log(p_operation IN logy.operace%TYPE, p_table IN logy.tabulka% [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEMPR_API_HEADER {
             get {
@@ -326,7 +349,7 @@ namespace SemestralProject.Resources {
         ///   Looks up a localized string similar to CREATE SEQUENCE adresy_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE jizdni_rady_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE linky_seq START WITH 1 NOCACHE ORDER
-        ///CREATE SEQUENCE logs_seq START WITH 1 NOCACHE ORDER
+        ///CREATE SEQUENCE logy_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE obce_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE opravneni_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE osoby_seq START WITH 1 NOCACHE ORDER

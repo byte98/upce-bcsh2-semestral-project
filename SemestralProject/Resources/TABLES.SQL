@@ -25,13 +25,16 @@ CREATE TABLE linky (
     kod      CHAR(3) NOT NULL
 )
 
-CREATE TABLE logs (
-    id              INTEGER DEFAULT logs_seq.nextval NOT NULL,
-    table_name      VARCHAR2(255),
-    log_message     VARCHAR2(1000),
-    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT      log_table_pk PRIMARY KEY (id)
+CREATE TABLE logy (
+    id_log INTEGER DEFAULT logy_seq.nextval NOT NULL,
+    cas TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    operace VARCHAR2(64) NOT NULL,
+    tabulka VARCHAR2(64) NOT NULL,
+    pocet_radku INTEGER NOT NULL,
+    zprava CLOB
 )
+
+ALTER TABLE logy ADD CONSTRAINT logy_pk PRIMARY KEY ( id_log )
 
 ALTER TABLE linky ADD CONSTRAINT linky_pk PRIMARY KEY ( id_linka )
 

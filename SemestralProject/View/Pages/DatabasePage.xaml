@@ -48,7 +48,7 @@ vml:ViewModelLocator.AutoHookedUpViewModel="True"
                             <Label Content="Tabulka" />
                         </ui:ControlHelper.Header>
                     </ComboBox>
-                    <DataGrid ItemsSource="{Binding TableData}" AutoGenerateColumns="True" SelectionMode="Single"/>
+                    <DataGrid ItemsSource="{Binding TableData}" AutoGenerateColumns="True" SelectionMode="Single" SelectedItem="{Binding SelectedTableData}"/>
                 </StackPanel>
             </TabItem>
         </TabControl>

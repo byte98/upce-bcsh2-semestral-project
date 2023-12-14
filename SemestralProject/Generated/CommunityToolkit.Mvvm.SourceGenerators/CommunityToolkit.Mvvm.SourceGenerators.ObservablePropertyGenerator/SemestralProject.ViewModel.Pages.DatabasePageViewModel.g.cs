@@ -71,6 +71,27 @@ namespace SemestralProject.ViewModel.Pages
             }
         }
 
+        /// <inheritdoc cref="selectedTableData"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public object? SelectedTableData
+        {
+            get => selectedTableData;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<object?>.Default.Equals(selectedTableData, value))
+                {
+                    OnSelectedTableDataChanging(value);
+                    OnSelectedTableDataChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedTableData);
+                    selectedTableData = value;
+                    OnSelectedTableDataChanged(value);
+                    OnSelectedTableDataChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedTableData);
+                }
+            }
+        }
+
         /// <summary>Executes the logic for when <see cref="Tables"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="Tables"/> is changed.</remarks>
@@ -137,5 +158,27 @@ namespace SemestralProject.ViewModel.Pages
         /// <remarks>This method is invoked right after the value of <see cref="TableData"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnTableDataChanged(global::System.Data.DataView? oldValue, global::System.Data.DataView newValue);
+        /// <summary>Executes the logic for when <see cref="SelectedTableData"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="SelectedTableData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedTableDataChanging(object? value);
+        /// <summary>Executes the logic for when <see cref="SelectedTableData"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="SelectedTableData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedTableDataChanging(object? oldValue, object? newValue);
+        /// <summary>Executes the logic for when <see cref="SelectedTableData"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="SelectedTableData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedTableDataChanged(object? value);
+        /// <summary>Executes the logic for when <see cref="SelectedTableData"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="SelectedTableData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedTableDataChanged(object? oldValue, object? newValue);
     }
 }

@@ -31,7 +31,22 @@ namespace SemestralProject.Data
         {
             {
                 IConnection.DatabaseObject.Trigger, new Dictionary<string, IStringProvider>()
-                { }
+                {
+                    {"TRG_ADRESY", new ConstantStringProvider("DROP TRIGGER trg_adresy")},
+                    {"TRG_JIZDNI_RADY", new ConstantStringProvider("DROP TRIGGER trg_jizdni_rady")},
+                    {"TRG_LINKY", new ConstantStringProvider("DROP TRIGGER trg_linky")},
+                    {"TRG_OBCE", new ConstantStringProvider("DROP TRIGGER trg_obce")},
+                    {"TRG_OPRAVNENI", new ConstantStringProvider("DROP TRIGGER trg_opravneni")},
+                    {"TRG_OSOBY", new ConstantStringProvider("DROP TRIGGER trg_osoby")},
+                    {"TRG_PRAVA", new ConstantStringProvider("DROP TRIGGER trg_prava")},
+                    {"TRG_ROLE", new ConstantStringProvider("DROP TRIGGER trg_role")},
+                    {"TRG_SKUTECNE_RADY", new ConstantStringProvider("DROP TRIGGER trg_skutecne_rady")},
+                    {"TRG_STATY", new ConstantStringProvider("DROP TRIGGER trg_staty")},
+                    {"TRG_STAVY", new ConstantStringProvider("DROP TRIGGER trg_stavy")},
+                    {"TRG_UZIVATELE", new ConstantStringProvider("DROP TRIGGER trg_uzivatele")},
+                    {"TRG_ZAMESTNANCI", new ConstantStringProvider("DROP TRIGGER trg_zamestnanci")},
+                    {"TRG_ZASTAVKY", new ConstantStringProvider("DROP TRIGGER trg_zastavky")},
+                }
             },
             {
                 IConnection.DatabaseObject.Table, new Dictionary<string, IStringProvider>()
@@ -39,6 +54,7 @@ namespace SemestralProject.Data
                     {"ADRESY", new ConstantStringProvider("DROP TABLE adresy CASCADE CONSTRAINTS PURGE")},
                     {"JIZDNI_RADY", new ConstantStringProvider("DROP TABLE jizdni_rady CASCADE CONSTRAINTS PURGE")},
                     {"LINKY", new ConstantStringProvider("DROP TABLE linky CASCADE CONSTRAINTS PURGE")},
+                    {"LOGY", new ConstantStringProvider("DROP TABLE logy CASCADE CONSTRAINTS PURGE")},
                     {"OBCE", new ConstantStringProvider("DROP TABLE obce CASCADE CONSTRAINTS PURGE")},
                     {"OPRAVNENI", new ConstantStringProvider("DROP TABLE opravneni CASCADE CONSTRAINTS PURGE")},
                     {"OSOBY", new ConstantStringProvider("DROP TABLE osoby CASCADE CONSTRAINTS PURGE")},
@@ -52,8 +68,7 @@ namespace SemestralProject.Data
                     {"UZIVATELE", new ConstantStringProvider("DROP TABLE uzivatele CASCADE CONSTRAINTS PURGE")},
                     {"VYROBCI", new ConstantStringProvider("DROP TABLE vyrobci CASCADE CONSTRAINTS PURGE")},
                     {"ZAMESTNANCI", new ConstantStringProvider("DROP TABLE zamestnanci CASCADE CONSTRAINTS PURGE")},
-                    {"ZASTAVKY", new ConstantStringProvider("DROP TABLE zastavky CASCADE CONSTRAINTS PURGE")},
-                    {"LOGS", new ConstantStringProvider("DROP TABLE logs CASCADE CONSTRAINTS PURGE")}
+                    {"ZASTAVKY", new ConstantStringProvider("DROP TABLE zastavky CASCADE CONSTRAINTS PURGE")}
                 }
             },
             {
@@ -77,7 +92,7 @@ namespace SemestralProject.Data
                     {"UZIVATELE_SEQ", new ConstantStringProvider("DROP SEQUENCE uzivatele_seq")},
                     {"ZASTAVKY_SEQ", new ConstantStringProvider("DROP SEQUENCE zastavky_seq")},
                     {"ZAMESTNANCI_SEQ", new ConstantStringProvider("DROP SEQUENCE zamestnanci_seq")},
-                    {"LOGS_SEQ", new ConstantStringProvider("DROP SEQUENCE logs_seq")}
+                    {"LOGY_SEQ", new ConstantStringProvider("DROP SEQUENCE logy_seq")}
                 }
             },
             {
@@ -122,8 +137,7 @@ namespace SemestralProject.Data
         /// <summary>
         /// SQL statements which creates all triggers.
         /// </summary>
-        //public static readonly IStringProvider Triggers = new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SEMPR_TRIGGERS"));
-        public static readonly IStringProvider Triggers = new EmptyStringProvider();
+        public static readonly IStringProvider Triggers = new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "LOGGING"));
 
         /// <summary>
         ///  SQL statements which inserts all data into database.

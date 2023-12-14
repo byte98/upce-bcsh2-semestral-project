@@ -16,6 +16,11 @@ namespace SemestralProject.Utils
     internal abstract class StringUtils
     {
         /// <summary>
+        /// Maximal size of one piece of CLOB.
+        /// </summary>
+        private const int ClobSize = 1024;
+
+        /// <summary>
         /// Encrypts string.
         /// </summary>
         /// <param name="input">String which will be encrypted.</param>
@@ -267,6 +272,28 @@ namespace SemestralProject.Utils
                 int idx = rnd.Next(0, chars.Count);
                 reti.Append(chars[idx]);
                 chars.RemoveAt(idx);
+            }
+            return reti.ToString();
+        }
+
+        /// <summary>
+        /// Transforms string into character large object.
+        /// </summary>
+        /// <param name="str">String which will be transformed.</param>
+        /// <returns>String which contains query to create character large object.</returns>
+        public static string ToClob(string str)
+        {
+            StringBuilder reti = new StringBuilder();
+            string[] parts = StringUtils.SplitBySize(str, StringUtils.ClobSize);
+            for (int i = 0; i < parts.Length; i++)
+            {
+                reti.Append("TO_CLOB('");
+                reti.Append(parts[i]);
+                reti.Append("')");
+                if (i < parts.Length - 1)
+                {
+                    reti.Append("||");
+                }
             }
             return reti.ToString();
         }

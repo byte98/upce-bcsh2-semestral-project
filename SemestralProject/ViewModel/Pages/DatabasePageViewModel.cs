@@ -40,6 +40,12 @@ namespace SemestralProject.ViewModel.Pages
         private DataView tableData;
 
         /// <summary>
+        /// Actually selected data.
+        /// </summary>
+        [ObservableProperty]
+        private object? selectedTableData;
+
+        /// <summary>
         /// Creates new model view for database supertool page.
         /// </summary>
         public DatabasePageViewModel(): base(PermissionNames.Supertool)

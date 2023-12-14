@@ -199,5 +199,11 @@ PACKAGE sempr_crud AS
 
     FUNCTION func_jizdni_rady_read(p_id IN jizdni_rady.id_jizdni_rad%TYPE) RETURN t_jizdni_rady PIPELINED;
 
+    TYPE t_logy is TABLE of logy%ROWTYPE;
+
+    FUNCTION func_logy_read RETURN t_logy PIPELINED;
+
+    FUNCTION func_logy_read(p_id IN logy.id_log%TYPE) RETURN t_logy PIPELINED;
+
 END sempr_crud;
 

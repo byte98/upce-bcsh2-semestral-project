@@ -47,7 +47,7 @@ namespace SemestralProject.Model
         {
             User? reti = null;
             IConnection conn = OracleConnector.Load();
-            conn.Execute("SET TRANSACTION READ ONLY");
+            conn.Execute("SET TRANSACTION READ WRITE");
             IDictionary<string, object?>[] result = conn.Query($"SELECT sempr_api.func_users_login({this.PersonalNumber}, '{this.Password}') AS user_id FROM dual");
             if (result.Length > 0)
             {
@@ -59,7 +59,25 @@ namespace SemestralProject.Model
                 }
             }
             conn.Execute("COMMIT");
+            if (reti != null)
+            {
+                this.Log(reti);
+            }
             return reti;
+        }
+
+        /// <summary>
+        /// Logs information about login.
+        /// </summary>
+        /// <param name="user">User which has logged.</param>
+        private void Log(User user)
+        {
+            IConnection conn = OracleConnector.Load();
+            conn.Execute("SET TRANSACTION READ WRITE");
+            string sql = $"sempr_api.proc_log('login', 'UZIVATELE', 1, {StringUtils.ToClob($"[ID_UZIVATEL: {user.Id}; HESLO: {user.Password}; DATUM_REGISTRACE: {user.Registration}; OBRAZEK: {user.Image.ToContent()}; ROLE: {user.Role.Id}; STAV: {user.State.Id}; ZAMESTNANEC: {user.Employee.Id};]")}, '')";
+            string cmd = $"BEGIN\n    {sql};\nEND;";
+            conn.Execute(cmd);
+            conn.Execute("COMMIT");
         }
 
         /// <summary>
