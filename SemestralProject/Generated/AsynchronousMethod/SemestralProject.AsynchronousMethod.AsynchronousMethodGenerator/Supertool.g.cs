@@ -43,6 +43,22 @@ namespace SemestralProject.Model
         }
 
         /// <summary>
+        /// Creates data in database asynchronously.
+        /// </summary>
+        /// <param name="table">Name of table in which data will be created.</param>
+        /// <param name="data">Data which will be created.</param>
+        /// <returns>
+        /// Task which 
+        /// creates data in database asynchronously.
+        /// </returns>
+        public static System.Threading.Tasks.Task CreateAsync(string table, System.Collections.Generic.IDictionary<string, object?> data)
+        {
+            return Task.Run(() => {
+                Supertool.Create(table, data);
+            });
+        }
+
+        /// <summary>
         /// Deletes data from database asynchronously.
         /// </summary>
         /// <param name="table">Name of table from which data will be deleted.</param>

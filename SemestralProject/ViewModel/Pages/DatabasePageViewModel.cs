@@ -150,6 +150,20 @@ namespace SemestralProject.ViewModel.Pages
                     });
                     this.SelectedTableChangedCommand.Execute(null);
                 };
+                dataTable.TableNewRow += async (sender, e) =>
+                {
+                    this.WaitVisibility = Visibility.Visible;
+                    this.ContentVisibility = Visibility.Collapsed;
+                    await Task.Run(async () =>
+                    {
+                        IDictionary<string, object?>? data = this.GetSelectedData(e.Row);
+                        if (data != null)
+                        {
+                            await Supertool.CreateAsync(this.SelectedTable, data);
+                        }
+                    });
+                    this.SelectedTableChangedCommand.Execute(null);
+                };
                 this.TableData = dataTable.DefaultView;
             }
             this.WaitVisibility = Visibility.Collapsed;

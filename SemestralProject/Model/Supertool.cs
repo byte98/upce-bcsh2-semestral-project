@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Dynamic;
 using System.Linq;
 using System.Resources;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -142,6 +143,55 @@ namespace SemestralProject.Model
                 }
             }
             return reti;
+        }
+
+        /// <summary>
+        /// Creates data in database.
+        /// </summary>
+        /// <param name="table">Name of table in which data will be created.</param>
+        /// <param name="data">Data which will be created.</param>
+        [AsynchronousMethod]
+        public static void Create(string table, IDictionary<string, object?> data)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.Append("INSERT INTO ");
+            sql.Append(table);
+            sql.Append(" (");
+            for(int i = 0; i < data.Count; i++)
+            {
+                sql.Append(data.Keys.ElementAt(i));
+                if (i < data.Count - 1)
+                {
+                    sql.Append(", ");
+                }
+            }
+            sql.Append(") VALUES (");
+            for (int i = 0; i < data.Keys.Count; i++)
+            {
+                if (data.Values.ElementAt(i) is int)
+                {
+                    sql.Append(data.Values.ElementAt(i));
+                }
+                else if (data.Values.ElementAt(i) is DateTime)
+                {
+                    sql.Append(DateUtils.ToSQL((DateTime)(data.Values.ElementAt(i) ?? DateTime.MinValue)));
+                }
+                else
+                {
+                    sql.Append("'");
+                    sql.Append(data.Values.ElementAt(i));
+                    sql.Append("'");
+                }
+                if (i < data.Keys.Count - 1)
+                {
+                    sql.Append(", ");
+                }
+            }
+            sql.Append(")");
+            IConnection connection = OracleConnector.Load();
+            connection.Execute("SET TRANSACTION READ WRITE");
+            connection.Execute(sql.ToString());
+            connection.Execute("COMMIT");
         }
 
         /// <summary>
