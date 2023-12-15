@@ -121,6 +121,9 @@
   <data name="COUNTRIES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>COUNTRIES.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="IMAGE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IMAGE.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="LOGGING" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>LOGGING.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -174,5 +177,8 @@
   </data>
   <data name="TRUNCATE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>TRUNCATE.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="VIEWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>VIEWS.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

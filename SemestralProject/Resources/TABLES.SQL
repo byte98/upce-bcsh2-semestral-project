@@ -50,6 +50,17 @@ CREATE TABLE obce (
 
 ALTER TABLE obce ADD CONSTRAINT obce_pk PRIMARY KEY ( id_obec )
 
+CREATE TABLE obrazky (
+    id_obrazek    INTEGER DEFAULT obrazky_seq.nextval NOT NULL,
+    obsah         CLOB NOT NULL,
+    hash          VARCHAR2(2048) NOT NULL,
+    nazev         VARCHAR2(256) NOT NULL,
+    datum_nahrani DATE NOT NULL
+)
+
+ALTER TABLE obrazky ADD CONSTRAINT obrazky_pk PRIMARY KEY ( id_obrazek )
+
+
 CREATE TABLE opravneni (
     id_opravneni    INTEGER DEFAULT opravneni_seq.nextval NOT NULL,
     nazev           VARCHAR2(64) NOT NULL,
@@ -113,10 +124,10 @@ CREATE TABLE uzivatele (
     id_uzivatel      INTEGER DEFAULT uzivatele_seq.nextval NOT NULL,
     heslo            VARCHAR2(256) NOT NULL,
     datum_registrace TIMESTAMP NOT NULL,
-    obrazek          CLOB NOT NULL,
     role             INTEGER NOT NULL,
     stav             INTEGER NOT NULL,
-    zamestnanec      INTEGER NOT NULL
+    zamestnanec      INTEGER NOT NULL,
+    obrazek          INTEGER NOT NULL
 )
 
 ALTER TABLE uzivatele ADD CONSTRAINT uzivatel_pk PRIMARY KEY ( id_uzivatel )

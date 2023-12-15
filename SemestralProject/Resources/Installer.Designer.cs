@@ -78,6 +78,16 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to INSERT INTO obrazky(id_obrazek, obsah, hash, nazev, datum_nahrani)
+        ///VALUES (0, TO_CLOB(&apos;H4sIAAAAAAACCgGYBmf5iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAMAAADVRocKAAAABGdBTUEAALGPC/xhBQAAAfhQTFRFQEBAVVVVaWlpc3Nzfn5+d3d3bGxsXV1dRUVFeXl5qamp2dnZ+vr6////6enpurq6ioqKTk5OVFRU6+vrv7+/cnJyREREn5+f/Pz8vr6+Y2NjkJCQ7Ozsr6+vUFBQ+Pj43NzcycnJtbW1oqKiwsLC1dXV4+PjaGhoV1dX0tLS7e3ttLS0enp6Z2dnoaGh29vb+/v7gICAb29v6urqjY2Nbm5uysrKmJiYWlpanZ2dQUFBjIyMQkJC4eHhubm5dHR0vb29xsbGTU1Nnp6e7+/vXFxcnJycUVFR+fn53d3dSEhIq6uriYmJrKys5OTkYGBgWVlZvLy8 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string IMAGE {
+            get {
+                return ResourceManager.GetString("IMAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DECLARE
         ///    v_table_name VARCHAR2(128);
         ///    v_sql CLOB;
@@ -117,20 +127,20 @@ namespace SemestralProject.Resources {
         ///   Looks up a localized string similar to ALTER TABLE adresy
         ///    ADD CONSTRAINT adresy_obce_fk FOREIGN KEY ( obec )
         ///        REFERENCES obce ( id_obec )
+        ///        ON DELETE CASCADE
         ///
         ///ALTER TABLE jizdni_rady
         ///    ADD CONSTRAINT jizdni_rady_linky_fk FOREIGN KEY ( linka )
         ///        REFERENCES linky ( id_linka )
+        ///        ON DELETE CASCADE
         ///
         ///ALTER TABLE jizdni_rady
         ///    ADD CONSTRAINT jizdni_rady_zastavka_fk FOREIGN KEY ( zastavka )
         ///        REFERENCES zastavky ( id_zastavka )
+        ///        ON DELETE CASCADE
         ///
         ///ALTER TABLE obce
-        ///    ADD CONSTRAINT obce_stat_fk FOREIGN KEY ( stat )
-        ///        REFERENCES staty ( id_stat )
-        ///
-        ///ALTER TABLE pra [rest of string was truncated]&quot;;.
+        ///    ADD CONSTRAINT obce_stat [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RELATIONS {
             get {
@@ -351,11 +361,11 @@ namespace SemestralProject.Resources {
         ///CREATE SEQUENCE linky_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE logy_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE obce_seq START WITH 1 NOCACHE ORDER
+        ///CREATE SEQUENCE obrazky_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE opravneni_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE osoby_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE osobni_cisla_seq START WITH 100005 NOCACHE ORDER
-        ///CREATE SEQUENCE prava_seq START WITH 1 NOCACHE ORDER
-        ///CREAT [rest of string was truncated]&quot;;.
+        ///CRE [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEQUENCES {
             get {
@@ -455,6 +465,23 @@ namespace SemestralProject.Resources {
         internal static string TRUNCATE {
             get {
                 return ResourceManager.GetString("TRUNCATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE OR REPLACE VIEW vw_zamestnanci_hierarchie AS 
+        ///SELECT 
+        ///    LEVEL - 1 AS uroven, 
+        ///    id_zamestnanec AS zamestnanec 
+        ///FROM zamestnanci 
+        ///START WITH nadrizeny IS NULL 
+        ///CONNECT BY PRIOR id_zamestnanec = nadrizeny 
+        ///ORDER SIBLINGS BY id_zamestnanec 
+        ///.
+        /// </summary>
+        internal static string VIEWS {
+            get {
+                return ResourceManager.GetString("VIEWS", resourceCulture);
             }
         }
     }

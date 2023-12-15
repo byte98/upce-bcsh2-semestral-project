@@ -42,6 +42,9 @@ namespace SemestralProject.Utils
         public EvenRandomNumberGenerator(int minimum, int maximum, int limit)
         {
             this.random = new Random();
+            this.minimum = minimum;
+            this.maximum = maximum;
+            this.limit = limit;
         }
 
         public IEnumerator<int> GetEnumerator()
@@ -50,9 +53,9 @@ namespace SemestralProject.Utils
             int orderB = (int)Math.Floor(Math.Log10(this.maximum));
 
             int difference = Math.Abs(orderA - orderB);
-            int order = this.random.Next(orderA, orderB);
             for (int i = 0; i < limit; i++)
             {
+                int order = this.random.Next(orderA, orderB);
                 double randomD = this.random.NextDouble();
                 double reti = (double)Math.Pow(10, order) * randomD;
                 yield return (int)Math.Round(reti);

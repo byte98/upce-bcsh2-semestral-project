@@ -91,6 +91,7 @@ namespace SemestralProject.Model
             IConnection connection = OracleConnector.Load();
             connection.Execute("SET TRANSACTION READ ONLY");
             IDictionary<string, object?>[] result = connection.Query(sql);
+            connection.Execute("COMMIT");
             if (result.Length > 0)
             {
                 foreach (IDictionary<string, object?> row in result)
@@ -106,7 +107,37 @@ namespace SemestralProject.Model
                     reti.Add(data);
                 }
             }
+
             return reti.ToArray();
+        }
+
+        /// <summary>
+        /// Gets all objects data.
+        /// </summary>
+        /// <returns>Collection of objects data.</returns>
+        [AsynchronousMethod]
+        public static ICollection<IDictionary<string, object>> GetObjectsData()
+        {
+            ICollection<IDictionary<string, object>> reti = new List<IDictionary<string, object>>();
+            string sql = "SELECT * FROM user_objects";
+            IConnection connection = OracleConnector.Load();
+            connection.Execute("SET TRANSACTION READ ONLY");
+            IDictionary<string, object?>[] result = connection.Query(sql);
+            connection.Execute("COMMIT");
+            foreach(IDictionary<string, object?> row in result)
+            {
+                IDictionary<string, object> subresult = new Dictionary<string, object>();
+                foreach(string key in row.Keys)
+                {
+                    object? val = row[key];
+                    if (val != null)
+                    {
+                        subresult.Add(key, val);
+                    }
+                }
+                reti.Add(subresult);
+            }
+            return reti;
         }
 
         /// <summary>

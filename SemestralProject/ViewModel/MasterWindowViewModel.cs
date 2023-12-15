@@ -112,6 +112,12 @@ namespace SemestralProject.ViewModel
         private Visibility logsVisibility = Visibility.Collapsed;
 
         /// <summary>
+        /// Visibility of hierarchy menu item.
+        /// </summary>
+        [ObservableProperty]
+        private Visibility hierarchyVisibility = Visibility.Collapsed;
+
+        /// <summary>
         /// Page with users details.
         /// </summary>
         private MyPage myPage;
@@ -155,6 +161,11 @@ namespace SemestralProject.ViewModel
         /// Page with logs.
         /// </summary>
         private LogsPage logsPage;
+
+        /// <summary>
+        /// Page with hierarchy
+        /// </summary>
+        private HierarchyPage hierarchyPage;
 
         /// <summary>
         /// Flag, whether my page menu item is checked.
@@ -211,6 +222,12 @@ namespace SemestralProject.ViewModel
         private bool logsCheck;
 
         /// <summary>
+        /// Flag, whether hierarchy menu item is checked.
+        /// </summary>
+        [ObservableProperty]
+        private bool hierarchyCheck;
+
+        /// <summary>
         /// Visibility of wait window.
         /// </summary>
         [ObservableProperty]
@@ -231,7 +248,7 @@ namespace SemestralProject.ViewModel
             {
                 this.RoleChanged(args.Value);
             });
-            this.image = UserImage.Default.ToImage();
+            this.image = UserImage.FromImageFile(ImageFile.Default).ToImage();
             this.waitVisibility = Visibility.Visible;
             this.myPageCheck = false;
             this.permCheck = false;
@@ -242,6 +259,7 @@ namespace SemestralProject.ViewModel
             this.supertoolCheck = false;
             this.logsCheck = false;
             this.stopsCheck = false;
+            this.hierarchyCheck = false;
             this.myPage = new MyPage();
             this.permPage = new PermissionsPage();
             this.usersPage = new UsersPage();
@@ -251,6 +269,7 @@ namespace SemestralProject.ViewModel
             this.schedulesPage = new SchedulesPage();
             this.supertoolPage = new DatabasePage();
             this.logsPage = new LogsPage();
+            this.hierarchyPage = new HierarchyPage();
         }
 
         /// <summary>
@@ -262,7 +281,7 @@ namespace SemestralProject.ViewModel
             this.WaitVisibility = Visibility.Visible;
             this.ChangeRoleVisibility = Visibility.Collapsed;
             this.user = user;
-            this.Image = this.user.Image.ToImage();
+            this.Image = UserImage.FromImageFile(this.user.Image).ToImage();
             this.Name = this.user.Employee.PersonalData.Name + " " + this.user.Employee.PersonalData.Surname;
             await this.user.Role.LoadPermissionsAsync();
             bool canChangeRole = this.CanChangeRole();
@@ -304,7 +323,7 @@ namespace SemestralProject.ViewModel
                 this.SchedulesVisibility = this.role.HasPermission(PermissionNames.SchedulesRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.SupertoolVisibility = this.role.HasPermission(PermissionNames.Supertool) ? Visibility.Visible : Visibility.Collapsed;
                 this.LogsVisibility = this.role.HasPermission(PermissionNames.LogsRead) ? Visibility.Visible : Visibility.Collapsed;
-
+                this.HierarchyVisibility = this.role.HasPermission(PermissionNames.HierarchyRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.ResetChecks();
 
 
@@ -548,6 +567,17 @@ namespace SemestralProject.ViewModel
             this.ResetChecks();
             this.LogsCheck = true;
             this.Navigate(this.logsPage);
+        }
+
+        /// <summary>
+        /// Handles click on 'hierarchy' button.
+        /// </summary>
+        [RelayCommand]
+        private void Hierarchy()
+        {
+            this.ResetChecks();
+            this.HierarchyCheck = true;
+            this.Navigate(this.hierarchyPage);
         }
     }
 }

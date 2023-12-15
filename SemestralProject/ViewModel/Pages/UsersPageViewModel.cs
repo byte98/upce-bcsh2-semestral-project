@@ -212,8 +212,8 @@ namespace SemestralProject.ViewModel.Pages
                 this.WaitVisibility = Visibility.Visible;
                 this.ContentVisibility = Visibility.Collapsed;
                 string file = dialog.FileName;
-                UserImage image = UserImage.FromFile(file);
-                this.SelectedUser.Image = image;
+                ImageFile imageFile = await ImageFile.FromFileAsync(file);
+                this.SelectedUser.Image = imageFile;
                 await this.SelectedUser.UpdateAsync();
                 this.Load();
             }

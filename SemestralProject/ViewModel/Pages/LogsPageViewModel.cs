@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace SemestralProject.ViewModel.Pages
 {
@@ -77,20 +78,32 @@ namespace SemestralProject.ViewModel.Pages
             this.FilterTables.Add(string.Empty);
             this.FilterOperations.Add(string.Empty);
             this.allLogs.Clear();
-            Log[] loadedLogs = await Log.GetAllAsync();
-            foreach (Log log in loadedLogs)
+            await Task.Run( async() =>
             {
-                this.Logs.Add(log);
-                this.allLogs.Add(log);
-                if (this.FilterOperations.Contains(log.Operation) == false)
+                Log[] loadedLogs = await Log.GetAllAsync();
+                foreach (Log log in loadedLogs)
                 {
-                    this.FilterOperations.Add(log.Operation);
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        this.Logs.Add(log);
+                    });
+                    this.allLogs.Add(log);
+                    if (this.FilterOperations.Contains(log.Operation) == false)
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            this.FilterOperations.Add(log.Operation);
+                        });
+                    }
+                    if (this.FilterTables.Contains(log.Table) == false)
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            this.FilterTables.Add(log.Table);
+                        });
+                    }
                 }
-                if (this.FilterTables.Contains(log.Table) == false)
-                {
-                    this.FilterTables.Add(log.Table);
-                }
-            }
+            });
             this.WaitVisibility = Visibility.Collapsed;
             this.ContentVisibility = Visibility.Visible;
         }
@@ -99,19 +112,25 @@ namespace SemestralProject.ViewModel.Pages
         /// Performs filtering of logs.
         /// </summary>
         [RelayCommand]
-        private void Filter()
+        private async Task Filter()
         {
             this.WaitVisibility = Visibility.Visible;
             this.ContentVisibility = Visibility.Collapsed;
             this.Logs.Clear();
-            foreach(Log l in this.allLogs)
+            await Task.Run(() =>
             {
-                if ((this.SelectedTable == string.Empty || this.SelectedTable == l.Table) &&
-                    (this.SelectedOperation == string.Empty || this.SelectedOperation == l.Operation))
+                foreach (Log l in this.allLogs)
                 {
-                    this.Logs.Add(l);
+                    if ((this.SelectedTable == string.Empty || this.SelectedTable == l.Table) &&
+                        (this.SelectedOperation == string.Empty || this.SelectedOperation == l.Operation))
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            this.Logs.Add(l);
+                        });
+                    }
                 }
-            }
+            });
             this.WaitVisibility = Visibility.Collapsed;
             this.ContentVisibility = Visibility.Visible;
         }

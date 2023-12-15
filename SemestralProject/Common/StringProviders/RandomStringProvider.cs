@@ -20,10 +20,6 @@ namespace SemestralProject.Common.StringProviders
         /// </summary>
         int limit;
 
-        /// <summary>
-        /// Counter of created strings.
-        /// </summary>
-        int created = 0;
 
         /// <summary>
         /// Array with source data.

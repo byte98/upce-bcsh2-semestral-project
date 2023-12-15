@@ -217,6 +217,13 @@ namespace DatabaseObject
                     reti.Append(properties[i][DatabaseObjectSourceGenerator.Name]);
                     reti.Append(")}");
                 }
+                else if (type.EndsWith("Clob"))
+                {
+                    reti.Append("{StringUtils.ToClob(");
+                    reti.Append("this.");
+                    reti.Append(properties[i][DatabaseObjectSourceGenerator.Name]);
+                    reti.Append(".Content)}");
+                }
                 else
                 {
                     reti.Append("{");
@@ -357,6 +364,10 @@ namespace DatabaseObject
                 {
                     reti.AppendLine(this.Insets(3, $"DateTime {prop[DatabaseObjectSourceGenerator.Name].ToLower()} = (DateTime)(DateUtils.FromQuery(data[\"{prop[DatabaseObjectSourceGenerator.Column]}\"]) ?? DateTime.Now);"));
 
+                }
+                else if (prop[DatabaseObjectSourceGenerator.Type].EndsWith("Clob"))
+                {
+                    reti.AppendLine(this.Insets(3, $"Clob {prop[DatabaseObjectSourceGenerator.Name].ToLower()} = new Clob((string)(data[\"{prop[DatabaseObjectSourceGenerator.Column]}\"] ?? string.Empty));"));
                 }
                 else
                 {
@@ -566,6 +577,12 @@ namespace DatabaseObject
                     reti.Append("{BoolUtils.ToQuery(");
                     reti.Append(properties[i][DatabaseObjectSourceGenerator.Name].ToLower());
                     reti.Append(")}");
+                }
+                else if (properties[i][DatabaseObjectSourceGenerator.Type].EndsWith("Clob"))
+                {
+                    reti.Append("{StringUtils.ToClob(");
+                    reti.Append(properties[i][DatabaseObjectSourceGenerator.Name].ToLower());
+                    reti.Append(".Content)}");
                 }
                 else if (properties[i][DatabaseObjectSourceGenerator.Type].Trim().ToLower() != "int")
                 {

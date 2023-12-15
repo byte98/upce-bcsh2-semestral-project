@@ -39,7 +39,7 @@ vml:ViewModelLocator.AutoHookedUpViewModel="True"
                 <ui:ProgressRing Width="32" Height="32" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
             </StackPanel>
         </Grid>
-        <Grid Margin="8,8,8,8">
+        <Grid Margin="8,8,8,8"  Visibility="{Binding ContentVisibility}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />

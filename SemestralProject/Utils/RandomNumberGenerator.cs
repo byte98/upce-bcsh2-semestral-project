@@ -41,6 +41,9 @@ namespace SemestralProject.Utils
         public RandomNumberGenerator(int minimum, int maximum, int limit)
         {
             this.random = new Random();
+            this.minimum = minimum;
+            this.maximum = maximum;
+            this.limit = limit;
         }
 
         public IEnumerator<int> GetEnumerator()

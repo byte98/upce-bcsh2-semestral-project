@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace SemestralProject.ViewModel.Pages
@@ -42,6 +43,12 @@ namespace SemestralProject.ViewModel.Pages
         private DataView tableData;
 
         /// <summary>
+        /// Data from objects.
+        /// </summary>
+        [ObservableProperty]
+        private DataView objectsData;
+
+        /// <summary>
         /// Actually selected data.
         /// </summary>
         [ObservableProperty]
@@ -54,7 +61,7 @@ namespace SemestralProject.ViewModel.Pages
         {
             this.tables = new ObservableCollection<string>();
             this.tableData = new DataView();
-            
+            this.objectsData = new DataView();
         }
 
 
@@ -76,6 +83,32 @@ namespace SemestralProject.ViewModel.Pages
             {
                 this.SelectedTable = this.Tables.First();
             }
+            ICollection<IDictionary<string, object>> objectData = await Supertool.GetObjectsDataAsync();
+            DataTable dataTable = new DataTable();
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+            foreach (string key in objectData.FirstOrDefault().Keys)
+            {
+                dataTable.Columns.Add(new DataColumn(key));
+                dataTable.Columns[key].ReadOnly = true;
+            }
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            foreach (IDictionary<string, object> row in objectData)
+            {
+                DataRow r = dataTable.NewRow();
+                foreach(string key in row.Keys)
+                {
+                    if (dataTable.Columns.Contains(key))
+                    {
+                        r[key] = row[key];
+                    }
+                   
+                }
+                dataTable.Rows.Add(r);
+            }
+            this.ObjectsData = dataTable.DefaultView;
+            this.ObjectsData.AllowEdit = false;
+            this.ObjectsData.AllowDelete = false;
+            this.ObjectsData.AllowNew = false;
             this.WaitVisibility = Visibility.Collapsed;
             this.ContentVisibility = Visibility.Visible;
         }

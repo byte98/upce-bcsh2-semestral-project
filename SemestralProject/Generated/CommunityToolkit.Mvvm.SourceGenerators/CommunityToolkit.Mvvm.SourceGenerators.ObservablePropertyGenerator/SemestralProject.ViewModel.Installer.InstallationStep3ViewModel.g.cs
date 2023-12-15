@@ -31,13 +31,13 @@ namespace SemestralProject.ViewModel.Installer
         /// <inheritdoc cref="userImage"/>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-        public global::SemestralProject.Common.UserImage UserImage
+        public global::SemestralProject.Model.Entities.ImageFile UserImage
         {
             get => userImage;
             [global::System.Diagnostics.CodeAnalysis.MemberNotNull("userImage")]
             set
             {
-                if (!global::System.Collections.Generic.EqualityComparer<global::SemestralProject.Common.UserImage>.Default.Equals(userImage, value))
+                if (!global::System.Collections.Generic.EqualityComparer<global::SemestralProject.Model.Entities.ImageFile>.Default.Equals(userImage, value))
                 {
                     OnUserImageChanging(value);
                     OnUserImageChanging(default, value);
@@ -258,24 +258,24 @@ namespace SemestralProject.ViewModel.Installer
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="UserImage"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnUserImageChanging(global::SemestralProject.Common.UserImage value);
+        partial void OnUserImageChanging(global::SemestralProject.Model.Entities.ImageFile value);
         /// <summary>Executes the logic for when <see cref="UserImage"/> is changing.</summary>
         /// <param name="oldValue">The previous property value that is being replaced.</param>
         /// <param name="newValue">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="UserImage"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnUserImageChanging(global::SemestralProject.Common.UserImage? oldValue, global::SemestralProject.Common.UserImage newValue);
+        partial void OnUserImageChanging(global::SemestralProject.Model.Entities.ImageFile? oldValue, global::SemestralProject.Model.Entities.ImageFile newValue);
         /// <summary>Executes the logic for when <see cref="UserImage"/> just changed.</summary>
         /// <param name="value">The new property value that was set.</param>
         /// <remarks>This method is invoked right after the value of <see cref="UserImage"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnUserImageChanged(global::SemestralProject.Common.UserImage value);
+        partial void OnUserImageChanged(global::SemestralProject.Model.Entities.ImageFile value);
         /// <summary>Executes the logic for when <see cref="UserImage"/> just changed.</summary>
         /// <param name="oldValue">The previous property value that was replaced.</param>
         /// <param name="newValue">The new property value that was set.</param>
         /// <remarks>This method is invoked right after the value of <see cref="UserImage"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
-        partial void OnUserImageChanged(global::SemestralProject.Common.UserImage? oldValue, global::SemestralProject.Common.UserImage newValue);
+        partial void OnUserImageChanged(global::SemestralProject.Model.Entities.ImageFile? oldValue, global::SemestralProject.Model.Entities.ImageFile newValue);
         /// <summary>Executes the logic for when <see cref="ImageSource"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="ImageSource"/> is changed.</remarks>

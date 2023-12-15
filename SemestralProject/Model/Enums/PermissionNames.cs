@@ -107,6 +107,11 @@ namespace SemestralProject.Model.Enums
         LogsRead,
 
         /// <summary>
+        /// Permission to read hierarchy of company.
+        /// </summary>
+        HierarchyRead,
+
+        /// <summary>
         /// Permission to use database supertool.
         /// </summary>
         Supertool

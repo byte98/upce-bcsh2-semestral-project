@@ -142,5 +142,14 @@ namespace SemestralProject.ViewModel.Installer
             this.Navigate(new ManageDatabase());
         }
 
+        /// <summary>
+        /// Handles clicki on 'fill database' button.
+        /// </summary>
+        [RelayCommand]
+        private void ButtonFillDatabaseClicked()
+        {
+            this.Navigate(new DummyDataPage());
+        }
+
     }
 }

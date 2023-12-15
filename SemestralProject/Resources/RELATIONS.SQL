@@ -43,6 +43,11 @@ ALTER TABLE uzivatele
         REFERENCES zamestnanci ( id_zamestnanec )
         ON DELETE CASCADE
 
+ALTER TABLE uzivatele
+    ADD CONSTRAINT uzivatele_obrazky_fk FOREIGN KEY ( obrazek )
+        REFERENCES obrazky ( id_obrazek )
+        ON DELETE CASCADE
+
 ALTER TABLE zamestnanci
     ADD CONSTRAINT zamestnanci_zamestnanci_fk FOREIGN KEY ( nadrizeny )
         REFERENCES zamestnanci ( id_zamestnanec )

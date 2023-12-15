@@ -253,5 +253,10 @@ namespace SemestralProject.Model.Entities
             string sql = $"sempr_crud.proc_zamestnanci_delete({this.Id})";
             return Employee.Delete(sql);
         }
+
+        public override string? ToString()
+        {
+            return $"{this.PersonalNumber}: {this.PersonalData.ToString()}";
+        }
     }
 }

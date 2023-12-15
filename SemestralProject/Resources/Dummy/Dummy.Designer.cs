@@ -90,6 +90,15 @@ namespace SemestralProject.Resources.Dummy {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAALeSURBVDjLY/j//z8DDKvNusuTturRzro9L95NO/b674RDr37W73z+Pmnxg9PypRcUkNXCMIaAcu9Nj7rjb24ee/rt/9HH3/47zry7Si7/vKZM5hlGggYodd5g1J9wc+KiKx8+Wk+5vSh367OLlp3XF8kknxbGphnDAIWGK4kbb37+pV13pV82+6xF1Y7nt90m3NwinX3JWrP51hzz3nsHTTrv7jZpvbPbrPXWQc3Sa8sQmqsuq5bsfHF15ul3b2TSzphJx5/UmXLw9Wv/KbcPSGdecFauuDnZZ97jz9kbX/zPXPPiv07pjXXisRfK4AYYtVydufn6pz/zTr77MOHAqxczDr5+e+Dmp/+xs+6eEfM6IKffcGt9wLxH/5x6795NXPbkv0T0 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string IMAGES {
+            get {
+                return ResourceManager.GetString("IMAGES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hradec Králové
         ///České Budějovice
         ///Liberec
@@ -246,6 +255,18 @@ namespace SemestralProject.Resources.Dummy {
         internal static string NAMES {
             get {
                 return ResourceManager.GetString("NAMES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Správce lidských zdrojů
+        ///Dispečer
+        ///Manager
+        ///Řidič.
+        /// </summary>
+        internal static string ROLES {
+            get {
+                return ResourceManager.GetString("ROLES", resourceCulture);
             }
         }
         

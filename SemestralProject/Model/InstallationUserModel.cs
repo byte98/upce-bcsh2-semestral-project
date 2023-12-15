@@ -46,7 +46,7 @@ namespace SemestralProject.Model
         /// <summary>
         /// Image of user.
         /// </summary>
-        public UserImage Image { get; init; }
+        public ImageFile Image { get; init; }
 
         /// <summary>
         /// Address of residence of user.
@@ -71,7 +71,7 @@ namespace SemestralProject.Model
             string phone,
             string password,
             int personalNumber,
-            UserImage image,
+            ImageFile image,
             Address? address)
         {
             this.Name = name;
@@ -94,7 +94,7 @@ namespace SemestralProject.Model
             string.Empty,
             string.Empty,
             int.MinValue,
-            UserImage.Default,
+            ImageFile.Default,
             null
         )
         { }

@@ -75,7 +75,7 @@
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
-                            <ui:SymbolIcon Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Symbol="Admin" Margin="0,0,8,0" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
+                            <ui:SymbolIcon Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Symbol="Paste" Margin="0,0,8,0" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
                             <Label Grid.Column="1" Grid.Row="0"  Content="Naplnit databázi" FontWeight="Bold"/>
                             <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Text="Naplní databázi ukázkovými daty."/>
                         </Grid>

@@ -8,10 +8,10 @@ namespace SemestralProject.ViewModel.Pages
     {
         /// <summary>The backing field for <see cref="FilterCommand"/>.</summary>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.RelayCommandGenerator", "8.2.0.0")]
-        private global::CommunityToolkit.Mvvm.Input.RelayCommand? filterCommand;
-        /// <summary>Gets an <see cref="global::CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="Filter"/>.</summary>
+        private global::CommunityToolkit.Mvvm.Input.AsyncRelayCommand? filterCommand;
+        /// <summary>Gets an <see cref="global::CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="Filter"/>.</summary>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.RelayCommandGenerator", "8.2.0.0")]
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-        public global::CommunityToolkit.Mvvm.Input.IRelayCommand FilterCommand => filterCommand ??= new global::CommunityToolkit.Mvvm.Input.RelayCommand(new global::System.Action(Filter));
+        public global::CommunityToolkit.Mvvm.Input.IAsyncRelayCommand FilterCommand => filterCommand ??= new global::CommunityToolkit.Mvvm.Input.AsyncRelayCommand(new global::System.Func<global::System.Threading.Tasks.Task>(Filter));
     }
 }

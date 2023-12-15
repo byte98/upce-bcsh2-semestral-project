@@ -89,7 +89,7 @@ namespace SemestralProject.Model
             {
                 Person person = Person.Create(this.name, this.surname, this.email, this.phone);
                 Employee employee = Employee.Create((int)personalNr, DateTime.Now, this.address, person, null);
-                User.Create(this.password, DateTime.Now, UserImage.Default, Role.User, State.Active, employee);
+                User.Create(this.password, DateTime.Now, ImageFile.Default, Role.User, State.Active, employee);
                 reti = true;
                 this.PersonalNumber = (int)personalNr;
             }

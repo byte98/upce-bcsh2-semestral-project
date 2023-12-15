@@ -1,4 +1,6 @@
-﻿using SemestralProject.Utils;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using SemestralProject.Model.Entities;
+using SemestralProject.Utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,11 +20,6 @@ namespace SemestralProject.Common
     public class UserImage
     {
         /// <summary>
-        /// Default image of user.
-        /// </summary>
-        public static UserImage Default = new UserImage("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");
-
-        /// <summary>
         /// BASE64 encoded string containing content of image.
         /// </summary>
         private readonly string content;
@@ -34,6 +31,30 @@ namespace SemestralProject.Common
         private UserImage(string content)
         {
             this.content = content;
+        }
+
+        /// <summary>
+        /// Creates user image from image file.
+        /// </summary>
+        /// <param name="iF">Image file containing image data.</param>
+        /// <returns>User image created from image file.</returns>
+        public static UserImage FromImageFile(ImageFile iF)
+        {
+            return UserImage.FromContent(iF.Content.Content);
+        }
+
+        /// <summary>
+        /// Creates new image from BASE64 encoded string.
+        /// </summary>
+        /// <param name="base64">BASE64 encoded string containing data of image.</param>
+        /// <returns>Image created from BASE64 encoded string.</returns>
+        public static UserImage FromBase64(string base64)
+        {
+            string content = string.Empty;
+            byte[] bytes = Convert.FromBase64String(base64);
+            byte[] compressed = UserImage.Compress(bytes);
+            content = Convert.ToBase64String(compressed);
+            return new UserImage(content);
         }
 
         /// <summary>

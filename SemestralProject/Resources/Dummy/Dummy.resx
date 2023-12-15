@@ -121,6 +121,9 @@
   <data name="EMAILS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>EMAILS.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="IMAGES" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IMAGES.TXT;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="MUNICIPALITIES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>MUNICIPALITIES.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -129,6 +132,9 @@
   </data>
   <data name="NAMES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>NAMES.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ROLES" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ROLES.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="STREETS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>STREETS.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

@@ -57,6 +57,7 @@ namespace SemestralProject.Data
                     {"LOGY", new ConstantStringProvider("DROP TABLE logy CASCADE CONSTRAINTS PURGE")},
                     {"OBCE", new ConstantStringProvider("DROP TABLE obce CASCADE CONSTRAINTS PURGE")},
                     {"OPRAVNENI", new ConstantStringProvider("DROP TABLE opravneni CASCADE CONSTRAINTS PURGE")},
+                    {"OBRAZKY", new ConstantStringProvider("DROP TABLE obrazky CASCADE CONSTRAINTS PURGE")},
                     {"OSOBY", new ConstantStringProvider("DROP TABLE osoby CASCADE CONSTRAINTS PURGE")},
                     {"PLANY_SMEN", new ConstantStringProvider("DROP TABLE plany_smen CASCADE CONSTRAINTS PURGE")},
                     {"PRAVA", new ConstantStringProvider("DROP TABLE prava CASCADE CONSTRAINTS PURGE")},
@@ -78,6 +79,7 @@ namespace SemestralProject.Data
                     {"JIZDNI_RADY_SEQ", new ConstantStringProvider("DROP SEQUENCE jizdni_rady_seq")},
                     {"LINKY_SEQ", new ConstantStringProvider("DROP SEQUENCE linky_seq")},
                     {"OBCE_SEQ", new ConstantStringProvider("DROP SEQUENCE obce_seq")},
+                    {"OBRAZKY_SEQ", new ConstantStringProvider("DROP SEQUENCE obrazky_seq")},
                     {"OPRAVNENI_SEQ", new ConstantStringProvider("DROP SEQUENCE opravneni_seq")},
                     {"OSOBY_SEQ", new ConstantStringProvider("DROP SEQUENCE osoby_seq")},
                     {"OSOBNI_CISLA_SEQ", new ConstantStringProvider("DROP SEQUENCE osobni_cisla_seq")},
@@ -97,6 +99,9 @@ namespace SemestralProject.Data
             },
             {
                 IConnection.DatabaseObject.View, new Dictionary<string, IStringProvider>()
+                {
+                    {"VW_ZAMESTNANCI_HIERARCHIE", new ConstantStringProvider("DROP VIEW vw_zamestnanci_hierarchie") }
+                }
             },
             {
                 IConnection.DatabaseObject.Function, new Dictionary<string, IStringProvider>()
@@ -122,17 +127,16 @@ namespace SemestralProject.Data
         /// <summary>
         /// l SQL statements which creates all necessary tables.
         /// </summary>
-        public static readonly IStringProvider Tables = new EmptyLineSplittedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "TABLES"));
+        public static readonly IStringProvider Tables = new CombinedStringProvider(
+            new EmptyLineSplittedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "TABLES")),
+            new EmptyLineSplittedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "VIEWS"))
+        );
 
         /// <summary>
         /// SQL statements which establish all necessary relations.
         /// </summary>
         public static readonly IStringProvider Relations = new EmptyLineSplittedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "RELATIONS"));
 
-        /// <summary>
-        /// SQL statements which creates all views.
-        /// </summary>
-        public static readonly IStringProvider Views = new EmptyStringProvider();
 
         /// <summary>
         /// SQL statements which creates all triggers.
@@ -149,6 +153,7 @@ namespace SemestralProject.Data
             new FileLinesStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "STATES")),
             new FileLinesStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "PERMISSIONS")),
             new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SUPERUSER")),
+            new EmptyLineSplittedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "IMAGE")),
             new ConstantStringProvider("COMMIT")
         );
 

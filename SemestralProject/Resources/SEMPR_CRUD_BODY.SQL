@@ -805,4 +805,49 @@ PACKAGE BODY sempr_crud AS
         CLOSE v_cursor;
     END func_logy_read;
 
+    PROCEDURE proc_obrazky_create(p_content IN obrazky.obsah%TYPE, p_hash IN obrazky.hash%TYPE, p_name IN obrazky.nazev%TYPE, p_date IN obrazky.datum_nahrani%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        INSERT INTO obrazky (obsah, hash, nazev, datum_nahrani)
+        VALUES (p_content, p_hash, p_name, p_date);
+        COMMIT;
+    END proc_obrazky_create;
+    
+    PROCEDURE proc_obrazky_delete(p_id in obrazky.id_obrazek%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        DELETE FROM obrazky WHERE id_obrazek=p_id;
+        COMMIT;
+    END proc_obrazky_delete;
+    
+    FUNCTION func_obrazky_read RETURN t_obrazky PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_obrazek     obrazky%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM obrazky;
+        LOOP
+            FETCH v_cursor INTO v_obrazek;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_obrazek);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_obrazky_read;
+
+    FUNCTION func_obrazky_read(p_id IN obrazky.id_obrazek%TYPE) RETURN t_obrazky PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_obrazek     obrazky%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM obrazky WHERE id_obrazek=p_id;
+        LOOP
+            FETCH v_cursor INTO v_obrazek;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_obrazek);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_obrazky_read;
+
 END sempr_crud;

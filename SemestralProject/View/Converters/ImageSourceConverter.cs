@@ -1,4 +1,5 @@
 ﻿using SemestralProject.Common;
+using SemestralProject.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,10 +18,10 @@ namespace SemestralProject.View.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             object reti = value;
-            if (value is UserImage)
+            if (value is ImageFile)
             {
-                UserImage userImage = (UserImage)value;
-                reti = userImage.ToImage();
+                ImageFile imageFile = (ImageFile)value;
+                reti = UserImage.FromImageFile(imageFile).ToImage();
             }
             return reti;
         }

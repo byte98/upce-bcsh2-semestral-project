@@ -74,7 +74,7 @@ namespace SemestralProject.Model
         {
             IConnection conn = OracleConnector.Load();
             conn.Execute("SET TRANSACTION READ WRITE");
-            string sql = $"sempr_api.proc_log('login', 'UZIVATELE', 1, {StringUtils.ToClob($"[ID_UZIVATEL: {user.Id}; HESLO: {user.Password}; DATUM_REGISTRACE: {user.Registration}; OBRAZEK: {user.Image.ToContent()}; ROLE: {user.Role.Id}; STAV: {user.State.Id}; ZAMESTNANEC: {user.Employee.Id};]")}, '')";
+            string sql = $"sempr_api.proc_log('login', 'UZIVATELE', 1, {StringUtils.ToClob($"[ID_UZIVATEL: {user.Id}; HESLO: {user.Password}; DATUM_REGISTRACE: {user.Registration}; OBRAZEK: {user.Image.Name}; ROLE: {user.Role.Id}; STAV: {user.State.Id}; ZAMESTNANEC: {user.Employee.Id};]")}, '')";
             string cmd = $"BEGIN\n    {sql};\nEND;";
             conn.Execute(cmd);
             conn.Execute("COMMIT");

@@ -4,11 +4,55 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SemestralProject.View.Installer"
+      xmlns:ui="http://schemas.modernwpf.com/2019"
+xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+xmlns:vml="clr-namespace:SemestralProject.Common"
+vml:ViewModelLocator.AutoHookedUpViewModel="True"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DummyDataPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,32,0">
+            <Button Command="{Binding BackClickedCommand}" Background="Transparent" BorderBrush="#00000000">
+                <StackPanel Orientation="Horizontal">
+                    <Border BorderBrush="{DynamicResource SystemBaseHighColorBrush}" BorderThickness="4px" Width="40px" Height="40px" CornerRadius="20">
+                        <Label FontFamily="Segoe UI Symbol" Content="&#xE0D5;" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Border>
+                </StackPanel>
+            </Button>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                <Viewbox Height="48" Width="48">
+                    <ui:SymbolIcon Symbol="Paste" Margin="0,0,10,0" Foreground="{DynamicResource SystemBaseHighColorBrush}" />
+                </Viewbox>
+                <TextBlock Text="Naplnění daty" Style="{DynamicResource HeaderTextBlockStyle}"/>
+            </StackPanel>
+        </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                <Label Content="{Binding Status}" Margin="0,0,16,0" />
+                <ui:ProgressRing Visibility="{Binding ProgressVisibility}" Grid.Row="2" Grid.Column="1" Width="16" Height="16" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}" HorizontalAlignment="Left"/>
+            </StackPanel>
+            <Button Command="{Binding DetailsCommand}" Margin="8,8,8,8" Padding="8,8,8,8" Width="112" Grid.Column="1" Grid.Row="0" Content="Detaily" />
+            <TextBox Text="{Binding DetailsText}" Visibility="{Binding DetailsVisibility}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" IsReadOnly="True" />
+            <Button Command="{Binding GoCommand}" Margin="8,8,8,8" Padding="8,8,8,8" Width="112" Grid.Column="1" Grid.Row="2" Content="Spustit" IsEnabled="{Binding ControlsEnabled}"/>
+        </Grid>
     </Grid>
 </Page>

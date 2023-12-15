@@ -43,6 +43,17 @@ namespace SemestralProject.Model
         }
 
         /// <summary>
+        /// Gets all objects data asynchronously.
+        /// </summary>
+        /// <returns> Task which resolves into: collection of objects data.</returns>
+        public static System.Threading.Tasks.Task<System.Collections.Generic.ICollection<System.Collections.Generic.IDictionary<string, object>>> GetObjectsDataAsync()
+        {
+            return Task<System.Collections.Generic.ICollection<System.Collections.Generic.IDictionary<string, object>>>.Run(() => {
+                return Supertool.GetObjectsData();
+            });
+        }
+
+        /// <summary>
         /// Creates data in database asynchronously.
         /// </summary>
         /// <param name="table">Name of table in which data will be created.</param>

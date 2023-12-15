@@ -205,5 +205,15 @@ PACKAGE sempr_crud AS
 
     FUNCTION func_logy_read(p_id IN logy.id_log%TYPE) RETURN t_logy PIPELINED;
 
+    TYPE t_obrazky is TABLE of obrazky%ROWTYPE;
+    
+    PROCEDURE proc_obrazky_create(p_content IN obrazky.obsah%TYPE, p_hash IN obrazky.hash%TYPE, p_name IN obrazky.nazev%TYPE, p_date IN obrazky.datum_nahrani%TYPE);
+    
+    PROCEDURE proc_obrazky_delete(p_id in obrazky.id_obrazek%TYPE);
+    
+    FUNCTION func_obrazky_read RETURN t_obrazky PIPELINED;
+
+    FUNCTION func_obrazky_read(p_id IN obrazky.id_obrazek%TYPE) RETURN t_obrazky PIPELINED;
+
 END sempr_crud;
 
