@@ -259,14 +259,20 @@ namespace SemestralProject.Resources.Dummy {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Správce lidských zdrojů
-        ///Dispečer
-        ///Manager
-        ///Řidič.
+        ///   Looks up a localized string similar to INSERT INTO ROLE (id, nazev) VALUES (10, &apos;Správce lidských zdrojů&apos;)
+        ///INSERT INTO ROLE (id, nazev) VALUES (11, &apos;Správce ICT&apos;)
+        ///INSERT INTO ROLE (id, nazev) VALUES (12, &apos;Dispečer&apos;)
+        ///INSERT INTO ROLE (id, nazev) VALUES (13, &apos;Manager&apos;)
+        ///INSERT INTO ROLE (id, nazev) VALUES (14, &apos;Řidič&apos;)
+        ///INSERT INTO PRAVA(role, opravneni) VALUES (10, 3)
+        ///INSERT INTO PRAVA(role, opravneni) VALUES (10, 7)
+        ///INSERT INTO PRAVA(role, opravneni) VALUES (10, 8)
+        ///INSERT INTO PRAVA(role, opravneni) VALUES (10, 20)
+        ///INSERT INTO PRAVA(role, [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string ROLES {
+        internal static string ROLE {
             get {
-                return ResourceManager.GetString("ROLES", resourceCulture);
+                return ResourceManager.GetString("ROLE", resourceCulture);
             }
         }
         

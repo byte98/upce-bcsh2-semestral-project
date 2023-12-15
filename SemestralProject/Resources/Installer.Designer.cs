@@ -340,14 +340,13 @@ namespace SemestralProject.Resources {
         /// *          Jiri Skoda &lt;jiri.skoda@student.upce.cz&gt;
         /// */
         ///PACKAGE sempr_utils AS
-        ///-- 
-        ///    FUNCTION get_employee_hierarchy(p_employee_id IN INTEGER) RETURN SYS_REFCURSOR;
-        ///--
-        ///    FUNCTION get_top_managers(p_employee_id IN INTEGER) RETURN SYS_REFCURSOR;
         ///--
         ///    FUNCTION func_last_seq(p_seq VARCHAR2) RETURN NUMBER;
         ///--
-        ///    FUNCTION func_next_seq(p_seq VARCHAR2) RETURN NUMBE [rest of string was truncated]&quot;;.
+        ///    FUNCTION func_next_seq(p_seq VARCHAR2) RETURN NUMBER;
+        ///
+        ///END sempr_utils;
+        ///.
         /// </summary>
         internal static string SEMPR_UTILS_HEADER {
             get {
@@ -445,6 +444,31 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CREATE OR REPLACE TRIGGER trg_delete_images
+        ///    AFTER UPDATE ON uzivatele
+        ///    FOR EACH ROW
+        ///    DECLARE 
+        ///        v_count NUMBER := 0;
+        ///    BEGIN
+        ///        SELECT COUNT(*) INTO v_count
+        ///        FROM obrazky o
+        ///        LEFT JOIN uzivatele u ON o.id_obrazek=u.obrazek
+        ///        WHERE u.id_uzivatel IS NULL;
+        ///        IF v_count &gt; 0 THEN
+        ///            sempr_api.proc_obrazky_delete_unused();
+        ///        END IF;
+        ///    END
+        ///
+        ///
+        ///.
+        /// </summary>
+        internal static string TRIGGERS {
+            get {
+                return ResourceManager.GetString("TRIGGERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TRUNCATE TABLE soupravy_metra CASCADE
         ///TRUNCATE TABLE zabezpecovace CASCADE
         ///TRUNCATE TABLE trolejbusy CASCADE
@@ -477,6 +501,7 @@ namespace SemestralProject.Resources {
         ///START WITH nadrizeny IS NULL 
         ///CONNECT BY PRIOR id_zamestnanec = nadrizeny 
         ///ORDER SIBLINGS BY id_zamestnanec 
+        ///
         ///.
         /// </summary>
         internal static string VIEWS {

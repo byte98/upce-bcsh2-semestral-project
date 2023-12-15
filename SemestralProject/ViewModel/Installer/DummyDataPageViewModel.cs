@@ -230,10 +230,16 @@ namespace SemestralProject.ViewModel.Installer
         {
             return Task.Run(async () =>
             {
-                foreach(string roleName in DummyScript.Roles)
+                IConnection connection = await OracleConnector.LoadAsync();
+                foreach(string sql in DummyScript.Roles)
                 {
-                    Role r = await Role.CreateAsync(roleName);
-                    this.roles.Add(r);
+                    await connection.ExecuteAsync(sql);
+                }
+                this.roles.Clear();
+                Role[] roles = await Role.GetAllAsync();
+                foreach (Role role in roles)
+                {
+                    this.roles.Add(role);
                 }
             });
         }

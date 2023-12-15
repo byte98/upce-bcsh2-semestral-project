@@ -76,4 +76,22 @@ PACKAGE BODY sempr_api AS
         INTO logy(operace, tabulka, pocet_radku, zprava)
         VALUES (p_operation, p_table, p_rows, v_message);
     END proc_log;
+--
+    PROCEDURE proc_obrazky_delete_unused AS
+        v_image_id obrazky.id_obrazek%TYPE;
+        CURSOR cur_images_unused IS
+            SELECT o.id_obrazek
+            FROM obrazky o
+            WHERE NOT EXISTS(
+                SELECT 1
+                FROM uzivatele u
+                WHERE u.obrazek=o.id_obrazek
+            );
+    BEGIN
+        OPEN cur_images_unused;
+        LOOP
+            FETCH cur_images_unused INTO v_image_id;
+            EXIT WHEN cur_images_unused%NOTFOUND;
+        END LOOP;
+    END proc_obrazky_delete_unused;
 END sempr_api;

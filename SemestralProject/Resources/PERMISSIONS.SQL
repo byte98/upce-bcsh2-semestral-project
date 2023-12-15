@@ -19,4 +19,6 @@ INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Měnit jízdní řády', 
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst žurnál', 'logs.read')
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst hierarchii společnosti', 'hierarchy.read')
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Používat supernástroj databáze', 'supertool')
+INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst e-maily', 'emails.read')
+INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst telefonní čísla', 'phones.read')
 INSERT INTO prava(role, opravneni) VALUES (1, 3)

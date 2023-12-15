@@ -114,6 +114,16 @@ namespace SemestralProject.Model.Enums
         /// <summary>
         /// Permission to use database supertool.
         /// </summary>
-        Supertool
+        Supertool,
+
+        /// <summary>
+        /// Permissions to read others phones.
+        /// </summary>
+        PhonesRead,
+
+        /// <summary>
+        /// Permission to read other emails.
+        /// </summary>
+        EmailsRead
     }
 }

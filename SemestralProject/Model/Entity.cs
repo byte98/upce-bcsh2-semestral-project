@@ -73,6 +73,7 @@ namespace SemestralProject.Model
         {
             IDictionary<string, object?>[] reti = new IDictionary<string, object?>[0];
             IConnection connection = OracleConnector.Load();
+            connection.Execute("COMMIT");
             string cmd = $"SELECT * FROM TABLE({sql})";
             reti = connection.Query(cmd);
             connection.Execute("COMMIT");

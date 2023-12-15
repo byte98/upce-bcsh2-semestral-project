@@ -154,6 +154,28 @@ namespace SemestralProject.ViewModel.Pages
             }
         }
 
+        /// <inheritdoc cref="viewData"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.PermissionsView> ViewData
+        {
+            get => viewData;
+            [global::System.Diagnostics.CodeAnalysis.MemberNotNull("viewData")]
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.PermissionsView>>.Default.Equals(viewData, value))
+                {
+                    OnViewDataChanging(value);
+                    OnViewDataChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ViewData);
+                    viewData = value;
+                    OnViewDataChanged(value);
+                    OnViewDataChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ViewData);
+                }
+            }
+        }
+
         /// <inheritdoc cref="selectedRole"/>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -171,6 +193,28 @@ namespace SemestralProject.ViewModel.Pages
                     OnSelectedRoleChanged(value);
                     OnSelectedRoleChanged(default, value);
                     OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedRole);
+                    DeleteRoleCommand.NotifyCanExecuteChanged();
+                }
+            }
+        }
+
+        /// <inheritdoc cref="selectedData"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::SemestralProject.Model.PermissionsView? SelectedData
+        {
+            get => selectedData;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::SemestralProject.Model.PermissionsView?>.Default.Equals(selectedData, value))
+                {
+                    OnSelectedDataChanging(value);
+                    OnSelectedDataChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedData);
+                    selectedData = value;
+                    OnSelectedDataChanged(value);
+                    OnSelectedDataChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedData);
                     DeleteRoleCommand.NotifyCanExecuteChanged();
                 }
             }
@@ -396,6 +440,28 @@ namespace SemestralProject.ViewModel.Pages
         /// <remarks>This method is invoked right after the value of <see cref="AllRoles"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnAllRolesChanged(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.Entities.Role>? oldValue, global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.Entities.Role> newValue);
+        /// <summary>Executes the logic for when <see cref="ViewData"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="ViewData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnViewDataChanging(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.PermissionsView> value);
+        /// <summary>Executes the logic for when <see cref="ViewData"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="ViewData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnViewDataChanging(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.PermissionsView>? oldValue, global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.PermissionsView> newValue);
+        /// <summary>Executes the logic for when <see cref="ViewData"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="ViewData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnViewDataChanged(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.PermissionsView> value);
+        /// <summary>Executes the logic for when <see cref="ViewData"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="ViewData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnViewDataChanged(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.PermissionsView>? oldValue, global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.PermissionsView> newValue);
         /// <summary>Executes the logic for when <see cref="SelectedRole"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="SelectedRole"/> is changed.</remarks>
@@ -418,6 +484,28 @@ namespace SemestralProject.ViewModel.Pages
         /// <remarks>This method is invoked right after the value of <see cref="SelectedRole"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnSelectedRoleChanged(global::SemestralProject.Model.Entities.Role? oldValue, global::SemestralProject.Model.Entities.Role? newValue);
+        /// <summary>Executes the logic for when <see cref="SelectedData"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="SelectedData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedDataChanging(global::SemestralProject.Model.PermissionsView? value);
+        /// <summary>Executes the logic for when <see cref="SelectedData"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="SelectedData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedDataChanging(global::SemestralProject.Model.PermissionsView? oldValue, global::SemestralProject.Model.PermissionsView? newValue);
+        /// <summary>Executes the logic for when <see cref="SelectedData"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="SelectedData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedDataChanged(global::SemestralProject.Model.PermissionsView? value);
+        /// <summary>Executes the logic for when <see cref="SelectedData"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="SelectedData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedDataChanged(global::SemestralProject.Model.PermissionsView? oldValue, global::SemestralProject.Model.PermissionsView? newValue);
         /// <summary>Executes the logic for when <see cref="SelectedRoleName"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="SelectedRoleName"/> is changed.</remarks>

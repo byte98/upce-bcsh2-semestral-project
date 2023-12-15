@@ -66,7 +66,46 @@ namespace SemestralProject.Data
         /// <summary>
         /// Provider of names of roles.
         /// </summary>
-        public static readonly IStringProvider Roles = new FileLinesStringProvider(FileUtils.ReadFromResources(DummyScript.File, "ROLES"));
+        public static readonly IStringProvider Roles = new CombinedStringProvider(
+            new ConstantStringProvider("INSERT INTO ROLE(id_role, nazev) VALUES(10, 'Správce HR')"),
+            new ConstantStringProvider("INSERT INTO ROLE(id_role, nazev) VALUES(11, 'Správce ICT')"),
+            new ConstantStringProvider("INSERT INTO ROLE(id_role, nazev) VALUES(12, 'Dispečer')"),
+            new ConstantStringProvider("INSERT INTO ROLE(id_role, nazev) VALUES(13, 'Manager')"),
+            new ConstantStringProvider("INSERT INTO ROLE(id_role, nazev) VALUES(14, 'Řidič')"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(10, 3)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(10, 7)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(10, 8)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(10, 20)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(11, 3)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(11, 9)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(11, 10)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(11, 11)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(11, 12)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(11, 19)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(11, 21)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(12, 3)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(12, 7)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(12, 13)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(12, 14)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(12, 15)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(12, 16)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(12, 17)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(12, 18)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(13, 3)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(13, 7)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(13, 8)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(13, 11)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(13, 13)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(13, 15)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(13, 17)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(13, 20)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(13, 22)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(13, 23)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(14, 3)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(14, 13)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(14, 15)"),
+            new ConstantStringProvider("INSERT INTO PRAVA(role, opravneni) VALUES(14, 17)")
+        );
 
     }
 }
