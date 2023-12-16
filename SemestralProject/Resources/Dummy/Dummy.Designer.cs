@@ -259,20 +259,66 @@ namespace SemestralProject.Resources.Dummy {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT INTO ROLE (id, nazev) VALUES (10, &apos;Správce lidských zdrojů&apos;)
-        ///INSERT INTO ROLE (id, nazev) VALUES (11, &apos;Správce ICT&apos;)
-        ///INSERT INTO ROLE (id, nazev) VALUES (12, &apos;Dispečer&apos;)
-        ///INSERT INTO ROLE (id, nazev) VALUES (13, &apos;Manager&apos;)
-        ///INSERT INTO ROLE (id, nazev) VALUES (14, &apos;Řidič&apos;)
+        ///   Looks up a localized string similar to INSERT INTO ROLE (id_role, nazev) VALUES (10, &apos;Správce lidských zdrojů&apos;)
+        ///INSERT INTO ROLE (id_role, nazev) VALUES (11, &apos;Správce ICT&apos;)
+        ///INSERT INTO ROLE (id_role, nazev) VALUES (12, &apos;Dispečer&apos;)
+        ///INSERT INTO ROLE (id_role, nazev) VALUES (13, &apos;Manager&apos;)
+        ///INSERT INTO ROLE (id_role, nazev) VALUES (14, &apos;Řidič&apos;)
         ///INSERT INTO PRAVA(role, opravneni) VALUES (10, 3)
         ///INSERT INTO PRAVA(role, opravneni) VALUES (10, 7)
         ///INSERT INTO PRAVA(role, opravneni) VALUES (10, 8)
-        ///INSERT INTO PRAVA(role, opravneni) VALUES (10, 20)
-        ///INSERT INTO PRAVA(role, [rest of string was truncated]&quot;;.
+        ///INSERT INTO PRAVA(role, opravneni) VALUES (10, 20) [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ROLE {
             get {
                 return ResourceManager.GetString("ROLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zámecká
+        ///Polní cesta
+        ///Nová ulice
+        ///Pod lesy
+        ///Náměstí Míru
+        ///U hřiště
+        ///Za školou
+        ///Na kopci
+        ///Železniční stanice
+        ///Podél řeky
+        ///U lesa
+        ///Tržnice
+        ///Pod mostem
+        ///Na náměstí
+        ///Hlavní třída
+        ///Podél parku
+        ///U kostela
+        ///Sportovní hala
+        ///Pod vinicemi
+        ///Okrajová
+        ///    U potoka
+        ///Na zahrádkách
+        ///Hlavní ulice
+        ///Za obchodem
+        ///Na kopcovitém svahu
+        ///V blízkosti školy
+        ///U lesní stezky
+        ///Podél rybníka
+        ///Za průmyslovou zónou
+        ///Nákupní centrum
+        ///Podél polí
+        ///U letiště
+        ///Západní čtvrť
+        ///Podél pláže
+        ///Na kraji města
+        ///Pod hradem
+        ///U řeky
+        ///Na sídlišti
+        ///Podél  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string STOPS {
+            get {
+                return ResourceManager.GetString("STOPS", resourceCulture);
             }
         }
         

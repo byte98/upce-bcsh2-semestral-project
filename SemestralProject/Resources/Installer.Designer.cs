@@ -344,9 +344,11 @@ namespace SemestralProject.Resources {
         ///    FUNCTION func_last_seq(p_seq VARCHAR2) RETURN NUMBER;
         ///--
         ///    FUNCTION func_next_seq(p_seq VARCHAR2) RETURN NUMBER;
-        ///
-        ///END sempr_utils;
-        ///.
+        ///--
+        ///    FUNCTION func_mask_email(p_email IN osoby.e_mail%TYPE) RETURN VARCHAR2;
+        ///--
+        ///    FUNCTION func_mask_phone(p_phone IN osoby.telefon%TYPE) RETURN VARCHAR2;
+        ///END se [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEMPR_UTILS_HEADER {
             get {
@@ -502,7 +504,15 @@ namespace SemestralProject.Resources {
         ///CONNECT BY PRIOR id_zamestnanec = nadrizeny 
         ///ORDER SIBLINGS BY id_zamestnanec 
         ///
-        ///.
+        ///CREATE OR REPLACE VIEW vw_role_opravneni_count AS 
+        ///SELECT r.id_role AS role, 
+        ///COUNT (p.opravneni) AS opravneni 
+        ///FROM role r 
+        ///LEFT JOIN prava p ON r.id_role = p.role 
+        ///GROUP BY r.id_role 
+        ///
+        ///CREATE OR REPLACE VIEW vw_uzivatele_data AS 
+        ///SELECT u.id_u [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string VIEWS {
             get {

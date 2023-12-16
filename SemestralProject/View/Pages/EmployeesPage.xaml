@@ -9,6 +9,7 @@
       xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
       xmlns:components="clr-namespace:SemestralProject.View.Components"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:basemodel="clr-namespace:SemestralProject.Model"
       xmlns:model="clr-namespace:SemestralProject.Model.Entities"
       xmlns:converters="clr-namespace:SemestralProject.View.Converters"
       vml:ViewModelLocator.AutoHookedUpViewModel="True"
@@ -51,10 +52,15 @@
             <Button Command="{Binding NewCommand}" Visibility="{Binding EditVisibility}" Grid.Row="0" Grid.Column="1" Style="{DynamicResource ButtonRevealStyle}" Content="Nový zaměstnanec" Padding="8,8,8,8" Width="168" Margin="0,0,8,0"/>
             <Button Command="{Binding DeleteCommand}" Visibility="{Binding EditVisibility}" Grid.Row="0" Grid.Column="2" Style="{DynamicResource ButtonRevealStyle}" Content="Odebrat zaměstnance" Padding="8,8,8,8" Width="168" Margin="0,0,8,0"/>
         </Grid>
-        <ui:ListView Visibility="{Binding ContentVisibility}" ItemsSource="{Binding Employees}" SelectedItem="{Binding SelectedEmployee}" x:Name="listView">
+        <ui:ListView Visibility="{Binding ContentVisibility}" ItemsSource="{Binding ViewData}" SelectedItem="{Binding SelectedData}" x:Name="listViewContent">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectedDataChangedCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ui:ListView.ItemTemplate>
-                <DataTemplate DataType="model:Employee">
-                    <Border Padding="8,8,8,8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="{Binding ActualWidth, ElementName=listView, Mode=OneWay, ValidatesOnNotifyDataErrors=True}" >
+                <DataTemplate DataType="basemodel:UsersView">
+                    <Border Padding="8,8,8,8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="{Binding ActualWidth, ElementName=listViewContent, Mode=OneWay, ValidatesOnNotifyDataErrors=True}" >
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -70,14 +76,14 @@
                                 <Label FontSize="12" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" Content="{Binding Converter={StaticResource EmployeeInicialsConverter}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="32" Height="32"/>
                             </Border>
                             <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-                                <Label Content="{Binding PersonalData.Name}" Margin="0,0,4,0"/>
-                                <Label Content="{Binding PersonalData.Surname}" />
+                                <Label Content="{Binding User.Employee.PersonalData.Name}" Margin="0,0,4,0"/>
+                                <Label Content="{Binding User.Employee.PersonalData.Surname}" />
                             </StackPanel>
-                            <Label Foreground="{DynamicResource SystemBaseMediumColorBrush}" Grid.Row="1" Grid.Column="1" Content="{Binding PersonalNumber}" />
+                            <Label Foreground="{DynamicResource SystemBaseMediumColorBrush}" Grid.Row="1" Grid.Column="1" Content="{Binding User.Employee.PersonalNumber}" />
                             <Label Foreground="{DynamicResource SystemBaseLowColorBrush}" Grid.Row="0" Grid.Column="2" Content="E-mail" />
-                            <Label Grid.Row="1" Grid.Column="2" Content="{Binding PersonalData.Email}" />
+                            <Label Grid.Row="1" Grid.Column="2" Content="{Binding Email}" />
                             <Label Foreground="{DynamicResource SystemBaseLowColorBrush}" Grid.Row="0" Grid.Column="3" Content="Telefon" />
-                            <Label Grid.Row="1" Grid.Column="3" Content="{Binding PersonalData.Phone}" />
+                            <Label Grid.Row="1" Grid.Column="3"  Content="{Binding Phone}" />
                         </Grid>
                     </Border>
                 </DataTemplate>

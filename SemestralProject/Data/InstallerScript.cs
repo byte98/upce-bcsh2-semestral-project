@@ -36,6 +36,8 @@ namespace SemestralProject.Data
                     {"TRG_JIZDNI_RADY", new ConstantStringProvider("DROP TRIGGER trg_jizdni_rady")},
                     {"TRG_LINKY", new ConstantStringProvider("DROP TRIGGER trg_linky")},
                     {"TRG_OBCE", new ConstantStringProvider("DROP TRIGGER trg_obce")},
+                    {"TRG_OBRAZKY", new ConstantStringProvider("DROP TRIGGER trg_obrazky")},
+                    {"TRG_DELETE_IMAGES", new ConstantStringProvider("DROP TRIGGER trg_delete_images")},
                     {"TRG_OPRAVNENI", new ConstantStringProvider("DROP TRIGGER trg_opravneni")},
                     {"TRG_OSOBY", new ConstantStringProvider("DROP TRIGGER trg_osoby")},
                     {"TRG_PRAVA", new ConstantStringProvider("DROP TRIGGER trg_prava")},
@@ -100,7 +102,9 @@ namespace SemestralProject.Data
             {
                 IConnection.DatabaseObject.View, new Dictionary<string, IStringProvider>()
                 {
-                    {"VW_ZAMESTNANCI_HIERARCHIE", new ConstantStringProvider("DROP VIEW vw_zamestnanci_hierarchie") }
+                    {"VW_ZAMESTNANCI_HIERARCHIE", new ConstantStringProvider("DROP VIEW vw_zamestnanci_hierarchie") },
+                    {"VW_ROLE_OPRAVNENI_COUNT", new ConstantStringProvider("DROP VIEW vw_role_opravneni_count") },
+                    {"VW_UZIVATELE_DATA", new ConstantStringProvider("DROP VIEW vw_uzivatele_data") }
                 }
             },
             {
@@ -128,8 +132,7 @@ namespace SemestralProject.Data
         /// l SQL statements which creates all necessary tables.
         /// </summary>
         public static readonly IStringProvider Tables = new CombinedStringProvider(
-            new EmptyLineSplittedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "TABLES")),
-            new EmptyLineSplittedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "VIEWS"))
+            new EmptyLineSplittedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "TABLES"))
         );
 
         /// <summary>
@@ -154,6 +157,7 @@ namespace SemestralProject.Data
             new FileLinesStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "PERMISSIONS")),
             new FileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "SUPERUSER")),
             new EmptyLineSplittedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "IMAGE")),
+            new EmptyLineSplittedFileStringProvider(FileUtils.ReadFromResources("SemestralProject.Resources.Installer", "VIEWS")),
             new ConstantStringProvider("COMMIT")
         );
 

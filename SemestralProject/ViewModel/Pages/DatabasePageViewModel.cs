@@ -143,6 +143,10 @@ namespace SemestralProject.ViewModel.Pages
                     DataRow row = dataTable.NewRow();
                     foreach(KeyValuePair<string, object> kvp in d)
                     {
+                        if (dataTable.Columns.Contains(kvp.Key) == false)
+                        {
+                            dataTable.Columns.Add(new DataColumn(kvp.Key));
+                        }
                         row[kvp.Key] = kvp.Value;
                     }
                     dataTable.Rows.Add(row);

@@ -1,4 +1,5 @@
-﻿using SemestralProject.Model.Entities;
+﻿using SemestralProject.Model;
+using SemestralProject.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -20,6 +21,12 @@ namespace SemestralProject.View.Converters
             if (value is Employee)
             {
                 Employee e = (Employee)value;
+                reti = e.PersonalData.Name.ToUpper()[0].ToString() + e.PersonalData.Surname.ToUpper()[0].ToString();
+            }
+            else if (value is UsersView)
+            {
+                UsersView u = (UsersView)value;
+                Employee e = u.User.Employee;
                 reti = e.PersonalData.Name.ToUpper()[0].ToString() + e.PersonalData.Surname.ToUpper()[0].ToString();
             }
             return reti;

@@ -64,6 +64,11 @@ namespace SemestralProject.Data
         public static readonly IStringProvider Emails = new RandomStringProvider(new FileLinesStringProvider(FileUtils.ReadFromResources(DummyScript.File, "EMAILS")), DummyScript.BaseSize);
 
         /// <summary>
+        /// Provider of names of stops-
+        /// </summary>
+        public static readonly IStringProvider Stops = new RandomStringProvider(new FileLinesStringProvider(FileUtils.ReadFromResources(DummyScript.File, "STOPS")), DummyScript.BaseSize);
+
+        /// <summary>
         /// Provider of names of roles.
         /// </summary>
         public static readonly IStringProvider Roles = new CombinedStringProvider(

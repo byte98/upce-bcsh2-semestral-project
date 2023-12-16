@@ -136,6 +136,9 @@
   <data name="ROLE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>ROLE.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="STOPS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>STOPS.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="STREETS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>STREETS.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

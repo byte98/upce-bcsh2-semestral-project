@@ -98,9 +98,24 @@ namespace SemestralProject.ViewModel.Installer
         private ObservableCollection<User> users;
 
         /// <summary>
+        /// Collection of created lines.
+        /// </summary>
+        private ObservableCollection<Line> lines;
+
+        /// <summary>
+        /// Collection of created stops.
+        /// </summary>
+        private ObservableCollection<Stop> stops;
+
+        /// <summary>
         /// List of all available images.
         /// </summary>
         private IList<UserImage> images;
+
+        /// <summary>
+        /// List of all used codes.
+        /// </summary>
+        private IList<string> codes;
 
         /// <summary>
         /// Flag, whether controls should be enabled.
@@ -120,6 +135,9 @@ namespace SemestralProject.ViewModel.Installer
             this.roles = new ObservableCollection<Role>();
             this.users = new ObservableCollection<User>();
             this.images = new List<UserImage>();
+            this.lines = new ObservableCollection<Line>();
+            this.stops = new ObservableCollection<Stop>();
+            this.codes = new List<string>();
         }
 
         /// <summary>
@@ -161,6 +179,8 @@ namespace SemestralProject.ViewModel.Installer
             this.persons.CollectionChanged += LogCollection;
             this.roles.CollectionChanged += LogCollection;
             this.users.CollectionChanged += LogCollection;
+            this.lines.CollectionChanged += LogCollection;
+            this.stops.CollectionChanged += LogCollection;
             this.Status = "Vytváření obcí...";
             await this.CreateMunicipalities();
             this.Status = "Vytváření adres...";
@@ -173,6 +193,10 @@ namespace SemestralProject.ViewModel.Installer
             await this.CreateRoles();
             this.Status = "Vytváření uživatelů...";
             await this.CreateUsers();
+            this.Status = "Vytváření linek...";
+            await this.CreateLines();
+            this.Status = "Vytváření zastávek...";
+            await this.CreateStops();
             this.Status = "Hotovo";
             this.ControlsEnabled = true;
             this.ProgressVisibility = Visibility.Collapsed;
@@ -195,6 +219,47 @@ namespace SemestralProject.ViewModel.Installer
         }
 
         /// <summary>
+        /// Creates stops.
+        /// </summary>
+        /// <returns>Task which creates stop.</returns>
+        private Task CreateStops()
+        {
+            return Task.Run(async () =>
+            {
+                int limit = this.Size;
+                for(int i = 0; i < limit; i++)
+                {
+                    string code = StringUtils.Random(StringUtils.EnglishAlphabetUpper, 3);
+                    while (this.codes.Contains(code))
+                    {
+                        code = StringUtils.Random(StringUtils.EnglishAlphabetUpper, 3);
+                    }
+                    this.codes.Add(code);
+                    Stop stop = await Stop.CreateAsync(code, DummyScript.Stops.ElementAt(i));
+                    this.stops.Add(stop);
+                }
+            });
+        }
+
+        /// <summary>
+        /// Creates lines.
+        /// </summary>
+        /// <returns>Task which creates lines.</returns>
+        private Task CreateLines()
+        {
+            return Task.Run(async () =>
+            {
+                Random random = new Random();
+                int limit = random.Next(32, 64);
+                for(int i = 0; i < limit; i++)
+                {
+                    Line l = await Line.CreateAsync(random.Next(100, 999).ToString());
+                    this.lines.Add(l);
+                }
+            });
+        }
+
+        /// <summary>
         /// Creates users.
         /// </summary>
         /// <returns>Task which creates users.</returns>
@@ -202,7 +267,6 @@ namespace SemestralProject.ViewModel.Installer
         {
             return Task.Run(async () =>
             {
-                IList<Task<User>> tasks = new List<Task<User>>();
                 Random random = new Random();                
                 IStringProvider password = new HashedStringProvider(new RepeatedStringProviders(new ConstantStringProvider("password"), this.employees.Count));
                 for (int i = 0; i < this.employees.Count; i++)
