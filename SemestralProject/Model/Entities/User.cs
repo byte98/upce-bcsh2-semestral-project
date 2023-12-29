@@ -251,7 +251,9 @@ namespace SemestralProject.Model.Entities
                 State? state = State.GetById((int)(row["stav"] ?? int.MinValue));
                 Role? role = Role.GetById((int)(row["role"] ?? int.MinValue));
                 DateTime? date = DateUtils.FromQuery(results[0]["datum_registrace"]);
-                ImageFile? image = ImageFile.GetById((int)(row["obrazek"] ?? int.MinValue));
+                int ímageid = int.MinValue;
+                int.TryParse(((int)row["obrazek"]).ToString(), out ímageid);
+                ImageFile? image = ImageFile.GetById(ímageid);
                 if (employee != null && state != null && role != null && date != null && image != null)
                 {
                     reti = new User(
