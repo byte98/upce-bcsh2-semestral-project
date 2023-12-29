@@ -126,6 +126,8 @@ namespace SemestralProject.View.Navigation
         {
             if (this.frames.Count > 0)
             {
+                //this.frames.Pop();
+                //this.context = this.frames.Peek();
                 this.context = this.frames.Pop();
             }
         }
