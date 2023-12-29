@@ -482,6 +482,10 @@ namespace CommunityToolkit.Mvvm.ComponentModel.__Internals
         [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
         [global::System.Obsolete("This field is not intended to be referenced directly by user code")]
         public static readonly global::System.ComponentModel.PropertyChangingEventArgs SchedulesVisibility = new global::System.ComponentModel.PropertyChangingEventArgs("SchedulesVisibility");
+        /// <summary>The cached <see cref="global::System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ShiftsVisibility" generated properties.</summary>
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        [global::System.Obsolete("This field is not intended to be referenced directly by user code")]
+        public static readonly global::System.ComponentModel.PropertyChangingEventArgs ShiftsVisibility = new global::System.ComponentModel.PropertyChangingEventArgs("ShiftsVisibility");
         /// <summary>The cached <see cref="global::System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SupertoolVisibility" generated properties.</summary>
         [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
         [global::System.Obsolete("This field is not intended to be referenced directly by user code")]
@@ -522,6 +526,10 @@ namespace CommunityToolkit.Mvvm.ComponentModel.__Internals
         [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
         [global::System.Obsolete("This field is not intended to be referenced directly by user code")]
         public static readonly global::System.ComponentModel.PropertyChangingEventArgs SchedulesCheck = new global::System.ComponentModel.PropertyChangingEventArgs("SchedulesCheck");
+        /// <summary>The cached <see cref="global::System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ShiftsCheck" generated properties.</summary>
+        [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
+        [global::System.Obsolete("This field is not intended to be referenced directly by user code")]
+        public static readonly global::System.ComponentModel.PropertyChangingEventArgs ShiftsCheck = new global::System.ComponentModel.PropertyChangingEventArgs("ShiftsCheck");
         /// <summary>The cached <see cref="global::System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SupertoolCheck" generated properties.</summary>
         [global::System.ComponentModel.EditorBrowsable(global::System.ComponentModel.EditorBrowsableState.Never)]
         [global::System.Obsolete("This field is not intended to be referenced directly by user code")]

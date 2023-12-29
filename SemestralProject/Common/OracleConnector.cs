@@ -213,6 +213,7 @@ namespace SemestralProject.Common
                     }
                     catch (Exception ex)
                     {
+                        System.Diagnostics.Debug.WriteLine("EX OCCURRED");
                         reti = false;
                         this.LastException = ex;
                     }
@@ -276,6 +277,7 @@ namespace SemestralProject.Common
                     }
                     catch (Exception ex)
                     {
+                        System.Diagnostics.Debug.WriteLine("EX OCCURRED Q");
                         this.LastException = ex;
                     }
                 }

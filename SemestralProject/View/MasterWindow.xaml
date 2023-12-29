@@ -87,6 +87,18 @@
                     <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Jízdní řády"/>
                 </StackPanel>
             </components:MenuButton>
+            <components:MenuButton Command="{Binding ShiftsCommand}" Visibility="{Binding ShiftsVisibility}" IsChecked="{Binding ShiftsCheck}" Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
+                    <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xE821;" Margin="8,0,16,0"/>
+                    <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Směny"/>
+                </StackPanel>
+            </components:MenuButton>
+            <components:MenuButton Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
+                    <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xE806;" Margin="8,0,16,0"/>
+                    <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Vozidla WIP"/>
+                </StackPanel>
+            </components:MenuButton>
             <components:MenuButton Command="{Binding HierarchyCommand}" Visibility="{Binding HierarchyVisibility}" IsChecked="{Binding HierarchyCheck}" Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
                     <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xF157;" Margin="8,0,16,0"/>

@@ -219,6 +219,27 @@ namespace SemestralProject.ViewModel
             }
         }
 
+        /// <inheritdoc cref="shiftsVisibility"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::System.Windows.Visibility ShiftsVisibility
+        {
+            get => shiftsVisibility;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Windows.Visibility>.Default.Equals(shiftsVisibility, value))
+                {
+                    OnShiftsVisibilityChanging(value);
+                    OnShiftsVisibilityChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ShiftsVisibility);
+                    shiftsVisibility = value;
+                    OnShiftsVisibilityChanged(value);
+                    OnShiftsVisibilityChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ShiftsVisibility);
+                }
+            }
+        }
+
         /// <inheritdoc cref="supertoolVisibility"/>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -425,6 +446,27 @@ namespace SemestralProject.ViewModel
                     OnSchedulesCheckChanged(value);
                     OnSchedulesCheckChanged(default, value);
                     OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SchedulesCheck);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="shiftsCheck"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public bool ShiftsCheck
+        {
+            get => shiftsCheck;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<bool>.Default.Equals(shiftsCheck, value))
+                {
+                    OnShiftsCheckChanging(value);
+                    OnShiftsCheckChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ShiftsCheck);
+                    shiftsCheck = value;
+                    OnShiftsCheckChanged(value);
+                    OnShiftsCheckChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ShiftsCheck);
                 }
             }
         }
@@ -733,6 +775,28 @@ namespace SemestralProject.ViewModel
         /// <remarks>This method is invoked right after the value of <see cref="SchedulesVisibility"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnSchedulesVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="ShiftsVisibility"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="ShiftsVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnShiftsVisibilityChanging(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="ShiftsVisibility"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="ShiftsVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnShiftsVisibilityChanging(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="ShiftsVisibility"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="ShiftsVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnShiftsVisibilityChanged(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="ShiftsVisibility"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="ShiftsVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnShiftsVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
         /// <summary>Executes the logic for when <see cref="SupertoolVisibility"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="SupertoolVisibility"/> is changed.</remarks>
@@ -953,6 +1017,28 @@ namespace SemestralProject.ViewModel
         /// <remarks>This method is invoked right after the value of <see cref="SchedulesCheck"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnSchedulesCheckChanged(bool oldValue, bool newValue);
+        /// <summary>Executes the logic for when <see cref="ShiftsCheck"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="ShiftsCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnShiftsCheckChanging(bool value);
+        /// <summary>Executes the logic for when <see cref="ShiftsCheck"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="ShiftsCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnShiftsCheckChanging(bool oldValue, bool newValue);
+        /// <summary>Executes the logic for when <see cref="ShiftsCheck"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="ShiftsCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnShiftsCheckChanged(bool value);
+        /// <summary>Executes the logic for when <see cref="ShiftsCheck"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="ShiftsCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnShiftsCheckChanged(bool oldValue, bool newValue);
         /// <summary>Executes the logic for when <see cref="SupertoolCheck"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="SupertoolCheck"/> is changed.</remarks>

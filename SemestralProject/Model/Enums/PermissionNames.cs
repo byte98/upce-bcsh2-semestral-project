@@ -92,6 +92,16 @@ namespace SemestralProject.Model.Enums
         SchedulesModify,
 
         /// <summary>
+        /// Permission to read shifts.
+        /// </summary>
+        ShiftsRead,
+
+        /// <summary>
+        /// Permission to modify shifts.
+        /// </summary>
+        ShiftsModify,
+
+        /// <summary>
         /// Permission to read all available roles.
         /// </summary>
         RolesRead,
