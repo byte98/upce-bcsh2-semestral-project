@@ -18,11 +18,11 @@ namespace SemestralProject.ViewModel.Pages
     /// </summary>
     public partial class ShiftsPageViewModel : AbstractPageViewModel
     {
-       /* /// <summary>
-        /// Collection of all scheduled shifts.
-        /// </summary>
-        [ObservableProperty]
-        private ObservableCollection<Shift> shifts;*/
+        /* /// <summary>
+         /// Collection of all scheduled shifts.
+         /// </summary>
+         [ObservableProperty]
+         private ObservableCollection<Shift> shifts;*/
 
         ///// <summary>
         ///// Actually selected stop.

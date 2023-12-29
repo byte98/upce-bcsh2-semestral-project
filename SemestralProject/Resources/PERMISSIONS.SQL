@@ -23,4 +23,6 @@ INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst e-maily', 'emails.
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst telefonní čísla', 'phones.read')
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst směny', 'shifts.read')
 INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Měnit směny', 'shifts.modify')
+INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Číst vozidla', 'vehicles.read')
+INSERT INTO opravneni(nazev, systemovy_nazev) VALUES ('Měnit vozidla', 'vehicles.modify')
 INSERT INTO prava(role, opravneni) VALUES (1, 3)

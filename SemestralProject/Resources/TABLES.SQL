@@ -161,3 +161,13 @@ ALTER TABLE zastavky ADD CONSTRAINT zastavka_pk PRIMARY KEY ( id_zastavka )
 ALTER TABLE zastavky ADD CONSTRAINT zastavka_kod_un UNIQUE ( kod )
 
 
+CREATE TABLE vozidla (
+    id_vozidlo        INTEGER DEFAULT vozidla_seq.nextval NOT NULL,
+    evidencni_cislo   VARCHAR2(32) NOT NULL,
+    typ_vozidla       VARCHAR2(3) NOT NULL
+)
+
+ALTER TABLE vozidla ADD CONSTRAINT vozidlo_pk PRIMARY KEY ( id_vozidlo )
+
+ALTER TABLE vozidla ADD CONSTRAINT vozidlo_evidencni_cislo_un UNIQUE ( evidencni_cislo )
+

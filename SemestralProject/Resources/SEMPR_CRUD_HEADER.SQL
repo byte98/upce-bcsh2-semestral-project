@@ -187,6 +187,7 @@ PACKAGE sempr_crud AS
     FUNCTION func_zastavky_read(p_id IN zastavky.id_zastavka%TYPE) RETURN t_zastavky PIPELINED;
 
 
+
     TYPE t_jizdni_rady is TABLE of jizdni_rady%ROWTYPE;
 
     PROCEDURE proc_jizdni_rady_create(p_arrival IN jizdni_rady.cas_prijezdu%TYPE, p_departure IN jizdni_rady.cas_odjezdu%TYPE, p_nr IN jizdni_rady.poradove_cislo%TYPE, p_variant IN jizdni_rady.varianta%TYPE, p_line IN jizdni_rady.linka%TYPE, p_stop IN jizdni_rady.zastavka%TYPE);
@@ -198,6 +199,22 @@ PACKAGE sempr_crud AS
     FUNCTION func_jizdni_rady_read RETURN t_jizdni_rady PIPELINED;
 
     FUNCTION func_jizdni_rady_read(p_id IN jizdni_rady.id_jizdni_rad%TYPE) RETURN t_jizdni_rady PIPELINED;
+
+
+
+    TYPE t_vozidla is TABLE of vozidla%ROWTYPE;
+
+    PROCEDURE proc_vozidla_create(p_evidence_number IN vozidla.evidencni_cislo%TYPE, p_type IN vozidla.typ_vozidla%TYPE);
+
+    PROCEDURE proc_vozidla_update(p_id IN vozidla.id_vozidlo%TYPE, p_evidence_number IN vozidla.evidencni_cislo%TYPE, p_type IN vozidla.typ_vozidla%TYPE);
+
+    PROCEDURE proc_vozidla_delete(p_id IN vozidla.id_vozidlo%TYPE);
+
+    FUNCTION func_vozidla_read RETURN t_vozidla PIPELINED;
+
+    FUNCTION func_vozidla_read(p_id IN vozidla.id_vozidlo%TYPE) RETURN t_vozidla PIPELINED;
+
+
 
     TYPE t_logy is TABLE of logy%ROWTYPE;
 

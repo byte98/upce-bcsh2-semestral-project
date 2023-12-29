@@ -106,6 +106,12 @@ namespace SemestralProject.ViewModel
         private Visibility shiftsVisibility = Visibility.Collapsed;
 
         /// <summary>
+        /// Visibility of vehicles menu item.
+        /// </summary>
+        [ObservableProperty]
+        private Visibility vehiclesVisibility = Visibility.Collapsed;
+
+        /// <summary>
         /// Visibility of super tool menu item.
         /// </summary>
         [ObservableProperty]
@@ -159,9 +165,14 @@ namespace SemestralProject.ViewModel
         private SchedulesPage schedulesPage;
 
         /// <summary>
-        /// Page with schedules.
+        /// Page with shifts.
         /// </summary>
         private ShiftsPage shiftsPage;
+
+        /// <summary>
+        /// Page with vehicles.
+        /// </summary>
+        private VehiclesPage vehiclesPage;
 
         /// <summary>
         /// Page with database supertool.
@@ -221,10 +232,16 @@ namespace SemestralProject.ViewModel
         private bool schedulesCheck;
 
         /// <summary>
-        /// Flag, whether schedules menu item is checked.
+        /// Flag, whether shifts menu item is checked.
         /// </summary>
         [ObservableProperty]
         private bool shiftsCheck;
+
+        /// <summary>
+        /// Flag, whether vehicles menu item is checked.
+        /// </summary>
+        [ObservableProperty]
+        private bool vehiclesCheck;
 
         /// <summary>
         /// Flag, whether supertool menu item is checked.
@@ -274,6 +291,7 @@ namespace SemestralProject.ViewModel
             this.linesCheck = false;
             this.schedulesCheck = false;
             this.shiftsCheck = false;
+            this.vehiclesCheck = false;
             this.supertoolCheck = false;
             this.logsCheck = false;
             this.stopsCheck = false;
@@ -286,6 +304,7 @@ namespace SemestralProject.ViewModel
             this.stopsPage = new StopsPage();
             this.schedulesPage = new SchedulesPage();
             this.shiftsPage = new ShiftsPage();
+            this.vehiclesPage = new VehiclesPage();
             this.supertoolPage = new DatabasePage();
             this.logsPage = new LogsPage();
             this.hierarchyPage = new HierarchyPage();
@@ -341,6 +360,7 @@ namespace SemestralProject.ViewModel
                 this.StopsVisibility = this.role.HasPermission(PermissionNames.StopsRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.SchedulesVisibility = this.role.HasPermission(PermissionNames.SchedulesRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.ShiftsVisibility = this.role.HasPermission(PermissionNames.ShiftsRead) ? Visibility.Visible : Visibility.Collapsed;
+                this.VehiclesVisibility = this.role.HasPermission(PermissionNames.VehiclesRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.SupertoolVisibility = this.role.HasPermission(PermissionNames.Supertool) ? Visibility.Visible : Visibility.Collapsed;
                 this.LogsVisibility = this.role.HasPermission(PermissionNames.LogsRead) ? Visibility.Visible : Visibility.Collapsed;
                 this.HierarchyVisibility = this.role.HasPermission(PermissionNames.HierarchyRead) ? Visibility.Visible : Visibility.Collapsed;
@@ -576,6 +596,17 @@ namespace SemestralProject.ViewModel
             this.ResetChecks();
             this.ShiftsCheck = true;
             this.Navigate(this.shiftsPage);
+        }
+
+        /// <summary>
+        /// Handles click on 'vehicles' menu item.
+        /// </summary>
+        [RelayCommand]
+        private void Vehicles()
+        {
+            this.ResetChecks();
+            this.VehiclesCheck = true;
+            this.Navigate(this.vehiclesPage);
         }
 
         /// <summary>

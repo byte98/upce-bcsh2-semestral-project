@@ -720,9 +720,58 @@ PACKAGE BODY sempr_crud AS
     END func_zastavky_read;
 --
 
+   PROCEDURE proc_vozidla_create(p_evidence_number IN vozidla.evidencni_cislo%TYPE, p_type IN vozidla.typ_vozidla%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        INSERT INTO vozidla(evidencni_cislo, typ_vozidla)
+        VALUES (p_evidence_number, p_type);
+        COMMIT;
+    END proc_vozidla_create;
 
+    PROCEDURE proc_vozidla_update(p_id IN vozidla.id_vozidlo%TYPE, p_evidence_number IN vozidla.evidencni_cislo%TYPE, p_type IN vozidla.typ_vozidla%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE vozidla
+        SET evidencni_cislo=p_evidence_number, typ_vozidla=p_type
+        WHERE id_vozidlo=p_id;
+        COMMIT;
+    END proc_vozidla_update;
 
+    PROCEDURE proc_vozidla_delete(p_id IN vozidla.id_vozidlo%TYPE) AS
+    BEGIN
+        DELETE FROM vozidla WHERE id_vozidlo=p_id;
+    END proc_vozidla_delete;
 
+    FUNCTION func_vozidla_read RETURN t_vozidla PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_vozidlo   vozidla%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM vozidla;
+        LOOP
+            FETCH v_cursor INTO v_vozidlo;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_vozidlo);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_vozidla_read;
+
+     FUNCTION func_vozidla_read(p_id IN vozidla.id_vozidlo%TYPE) RETURN t_vozidla PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_vozidlo   vozidla%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM vozidla WHERE id_vozidlo=p_id;
+        LOOP
+            FETCH v_cursor INTO v_vozidlo;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_vozidlo);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_vozidla_read;
+--
     PROCEDURE proc_jizdni_rady_create(p_arrival IN jizdni_rady.cas_prijezdu%TYPE, p_departure IN jizdni_rady.cas_odjezdu%TYPE, p_nr IN jizdni_rady.poradove_cislo%TYPE, p_variant IN jizdni_rady.varianta%TYPE, p_line IN jizdni_rady.linka%TYPE, p_stop IN jizdni_rady.zastavka%TYPE) AS
     BEGIN
         SET TRANSACTION READ WRITE;
