@@ -1,0 +1,100 @@
+Zámecká
+Polní cesta
+Nová ulice
+Pod lesy
+Náměstí Míru
+U hřiště
+Za školou
+Na kopci
+Železniční stanice
+Podél řeky
+U lesa
+Tržnice
+Pod mostem
+Na náměstí
+Hlavní třída
+Podél parku
+U kostela
+Sportovní hala
+Pod vinicemi
+Okrajová
+    U potoka
+Na zahrádkách
+Hlavní ulice
+Za obchodem
+Na kopcovitém svahu
+V blízkosti školy
+U lesní stezky
+Podél rybníka
+Za průmyslovou zónou
+Nákupní centrum
+Podél polí
+U letiště
+Západní čtvrť
+Podél pláže
+Na kraji města
+Pod hradem
+U řeky
+Na sídlišti
+Podél divadla
+V centru obce
+U Kláry
+Na Vrchu
+Podél Lesa
+U Rybníka
+Na Nové Ulici
+Na Hlavním Náměstí
+U Kostela
+Za Školou
+Na Závodišti
+Na Okraji Města
+U Parku
+Podél Řeky
+Na Hřišti
+Pod Vinicemi
+U Hlavní Silnice
+Na Novém Sídlišti
+U Divadla
+Na Přívozu
+Podél Průmyslové Zóny
+Na Novém Letišti
+Na Vysoké
+U Stromu
+Podél Polí
+U Horského Potoka
+Na Nové Cestě
+Na Náměstí Svobody
+U Kapličky
+Za Domy
+Na Vrcholu
+Na Okraji Lesa
+U Starého Mlýna
+Podél Potůčku
+Na Západní Straně
+U Východního Předměstí
+Na Výjezdu
+Na Křižovatce
+U Cihelny
+Na Jižním Předměstí
+Na Severní Straně
+U Zahradního Centra
+    Podél Letiště
+U Mlýnského Potoka
+Na Hlavní Třídě
+Za Sportovním Centrem
+Na Konci Ulice
+U Malého Parku
+Podél Kolejí
+Na Vyvýšenině
+U Velkého Kruhového Objezdu
+Na Cestě K Rybníku
+V Nové Části Města
+U Střední Školy
+Na Západní Straně Města
+U Východního Parku
+Na Křižovatce Silnic
+Podél Řeky Váhy
+Na Kraji Lesa
+Na Okraji Hlavního Náměstí
+U Nákupního Centra
+V Historickém Centru

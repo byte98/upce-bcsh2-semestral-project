@@ -121,6 +121,12 @@
   <data name="COUNTRIES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>COUNTRIES.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="IMAGE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IMAGE.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="LOGGING" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>LOGGING.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="PERMISSIONS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>PERMISSIONS.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
@@ -145,6 +151,9 @@
   <data name="SEMPR_CRUD_HEADER" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SEMPR_CRUD_HEADER.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="SEMPR_TRIGGERS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>SEMPR_TRIGGERS.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="SEMPR_UTILS_BODY" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SEMPR_UTILS_BODY.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -163,7 +172,16 @@
   <data name="TABLES" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>TABLES.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="TABLES_MOCK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>TABLES_MOCK.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TRIGGERS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>TRIGGERS.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="TRUNCATE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>TRUNCATE.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="VIEWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>VIEWS.SQL;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

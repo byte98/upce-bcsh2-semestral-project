@@ -48,6 +48,11 @@ namespace SemestralProject.ViewModel.Pages
         private bool canEdit = false;
 
         /// <summary>
+        /// Actually logged role.
+        /// </summary>
+        protected Role? actualRole = null;
+
+        /// <summary>
         /// Creates new model view for page.
         /// </summary>
         /// <param name="editName">Name of permission which allows user to edit data.</param>
@@ -58,6 +63,15 @@ namespace SemestralProject.ViewModel.Pages
             {
                 this.RoleChanged(args.Value);
             });
+        }
+
+        /// <summary>
+        /// Handles change of role.
+        /// </summary>
+        /// <param name="role">Actually logged role.</param>
+        protected virtual void RoleChangedHandler(Role role)
+        {
+
         }
 
         /// <summary>
@@ -77,6 +91,8 @@ namespace SemestralProject.ViewModel.Pages
             }
             this.WaitVisibility = Visibility.Collapsed;
             this.ContentVisibility = Visibility.Visible;
+            this.RoleChangedHandler(role);
+            this.actualRole = role;
         }
 
     }

@@ -34,7 +34,7 @@ namespace SemestralProject.Model.Entities
         public static State Create(string name, bool loginable)
         {
             string sql = $"sempr_crud.proc_stavy_create('{name}', {BoolUtils.ToQuery(loginable)})";
-            int id = State.Create(sql, "stavy_seq");
+            int id = Entity.Create(sql, "stavy_seq");
             return new State(id, name, loginable);
         }
 

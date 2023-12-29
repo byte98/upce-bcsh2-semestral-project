@@ -75,5 +75,18 @@ namespace SemestralProject.Utils
             }
             return reti;
         }
+
+        /// <summary>
+        /// Generates random date.
+        /// </summary>
+        /// <param name="start">Starting date.</param>
+        /// <param name="end">Ending date.</param>
+        /// <returns>Random date between starting date and ending date.</returns>
+        public static DateTime Random(DateTime start, DateTime end)
+        {
+            Random random = new Random();
+            int range = (end - start).Days;
+            return start.AddDays(random.Next(range));
+        }
     }
 }

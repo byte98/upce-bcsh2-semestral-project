@@ -40,7 +40,7 @@ namespace DatabaseObject
         public void Execute(GeneratorExecutionContext context)
         {
             var syntaxTrees = context.Compilation.SyntaxTrees;
-            foreach(var syntaxTree in syntaxTrees)
+            foreach (var syntaxTree in syntaxTrees)
             {
                 var root = syntaxTree.GetRoot();
                 var semanticModel = context.Compilation.GetSemanticModel(syntaxTree);
@@ -63,7 +63,7 @@ namespace DatabaseObject
                     int arrLen = Math.Max(DatabaseObjectSourceGenerator.Name, Math.Max(DatabaseObjectSourceGenerator.Type, Math.Max(DatabaseObjectSourceGenerator.Comment, DatabaseObjectSourceGenerator.Column))) + 1;
                     string[][] properties = new string[classProperties.Count()][];
                     int idx = 0;
-                    foreach(var property in classProperties)
+                    foreach (var property in classProperties)
                     {
                         properties[idx] = new string[arrLen];
                         properties[idx][DatabaseObjectSourceGenerator.Name] = property.Identifier.Text;
@@ -79,27 +79,78 @@ namespace DatabaseObject
                     StringBuilder content = new StringBuilder();
                     content.Append(this.GetConstructorComment(properties, classSymbol.Name));
                     content.AppendLine(this.GetConstructor(properties, classSymbol.Name));
-                    content.Append(this.GetCreateComment(properties, classSymbol.Name));
-                    content.AppendLine(this.GetCreateFunction(properties, classSymbol.Name, classAtribute.ConstructorArguments[0].Value.ToString(), classAtribute.ConstructorArguments[4].Value.ToString()));
-                    content.Append(this.GetCreateAsyncComment(properties, classSymbol.Name));
-                    content.AppendLine(this.GetCreateAsyncFunction(properties, classSymbol.Name));
-                    content.Append(this.GetGetAllComment(classSymbol.Name, classAtribute.ConstructorArguments[1].Value.ToString()));
-                    content.AppendLine(this.GetGetAllFunction(classSymbol.Name, classAtribute.ConstructorArguments[1].Value.ToString()));
-                    content.Append(this.GetGetAllAsyncComment(classSymbol.Name));
-                    content.AppendLine(this.GetGetAllAsyncFunction(classSymbol.Name));
-                    content.Append(this.GetGetByIdComment(classSymbol.Name));
-                    content.AppendLine(this.GetGetByIdFunction(classSymbol.Name, classAtribute.ConstructorArguments[1].Value.ToString()));
-                    content.Append(this.GetGetByIdAsyncComment(classSymbol.Name));
-                    content.AppendLine(this.GetGetByIdAsyncFunction(classSymbol.Name));
-                    content.Append(this.GetParseComment(classSymbol.Name));
-                    content.AppendLine(this.GetParseFunction(classSymbol.Name, properties, classAtribute.ConstructorArguments[5].Value.ToString()));
-                    content.AppendLine(this.GetUpdateFunction(classSymbol.Name, classAtribute.ConstructorArguments[2].Value.ToString(), properties));
-                    content.AppendLine(this.GetDeleteFunction(classSymbol.Name, classAtribute.ConstructorArguments[3].Value.ToString()));
+                    if (classAtribute.ConstructorArguments[0].Value.ToString().Length > 0)
+                    {
+                        content.Append(this.GetCreateComment(properties, classSymbol.Name));
+                        content.AppendLine(this.GetCreateFunction(properties, classSymbol.Name, classAtribute.ConstructorArguments[0].Value.ToString(), classAtribute.ConstructorArguments[4].Value.ToString()));
+                        content.Append(this.GetCreateAsyncComment(properties, classSymbol.Name));
+                        content.AppendLine(this.GetCreateAsyncFunction(properties, classSymbol.Name));
+                    }
+
+                    if (classAtribute.ConstructorArguments[1].Value.ToString().Length > 0)
+                    {
+                        content.Append(this.GetGetAllComment(classSymbol.Name, classAtribute.ConstructorArguments[1].Value.ToString()));
+                        content.AppendLine(this.GetGetAllFunction(classSymbol.Name, classAtribute.ConstructorArguments[1].Value.ToString()));
+                        content.Append(this.GetGetAllAsyncComment(classSymbol.Name));
+                        content.AppendLine(this.GetGetAllAsyncFunction(classSymbol.Name));
+                        content.Append(this.GetGetByIdComment(classSymbol.Name));
+                        content.AppendLine(this.GetGetByIdFunction(classSymbol.Name, classAtribute.ConstructorArguments[1].Value.ToString()));
+                        content.Append(this.GetGetByIdAsyncComment(classSymbol.Name));
+                        content.AppendLine(this.GetGetByIdAsyncFunction(classSymbol.Name));
+                        content.Append(this.GetParseComment(classSymbol.Name));
+                        content.AppendLine(this.GetParseFunction(classSymbol.Name, properties, classAtribute.ConstructorArguments[5].Value.ToString()));
+                    }
+                    if (classAtribute.ConstructorArguments[2].Value.ToString().Length > 0)
+                    {
+                        content.AppendLine(this.GetUpdateFunction(classSymbol.Name, classAtribute.ConstructorArguments[2].Value.ToString(), properties));
+                    }
+                    else
+                    {
+                        content.AppendLine(this.GetEmptyUpdateFunction());
+                    }
+                    if (classAtribute.ConstructorArguments[3].Value.ToString().Length > 0)
+                    {
+                        content.AppendLine(this.GetDeleteFunction(classSymbol.Name, classAtribute.ConstructorArguments[3].Value.ToString()));
+                    }
+                    else
+                    {
+                        content.AppendLine(this.GetEmptyDeleteFunction());
+                    }
                     string generatedCode = this.GenerateCodeForClass(classSymbol, content.ToString());
                     SourceText sourceText = SourceText.From(generatedCode, Encoding.UTF8);
                     context.AddSource(classSymbol.Name + ".g.cs", sourceText);
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets empty delete function.
+        /// </summary>
+        /// <returns>String representing empty delete function.</returns>
+        private string GetEmptyDeleteFunction()
+        {
+            StringBuilder reti = new StringBuilder();
+            reti.AppendLine(this.Insets(2, "/// <inheritdoc/>"));
+            reti.AppendLine(this.Insets(2, "public override bool Delete()"));
+            reti.AppendLine(this.Insets(2, "{"));
+            reti.AppendLine(this.Insets(3, "return false;"));
+            reti.AppendLine(this.Insets(2, "}"));
+            return reti.ToString();
+        }
+
+        /// <summary>
+        /// Gets empty update function.
+        /// </summary>
+        /// <returns>String representing empty update function.</returns>
+        private string GetEmptyUpdateFunction()
+        {
+            StringBuilder reti = new StringBuilder();
+            reti.AppendLine(this.Insets(2, "/// <inheritdoc/>"));
+            reti.AppendLine(this.Insets(2, "public override bool Update()"));
+            reti.AppendLine(this.Insets(2, "{"));
+            reti.AppendLine(this.Insets(3, "return false;"));
+            reti.AppendLine(this.Insets(2, "}"));
+            return reti.ToString();
         }
 
         /// <summary>
@@ -165,6 +216,13 @@ namespace DatabaseObject
                     reti.Append("this.");
                     reti.Append(properties[i][DatabaseObjectSourceGenerator.Name]);
                     reti.Append(")}");
+                }
+                else if (type.EndsWith("Clob"))
+                {
+                    reti.Append("{StringUtils.ToClob(");
+                    reti.Append("this.");
+                    reti.Append(properties[i][DatabaseObjectSourceGenerator.Name]);
+                    reti.Append(".Content)}");
                 }
                 else
                 {
@@ -287,12 +345,12 @@ namespace DatabaseObject
                 if (prop[DatabaseObjectSourceGenerator.Type] == "int" || prop[DatabaseObjectSourceGenerator.Type] == "string" || prop[DatabaseObjectSourceGenerator.Type] == "double" || prop[DatabaseObjectSourceGenerator.Type] == "float")
                 {
                     reti.Append(this.Insets(3, $"{prop[DatabaseObjectSourceGenerator.Type]} {prop[DatabaseObjectSourceGenerator.Name].ToLower()} = ({prop[DatabaseObjectSourceGenerator.Type]})(data[\"{prop[DatabaseObjectSourceGenerator.Column]}\"] ?? "));
-                    switch(prop[DatabaseObjectSourceGenerator.Type])
+                    switch (prop[DatabaseObjectSourceGenerator.Type])
                     {
                         case "int": reti.Append("int.MinValue"); break;
                         case "string": reti.Append("string.Empty"); break;
                         case "double": reti.Append("double.NaN"); break;
-                        case "float": reti.Append("float.NaN"); break;                        
+                        case "float": reti.Append("float.NaN"); break;
                     }
                     reti.AppendLine(");");
                 }
@@ -305,7 +363,11 @@ namespace DatabaseObject
                 else if (prop[DatabaseObjectSourceGenerator.Type] == "DateTime")
                 {
                     reti.AppendLine(this.Insets(3, $"DateTime {prop[DatabaseObjectSourceGenerator.Name].ToLower()} = (DateTime)(DateUtils.FromQuery(data[\"{prop[DatabaseObjectSourceGenerator.Column]}\"]) ?? DateTime.Now);"));
-                    
+
+                }
+                else if (prop[DatabaseObjectSourceGenerator.Type].EndsWith("Clob"))
+                {
+                    reti.AppendLine(this.Insets(3, $"Clob {prop[DatabaseObjectSourceGenerator.Name].ToLower()} = new Clob((string)(data[\"{prop[DatabaseObjectSourceGenerator.Column]}\"] ?? string.Empty));"));
                 }
                 else
                 {
@@ -350,7 +412,7 @@ namespace DatabaseObject
             return reti.ToString();
         }
 
-        
+
 
         /// <summary>
         /// Gets comment for parsing function.
@@ -516,6 +578,18 @@ namespace DatabaseObject
                     reti.Append(properties[i][DatabaseObjectSourceGenerator.Name].ToLower());
                     reti.Append(")}");
                 }
+                else if (properties[i][DatabaseObjectSourceGenerator.Type].EndsWith("Clob"))
+                {
+                    reti.Append("{StringUtils.ToClob(");
+                    reti.Append(properties[i][DatabaseObjectSourceGenerator.Name].ToLower());
+                    reti.Append(".Content)}");
+                }
+                else if (properties[i][DatabaseObjectSourceGenerator.Type].Trim().ToLower() != "int")
+                {
+                    reti.Append("{");
+                    reti.Append(properties[i][DatabaseObjectSourceGenerator.Name].ToLower());
+                    reti.Append(".Id}");
+                }
                 else
                 {
                     reti.Append("{");
@@ -529,7 +603,7 @@ namespace DatabaseObject
             }
             reti.AppendLine(")\";");
             reti.Append(this.Insets(3));
-            reti.AppendLine($"int id = {className}.Create(sql, \"{sequence}\");");
+            reti.AppendLine($"int id = Entity.Create(sql, \"{sequence}\");");
             reti.Append(this.Insets(3));
             reti.Append("return new ");
             reti.Append(className);
@@ -749,7 +823,7 @@ namespace DatabaseObject
         private IDictionary<string, object> GetDatabaseClassProperties(AttributeData attributeData)
         {
             IDictionary<string, object> reti = new Dictionary<string, object>();
-            foreach(var arg in attributeData.NamedArguments)
+            foreach (var arg in attributeData.NamedArguments)
             {
                 reti.Add(arg.Key, arg.Value);
             }
@@ -763,7 +837,7 @@ namespace DatabaseObject
         /// <param name="content">Content of the class.</param>
         /// <returns>String reperesenting source code generated for class.</returns>
         private string GenerateCodeForClass(ISymbol classSymbol, string content)
-        { 
+        {
             StringBuilder reti = new StringBuilder();
             reti.AppendLine("/// <auto-generated/>");
             reti.AppendLine("#pragma warning disable");

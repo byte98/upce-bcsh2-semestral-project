@@ -177,6 +177,48 @@ namespace SemestralProject.ViewModel
             }
         }
 
+        /// <inheritdoc cref="stopsVisibility"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::System.Windows.Visibility StopsVisibility
+        {
+            get => stopsVisibility;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Windows.Visibility>.Default.Equals(stopsVisibility, value))
+                {
+                    OnStopsVisibilityChanging(value);
+                    OnStopsVisibilityChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.StopsVisibility);
+                    stopsVisibility = value;
+                    OnStopsVisibilityChanged(value);
+                    OnStopsVisibilityChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.StopsVisibility);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="schedulesVisibility"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::System.Windows.Visibility SchedulesVisibility
+        {
+            get => schedulesVisibility;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Windows.Visibility>.Default.Equals(schedulesVisibility, value))
+                {
+                    OnSchedulesVisibilityChanging(value);
+                    OnSchedulesVisibilityChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SchedulesVisibility);
+                    schedulesVisibility = value;
+                    OnSchedulesVisibilityChanged(value);
+                    OnSchedulesVisibilityChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SchedulesVisibility);
+                }
+            }
+        }
+
         /// <inheritdoc cref="supertoolVisibility"/>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -194,6 +236,48 @@ namespace SemestralProject.ViewModel
                     OnSupertoolVisibilityChanged(value);
                     OnSupertoolVisibilityChanged(default, value);
                     OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SupertoolVisibility);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="logsVisibility"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::System.Windows.Visibility LogsVisibility
+        {
+            get => logsVisibility;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Windows.Visibility>.Default.Equals(logsVisibility, value))
+                {
+                    OnLogsVisibilityChanging(value);
+                    OnLogsVisibilityChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.LogsVisibility);
+                    logsVisibility = value;
+                    OnLogsVisibilityChanged(value);
+                    OnLogsVisibilityChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.LogsVisibility);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="hierarchyVisibility"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::System.Windows.Visibility HierarchyVisibility
+        {
+            get => hierarchyVisibility;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Windows.Visibility>.Default.Equals(hierarchyVisibility, value))
+                {
+                    OnHierarchyVisibilityChanging(value);
+                    OnHierarchyVisibilityChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.HierarchyVisibility);
+                    hierarchyVisibility = value;
+                    OnHierarchyVisibilityChanged(value);
+                    OnHierarchyVisibilityChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.HierarchyVisibility);
                 }
             }
         }
@@ -303,6 +387,48 @@ namespace SemestralProject.ViewModel
             }
         }
 
+        /// <inheritdoc cref="stopsCheck"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public bool StopsCheck
+        {
+            get => stopsCheck;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<bool>.Default.Equals(stopsCheck, value))
+                {
+                    OnStopsCheckChanging(value);
+                    OnStopsCheckChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.StopsCheck);
+                    stopsCheck = value;
+                    OnStopsCheckChanged(value);
+                    OnStopsCheckChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.StopsCheck);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="schedulesCheck"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public bool SchedulesCheck
+        {
+            get => schedulesCheck;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<bool>.Default.Equals(schedulesCheck, value))
+                {
+                    OnSchedulesCheckChanging(value);
+                    OnSchedulesCheckChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SchedulesCheck);
+                    schedulesCheck = value;
+                    OnSchedulesCheckChanged(value);
+                    OnSchedulesCheckChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SchedulesCheck);
+                }
+            }
+        }
+
         /// <inheritdoc cref="supertoolCheck"/>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -320,6 +446,48 @@ namespace SemestralProject.ViewModel
                     OnSupertoolCheckChanged(value);
                     OnSupertoolCheckChanged(default, value);
                     OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SupertoolCheck);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="logsCheck"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public bool LogsCheck
+        {
+            get => logsCheck;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<bool>.Default.Equals(logsCheck, value))
+                {
+                    OnLogsCheckChanging(value);
+                    OnLogsCheckChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.LogsCheck);
+                    logsCheck = value;
+                    OnLogsCheckChanged(value);
+                    OnLogsCheckChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.LogsCheck);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="hierarchyCheck"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public bool HierarchyCheck
+        {
+            get => hierarchyCheck;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<bool>.Default.Equals(hierarchyCheck, value))
+                {
+                    OnHierarchyCheckChanging(value);
+                    OnHierarchyCheckChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.HierarchyCheck);
+                    hierarchyCheck = value;
+                    OnHierarchyCheckChanged(value);
+                    OnHierarchyCheckChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.HierarchyCheck);
                 }
             }
         }
@@ -521,6 +689,50 @@ namespace SemestralProject.ViewModel
         /// <remarks>This method is invoked right after the value of <see cref="LinesVisibility"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnLinesVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="StopsVisibility"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="StopsVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnStopsVisibilityChanging(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="StopsVisibility"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="StopsVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnStopsVisibilityChanging(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="StopsVisibility"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="StopsVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnStopsVisibilityChanged(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="StopsVisibility"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="StopsVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnStopsVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="SchedulesVisibility"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="SchedulesVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSchedulesVisibilityChanging(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="SchedulesVisibility"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="SchedulesVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSchedulesVisibilityChanging(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="SchedulesVisibility"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="SchedulesVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSchedulesVisibilityChanged(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="SchedulesVisibility"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="SchedulesVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSchedulesVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
         /// <summary>Executes the logic for when <see cref="SupertoolVisibility"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="SupertoolVisibility"/> is changed.</remarks>
@@ -543,6 +755,50 @@ namespace SemestralProject.ViewModel
         /// <remarks>This method is invoked right after the value of <see cref="SupertoolVisibility"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnSupertoolVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="LogsVisibility"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="LogsVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnLogsVisibilityChanging(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="LogsVisibility"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="LogsVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnLogsVisibilityChanging(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="LogsVisibility"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="LogsVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnLogsVisibilityChanged(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="LogsVisibility"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="LogsVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnLogsVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="HierarchyVisibility"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="HierarchyVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnHierarchyVisibilityChanging(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="HierarchyVisibility"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="HierarchyVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnHierarchyVisibilityChanging(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="HierarchyVisibility"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="HierarchyVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnHierarchyVisibilityChanged(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="HierarchyVisibility"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="HierarchyVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnHierarchyVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
         /// <summary>Executes the logic for when <see cref="MyPageCheck"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="MyPageCheck"/> is changed.</remarks>
@@ -653,6 +909,50 @@ namespace SemestralProject.ViewModel
         /// <remarks>This method is invoked right after the value of <see cref="LinesCheck"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnLinesCheckChanged(bool oldValue, bool newValue);
+        /// <summary>Executes the logic for when <see cref="StopsCheck"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="StopsCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnStopsCheckChanging(bool value);
+        /// <summary>Executes the logic for when <see cref="StopsCheck"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="StopsCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnStopsCheckChanging(bool oldValue, bool newValue);
+        /// <summary>Executes the logic for when <see cref="StopsCheck"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="StopsCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnStopsCheckChanged(bool value);
+        /// <summary>Executes the logic for when <see cref="StopsCheck"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="StopsCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnStopsCheckChanged(bool oldValue, bool newValue);
+        /// <summary>Executes the logic for when <see cref="SchedulesCheck"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="SchedulesCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSchedulesCheckChanging(bool value);
+        /// <summary>Executes the logic for when <see cref="SchedulesCheck"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="SchedulesCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSchedulesCheckChanging(bool oldValue, bool newValue);
+        /// <summary>Executes the logic for when <see cref="SchedulesCheck"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="SchedulesCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSchedulesCheckChanged(bool value);
+        /// <summary>Executes the logic for when <see cref="SchedulesCheck"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="SchedulesCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSchedulesCheckChanged(bool oldValue, bool newValue);
         /// <summary>Executes the logic for when <see cref="SupertoolCheck"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="SupertoolCheck"/> is changed.</remarks>
@@ -675,6 +975,50 @@ namespace SemestralProject.ViewModel
         /// <remarks>This method is invoked right after the value of <see cref="SupertoolCheck"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnSupertoolCheckChanged(bool oldValue, bool newValue);
+        /// <summary>Executes the logic for when <see cref="LogsCheck"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="LogsCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnLogsCheckChanging(bool value);
+        /// <summary>Executes the logic for when <see cref="LogsCheck"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="LogsCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnLogsCheckChanging(bool oldValue, bool newValue);
+        /// <summary>Executes the logic for when <see cref="LogsCheck"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="LogsCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnLogsCheckChanged(bool value);
+        /// <summary>Executes the logic for when <see cref="LogsCheck"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="LogsCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnLogsCheckChanged(bool oldValue, bool newValue);
+        /// <summary>Executes the logic for when <see cref="HierarchyCheck"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="HierarchyCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnHierarchyCheckChanging(bool value);
+        /// <summary>Executes the logic for when <see cref="HierarchyCheck"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="HierarchyCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnHierarchyCheckChanging(bool oldValue, bool newValue);
+        /// <summary>Executes the logic for when <see cref="HierarchyCheck"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="HierarchyCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnHierarchyCheckChanged(bool value);
+        /// <summary>Executes the logic for when <see cref="HierarchyCheck"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="HierarchyCheck"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnHierarchyCheckChanged(bool oldValue, bool newValue);
         /// <summary>Executes the logic for when <see cref="WaitVisibility"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="WaitVisibility"/> is changed.</remarks>

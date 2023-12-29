@@ -25,13 +25,16 @@ CREATE TABLE linky (
     kod      CHAR(3) NOT NULL
 )
 
-CREATE TABLE logs (
-    id              INTEGER DEFAULT logs_seq.nextval NOT NULL,
-    table_name      VARCHAR2(255),
-    log_message     VARCHAR2(1000),
-    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT      log_table_pk PRIMARY KEY (id)
+CREATE TABLE logy (
+    id_log INTEGER DEFAULT logy_seq.nextval NOT NULL,
+    cas TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    operace VARCHAR2(64) NOT NULL,
+    tabulka VARCHAR2(64) NOT NULL,
+    pocet_radku INTEGER NOT NULL,
+    zprava CLOB
 )
+
+ALTER TABLE logy ADD CONSTRAINT logy_pk PRIMARY KEY ( id_log )
 
 ALTER TABLE linky ADD CONSTRAINT linky_pk PRIMARY KEY ( id_linka )
 
@@ -46,6 +49,17 @@ CREATE TABLE obce (
 )
 
 ALTER TABLE obce ADD CONSTRAINT obce_pk PRIMARY KEY ( id_obec )
+
+CREATE TABLE obrazky (
+    id_obrazek    INTEGER DEFAULT obrazky_seq.nextval NOT NULL,
+    obsah         CLOB NOT NULL,
+    hash          VARCHAR2(2048) NOT NULL,
+    nazev         VARCHAR2(256) NOT NULL,
+    datum_nahrani DATE NOT NULL
+)
+
+ALTER TABLE obrazky ADD CONSTRAINT obrazky_pk PRIMARY KEY ( id_obrazek )
+
 
 CREATE TABLE opravneni (
     id_opravneni    INTEGER DEFAULT opravneni_seq.nextval NOT NULL,
@@ -64,14 +78,6 @@ CREATE TABLE osoby (
 )
 
 ALTER TABLE osoby ADD CONSTRAINT osoby_pk PRIMARY KEY ( id_osoba )
-
-CREATE TABLE plany_smen (
-    id_plan_smeny INTEGER DEFAULT plany_smen_seq.nextval NOT NULL,
-    smena         INTEGER NOT NULL,
-    jizdni_rad    INTEGER NOT NULL
-)
-
-ALTER TABLE plany_smen ADD CONSTRAINT rel_smena_jizdni_rad_pk PRIMARY KEY ( id_plan_smeny )
 
 CREATE TABLE prava (
     id_pravo  INTEGER DEFAULT prava_seq.nextval NOT NULL,
@@ -97,14 +103,6 @@ CREATE TABLE skutecne_rady (
 
 ALTER TABLE skutecne_rady ADD CONSTRAINT skutecny_rad_pk PRIMARY KEY ( id_skutecny_rad )
 
-CREATE TABLE smeny (
-    id_smena    INTEGER DEFAULT smeny_seq.nextval NOT NULL,
-    vozidlo     INTEGER NOT NULL,
-    zamestnanec INTEGER NOT NULL
-)
-
-ALTER TABLE smeny ADD CONSTRAINT smena_pk PRIMARY KEY ( id_smena )
-
 CREATE TABLE staty (
     id_stat INTEGER DEFAULT staty_seq.nextval NOT NULL,
     nazev   VARCHAR2(128) NOT NULL
@@ -126,10 +124,10 @@ CREATE TABLE uzivatele (
     id_uzivatel      INTEGER DEFAULT uzivatele_seq.nextval NOT NULL,
     heslo            VARCHAR2(256) NOT NULL,
     datum_registrace TIMESTAMP NOT NULL,
-    obrazek          CLOB NOT NULL,
     role             INTEGER NOT NULL,
     stav             INTEGER NOT NULL,
-    zamestnanec      INTEGER NOT NULL
+    zamestnanec      INTEGER NOT NULL,
+    obrazek          INTEGER NOT NULL
 )
 
 ALTER TABLE uzivatele ADD CONSTRAINT uzivatel_pk PRIMARY KEY ( id_uzivatel )
@@ -155,11 +153,7 @@ ALTER TABLE zamestnanci ADD CONSTRAINT zamestnanec_osoba_un UNIQUE ( osobni_udaj
 CREATE TABLE zastavky (
     id_zastavka        INTEGER DEFAULT zastavky_seq.nextval NOT NULL,
     nazev              VARCHAR2(32) NOT NULL,
-    gps_severni_sirka  NUMBER NOT NULL,
-    gps_vychodni_delka NUMBER NOT NULL,
-    kod                VARCHAR2(5) NOT NULL,
-    bezbarierova       NUMBER NOT NULL,
-    na_znameni         NUMBER NOT NULL
+    kod                VARCHAR2(5) NOT NULL
 )
 
 ALTER TABLE zastavky ADD CONSTRAINT zastavka_pk PRIMARY KEY ( id_zastavka )

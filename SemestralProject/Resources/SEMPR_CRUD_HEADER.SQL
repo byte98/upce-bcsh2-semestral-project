@@ -159,6 +159,61 @@ PACKAGE sempr_crud AS
     FUNCTION  func_prava_read(p_role IN prava.role%TYPE) RETURN t_prava PIPELINED;
 
 
+
+    TYPE t_linky is TABLE of linky%ROWTYPE;
+
+    PROCEDURE proc_linky_create(p_code IN linky.kod%TYPE);
+
+    PROCEDURE proc_linky_update(p_id IN linky.id_linka%TYPE, p_code IN linky.kod%TYPE);
+
+    PROCEDURE proc_linky_delete(p_id IN linky.id_linka%TYPE);
+
+    FUNCTION func_linky_read RETURN t_linky PIPELINED;
+
+    FUNCTIOn func_linky_read(p_id IN linky.id_linka%TYPE) RETURN t_linky PIPELINED;
+
+
+
+    TYPE t_zastavky is TABLE of zastavky%ROWTYPE;
+
+    PROCEDURE proc_zastavky_create(p_code IN zastavky.kod%TYPE, p_name IN zastavky.nazev%TYPE);
+
+    PROCEDURE proc_zastavky_update(p_id IN zastavky.id_zastavka%TYPE, p_name IN zastavky.nazev%TYPE, p_code IN zastavky.kod%TYPE);
+
+    PROCEDURE proc_zastavky_delete(p_id IN zastavky.id_zastavka%TYPE);
+
+    FUNCTION func_zastavky_read RETURN t_zastavky PIPELINED;
+
+    FUNCTION func_zastavky_read(p_id IN zastavky.id_zastavka%TYPE) RETURN t_zastavky PIPELINED;
+
+
+    TYPE t_jizdni_rady is TABLE of jizdni_rady%ROWTYPE;
+
+    PROCEDURE proc_jizdni_rady_create(p_arrival IN jizdni_rady.cas_prijezdu%TYPE, p_departure IN jizdni_rady.cas_odjezdu%TYPE, p_nr IN jizdni_rady.poradove_cislo%TYPE, p_variant IN jizdni_rady.varianta%TYPE, p_line IN jizdni_rady.linka%TYPE, p_stop IN jizdni_rady.zastavka%TYPE);
+
+    PROCEDURE proc_jizdni_rady_update(p_id IN jizdni_rady.id_jizdni_rad%TYPE, p_arrival IN jizdni_rady.cas_prijezdu%TYPE, p_departure IN jizdni_rady.cas_odjezdu%TYPE, p_nr IN jizdni_rady.poradove_cislo%TYPE, p_variant IN jizdni_rady.varianta%TYPE, p_line IN jizdni_rady.linka%TYPE, p_stop IN jizdni_rady.zastavka%TYPE);
+
+    PROCEDURE proc_jizdni_rady_delete(p_id IN jizdni_rady.id_jizdni_rad%TYPE);
+
+    FUNCTION func_jizdni_rady_read RETURN t_jizdni_rady PIPELINED;
+
+    FUNCTION func_jizdni_rady_read(p_id IN jizdni_rady.id_jizdni_rad%TYPE) RETURN t_jizdni_rady PIPELINED;
+
+    TYPE t_logy is TABLE of logy%ROWTYPE;
+
+    FUNCTION func_logy_read RETURN t_logy PIPELINED;
+
+    FUNCTION func_logy_read(p_id IN logy.id_log%TYPE) RETURN t_logy PIPELINED;
+
+    TYPE t_obrazky is TABLE of obrazky%ROWTYPE;
     
+    PROCEDURE proc_obrazky_create(p_content IN obrazky.obsah%TYPE, p_hash IN obrazky.hash%TYPE, p_name IN obrazky.nazev%TYPE, p_date IN obrazky.datum_nahrani%TYPE);
+    
+    PROCEDURE proc_obrazky_delete(p_id in obrazky.id_obrazek%TYPE);
+    
+    FUNCTION func_obrazky_read RETURN t_obrazky PIPELINED;
+
+    FUNCTION func_obrazky_read(p_id IN obrazky.id_obrazek%TYPE) RETURN t_obrazky PIPELINED;
+
 END sempr_crud;
 

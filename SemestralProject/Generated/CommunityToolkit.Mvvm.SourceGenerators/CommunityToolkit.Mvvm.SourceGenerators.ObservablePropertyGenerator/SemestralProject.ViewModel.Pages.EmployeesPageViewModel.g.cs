@@ -49,6 +49,133 @@ namespace SemestralProject.ViewModel.Pages
             }
         }
 
+        /// <inheritdoc cref="plainEmailVisibility"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::System.Windows.Visibility PlainEmailVisibility
+        {
+            get => plainEmailVisibility;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Windows.Visibility>.Default.Equals(plainEmailVisibility, value))
+                {
+                    OnPlainEmailVisibilityChanging(value);
+                    OnPlainEmailVisibilityChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.PlainEmailVisibility);
+                    plainEmailVisibility = value;
+                    OnPlainEmailVisibilityChanged(value);
+                    OnPlainEmailVisibilityChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.PlainEmailVisibility);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="maskedEmailVisibility"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::System.Windows.Visibility MaskedEmailVisibility
+        {
+            get => maskedEmailVisibility;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Windows.Visibility>.Default.Equals(maskedEmailVisibility, value))
+                {
+                    OnMaskedEmailVisibilityChanging(value);
+                    OnMaskedEmailVisibilityChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.MaskedEmailVisibility);
+                    maskedEmailVisibility = value;
+                    OnMaskedEmailVisibilityChanged(value);
+                    OnMaskedEmailVisibilityChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.MaskedEmailVisibility);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="plainPhoneVisibility"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::System.Windows.Visibility PlainPhoneVisibility
+        {
+            get => plainPhoneVisibility;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Windows.Visibility>.Default.Equals(plainPhoneVisibility, value))
+                {
+                    OnPlainPhoneVisibilityChanging(value);
+                    OnPlainPhoneVisibilityChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.PlainPhoneVisibility);
+                    plainPhoneVisibility = value;
+                    OnPlainPhoneVisibilityChanged(value);
+                    OnPlainPhoneVisibilityChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.PlainPhoneVisibility);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="maskedPhoneVisibility"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::System.Windows.Visibility MaskedPhoneVisibility
+        {
+            get => maskedPhoneVisibility;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Windows.Visibility>.Default.Equals(maskedPhoneVisibility, value))
+                {
+                    OnMaskedPhoneVisibilityChanging(value);
+                    OnMaskedPhoneVisibilityChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.MaskedPhoneVisibility);
+                    maskedPhoneVisibility = value;
+                    OnMaskedPhoneVisibilityChanged(value);
+                    OnMaskedPhoneVisibilityChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.MaskedPhoneVisibility);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="viewData"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.UsersView> ViewData
+        {
+            get => viewData;
+            [global::System.Diagnostics.CodeAnalysis.MemberNotNull("viewData")]
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.UsersView>>.Default.Equals(viewData, value))
+                {
+                    OnViewDataChanging(value);
+                    OnViewDataChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ViewData);
+                    viewData = value;
+                    OnViewDataChanged(value);
+                    OnViewDataChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ViewData);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="selectedData"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::SemestralProject.Model.UsersView? SelectedData
+        {
+            get => selectedData;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::SemestralProject.Model.UsersView?>.Default.Equals(selectedData, value))
+                {
+                    OnSelectedDataChanging(value);
+                    OnSelectedDataChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedData);
+                    selectedData = value;
+                    OnSelectedDataChanged(value);
+                    OnSelectedDataChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedData);
+                }
+            }
+        }
+
         /// <summary>Executes the logic for when <see cref="Employees"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="Employees"/> is changed.</remarks>
@@ -93,5 +220,137 @@ namespace SemestralProject.ViewModel.Pages
         /// <remarks>This method is invoked right after the value of <see cref="SelectedEmployee"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnSelectedEmployeeChanged(global::SemestralProject.Model.Entities.Employee? oldValue, global::SemestralProject.Model.Entities.Employee? newValue);
+        /// <summary>Executes the logic for when <see cref="PlainEmailVisibility"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="PlainEmailVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnPlainEmailVisibilityChanging(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="PlainEmailVisibility"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="PlainEmailVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnPlainEmailVisibilityChanging(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="PlainEmailVisibility"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="PlainEmailVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnPlainEmailVisibilityChanged(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="PlainEmailVisibility"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="PlainEmailVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnPlainEmailVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="MaskedEmailVisibility"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="MaskedEmailVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnMaskedEmailVisibilityChanging(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="MaskedEmailVisibility"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="MaskedEmailVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnMaskedEmailVisibilityChanging(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="MaskedEmailVisibility"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="MaskedEmailVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnMaskedEmailVisibilityChanged(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="MaskedEmailVisibility"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="MaskedEmailVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnMaskedEmailVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="PlainPhoneVisibility"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="PlainPhoneVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnPlainPhoneVisibilityChanging(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="PlainPhoneVisibility"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="PlainPhoneVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnPlainPhoneVisibilityChanging(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="PlainPhoneVisibility"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="PlainPhoneVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnPlainPhoneVisibilityChanged(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="PlainPhoneVisibility"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="PlainPhoneVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnPlainPhoneVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="MaskedPhoneVisibility"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="MaskedPhoneVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnMaskedPhoneVisibilityChanging(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="MaskedPhoneVisibility"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="MaskedPhoneVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnMaskedPhoneVisibilityChanging(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="MaskedPhoneVisibility"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="MaskedPhoneVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnMaskedPhoneVisibilityChanged(global::System.Windows.Visibility value);
+        /// <summary>Executes the logic for when <see cref="MaskedPhoneVisibility"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="MaskedPhoneVisibility"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnMaskedPhoneVisibilityChanged(global::System.Windows.Visibility oldValue, global::System.Windows.Visibility newValue);
+        /// <summary>Executes the logic for when <see cref="ViewData"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="ViewData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnViewDataChanging(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.UsersView> value);
+        /// <summary>Executes the logic for when <see cref="ViewData"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="ViewData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnViewDataChanging(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.UsersView>? oldValue, global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.UsersView> newValue);
+        /// <summary>Executes the logic for when <see cref="ViewData"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="ViewData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnViewDataChanged(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.UsersView> value);
+        /// <summary>Executes the logic for when <see cref="ViewData"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="ViewData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnViewDataChanged(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.UsersView>? oldValue, global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.UsersView> newValue);
+        /// <summary>Executes the logic for when <see cref="SelectedData"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="SelectedData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedDataChanging(global::SemestralProject.Model.UsersView? value);
+        /// <summary>Executes the logic for when <see cref="SelectedData"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="SelectedData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedDataChanging(global::SemestralProject.Model.UsersView? oldValue, global::SemestralProject.Model.UsersView? newValue);
+        /// <summary>Executes the logic for when <see cref="SelectedData"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="SelectedData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedDataChanged(global::SemestralProject.Model.UsersView? value);
+        /// <summary>Executes the logic for when <see cref="SelectedData"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="SelectedData"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedDataChanged(global::SemestralProject.Model.UsersView? oldValue, global::SemestralProject.Model.UsersView? newValue);
     }
 }

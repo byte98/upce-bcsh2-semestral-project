@@ -29,34 +29,6 @@ PACKAGE BODY sempr_utils AS
             RETURN v_reti;
     END func_last_seq;
 --
-    FUNCTION get_employee_hierarchy(p_employee_id IN INTEGER) RETURN SYS_REFCURSOR IS
-        v_cursor SYS_REFCURSOR;
-    BEGIN
-        OPEN v_cursor FOR
-        SELECT id_zamestnanec,
-                CONNECT_BY_ROOT id_zamestnanec AS root_id,
-                LEVEL AS hierarchy_level
-        FROM zamestnanci
-        CONNECT BY PRIOR id_zamestnanec = nadrizeny
-        START WITH id_zamestnanec = p_employee_id;
-        
-        RETURN v_cursor;
-    END get_employee_hierarchy;
---
-    FUNCTION get_top_managers(p_employee_id IN INTEGER) RETURN SYS_REFCURSOR 
-        IS v_result SYS_REFCURSOR;
-    BEGIN
-        OPEN v_result FOR
-        SELECT id_zamestnanec,
-            CONNECT_BY_ROOT id_zamestnanec AS root_id,
-            LEVEL AS hierarchy_level
-        FROM zamestnanci
-        WHERE CONNECT_BY_ISLEAF = 1
-        CONNECT BY PRIOR id_zamestnanec = nadrizeny
-        START WITH nadrizeny IS NULL AND id_zamestnanec = p_employee_id;
-    RETURN v_result;
-    END get_top_managers;
---
     FUNCTION func_next_seq(p_seq VARCHAR2) RETURN NUMBER AS
         v_reti NUMBER := -2147483648;
         v_sequence_exists NUMBER;
@@ -77,5 +49,48 @@ PACKAGE BODY sempr_utils AS
         WHEN OTHERS THEN
             RETURN v_reti;
     END func_next_seq;
+    FUNCTION func_mask_email(p_email IN osoby.e_mail%TYPE) RETURN VARCHAR2 AS
+    email_masked VARCHAR2(256);
+    username VARCHAR2(256);
+    domain VARCHAR2(256);
+    pos_at PLS_INTEGER;
+    masked_username VARCHAR2(256);
+    BEGIN
+        pos_at := INSTR(p_email, '@');
+        
+        IF pos_at > 0 THEN
+            username := SUBSTR(p_email, 1, pos_at - 1);
+            domain := SUBSTR(p_email, pos_at);
+            
+            IF LENGTH(username) > 3 THEN
+                masked_username := SUBSTR(username, 1, 1) || '***' || SUBSTR(username, LENGTH(username) - 1);
+            ELSE
+                masked_username := SUBSTR(username, 1, 1) || '***';
+            END IF;
+            
+            email_masked := masked_username || domain;
+        ELSE
+            email_masked := p_email;
+        END IF;
+    
+        RETURN email_masked;
+    END func_mask_email;
+--
+    FUNCTION func_mask_phone(p_phone IN osoby.telefon%TYPE) RETURN VARCHAR2 AS
+    masked_output VARCHAR2(100);
+    visible_part VARCHAR2(100);
+    masked_part VARCHAR2(100);
+BEGIN
+    IF LENGTH(p_phone) > 8 THEN
+        visible_part := SUBSTR(p_phone, 1, 8);
+        masked_part := RPAD('*', LENGTH(p_phone) - 8, '*');
+        masked_output := visible_part || masked_part;
+    ELSE
+        masked_output := p_phone;
+    END IF;
+
+    RETURN masked_output;
+    
+END func_mask_phone;
 
 END sempr_utils;

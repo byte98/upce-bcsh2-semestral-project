@@ -56,6 +56,11 @@
     </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\Dummy\Dummy.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Dummy.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Installer.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -64,6 +69,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Dummy\Dummy.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Dummy.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Installer.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Installer.Designer.cs</LastGenOutput>

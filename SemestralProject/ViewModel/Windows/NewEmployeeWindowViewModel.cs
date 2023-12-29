@@ -107,7 +107,7 @@ namespace SemestralProject.ViewModel.Windows
                 this.ControlsEnabled = false;
                 Person person = await Person.CreateAsync(this.Name, this.Surname, this.Email, this.Phone);
                 Employee employee = await Employee.CreateAsync(this.address, person);
-                await User.CreateAsync(this.password, DateTime.Now, UserImage.Default, Role.User, State.Active, employee);
+                await User.CreateAsync(this.password, DateTime.Now, ImageFile.Default, Role.User, State.Active, employee);
                 WeakReferenceMessenger.Default.Send<UsersChangedMessage>(new UsersChangedMessage());
                 WeakReferenceMessenger.Default.Send<EmployeesChangedMessage>(new EmployeesChangedMessage());
                 WindowUtils.CloseForModel(this);

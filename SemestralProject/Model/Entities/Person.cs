@@ -170,5 +170,10 @@ namespace SemestralProject.Model.Entities
             string sql = $"sempr_crud.proc_osoby_delete({this.Id})";
             return Person.Delete(sql);
         }
+
+        public override string? ToString()
+        {
+            return $"{this.Name} {this.Surname} ({this.Email}; {this.Phone})";
+        }
     }
 }

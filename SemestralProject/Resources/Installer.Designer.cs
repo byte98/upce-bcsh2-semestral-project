@@ -78,6 +78,39 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to INSERT INTO obrazky(id_obrazek, obsah, hash, nazev, datum_nahrani)
+        ///VALUES (0, TO_CLOB(&apos;H4sIAAAAAAACCgGYBmf5iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAMAAADVRocKAAAABGdBTUEAALGPC/xhBQAAAfhQTFRFQEBAVVVVaWlpc3Nzfn5+d3d3bGxsXV1dRUVFeXl5qamp2dnZ+vr6////6enpurq6ioqKTk5OVFRU6+vrv7+/cnJyREREn5+f/Pz8vr6+Y2NjkJCQ7Ozsr6+vUFBQ+Pj43NzcycnJtbW1oqKiwsLC1dXV4+PjaGhoV1dX0tLS7e3ttLS0enp6Z2dnoaGh29vb+/v7gICAb29v6urqjY2Nbm5uysrKmJiYWlpanZ2dQUFBjIyMQkJC4eHhubm5dHR0vb29xsbGTU1Nnp6e7+/vXFxcnJycUVFR+fn53d3dSEhIq6uriYmJrKys5OTkYGBgWVlZvLy8 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string IMAGE {
+            get {
+                return ResourceManager.GetString("IMAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DECLARE
+        ///    v_table_name VARCHAR2(128);
+        ///    v_sql CLOB;
+        ///BEGIN
+        ///    FOR tbl IN (SELECT table_name FROM user_tables WHERE table_name &lt;&gt; &apos;LOGY&apos;) LOOP
+        ///        v_table_name := tbl.table_name;
+        ///        v_sql := 
+        ///&apos;CREATE OR REPLACE TRIGGER trg_&apos; || v_table_name || &apos;
+        ///    BEFORE DELETE OR INSERT OR UPDATE ON &apos; || v_table_name ||&apos;
+        ///    FOR EACH ROW
+        ///    DECLARE
+        ///        v_old  logy.zprava%TYPE := &apos;&apos;[&apos;&apos;;
+        ///        v_new  logy.zprava%TYPE := &apos;&apos;[&apos;&apos;;
+        ///        v_op   logy.operace%TYPE;
+        ///        v_rows logy.pocet_radk [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string LOGGING {
+            get {
+                return ResourceManager.GetString("LOGGING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Měnit svoji roli za běhu&apos;, &apos;role.modify.runtime&apos;)
         ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Měnit svoji roli&apos;, &apos;role.modify.own&apos;)
         ///INSERT INTO opravneni(nazev, systemovy_nazev) VALUES (&apos;Měnit své údaje&apos;, &apos;user.modify.own&apos;)
@@ -94,20 +127,20 @@ namespace SemestralProject.Resources {
         ///   Looks up a localized string similar to ALTER TABLE adresy
         ///    ADD CONSTRAINT adresy_obce_fk FOREIGN KEY ( obec )
         ///        REFERENCES obce ( id_obec )
+        ///        ON DELETE CASCADE
         ///
         ///ALTER TABLE jizdni_rady
         ///    ADD CONSTRAINT jizdni_rady_linky_fk FOREIGN KEY ( linka )
         ///        REFERENCES linky ( id_linka )
+        ///        ON DELETE CASCADE
         ///
         ///ALTER TABLE jizdni_rady
         ///    ADD CONSTRAINT jizdni_rady_zastavka_fk FOREIGN KEY ( zastavka )
         ///        REFERENCES zastavky ( id_zastavka )
+        ///        ON DELETE CASCADE
         ///
         ///ALTER TABLE obce
-        ///    ADD CONSTRAINT obce_stat_fk FOREIGN KEY ( stat )
-        ///        REFERENCES staty ( id_stat )
-        ///
-        ///ALTER TABLE pra [rest of string was truncated]&quot;;.
+        ///    ADD CONSTRAINT obce_stat [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RELATIONS {
             get {
@@ -161,8 +194,7 @@ namespace SemestralProject.Resources {
         ///    FUNCTION func_users_login(p_personal_nr IN zamestnanci.osobni_cislo%TYPE, p_password IN uzivatele.heslo%TYPE) RETURN uzivatele.id_uzivatel%TYPE AS
         ///        v_reti uzivatele.id_uzivatel%TYPE      := -2147483648;
         ///        v_loggable stavy.prihlasitelny%TYPE    := 1;
-        ///    BEGIN
-        ///        FOR use [rest of string was truncated]&quot;;.
+        ///        v_user uzivatele%R [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEMPR_API_BODY {
             get {
@@ -181,9 +213,10 @@ namespace SemestralProject.Resources {
         ///
         ///--
         ///    FUNCTION func_users_login(p_personal_nr IN zamestnanci.osobni_cislo%TYPE, p_password IN uzivatele.heslo%TYPE) RETURN uzivatele.id_uzivatel%TYPE;
-        ///
-        ///END sempr_api;
-        ///.
+        ///--
+        ///    PROCEDURE proc_users_logout(p_id IN uzivatele.id_uzivatel%TYPE);
+        ///--
+        ///    PROCEDURE proc_log(p_operation IN logy.operace%TYPE, p_table IN logy.tabulka% [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEMPR_API_HEADER {
             get {
@@ -246,6 +279,32 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 
+        ///
+        ///CREATE OR REPLACE TRIGGER log_trigger_adresy
+        ///AFTER DELETE OR UPDATE OR ALTER ON adresy
+        ///FOR EACH ROW
+        ///DECLARE
+        ///    v_action VARCHAR2(10);
+        ///BEGIN
+        ///    IF DELETING THEN v_action := &apos;DELETE&apos;;
+        ///    ELSIF UPDATING THEN v_action := &apos;UPDATE&apos;;
+        ///    ELSE v_action := &apos;ALTER&apos;;
+        ///    END IF;
+        ///    INSERT INTO logs (table_name, message)
+        ///    VALUES (&apos;adresy&apos;, &apos;Action: &apos; || v_action || &apos;, Row ID: &apos; || :OLD.id);
+        ///END; 
+        ////
+        ///CREATE OR REPLACE TRIGGER log_trigger_jizdni_rady
+        ///AFTER DELETE OR UPDATE OR ALTER ON jizdni_rady [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SEMPR_TRIGGERS {
+            get {
+                return ResourceManager.GetString("SEMPR_TRIGGERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CREATE OR REPLACE
         ////*
         /// * Body of package with utility functions.
@@ -281,14 +340,15 @@ namespace SemestralProject.Resources {
         /// *          Jiri Skoda &lt;jiri.skoda@student.upce.cz&gt;
         /// */
         ///PACKAGE sempr_utils AS
-        ///
         ///--
         ///    FUNCTION func_last_seq(p_seq VARCHAR2) RETURN NUMBER;
         ///--
         ///    FUNCTION func_next_seq(p_seq VARCHAR2) RETURN NUMBER;
-        ///
-        ///END sempr_utils;
-        ///.
+        ///--
+        ///    FUNCTION func_mask_email(p_email IN osoby.e_mail%TYPE) RETURN VARCHAR2;
+        ///--
+        ///    FUNCTION func_mask_phone(p_phone IN osoby.telefon%TYPE) RETURN VARCHAR2;
+        ///END se [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEMPR_UTILS_HEADER {
             get {
@@ -300,12 +360,13 @@ namespace SemestralProject.Resources {
         ///   Looks up a localized string similar to CREATE SEQUENCE adresy_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE jizdni_rady_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE linky_seq START WITH 1 NOCACHE ORDER
+        ///CREATE SEQUENCE logy_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE obce_seq START WITH 1 NOCACHE ORDER
+        ///CREATE SEQUENCE obrazky_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE opravneni_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE osoby_seq START WITH 1 NOCACHE ORDER
         ///CREATE SEQUENCE osobni_cisla_seq START WITH 100005 NOCACHE ORDER
-        ///CREATE SEQUENCE plany_smen_seq START WITH 1 NOCACHE ORDER
-        ///CREATE SEQUENCE prava_seq START WITH 1 NOCACHE ORDER        /// [rest of string was truncated]&quot;;.
+        ///CRE [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SEQUENCES {
             get {
@@ -361,6 +422,55 @@ namespace SemestralProject.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -- Vložení mockových dat do tabulky adresy
+        ///INSERT INTO adresy (ulice, cislo_popisne, cislo_orientacni, obec)
+        ///VALUES
+        ///    (&apos;Hlavní&apos;, 123, NULL, 1),
+        ///    (&apos;Náměstí&apos;, 456, 25, 2),
+        ///    (&apos;Ulice Česká&apos;, 789, NULL, 3),
+        ///    (&apos;Masarykova&apos;, 101, 7, 4),
+        ///    (&apos;Školní&apos;, 222, NULL, 5),
+        ///    (&apos;Jiráskova&apos;, 333, 15, 6),
+        ///    (&apos;5. května&apos;, 444, NULL, 7),
+        ///    (&apos;Lidická&apos;, 555, 30, 8),
+        ///    (&apos;Riegrova&apos;, 666, NULL, 9),
+        ///    (&apos;Komenského&apos;, 777, 10, 10);
+        ///
+        ///-- Vložení mockových dat do tabulky jizdni_rady
+        ///INSERT INTO jizdni_ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TABLES_MOCK {
+            get {
+                return ResourceManager.GetString("TABLES_MOCK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE OR REPLACE TRIGGER trg_delete_images
+        ///    AFTER UPDATE ON uzivatele
+        ///    FOR EACH ROW
+        ///    DECLARE 
+        ///        v_count NUMBER := 0;
+        ///    BEGIN
+        ///        SELECT COUNT(*) INTO v_count
+        ///        FROM obrazky o
+        ///        LEFT JOIN uzivatele u ON o.id_obrazek=u.obrazek
+        ///        WHERE u.id_uzivatel IS NULL;
+        ///        IF v_count &gt; 0 THEN
+        ///            sempr_api.proc_obrazky_delete_unused();
+        ///        END IF;
+        ///    END
+        ///
+        ///
+        ///.
+        /// </summary>
+        internal static string TRIGGERS {
+            get {
+                return ResourceManager.GetString("TRIGGERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TRUNCATE TABLE soupravy_metra CASCADE
         ///TRUNCATE TABLE zabezpecovace CASCADE
         ///TRUNCATE TABLE trolejbusy CASCADE
@@ -381,6 +491,32 @@ namespace SemestralProject.Resources {
         internal static string TRUNCATE {
             get {
                 return ResourceManager.GetString("TRUNCATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE OR REPLACE VIEW vw_zamestnanci_hierarchie AS 
+        ///SELECT 
+        ///    LEVEL - 1 AS uroven, 
+        ///    id_zamestnanec AS zamestnanec 
+        ///FROM zamestnanci 
+        ///START WITH nadrizeny IS NULL 
+        ///CONNECT BY PRIOR id_zamestnanec = nadrizeny 
+        ///ORDER SIBLINGS BY id_zamestnanec 
+        ///
+        ///CREATE OR REPLACE VIEW vw_role_opravneni_count AS 
+        ///SELECT r.id_role AS role, 
+        ///COUNT (p.opravneni) AS opravneni 
+        ///FROM role r 
+        ///LEFT JOIN prava p ON r.id_role = p.role 
+        ///GROUP BY r.id_role 
+        ///
+        ///CREATE OR REPLACE VIEW vw_uzivatele_data AS 
+        ///SELECT u.id_u [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string VIEWS {
+            get {
+                return ResourceManager.GetString("VIEWS", resourceCulture);
             }
         }
     }

@@ -609,5 +609,245 @@ PACKAGE BODY sempr_crud AS
     END func_prava_read;
 --
 
+    PROCEDURE proc_linky_create(p_code IN linky.kod%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        INSERT INTO linky(kod) VALUES (p_code);
+        COMMIT;
+    END proc_linky_create;
+--
+    PROCEDURE proc_linky_update(p_id IN linky.id_linka%TYPE, p_code IN linky.kod%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE linky SET kod=p_code
+        WHERE id_linka=p_id;
+        COMMIT;
+    END proc_linky_update;
+--
+    PROCEDURE proc_linky_delete(p_id IN linky.id_linka%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        DELETE FROM linky
+        WHERE id_linka=p_id;
+        COMMIT;
+    END proc_linky_delete;
+--
+
+    FUNCTION func_linky_read RETURN t_linky PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_linka   linky%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM linky;
+        LOOP
+            FETCH v_cursor INTO v_linka;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_linka);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_linky_read;
+--
+    FUNCTION func_linky_read(p_id IN linky.id_linka%TYPE) RETURN t_linky PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_linka   linky%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM linky WHERE id_linka=p_id;
+        LOOP
+            FETCH v_cursor INTO v_linka;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_linka);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_linky_read;
+--
+--
+
+    PROCEDURE proc_zastavky_create(p_code IN zastavky.kod%TYPE, p_name IN zastavky.nazev%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        INSERT INTO zastavky(nazev, kod) VALUES (p_name, p_code);
+        COMMIT;
+    END proc_zastavky_create;
+--
+    PROCEDURE proc_zastavky_update(p_id IN zastavky.id_zastavka%TYPE, p_name IN zastavky.nazev%TYPE, p_code IN zastavky.kod%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE zastavky SET nazev=p_name, kod=p_code
+        WHERE id_zastavka=p_id;
+        COMMIT;
+    END proc_zastavky_update;
+--
+    PROCEDURE proc_zastavky_delete(p_id IN zastavky.id_zastavka%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        DELETE FROM zastavky
+        WHERE id_zastavka=p_id;
+        COMMIT;
+    END proc_zastavky_delete;
+--
+
+    FUNCTION func_zastavky_read RETURN t_zastavky PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_zastavka   zastavky%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM zastavky;
+        LOOP
+            FETCH v_cursor INTO v_zastavka;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_zastavka);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_zastavky_read;
+--
+    FUNCTION func_zastavky_read(p_id IN zastavky.id_zastavka%TYPE) RETURN t_zastavky PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_zastavka   zastavky%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM zastavky WHERE id_zastavka=p_id;
+        LOOP
+            FETCH v_cursor INTO v_zastavka;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_zastavka);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_zastavky_read;
+--
+
+
+
+
+    PROCEDURE proc_jizdni_rady_create(p_arrival IN jizdni_rady.cas_prijezdu%TYPE, p_departure IN jizdni_rady.cas_odjezdu%TYPE, p_nr IN jizdni_rady.poradove_cislo%TYPE, p_variant IN jizdni_rady.varianta%TYPE, p_line IN jizdni_rady.linka%TYPE, p_stop IN jizdni_rady.zastavka%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        INSERT INTO jizdni_rady(cas_prijezdu, cas_odjezdu, poradove_cislo, varianta, linka, zastavka)
+        VALUES (p_arrival, p_departure, p_nr, p_variant, p_line, p_stop);
+        COMMIT;
+    END proc_jizdni_rady_create;
+
+    PROCEDURE proc_jizdni_rady_update(p_id IN jizdni_rady.id_jizdni_rad%TYPE, p_arrival IN jizdni_rady.cas_prijezdu%TYPE, p_departure IN jizdni_rady.cas_odjezdu%TYPE, p_nr IN jizdni_rady.poradove_cislo%TYPE, p_variant IN jizdni_rady.varianta%TYPE, p_line IN jizdni_rady.linka%TYPE, p_stop IN jizdni_rady.zastavka%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE jizdni_rady
+        SET cas_prijezdu=p_arrival, cas_odjezdu=p_departure, poradove_cislo=p_nr, varianta=p_variant, linka=p_line, zastavka=p_stop
+        WHERE id_jizdni_rad=p_id;
+        COMMIT;
+    END proc_jizdni_rady_update;
+
+    PROCEDURE proc_jizdni_rady_delete(p_id IN jizdni_rady.id_jizdni_rad%TYPE) AS
+    BEGIN
+        DELETE FROM jizdni_rady WHERE id_jizdni_rad=p_id;
+    END proc_jizdni_rady_delete;
+
+    FUNCTION func_jizdni_rady_read RETURN t_jizdni_rady PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_jizdni_rad   jizdni_rady%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM jizdni_rady;
+        LOOP
+            FETCH v_cursor INTO v_jizdni_rad;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_jizdni_rad);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_jizdni_rady_read;
+
+    FUNCTION func_jizdni_rady_read(p_id IN jizdni_rady.id_jizdni_rad%TYPE) RETURN t_jizdni_rady PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_jizdni_rad   jizdni_rady%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM jizdni_rady WHERE id_jizdni_rad=p_id;
+        LOOP
+            FETCH v_cursor INTO v_jizdni_rad;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_jizdni_rad);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_jizdni_rady_read;
+
+    FUNCTION func_logy_read RETURN t_logy PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_log     logy%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM logy ORDER BY cas DESC;
+        LOOP
+            FETCH v_cursor INTO v_log;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_log);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_logy_read; 
+
+    FUNCTION func_logy_read(p_id IN logy.id_log%TYPE) RETURN t_logy PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_log     logy%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM logy WHERE id_log=p_id ORDER BY cas DESC;
+        LOOP
+            FETCH v_cursor INTO v_log;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_log);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_logy_read;
+
+    PROCEDURE proc_obrazky_create(p_content IN obrazky.obsah%TYPE, p_hash IN obrazky.hash%TYPE, p_name IN obrazky.nazev%TYPE, p_date IN obrazky.datum_nahrani%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        INSERT INTO obrazky (obsah, hash, nazev, datum_nahrani)
+        VALUES (p_content, p_hash, p_name, p_date);
+        COMMIT;
+    END proc_obrazky_create;
+    
+    PROCEDURE proc_obrazky_delete(p_id in obrazky.id_obrazek%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        DELETE FROM obrazky WHERE id_obrazek=p_id;
+        COMMIT;
+    END proc_obrazky_delete;
+    
+    FUNCTION func_obrazky_read RETURN t_obrazky PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_obrazek     obrazky%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM obrazky;
+        LOOP
+            FETCH v_cursor INTO v_obrazek;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_obrazek);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_obrazky_read;
+
+    FUNCTION func_obrazky_read(p_id IN obrazky.id_obrazek%TYPE) RETURN t_obrazky PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_obrazek     obrazky%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM obrazky WHERE id_obrazek=p_id;
+        LOOP
+            FETCH v_cursor INTO v_obrazek;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_obrazek);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_obrazky_read;
 
 END sempr_crud;

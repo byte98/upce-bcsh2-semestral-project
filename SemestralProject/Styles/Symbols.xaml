@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=netstandard">
+    <system:String x:Key="InsertSymbol">&#xE2BE;&#xE109;</system:String>
+    <system:String x:Key="UpdateSymbol">&#xE2BE;&#xE117;</system:String>
+    <system:String x:Key="DeleteSymbol">&#xE2BE;&#xE107;</system:String>
+    <system:String x:Key="LoginSymbol">&#xE2BE;&#xE1FD;</system:String>
+    <system:String x:Key="LogoutSymbol">&#xE2BE;&#xE143;</system:String>
+</ResourceDictionary>

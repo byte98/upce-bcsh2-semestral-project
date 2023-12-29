@@ -80,7 +80,7 @@ namespace SemestralProject.Model
             string phone,
             string password,
             int personalNumber,
-            UserImage image,
+            ImageFile image,
             Address? address)
         {
             this.Database = database;

@@ -31,7 +31,7 @@ namespace SemestralProject.Model.Entities
         public static Line Create(string code)
         {
             string sql = $"sempr_crud.proc_linky_create('{code}')";
-            int id = Line.Create(sql, "linky_seq");
+            int id = Entity.Create(sql, "linky_seq");
             return new Line(id, code);
         }
 

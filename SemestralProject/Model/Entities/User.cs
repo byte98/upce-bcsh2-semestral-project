@@ -1,4 +1,5 @@
-﻿using SemestralProject.Common;
+﻿using SemestralProject.AsynchronousMethod;
+using SemestralProject.Common;
 using SemestralProject.Utils;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace SemestralProject.Model.Entities
     /// <summary>
     /// Class which represents user of the system.
     /// </summary>
-    public class User: AsynchronousEntity
+    public partial class User: AsynchronousEntity
     {
         /// <summary>
         /// Attribute which holds password of user.
@@ -45,7 +46,7 @@ namespace SemestralProject.Model.Entities
         /// <summary>
         /// Image of user.
         /// </summary>
-        public UserImage Image { get; set; }
+        public ImageFile Image { get; set; }
 
         /// <summary>
         /// Role of user.
@@ -72,7 +73,7 @@ namespace SemestralProject.Model.Entities
         /// <param name="role">Role of user.</param>
         /// <param name="state">State of user.</param>
         /// <param name="employee">Employee to which is user assigned to.</param>
-        private User(int id, string password, DateTime registration, UserImage image, Role role, State state, Employee employee)
+        private User(int id, string password, DateTime registration, ImageFile image, Role role, State state, Employee employee)
         {
             this.Id = id;
             this.password = password;
@@ -103,9 +104,9 @@ namespace SemestralProject.Model.Entities
         /// <param name="state">State of user.</param>
         /// <param name="employee">Employee to which is user assigned to.</param>
         /// <returns>Newly created user.</returns>
-        public static User Create(string password, DateTime registration, UserImage image, Role role, State state, Employee employee)
+        public static User Create(string password, DateTime registration, ImageFile image, Role role, State state, Employee employee)
         {
-            string sql = $"sempr_crud.proc_uzivatele_create('{User.HashPassword(password)}', {DateUtils.ToSQL(registration)}, {image.ToClob()}, {role.Id}, {state.Id}, {employee.Id})";
+            string sql = $"sempr_crud.proc_uzivatele_create('{User.HashPassword(password)}', {DateUtils.ToSQL(registration)}, {image.Id}, {role.Id}, {state.Id}, {employee.Id})";
             int id = User.Create(sql, "uzivatele_seq");
             return new User(id, password, registration, image, role, state, employee);
         }
@@ -121,7 +122,7 @@ namespace SemestralProject.Model.Entities
         /// <param name="state">State of user.</param>
         /// <param name="employee">Employee to which is user assigned to.</param>
         /// <returns>Task which resolves into newly created user.</returns>
-        public static Task<User> CreateAsync(string password, DateTime registration, UserImage image, Role role, State state, Employee employee)
+        public static Task<User> CreateAsync(string password, DateTime registration, ImageFile image, Role role, State state, Employee employee)
         {
             return Task<User>.Run(() =>
             {
@@ -153,13 +154,14 @@ namespace SemestralProject.Model.Entities
                 Role? role = Role.GetById((int)(row["role"] ?? int.MinValue));
                 DateTime? date = DateUtils.FromQuery(row["datum_registrace"]);
                 string? password = (string?)row["heslo"];
-                if (date != null && employee != null && state != null && role != null && password != null)
+                ImageFile? image = ImageFile.GetById((int)(row["obrazek"] ?? int.MinValue));
+                if (date != null && employee != null && state != null && role != null && password != null && image != null)
                 {
                     reti.Add(new User(
                         (int)(row["id_uzivatel"] ?? int.MinValue),
                         (string)password,
                         (DateTime)date,
-                        UserImage.FromContent((string)(row["obrazek"] ?? string.Empty)),
+                        image,
                         role,
                         state,
                         employee
@@ -198,15 +200,16 @@ namespace SemestralProject.Model.Entities
                 State? state = State.GetById((int)(row["stav"] ?? int.MinValue));
                 Role? role = Role.GetById((int)(row["role"] ?? int.MinValue));
                 DateTime date;
+                ImageFile? image = ImageFile.GetById((int)(row["obrazek"] ?? int.MinValue));
                 if (DateTime.TryParse((string)(row["datum_registrace"] ?? string.Empty), out date))
                 {
-                    if (employee != null && state != null && role != null)
+                    if (employee != null && state != null && role != null && image != null)
                     {
                         reti.Add(new User(
                             (int)(row["id_uzivatel"] ?? int.MinValue),
                             (string)(row["heslo"] ?? string.Empty),
                             date,
-                            UserImage.FromContent((string)(row["obrazek"] ?? string.Empty)),
+                            image,
                             role,
                             state,
                             employee
@@ -248,13 +251,14 @@ namespace SemestralProject.Model.Entities
                 State? state = State.GetById((int)(row["stav"] ?? int.MinValue));
                 Role? role = Role.GetById((int)(row["role"] ?? int.MinValue));
                 DateTime? date = DateUtils.FromQuery(results[0]["datum_registrace"]);
-                if (employee != null && state != null && role != null && date != null)
+                ImageFile? image = ImageFile.GetById((int)(row["obrazek"] ?? int.MinValue));
+                if (employee != null && state != null && role != null && date != null && image != null)
                 {
                     reti = new User(
                         (int)(row["id_uzivatel"] ?? int.MinValue),
                         (string)(row["heslo"] ?? string.Empty),
                         (DateTime)date,
-                        UserImage.FromContent((string)(row["obrazek"] ?? string.Empty)),
+                        image,
                         role,
                         state,
                         employee
@@ -264,9 +268,26 @@ namespace SemestralProject.Model.Entities
             return reti;
         }
 
+        /// <summary>
+        /// Gets user by its identifier asynchronously.
+        /// </summary>
+        /// <param name="id">Identifier of user.</param>
+        /// <returns>
+        /// Task which resolves into:
+        /// user with searched identifier,
+        /// or NULL if there is no such user.
+        /// </returns>
+        public static Task<User?> GetByIdAsync(int id)
+        {
+            return Task<User?>.Run(() =>
+            {
+                return User.GetById(id);
+            });
+        }
+
         public override bool Update()
         {
-            string sql = $"sempr_crud.proc_uzivatele_update({this.Id}, '{this.Password}', {DateUtils.ToSQL(this.Registration)}, {this.Image.ToClob()}, {this.Role.Id}, {this.State.Id}, {this.Employee.Id})";
+            string sql = $"sempr_crud.proc_uzivatele_update({this.Id}, '{this.Password}', {DateUtils.ToSQL(this.Registration)}, {this.Image.Id}, {this.Role.Id}, {this.State.Id}, {this.Employee.Id})";
             return User.Update(sql);
         }
 
@@ -274,6 +295,11 @@ namespace SemestralProject.Model.Entities
         {
             string sql = $"sempr_crud.proc_uzivatele_delete({this.Id})";
             return User.Delete(sql);
+        }
+
+        public override string? ToString()
+        {
+            return $"{this.Role.ToString()} [{this.State.ToString()}]: {this.Employee.PersonalData.ToString()}";
         }
     }
 }

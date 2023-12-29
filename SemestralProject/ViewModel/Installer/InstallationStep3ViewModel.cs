@@ -41,7 +41,7 @@ namespace SemestralProject.ViewModel.Installer
         /// </summary>
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(NextCommand))]
-        private UserImage userImage;
+        private ImageFile userImage;
 
         /// <summary>
         /// Path to image source.
@@ -108,8 +108,8 @@ namespace SemestralProject.ViewModel.Installer
                 InstallationProcessViewModel.Instance.RegisterDynamicSource(this);
                 InstallationProcessViewModel.Instance.RegisterTarget(this);
             }
-            this.UserImage = UserImage.Default;
-            this.Image = this.userImage.ToImage();
+            this.UserImage = ImageFile.Default;
+            this.Image = Common.UserImage.FromImageFile(this.userImage).ToImage();
             this.ImageSource = "<výchozí obrázek>";
             this.Name = string.Empty;
             this.Surname = string.Empty;
@@ -134,8 +134,8 @@ namespace SemestralProject.ViewModel.Installer
             bool? result = dialog.ShowDialog();
             if (result != null && result == true)
             {
-                this.UserImage = UserImage.FromFile(dialog.FileName);
-                this.Image = this.UserImage.ToImage();
+                this.UserImage = ImageFile.FromFile(dialog.FileName);
+                this.Image = Common.UserImage.FromImageFile(this.UserImage).ToImage();
                 this.ImageSource = dialog.FileName;
             }
         }
@@ -156,8 +156,8 @@ namespace SemestralProject.ViewModel.Installer
         [RelayCommand]
         private void ControlLoaded()
         {
-            this.UserImage = UserImage.Default;
-            this.Image = this.UserImage.ToImage();
+            this.UserImage = ImageFile.Default;
+            this.Image = Common.UserImage.FromImageFile(this.UserImage).ToImage();
             this.ImageSource = "<výchozí obrázek>";
         }
 

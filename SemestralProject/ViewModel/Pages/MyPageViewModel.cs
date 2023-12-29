@@ -204,6 +204,11 @@ namespace SemestralProject.ViewModel.Pages
         private bool changeRole = true;
 
         /// <summary>
+        /// Lastly updated image.
+        /// </summary>
+        private ImageFile? imageFile;
+
+        /// <summary>
         /// Creates new handler of page with users data.
         /// </summary>
         public MyPageViewModel()
@@ -250,7 +255,7 @@ namespace SemestralProject.ViewModel.Pages
                 this.Email = this.User.Employee.PersonalData.Email;
                 this.Phone = this.User.Employee.PersonalData.Phone;
                 this.PersonalNumber = this.User.Employee.PersonalNumber;
-                this.image = this.User.Image;
+                this.image = UserImage.FromImageFile(this.User.Image);
                 this.ImageSource = this.image.ToImage();
                 this.Registration = this.User.Registration;
                 this.Employment = this.User.Employee.EmploymentDate;
@@ -310,7 +315,7 @@ namespace SemestralProject.ViewModel.Pages
         /// Handles click on 'search picture' button.
         /// </summary>
         [RelayCommand]
-        private void SearchPicture()
+        private async Task SearchPicture()
         {
             Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
             dialog.Filter = "Všechny obrázky | *.bmp;*.gif;*jpg;*.jpeg;*.png";
@@ -319,6 +324,7 @@ namespace SemestralProject.ViewModel.Pages
             {
                 this.image = UserImage.FromFile(dialog.FileName);
                 this.ImageSource = this.image.ToImage();
+                this.imageFile = await ImageFile.FromFileAsync(dialog.FileName);
             }
         }
 
@@ -426,9 +432,9 @@ namespace SemestralProject.ViewModel.Pages
                 e.EmploymentDate = this.Employment;
                 e.PersonalNumber = this.PersonalNumber;
                 await e.UpdateAsync();
-                if (this.image != null)
+                if (this.imageFile != null)
                 {
-                    this.User.Image = this.image;
+                    this.User.Image = this.imageFile;
                 }
                 this.User.Registration = this.Registration;
                 await this.User.UpdateAsync();

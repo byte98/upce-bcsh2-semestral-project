@@ -19,6 +19,9 @@
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding WindowClosingCommand}" />
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -72,10 +75,34 @@
                     <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Linky"/>
                 </StackPanel>
             </components:MenuButton>
+            <components:MenuButton Command="{Binding StopsCommand}" Visibility="{Binding StopsVisibility}" IsChecked="{Binding StopsCheck}" Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
+                    <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xE7B7;" Margin="8,0,16,0"/>
+                    <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Zastávky"/>
+                </StackPanel>
+            </components:MenuButton>
+            <components:MenuButton Command="{Binding SchedulesCommand}" Visibility="{Binding SchedulesVisibility}" IsChecked="{Binding SchedulesCheck}" Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
+                    <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xE161;" Margin="8,0,16,0"/>
+                    <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Jízdní řády"/>
+                </StackPanel>
+            </components:MenuButton>
+            <components:MenuButton Command="{Binding HierarchyCommand}" Visibility="{Binding HierarchyVisibility}" IsChecked="{Binding HierarchyCheck}" Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
+                    <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xF157;" Margin="8,0,16,0"/>
+                    <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Hierarchie společnosti"/>
+                </StackPanel>
+            </components:MenuButton>
             <components:MenuButton Command="{Binding SupertoolCommand}" Visibility="{Binding SupertoolVisibility}" IsChecked="{Binding SupertoolCheck}" Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
-                    <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xEE94;" Margin="8,0,16,0"/>
+                    <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xECAD;" Margin="8,0,16,0"/>
                     <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Supernástroj databáze"/>
+                </StackPanel>
+            </components:MenuButton>
+            <components:MenuButton Command="{Binding LogsCommand}" Visibility="{Binding LogsVisibility}" IsChecked="{Binding LogsCheck}" Style="{StaticResource MenuButton}" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0">
+                    <Label VerticalAlignment="Center" FontSize="32" FontFamily="Segoe MDL2 Assets" Content="&#xE736;" Margin="8,0,16,0"/>
+                    <Label FontWeight="Light" VerticalAlignment="Center" FontSize="24" Content="Žurnál"/>
                 </StackPanel>
             </components:MenuButton>
         </StackPanel>
@@ -125,6 +152,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <ScrollViewer Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                 <ui:Frame Padding="8,8,8,8"  x:Name="FrameContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

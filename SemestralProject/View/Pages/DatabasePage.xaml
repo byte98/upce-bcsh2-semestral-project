@@ -11,11 +11,70 @@ xmlns:components="clr-namespace:SemestralProject.View.Components"
 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 xmlns:model="clr-namespace:SemestralProject.Model.Entities"
 xmlns:converters="clr-namespace:SemestralProject.View.Converters"
+      xmlns:view="clr-namespace:SemestralProject.View"
 vml:ViewModelLocator.AutoHookedUpViewModel="True"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DatabasePage">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding PageLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <StackPanel>
         <TextBlock Style="{DynamicResource HeaderTextBlockStyle}" Text="Supernástroj databáze"/>
+        <ui:ThemeShadowChrome IsShadowEnabled="True" HorizontalAlignment="Center" VerticalAlignment="Center" Depth="64">
+            <Border Margin="8,8,8,8" Background="{DynamicResource WarningOpacityColorBrush}" Padding="8,8,8,8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Label Margin="0,0,8,0" FontSize="24" Grid.Row="0" Grid.Column="0" Content="&#xE7BA;" FontFamily="Segoe MDL2 Assets" FontWeight="Bold" />
+                    <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                        <Label Content="Tady opatrně" FontWeight="Bold" />
+                        <TextBlock Text="Veškeré změny jsou ihned přepisovány do databáze. Tento nástroj je určen pouze pro zkušené uživatele. Používat tento nástroj je doporučeno pouze uživatelům, kteří vědí co dělají." />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </ui:ThemeShadowChrome>
+        <Grid Margin="0,0,0,8" Visibility="{Binding WaitVisibility}"  Background="{DynamicResource SystemAltHighColorBrush}" Panel.ZIndex="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Panel.ZIndex="8">
+                <Label FontSize="24" Content="Počkejte prosím..." Margin="0,0,0,8" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <ui:ProgressRing Width="32" Height="32" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
+            </StackPanel>
+        </Grid>
+        <TabControl Style="{StaticResource TabControlPivotStyle}">
+            <TabItem Header="Tabulky">
+                <StackPanel Visibility="{Binding ContentVisibility}">
+                    <ComboBox ItemsSource="{Binding Tables}" Margin="0,16,0,16" SelectedItem="{Binding SelectedTable}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedTableChangedCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ui:ControlHelper.Header>
+                            <Label Content="Tabulka" />
+                        </ui:ControlHelper.Header>
+                    </ComboBox>
+                    <DataGrid ItemsSource="{Binding TableData}" AutoGenerateColumns="True" SelectionMode="Single" SelectedItem="{Binding SelectedTableData}">
+
+                    </DataGrid>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Objekty">
+                <DataGrid ItemsSource="{Binding ObjectsData}" AutoGenerateColumns="True" SelectionMode="Single" IsReadOnly="True" />
+            </TabItem>
+        </TabControl>
     </StackPanel>
 </Page>

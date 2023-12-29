@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using SemestralProject.Common;
+using SemestralProject.Model;
 using SemestralProject.Model.Entities;
 using SemestralProject.View.Components;
 using SemestralProject.ViewModel.Messaging;
@@ -62,11 +64,24 @@ namespace SemestralProject.ViewModel.Pages
         private ObservableCollection<Role> allRoles;
 
         /// <summary>
+        /// Collection of displayed data.
+        /// </summary>
+        [ObservableProperty]
+        private ObservableCollection<PermissionsView> viewData;
+
+        /// <summary>
         /// Actually selected role.
         /// </summary>
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(DeleteRoleCommand))]
         private Role? selectedRole;
+
+        /// <summary>
+        /// Actually selected data
+        /// </summary>
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(DeleteRoleCommand))]
+        private PermissionsView? selectedData;
 
         /// <summary>
         /// Name of selected role.
@@ -96,7 +111,7 @@ namespace SemestralProject.ViewModel.Pages
         /// </summary>
         public PermissionsPageViewModel()
         {
-            this.detailsVisible = true;
+            this.detailsVisible = false;
             this.loaderVisibility = Visibility.Visible;
             this.contentVisibility = Visibility.Collapsed;
             this.waitVisibility = Visibility.Collapsed;
@@ -105,6 +120,7 @@ namespace SemestralProject.ViewModel.Pages
             this.nameReadOnly = true;
             this.selectedRoleName = string.Empty;
             this.allRoles = new ObservableCollection<Role>();
+            this.viewData = new ObservableCollection<PermissionsView>();
             this.selectedPermissions = new ObservableCollection<Permission>();
             this.AllRoles.Clear();
             WeakReferenceMessenger.Default.Register<RolesChangedMessage>(this, (sender, args) =>
@@ -140,13 +156,24 @@ namespace SemestralProject.ViewModel.Pages
         {
             this.WaitVisibility = Visibility.Visible;
             this.ContentVisibility = Visibility.Collapsed;
-            this.AllRoles.Clear();
-            Role[] loadedRoles = await Role.GetAllAsync();
-            foreach (Role r in loadedRoles)
+            this.ViewData.Clear();
+            IConnection conn = await OracleConnector.LoadAsync();
+            IDictionary<string, object?>[] results = await conn.QueryAsync("SELECT * FROM VW_ROLE_OPRAVNENI_COUNT");
+            foreach (IDictionary<string, object?> row in results)
             {
-                this.AllRoles.Add(r);
+                int? id = (int?)row["role"];
+                int? count = (int?)row["opravneni"];
+                Role? role = null;
+                if (id != null)
+                {
+                    await conn.ExecuteAsync("COMMIT");
+                    role = await Role.GetByIdAsync((int)id);
+                }
+                if (role != null && count != null)
+                {
+                    this.ViewData.Add(new PermissionsView(role, (int)count));
+                }
             }
-            this.SelectedRoleName = string.Empty;
             this.WaitVisibility = Visibility.Collapsed;
             this.ContentVisibility = Visibility.Visible;
         }
@@ -157,16 +184,27 @@ namespace SemestralProject.ViewModel.Pages
         [RelayCommand]
         private async Task PageLoaded()
         {
-            this.AllRoles.Clear();
-            this.LoaderVisibility = Visibility.Visible;
+            this.WaitVisibility = Visibility.Visible;
             this.ContentVisibility = Visibility.Collapsed;
-            this.AllRoles.Clear();
-            Role[] loadedRoles = await Role.GetAllAsync();
-            foreach (Role r in loadedRoles)
+            this.ViewData.Clear();
+            IConnection conn = await OracleConnector.LoadAsync();
+            IDictionary<string, object?>[] results = await conn.QueryAsync("SELECT * FROM VW_ROLE_OPRAVNENI_COUNT");
+            foreach (IDictionary<string, object?> row in results)
             {
-                this.AllRoles.Add(r);
+                int? id = (int?)row["role"];
+                int? count = (int?)row["opravneni"];
+                Role? role = null;
+                if (id != null)
+                {
+                    await conn.ExecuteAsync("COMMIT");
+                    role = await Role.GetByIdAsync((int)id);
+                }
+                if (role != null && count != null)
+                {
+                    this.ViewData.Add(new PermissionsView(role, (int)count));
+                }
             }
-            this.LoaderVisibility = Visibility.Collapsed;
+            this.WaitVisibility = Visibility.Collapsed;
             this.ContentVisibility = Visibility.Visible;
         }
 
@@ -177,17 +215,21 @@ namespace SemestralProject.ViewModel.Pages
         private async Task SelectedRoleChanged()
         {
             this.SelectedPermissions.Clear();
-            if (this.SelectedRole != null)
+            if (this.SelectedData != null)
             {
-                this.SelectedRoleName = this.SelectedRole.Name;
+                this.SelectedRole = this.SelectedData.Role;
                 if (this.SelectedRole != null)
                 {
-                    await this.SelectedRole.LoadPermissionsAsync();
+                    this.SelectedRoleName = this.SelectedRole.Name;
                     if (this.SelectedRole != null)
                     {
-                        foreach (Permission p in this.SelectedRole.GetPermissions())
+                        await this.SelectedRole.LoadPermissionsAsync();
+                        if (this.SelectedRole != null)
                         {
-                            this.SelectedPermissions.Add(p);
+                            foreach (Permission p in this.SelectedRole.GetPermissions())
+                            {
+                                this.SelectedPermissions.Add(p);
+                            }
                         }
                     }
                 }
