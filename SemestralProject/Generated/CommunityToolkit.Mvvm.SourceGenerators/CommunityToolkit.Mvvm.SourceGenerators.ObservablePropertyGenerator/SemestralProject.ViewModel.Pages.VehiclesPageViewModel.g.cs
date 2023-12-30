@@ -49,6 +49,72 @@ namespace SemestralProject.ViewModel.Pages
             }
         }
 
+        /// <inheritdoc cref="vehicleEvidenceNumber"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public string VehicleEvidenceNumber
+        {
+            get => vehicleEvidenceNumber;
+            [global::System.Diagnostics.CodeAnalysis.MemberNotNull("vehicleEvidenceNumber")]
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(vehicleEvidenceNumber, value))
+                {
+                    OnVehicleEvidenceNumberChanging(value);
+                    OnVehicleEvidenceNumberChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.VehicleEvidenceNumber);
+                    vehicleEvidenceNumber = value;
+                    OnVehicleEvidenceNumberChanged(value);
+                    OnVehicleEvidenceNumberChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.VehicleEvidenceNumber);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="vehicleType"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public string VehicleType
+        {
+            get => vehicleType;
+            [global::System.Diagnostics.CodeAnalysis.MemberNotNull("vehicleType")]
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<string>.Default.Equals(vehicleType, value))
+                {
+                    OnVehicleTypeChanging(value);
+                    OnVehicleTypeChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.VehicleType);
+                    vehicleType = value;
+                    OnVehicleTypeChanged(value);
+                    OnVehicleTypeChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.VehicleType);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="availableTypes"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::System.Collections.ObjectModel.ObservableCollection<string> AvailableTypes
+        {
+            get => availableTypes;
+            [global::System.Diagnostics.CodeAnalysis.MemberNotNull("availableTypes")]
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Collections.ObjectModel.ObservableCollection<string>>.Default.Equals(availableTypes, value))
+                {
+                    OnAvailableTypesChanging(value);
+                    OnAvailableTypesChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.AvailableTypes);
+                    availableTypes = value;
+                    OnAvailableTypesChanged(value);
+                    OnAvailableTypesChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.AvailableTypes);
+                }
+            }
+        }
+
         /// <summary>Executes the logic for when <see cref="Vehicles"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="Vehicles"/> is changed.</remarks>
@@ -93,5 +159,71 @@ namespace SemestralProject.ViewModel.Pages
         /// <remarks>This method is invoked right after the value of <see cref="SelectedVehicle"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnSelectedVehicleChanged(global::SemestralProject.Model.Entities.Vehicle? oldValue, global::SemestralProject.Model.Entities.Vehicle? newValue);
+        /// <summary>Executes the logic for when <see cref="VehicleEvidenceNumber"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="VehicleEvidenceNumber"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnVehicleEvidenceNumberChanging(string value);
+        /// <summary>Executes the logic for when <see cref="VehicleEvidenceNumber"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="VehicleEvidenceNumber"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnVehicleEvidenceNumberChanging(string? oldValue, string newValue);
+        /// <summary>Executes the logic for when <see cref="VehicleEvidenceNumber"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="VehicleEvidenceNumber"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnVehicleEvidenceNumberChanged(string value);
+        /// <summary>Executes the logic for when <see cref="VehicleEvidenceNumber"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="VehicleEvidenceNumber"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnVehicleEvidenceNumberChanged(string? oldValue, string newValue);
+        /// <summary>Executes the logic for when <see cref="VehicleType"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="VehicleType"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnVehicleTypeChanging(string value);
+        /// <summary>Executes the logic for when <see cref="VehicleType"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="VehicleType"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnVehicleTypeChanging(string? oldValue, string newValue);
+        /// <summary>Executes the logic for when <see cref="VehicleType"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="VehicleType"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnVehicleTypeChanged(string value);
+        /// <summary>Executes the logic for when <see cref="VehicleType"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="VehicleType"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnVehicleTypeChanged(string? oldValue, string newValue);
+        /// <summary>Executes the logic for when <see cref="AvailableTypes"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="AvailableTypes"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnAvailableTypesChanging(global::System.Collections.ObjectModel.ObservableCollection<string> value);
+        /// <summary>Executes the logic for when <see cref="AvailableTypes"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="AvailableTypes"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnAvailableTypesChanging(global::System.Collections.ObjectModel.ObservableCollection<string>? oldValue, global::System.Collections.ObjectModel.ObservableCollection<string> newValue);
+        /// <summary>Executes the logic for when <see cref="AvailableTypes"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="AvailableTypes"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnAvailableTypesChanged(global::System.Collections.ObjectModel.ObservableCollection<string> value);
+        /// <summary>Executes the logic for when <see cref="AvailableTypes"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="AvailableTypes"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnAvailableTypesChanged(global::System.Collections.ObjectModel.ObservableCollection<string>? oldValue, global::System.Collections.ObjectModel.ObservableCollection<string> newValue);
     }
 }

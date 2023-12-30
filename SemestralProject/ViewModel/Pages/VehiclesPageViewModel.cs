@@ -28,6 +28,27 @@ namespace SemestralProject.ViewModel.Pages
         [ObservableProperty]
         private Vehicle? selectedVehicle;
 
+        /// <summary>
+        /// Evidence number of the new vehicle
+        /// </summary>
+        [ObservableProperty]
+        private string vehicleEvidenceNumber = string.Empty;
+
+        /// <summary>
+        /// Type of the new vehicle
+        /// </summary>
+        [ObservableProperty]
+        private string vehicleType = string.Empty;
+
+        /// <summary>
+        /// List with all available types.
+        /// </summary>
+        [ObservableProperty]
+        private ObservableCollection<string> availableTypes = new ObservableCollection<string> {
+            "TRM",
+            "BUS",
+            "MTR"
+        };
 
 
         /// <summary>
@@ -63,27 +84,27 @@ namespace SemestralProject.ViewModel.Pages
             this.ContentVisibility = Visibility.Visible;
         }
 
-        ///// <summary>
-        ///// Handles click on new button.
-        ///// </summary>
-        //[RelayCommand]
-        //private async Task New()
-        //{
-        //    await Stop.CreateAsync(this.StopCode, this.StopName);
-        //    WeakReferenceMessenger.Default.Send<StopsChangedMessage>(new StopsChangedMessage());
-        //}
+        /// <summary>
+        /// Handles click on new button.
+        /// </summary>
+        [RelayCommand]
+        private async Task New()
+        {
+            await Vehicle.CreateAsync(this.VehicleEvidenceNumber, this.VehicleType);
+            WeakReferenceMessenger.Default.Send<VehiclesChangedMessage>(new VehiclesChangedMessage());
+        }
 
-        ///// <summary>
-        ///// Handles click on remove button.
-        ///// </summary>
-        //[RelayCommand]
-        //private async Task Remove()
-        //{
-        //    if (this.SelectedStop != null)
-        //    {
-        //        await this.SelectedStop.DeleteAsync();
-        //        WeakReferenceMessenger.Default.Send<StopsChangedMessage>(new StopsChangedMessage());
-        //    }
-        //}
+        /// <summary>
+        /// Handles click on remove button.
+        /// </summary>
+        [RelayCommand]
+        private async Task Remove()
+        {
+            if (this.SelectedVehicle != null)
+            {
+                await this.SelectedVehicle.DeleteAsync();
+                WeakReferenceMessenger.Default.Send<VehiclesChangedMessage>(new VehiclesChangedMessage());
+            }
+        }
     }
 }
