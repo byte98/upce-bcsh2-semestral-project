@@ -41,12 +41,14 @@ namespace SemestralProject.Model.Entities
         /// </summary>
         private Permission[] allPermissions;
 
+
+
         /// <summary>
         /// Creates new role.
         /// </summary>
         /// <param name="id">Identifier of role.</param>
         /// <param name="name">Name of role.</param>
-        private Role(int id, string name)
+        public Role(int id, string name)
         {
             this.Id = id;
             this.Name = name;

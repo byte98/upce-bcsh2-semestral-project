@@ -60,6 +60,11 @@ namespace SemestralProject.Model.Entities
             this.Superior = superior;
         }
 
+        public Employee(int id)
+        {
+            this.Id = id;
+        }
+
         /// <summary>
         /// Creates new employee.
         /// </summary>

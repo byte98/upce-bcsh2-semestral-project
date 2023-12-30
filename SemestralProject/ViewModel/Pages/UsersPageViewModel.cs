@@ -1,21 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using SemestralProject.AsynchronousMethod;
-using SemestralProject.Common;
-using SemestralProject.Model;
 using SemestralProject.Model.Entities;
 using SemestralProject.Model.Enums;
 using SemestralProject.View.Pages;
 using SemestralProject.ViewModel.Messaging;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace SemestralProject.ViewModel.Pages
 {
@@ -78,15 +70,8 @@ namespace SemestralProject.ViewModel.Pages
             this.states = new ObservableCollection<State>();
             this.roles = new ObservableCollection<Role>();
             this.users = new ObservableCollection<User>();
-            WeakReferenceMessenger.Default.Register<RolesChangedMessage>(this, (sender, args) =>
-            {
-                this.Load();
-            });
-            WeakReferenceMessenger.Default.Register<UsersChangedMessage>(this, (sender, args) =>
-            {
-                this.Load();
-            });
-            
+            WeakReferenceMessenger.Default.Register<RolesChangedMessage>(this, (sender, args) => this.Load());
+            WeakReferenceMessenger.Default.Register<UsersChangedMessage>(this, (sender, args) => this.Load());
         }
 
         /// <summary>
