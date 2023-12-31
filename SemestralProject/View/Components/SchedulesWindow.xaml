@@ -1,9 +1,9 @@
-﻿<Window x:Class="SemestralProject.View.Windows.SchedulesWindow"
+﻿<Window x:Class="SemestralProject.View.Components.SchedulesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SemestralProject.View.Windows"
+        xmlns:local="clr-namespace:SemestralProject.View.Components"
          xmlns:ui="http://schemas.modernwpf.com/2019"  
  xmlns:vml="clr-namespace:SemestralProject.Common"
  xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
@@ -15,7 +15,6 @@
         mc:Ignorable="d"
         Title="SchedulesWindow" Height="350" Width="600" ResizeMode="NoResize" WindowStyle="ToolWindow">
     <StackPanel Margin="8,8,8,8">
-        <TextBlock Style="{DynamicResource HeaderTextBlockStyle}" Text="Jízdní řády"  Margin="0,0,0,16"/>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -65,7 +64,7 @@
                     </i:Interaction.Triggers>
                 </TextBox>
             </Grid>
-            <ListBox Grid.Row="2"  Grid.Column="0" ItemsSource="{Binding SetSchedules}" SelectedItem="{Binding SelectedSet}">
+            <ListBox Height="140" Grid.Row="2"  Grid.Column="0" ItemsSource="{Binding SetSchedules}" SelectedItem="{Binding SelectedSet}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding SetChangedCommand}" />
@@ -76,7 +75,7 @@
                 <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" FontSize="18" FontWeight="ExtraBold" Command="{Binding RemoveCommand}" Padding="8,8,8,8" Style="{DynamicResource ButtonRevealStyle}" FontFamily="Segoe UI Symbol" Content="&#xE017;" Margin="0,0,0,8" />
                 <Button HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" FontSize="18" FontWeight="ExtraBold" Command="{Binding AddCommand}" Padding="8,8,8,8" Style="{DynamicResource ButtonRevealStyle}" FontFamily="Segoe UI Symbol" Content="&#xE016;" Margin="0,0,0,8" />
             </StackPanel>
-            <ListBox  Grid.Row="2" Grid.Column="2" ItemsSource="{Binding AvailableSchedules}" SelectedItem="{Binding SelectedAvailable}">
+            <ListBox Height="140" Grid.Row="2" Grid.Column="2" ItemsSource="{Binding AvailableSchedules}" SelectedItem="{Binding SelectedAvailable}">
 
             </ListBox>
             <Button Padding="8,8,8,8" Margin="8,8,8,8" Grid.Row="3" Grid.Column="2" Style="{DynamicResource PrimaryButton}" Content="OK" Command="{Binding OKCommand}" />

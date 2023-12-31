@@ -9,7 +9,7 @@ using SemestralProject.View;
 using SemestralProject.View.Components;
 using SemestralProject.View.Navigation;
 using SemestralProject.View.Pages;
-using SemestralProject.View.Windows;
+using SemestralProject.View.Components;
 using SemestralProject.ViewModel.Messaging;
 using System;
 using System.Collections.Generic;

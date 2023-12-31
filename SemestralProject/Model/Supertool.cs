@@ -2,7 +2,7 @@
 using SemestralProject.AsynchronousMethod;
 using SemestralProject.Common;
 using SemestralProject.Utils;
-using SemestralProject.View.Windows;
+using SemestralProject.View.Components;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

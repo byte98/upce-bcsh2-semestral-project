@@ -6,7 +6,7 @@ using SemestralProject.Model;
 using SemestralProject.Model.Entities;
 using SemestralProject.Model.Enums;
 using SemestralProject.Utils;
-using SemestralProject.View.Windows;
+using SemestralProject.View.Components;
 using SemestralProject.ViewModel.Messaging;
 using System;
 using System.Collections.Generic;
