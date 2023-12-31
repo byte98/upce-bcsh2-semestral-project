@@ -15,16 +15,26 @@ namespace SemestralProject.Model.Entities
     public partial class Shift
     {
 
+
         /// <summary>
         /// Code of the stop.
         /// </summary>
-        [DatabaseColumn("id_smena")]
-        public int Code { get; set; }
+        [DatabaseColumn("id_vozidlo")]
+        public Vehicle vehicle { get; set; }
 
         /// <summary>
-        /// Name of the stop.
+        /// Code of the stop.
         /// </summary>
-        [DatabaseColumn("nazev")]
+        [DatabaseColumn("id_zamestnanec")]
+        public Employee employee { get; set; }
+
+        /// <summary>
+        /// Code of the stop.
+        /// </summary>
+        [DatabaseColumn("id_jizndi_rad")]
+        public Schedule Schedule { get; set; }
+
+
         public string Name { get; set; } = string.Empty;
 
         public override string? ToString()

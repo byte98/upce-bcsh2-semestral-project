@@ -48,6 +48,8 @@ namespace SemestralProject.Data
                     {"TRG_UZIVATELE", new ConstantStringProvider("DROP TRIGGER trg_uzivatele")},
                     {"TRG_ZAMESTNANCI", new ConstantStringProvider("DROP TRIGGER trg_zamestnanci")},
                     {"TRG_ZASTAVKY", new ConstantStringProvider("DROP TRIGGER trg_zastavky")},
+                    {"TRG_VOZIDLA", new ConstantStringProvider("DROP TRIGGER trg_vozidla")},
+                    {"TRG_SMENY", new ConstantStringProvider("DROP TRIGGER trg_smeny")},
                 }
             },
             {
@@ -71,7 +73,9 @@ namespace SemestralProject.Data
                     {"UZIVATELE", new ConstantStringProvider("DROP TABLE uzivatele CASCADE CONSTRAINTS PURGE")},
                     {"VYROBCI", new ConstantStringProvider("DROP TABLE vyrobci CASCADE CONSTRAINTS PURGE")},
                     {"ZAMESTNANCI", new ConstantStringProvider("DROP TABLE zamestnanci CASCADE CONSTRAINTS PURGE")},
-                    {"ZASTAVKY", new ConstantStringProvider("DROP TABLE zastavky CASCADE CONSTRAINTS PURGE")}
+                    {"ZASTAVKY", new ConstantStringProvider("DROP TABLE zastavky CASCADE CONSTRAINTS PURGE")},
+                    {"VOZIDLA", new ConstantStringProvider("DROP TABLE vozidla CASCADE CONSTRAINTS PURGE")},
+                    {"SMENY", new ConstantStringProvider("DROP TABLE smeny CASCADE CONSTRAINTS PURGE")}
                 }
             },
             {
@@ -96,7 +100,9 @@ namespace SemestralProject.Data
                     {"UZIVATELE_SEQ", new ConstantStringProvider("DROP SEQUENCE uzivatele_seq")},
                     {"ZASTAVKY_SEQ", new ConstantStringProvider("DROP SEQUENCE zastavky_seq")},
                     {"ZAMESTNANCI_SEQ", new ConstantStringProvider("DROP SEQUENCE zamestnanci_seq")},
-                    {"LOGY_SEQ", new ConstantStringProvider("DROP SEQUENCE logy_seq")}
+                    {"LOGY_SEQ", new ConstantStringProvider("DROP SEQUENCE logy_seq")},
+                    {"SMENY_SEQ", new ConstantStringProvider("DROP SEQUENCE smeny_seq")},
+                    {"VOZIDLA_SEQ", new ConstantStringProvider("DROP SEQUENCE vozidla_seq")}
                 }
             },
             {

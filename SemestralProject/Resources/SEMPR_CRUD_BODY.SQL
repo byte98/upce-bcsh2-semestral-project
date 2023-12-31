@@ -772,6 +772,59 @@ PACKAGE BODY sempr_crud AS
         CLOSE v_cursor;
     END func_vozidla_read;
 --
+
+    PROCEDURE proc_smeny_create(id_vozidlo IN smeny.id_vozidlo%TYPE, id_zamestnanec IN smeny.id_zamestnanec%TYPE, id_jizdni_rad IN smeny.id_jizdni_rad%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        INSERT INTO smeny(id_vozidlo, id_zamestnanec, id_jizdni_rad)
+        VALUES (id_vozidlo, id_zamestnanec, id_jizdni_rad);
+        COMMIT;
+    END proc_smeny_create;
+
+    PROCEDURE proc_smeny_update(p_id IN smeny.id_smena%TYPE, id_vozidlo IN smeny.id_vozidlo%TYPE, id_zamestnanec IN smeny.id_zamestnanec%TYPE, id_jizdni_rad IN smeny.id_jizdni_rad%TYPE) AS
+    BEGIN
+        SET TRANSACTION READ WRITE;
+        UPDATE smeny
+        SET id_vozidlo=id_vozidlo, id_zamestnanec=id_zamestnanec, id_jizdni_rad=id_jizdni_rad
+        WHERE id_smena=p_id;
+        COMMIT;
+    END proc_smeny_update;
+
+    PROCEDURE proc_smeny_delete(p_id IN smeny.id_smena%TYPE) AS
+    BEGIN
+        DELETE FROM smeny WHERE id_smena=p_id;
+    END proc_smeny_delete;
+
+    FUNCTION func_smeny_read RETURN t_smeny PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_smena smeny%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM smeny;
+        LOOP
+            FETCH v_cursor INTO v_smena;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_smena);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_smeny_read;
+
+    FUNCTION func_smeny_read(p_id IN smeny.id_smena%TYPE) RETURN t_smeny PIPELINED AS
+        v_cursor  SYS_REFCURSOR;
+        v_smena   smeny%ROWTYPE;
+    BEGIN
+        SET TRANSACTION READ ONLY;
+        OPEN v_cursor FOR
+            SELECT * FROM smeny WHERE id_smena=p_id;
+        LOOP
+            FETCH v_cursor INTO v_smena;
+            EXIT WHEN v_cursor%NOTFOUND;
+            PIPE ROW (v_smena);
+        END LOOP;
+        CLOSE v_cursor;
+    END func_smeny_read;
+--
     PROCEDURE proc_jizdni_rady_create(p_arrival IN jizdni_rady.cas_prijezdu%TYPE, p_departure IN jizdni_rady.cas_odjezdu%TYPE, p_nr IN jizdni_rady.poradove_cislo%TYPE, p_variant IN jizdni_rady.varianta%TYPE, p_line IN jizdni_rady.linka%TYPE, p_stop IN jizdni_rady.zastavka%TYPE) AS
     BEGIN
         SET TRANSACTION READ WRITE;

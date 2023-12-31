@@ -16,39 +16,43 @@ namespace SemestralProject.Model.Entities
         /// Creates new shift.
         /// </summary>
         /// <param name="id"> Identifier of shift. </param>
-        /// <param name="code"> Code of the stop. </param>
-        /// <param name="name"> Name of the stop. </param>
-        private Shift(int id, int code, string name)
+        /// <param name="vehicle"> Code of the stop. </param>
+        /// <param name="employee"> Code of the stop. </param>
+        /// <param name="schedule"> Code of the stop. </param>
+        private Shift(int id, Vehicle vehicle, Employee employee, Schedule schedule)
         {
             this.Id = id;
-            this.Code = code;
-            this.Name = name;
+            this.vehicle = vehicle;
+            this.employee = employee;
+            this.Schedule = schedule;
         }
 
         /// <summary>
         /// Creates new shift.
         /// </summary>
-        /// <param name="code"> Code of the stop. </param>
-        /// <param name="name"> Name of the stop. </param>
+        /// <param name="vehicle"> Code of the stop. </param>
+        /// <param name="employee"> Code of the stop. </param>
+        /// <param name="schedule"> Code of the stop. </param>
         /// <returns>Newly created shift. </returns>
-        public static Shift Create(int code, string name)
+        public static Shift Create(Vehicle vehicle, Employee employee, Schedule schedule)
         {
-            string sql = $"sempr_crud.proc_smeny_create({code}, '{name}')";
+            string sql = $"sempr_crud.proc_smeny_create({vehicle.Id}, {employee.Id}, {schedule.Id})";
             int id = Entity.Create(sql, "smeny_seq");
-            return new Shift(id, code, name);
+            return new Shift(id, vehicle, employee, schedule);
         }
 
         /// <summary>
         /// Creates new shift asynchronously.
         /// </summary>
-        /// <param name="code"> Code of the stop. </param>
-        /// <param name="name"> Name of the stop. </param>
+        /// <param name="vehicle"> Code of the stop. </param>
+        /// <param name="employee"> Code of the stop. </param>
+        /// <param name="schedule"> Code of the stop. </param>
         /// <returns>Task which resolves into newly created shift. </returns>
-        public static Task<Shift> CreateAsync(int code, string name)
+        public static Task<Shift> CreateAsync(Vehicle vehicle, Employee employee, Schedule schedule)
         {
             return Task<Shift>.Run(() =>
             {
-                return Shift.Create(code, name);
+                return Shift.Create(vehicle, employee, schedule);
             });
         }
 
@@ -132,16 +136,20 @@ namespace SemestralProject.Model.Entities
         {
             Shift? reti = null;
             int id = (int)(data["id_smena"] ?? int.MinValue);
-            int code = (int)(data["id_smena"] ?? int.MinValue);
-            string name = (string)(data["nazev"] ?? string.Empty);
-            reti = new Shift(id, code, name);
+            Vehicle? vehicle = Vehicle.GetById((int)(data["id_vozidlo"] ?? int.MinValue));
+            Employee? employee = Employee.GetById((int)(data["id_zamestnanec"] ?? int.MinValue));
+            Schedule? schedule = Schedule.GetById((int)(data["id_jizndi_rad"] ?? int.MinValue));
+            if (vehicle != null && employee != null && schedule != null)
+            {
+                reti = new Shift(id, vehicle, employee, schedule);
+            }
             return reti;
         }
 
         /// <inheritdoc/>
         public override bool Update()
         {
-            string sql = $"sempr_crud.proc_smeny_update({this.Id}, {this.Code}, '{this.Name}')";
+            string sql = $"sempr_crud.proc_smeny_update({this.Id}, {this.vehicle.Id}, {this.employee.Id}, {this.Schedule.Id})";
             return Shift.Update(sql);
         }
 

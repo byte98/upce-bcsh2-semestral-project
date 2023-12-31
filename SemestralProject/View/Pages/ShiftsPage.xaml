@@ -34,10 +34,33 @@ vml:ViewModelLocator.AutoHookedUpViewModel="True"
                 <ui:ProgressRing Width="32" Height="32" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
             </StackPanel>
         </Grid>
-        <StackPanel Margin="4,8,4,8" fw:PointerTracker.Enabled="True" Orientation="Horizontal">
-            <Button Padding="8,8,8,8" Margin="0,0,8,0" Command="{Binding NewCommand}" Style="{DynamicResource ButtonRevealStyle}" Content="Přidat směnu" Width="128" />
+        <StackPanel Visibility="{Binding ContentVisibility}" Margin="4,8,4,8" fw:PointerTracker.Enabled="True" Orientation="Horizontal">
+            <Button Padding="8,8,8,8" Margin="0,0,8,0" Style="{DynamicResource ButtonRevealStyle}" Content="Přidat směnu" Width="128">
+                <ui:FlyoutService.Flyout>
+                    <ui:Flyout fw:PointerTracker.Enabled="True">
+                        <StackPanel>
+                            <ComboBox ItemsSource="{Binding AvailableEmployees}"  Margin="0,0,0,8" SelectedItem="{Binding Employee}">
+                                <ui:ControlHelper.Header>
+                                    <Label Content="Zaměstnanec"/>
+                                </ui:ControlHelper.Header>
+                            </ComboBox>
+                            <ComboBox ItemsSource="{Binding AvailableVehicles}"  Margin="0,0,0,8" SelectedItem="{Binding Vehicle}">
+                                <ui:ControlHelper.Header>
+                                    <Label Content="Vozidlo"/>
+                                </ui:ControlHelper.Header>
+                            </ComboBox>
+                            <ComboBox ItemsSource="{Binding AvailableSchedule}"  Margin="0,0,0,8" SelectedItem="{Binding Schedule}">
+                                <ui:ControlHelper.Header>
+                                    <Label Content="Jizdni řád"/>
+                                </ui:ControlHelper.Header>
+                            </ComboBox>
+                            <Button  Command="{Binding NewCommand}" Style="{DynamicResource PrimaryButton}" Content="Přidat Směnu" Padding="8,8,8,8" />
+                        </StackPanel>
+                    </ui:Flyout>
+                </ui:FlyoutService.Flyout>
+            </Button>
             <Button Padding="8,8,8,8"  Command="{Binding RemoveCommand}" Style="{DynamicResource ButtonAccentRevealStyle}" Content="Odebrat směnu" Width="128"/>
         </StackPanel>
-        <!-- <ListBox ItemsSource="{Binding Schedules}" SelectedItem="{Binding SelectedSchedule}" /> -->
+        <ListBox Visibility="{Binding ContentVisibility}" ItemsSource="{Binding Shifts}" SelectedItem="{Binding SelectedShift}" />
     </StackPanel>
 </Page>

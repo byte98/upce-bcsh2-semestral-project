@@ -171,3 +171,14 @@ ALTER TABLE vozidla ADD CONSTRAINT vozidlo_pk PRIMARY KEY ( id_vozidlo )
 
 ALTER TABLE vozidla ADD CONSTRAINT vozidlo_evidencni_cislo_un UNIQUE ( evidencni_cislo )
 
+CREATE TABLE smeny (
+    id_smena INTEGER DEFAULT smena_seq.nextval NOT NULL,
+    id_vozidlo  INTEGER NOT NULL,
+    id_zamestnanec INTEGER NOT NULL,
+    id_jizdni_rad INTEGER NOT NULL
+)
+
+ALTER TABLE smeny ADD CONSTRAINT smeny_pk PRIMARY KEY ( id_smena )
+
+ALTER TABLE smeny ADD CONSTRAINT jizdni_rad_un UNIQUE ( jizdni_rad )
+
