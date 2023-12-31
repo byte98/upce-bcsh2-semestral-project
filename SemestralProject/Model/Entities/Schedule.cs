@@ -42,13 +42,13 @@ namespace SemestralProject.Model.Entities
         /// Line of schedule.
         /// </summary>
         [DatabaseColumn("linka")]
-        private Line Line { get; set; }
+        public Line Line { get; set; }
 
         /// <summary>
         /// Stop of schedule.
         /// </summary>
         [DatabaseColumn("zastavka")]
-        private Stop Stop { get; set; }
+        public Stop Stop { get; set; }
 
         public override string? ToString()
         {

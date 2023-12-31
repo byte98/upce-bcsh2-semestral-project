@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SemestralProject.View.Windows
+namespace SemestralProject.View.Components
 {
     /// <summary>
-    /// Interaction logic for EmployeeDetailWindow.xaml
+    /// Interaction logic for SchedulesWindow.xaml
     /// </summary>
-    public partial class EmployeeDetailWindow : Window
+    public partial class SchedulesWindow : Window
     {
-        public EmployeeDetailWindow()
+        public SchedulesWindow()
         {
             InitializeComponent();
         }

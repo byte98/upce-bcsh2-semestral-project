@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SemestralProject.View.Windows
+namespace SemestralProject.View.Pages
 {
     /// <summary>
-    /// Interaction logic for NewEmployeeWindow.xaml
+    /// Interaction logic for ShiftsPage.xaml
     /// </summary>
-    public partial class NewEmployeeWindow : Window
+    public partial class ShiftsPage : Page
     {
-        public NewEmployeeWindow()
+        public ShiftsPage()
         {
             InitializeComponent();
         }

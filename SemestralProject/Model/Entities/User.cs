@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Runtime.Intrinsics.X86;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -139,24 +140,50 @@ namespace SemestralProject.Model.Entities
 
         /// <summary>
         /// Gets all available users.
+        /// Can't load many users well
+        /// needs to use paginations
+        /// or other way of loading
         /// </summary>
         /// <returns>
         /// Array with all available users.
         /// </returns>
         public static User[] GetAll()
         {
+            // should be global/cached, this is horrible
+            IList<Role> roles = new List<Role>();
+            IDictionary<string, object?>[] roleresults
+                = Role.Read("sempr_crud.func_role_read()");
+            foreach (IDictionary<string, object?> row in roleresults)
+            {
+                roles.Add(new Role((int)row["id_role"], (string)row["nazev"]));
+            }
+
+            // should be global/cached, this is horrible
+            IList<State> states = new List<State>(); 
+            IDictionary<string, object?>[] stateresults 
+                = State.Read("sempr_crud.func_stavy_read()");
+            foreach (IDictionary<string, object?> row in stateresults)
+            {
+                var state = new State((int)row["id_stav"]);
+                state.Loginable = (int)row["prihlasitelny"] != 0;
+                state.Name = (string)row["nazev"];
+                states.Add(state);
+            }
+
             IList<User> reti = new List<User>();
             IDictionary<string, object?>[] results = User.Read("sempr_crud.func_uzivatele_read()");
             foreach (IDictionary<string, object?> row in results)
             {
                 Employee? employee = Employee.GetById((int)(row["zamestnanec"] ?? int.MinValue));
-                State? state = State.GetById((int)(row["stav"] ?? int.MinValue));
-                Role? role = Role.GetById((int)(row["role"] ?? int.MinValue));
+                //Employee employee = new Employee((int)(row["zamestnanec"] ?? int.MinValue));
+                State? state = states
+                    .FirstOrDefault(r => r.Id == (int)(row["stav"]));
+                Role? role = roles
+                    .FirstOrDefault(r => r.Id == (int)(row["role"]));
                 DateTime? date = DateUtils.FromQuery(row["datum_registrace"]);
                 string? password = (string?)row["heslo"];
-                ImageFile? image = ImageFile.GetById((int)(row["obrazek"] ?? int.MinValue));
-                if (date != null && employee != null && state != null && role != null && password != null && image != null)
-                {
+                ImageFile? image = ImageFile.Default;//ImageFile.GetById((int)(row["obrazek"] ?? int.MinValue));
+                if (date != null && employee != null && state != null && role != null && password != null && image != null) {
                     reti.Add(new User(
                         (int)(row["id_uzivatel"] ?? int.MinValue),
                         (string)password,
@@ -251,7 +278,9 @@ namespace SemestralProject.Model.Entities
                 State? state = State.GetById((int)(row["stav"] ?? int.MinValue));
                 Role? role = Role.GetById((int)(row["role"] ?? int.MinValue));
                 DateTime? date = DateUtils.FromQuery(results[0]["datum_registrace"]);
-                ImageFile? image = ImageFile.GetById((int)(row["obrazek"] ?? int.MinValue));
+                int ímageid = int.MinValue;
+                int.TryParse(((int)row["obrazek"]).ToString(), out ímageid);
+                ImageFile? image = ImageFile.GetById(ímageid);
                 if (employee != null && state != null && role != null && date != null && image != null)
                 {
                     reti = new User(
@@ -299,7 +328,7 @@ namespace SemestralProject.Model.Entities
 
         public override string? ToString()
         {
-            return $"{this.Role.ToString()} [{this.State.ToString()}]: {this.Employee.PersonalData.ToString()}";
+            return $"{this.Role.ToString()} [{this.State.ToString()}]:";
         }
     }
 }

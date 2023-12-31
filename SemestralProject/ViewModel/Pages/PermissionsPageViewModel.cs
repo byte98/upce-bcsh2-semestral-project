@@ -188,7 +188,9 @@ namespace SemestralProject.ViewModel.Pages
             this.ContentVisibility = Visibility.Collapsed;
             this.ViewData.Clear();
             IConnection conn = await OracleConnector.LoadAsync();
+            //await conn.ExecuteAsync("SET TRANSACTION READ ONLY");
             IDictionary<string, object?>[] results = await conn.QueryAsync("SELECT * FROM VW_ROLE_OPRAVNENI_COUNT");
+            //await conn.ExecuteAsync("COMMIT");
             foreach (IDictionary<string, object?> row in results)
             {
                 int? id = (int?)row["role"];

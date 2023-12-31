@@ -28,6 +28,28 @@ namespace SemestralProject.ViewModel.Pages
             }
         }
 
+        /// <inheritdoc cref="scheduleGroups"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.Entities.ScheduleGrouping> ScheduleGroups
+        {
+            get => scheduleGroups;
+            [global::System.Diagnostics.CodeAnalysis.MemberNotNull("scheduleGroups")]
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.Entities.ScheduleGrouping>>.Default.Equals(scheduleGroups, value))
+                {
+                    OnScheduleGroupsChanging(value);
+                    OnScheduleGroupsChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ScheduleGroups);
+                    scheduleGroups = value;
+                    OnScheduleGroupsChanged(value);
+                    OnScheduleGroupsChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ScheduleGroups);
+                }
+            }
+        }
+
         /// <inheritdoc cref="selectedSchedule"/>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
@@ -45,6 +67,48 @@ namespace SemestralProject.ViewModel.Pages
                     OnSelectedScheduleChanged(value);
                     OnSelectedScheduleChanged(default, value);
                     OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedSchedule);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="selectedGroup"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public global::SemestralProject.Model.Entities.ScheduleGrouping? SelectedGroup
+        {
+            get => selectedGroup;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<global::SemestralProject.Model.Entities.ScheduleGrouping?>.Default.Equals(selectedGroup, value))
+                {
+                    OnSelectedGroupChanging(value);
+                    OnSelectedGroupChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedGroup);
+                    selectedGroup = value;
+                    OnSelectedGroupChanged(value);
+                    OnSelectedGroupChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedGroup);
+                }
+            }
+        }
+
+        /// <inheritdoc cref="detailsVisible"/>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+        public bool DetailsVisible
+        {
+            get => detailsVisible;
+            set
+            {
+                if (!global::System.Collections.Generic.EqualityComparer<bool>.Default.Equals(detailsVisible, value))
+                {
+                    OnDetailsVisibleChanging(value);
+                    OnDetailsVisibleChanging(default, value);
+                    OnPropertyChanging(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.DetailsVisible);
+                    detailsVisible = value;
+                    OnDetailsVisibleChanged(value);
+                    OnDetailsVisibleChanged(default, value);
+                    OnPropertyChanged(global::CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.DetailsVisible);
                 }
             }
         }
@@ -71,6 +135,28 @@ namespace SemestralProject.ViewModel.Pages
         /// <remarks>This method is invoked right after the value of <see cref="Schedules"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnSchedulesChanged(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.Entities.Schedule>? oldValue, global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.Entities.Schedule> newValue);
+        /// <summary>Executes the logic for when <see cref="ScheduleGroups"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="ScheduleGroups"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnScheduleGroupsChanging(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.Entities.ScheduleGrouping> value);
+        /// <summary>Executes the logic for when <see cref="ScheduleGroups"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="ScheduleGroups"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnScheduleGroupsChanging(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.Entities.ScheduleGrouping>? oldValue, global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.Entities.ScheduleGrouping> newValue);
+        /// <summary>Executes the logic for when <see cref="ScheduleGroups"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="ScheduleGroups"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnScheduleGroupsChanged(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.Entities.ScheduleGrouping> value);
+        /// <summary>Executes the logic for when <see cref="ScheduleGroups"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="ScheduleGroups"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnScheduleGroupsChanged(global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.Entities.ScheduleGrouping>? oldValue, global::System.Collections.ObjectModel.ObservableCollection<global::SemestralProject.Model.Entities.ScheduleGrouping> newValue);
         /// <summary>Executes the logic for when <see cref="SelectedSchedule"/> is changing.</summary>
         /// <param name="value">The new property value being set.</param>
         /// <remarks>This method is invoked right before the value of <see cref="SelectedSchedule"/> is changed.</remarks>
@@ -93,5 +179,49 @@ namespace SemestralProject.ViewModel.Pages
         /// <remarks>This method is invoked right after the value of <see cref="SelectedSchedule"/> is changed.</remarks>
         [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
         partial void OnSelectedScheduleChanged(global::SemestralProject.Model.Entities.Schedule? oldValue, global::SemestralProject.Model.Entities.Schedule? newValue);
+        /// <summary>Executes the logic for when <see cref="SelectedGroup"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="SelectedGroup"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedGroupChanging(global::SemestralProject.Model.Entities.ScheduleGrouping? value);
+        /// <summary>Executes the logic for when <see cref="SelectedGroup"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="SelectedGroup"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedGroupChanging(global::SemestralProject.Model.Entities.ScheduleGrouping? oldValue, global::SemestralProject.Model.Entities.ScheduleGrouping? newValue);
+        /// <summary>Executes the logic for when <see cref="SelectedGroup"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="SelectedGroup"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedGroupChanged(global::SemestralProject.Model.Entities.ScheduleGrouping? value);
+        /// <summary>Executes the logic for when <see cref="SelectedGroup"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="SelectedGroup"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnSelectedGroupChanged(global::SemestralProject.Model.Entities.ScheduleGrouping? oldValue, global::SemestralProject.Model.Entities.ScheduleGrouping? newValue);
+        /// <summary>Executes the logic for when <see cref="DetailsVisible"/> is changing.</summary>
+        /// <param name="value">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="DetailsVisible"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnDetailsVisibleChanging(bool value);
+        /// <summary>Executes the logic for when <see cref="DetailsVisible"/> is changing.</summary>
+        /// <param name="oldValue">The previous property value that is being replaced.</param>
+        /// <param name="newValue">The new property value being set.</param>
+        /// <remarks>This method is invoked right before the value of <see cref="DetailsVisible"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnDetailsVisibleChanging(bool oldValue, bool newValue);
+        /// <summary>Executes the logic for when <see cref="DetailsVisible"/> just changed.</summary>
+        /// <param name="value">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="DetailsVisible"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnDetailsVisibleChanged(bool value);
+        /// <summary>Executes the logic for when <see cref="DetailsVisible"/> just changed.</summary>
+        /// <param name="oldValue">The previous property value that was replaced.</param>
+        /// <param name="newValue">The new property value that was set.</param>
+        /// <remarks>This method is invoked right after the value of <see cref="DetailsVisible"/> is changed.</remarks>
+        [global::System.CodeDom.Compiler.GeneratedCode("CommunityToolkit.Mvvm.SourceGenerators.ObservablePropertyGenerator", "8.2.0.0")]
+        partial void OnDetailsVisibleChanged(bool oldValue, bool newValue);
     }
 }

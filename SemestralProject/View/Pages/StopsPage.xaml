@@ -35,7 +35,7 @@ vml:ViewModelLocator.AutoHookedUpViewModel="True"
             </StackPanel>
         </Grid>
         <StackPanel Margin="4,8,4,16" Visibility="{Binding ContentVisibility}" Orientation="Horizontal">
-            <Button Visibility="{Binding EditVisibility}" Style="{DynamicResource ButtonRevealStyle}" Content="Přidat zastávku" Padding="8,8,8,8" Width="128" Margin="0,0,8,0">
+            <Button Visibility="{Binding ContentVisibility}" Style="{DynamicResource ButtonRevealStyle}" Content="Přidat zastávku" Padding="8,8,8,8" Width="128" Margin="0,0,8,0">
                 <ui:FlyoutService.Flyout>
                     <ui:Flyout fw:PointerTracker.Enabled="True">
                         <StackPanel>
@@ -54,7 +54,7 @@ vml:ViewModelLocator.AutoHookedUpViewModel="True"
                     </ui:Flyout>
                 </ui:FlyoutService.Flyout>
             </Button>
-            <Button Visibility="{Binding EditVisibility}"  Command="{Binding RemoveCommand}" Style="{DynamicResource ButtonRevealStyle}" Content="Odebrat zastávku" Padding="8,8,8,8" Width="128" />
+            <Button Visibility="{Binding ContentVisibility}"  Command="{Binding RemoveCommand}" Style="{DynamicResource ButtonRevealStyle}" Content="Odebrat zastávku" Padding="8,8,8,8" Width="128" />
         </StackPanel>
         <ui:ListView Visibility="{Binding ContentVisibility}" ItemsSource="{Binding Stops}" SelectedItem="{Binding SelectedStop}">
             <ui:ListView.ItemTemplate>

@@ -15,6 +15,12 @@ namespace SemestralProject.Model.Entities
     [DatabaseClass("proc_stavy_create", "func_stavy_read", "proc_stavy_update", "proc_stavy_delete", "stavy_seq", "id_stav")]
     public partial class State
     {
+
+        public State (int id)
+        {
+            this.Id = id;
+        }
+
         /// <summary>
         /// Name of state.
         /// </summary>

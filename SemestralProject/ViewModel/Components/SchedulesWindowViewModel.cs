@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using SemestralProject.Model;
 using SemestralProject.Model.Entities;
 using SemestralProject.Utils;
+using SemestralProject.ViewModel.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SemestralProject.ViewModel.Windows
+namespace SemestralProject.ViewModel.Components
 {
     /// <summary>
     /// Class which handles behaviour of schedules window.
@@ -86,7 +88,17 @@ namespace SemestralProject.ViewModel.Windows
                 this.AvailableSchedules.Add(new LightSchedule { Stop = stop , Arrival = DateTime.MinValue, Departure = DateTime.MinValue});
             }
 
-            
+
+            WeakReferenceMessenger.Default.Register<SelectedScheduleGroupChangedMessage>(this, (sender, args) =>
+            {
+                SelectedLine = args.Value.Line;
+                selectedLine = args.Value.Line;
+                foreach (Schedule sched in args.Value.Schedules)
+                {
+                    setSchedules.Add(new LightSchedule { Stop = sched.Stop, Arrival = sched.Arrival, Departure = sched.Departure });
+                }
+            });
+
         }
 
         /// <summary>

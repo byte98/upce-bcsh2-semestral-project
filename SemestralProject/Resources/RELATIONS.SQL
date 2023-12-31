@@ -62,3 +62,18 @@ ALTER TABLE zamestnanci
     ADD CONSTRAINT zamestnanec_osoby_fk FOREIGN KEY ( osobni_udaje )
         REFERENCES osoby ( id_osoba )
         ON DELETE CASCADE
+
+ALTER TABLE smeny
+    ADD CONSTRAINT smeny_vozidla_fk FOREIGN KEY ( id_vozidlo )
+        REFERENCES vozidla ( id_vozidlo )
+        ON DELETE CASCADE
+
+ALTER TABLE smeny
+    ADD CONSTRAINT smeny_zamestnanec_fk FOREIGN KEY ( id_zamestnanec )
+        REFERENCES zamestnanci ( id_zamestnanec )
+        ON DELETE CASCADE
+
+ALTER TABLE smeny
+    ADD CONSTRAINT smeny_jizdni_rad_fk FOREIGN KEY ( id_jizndni_rad )
+        REFERENCES jizdni_rady ( id_jizndni_rad )
+        ON DELETE CASCADE

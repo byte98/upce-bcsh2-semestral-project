@@ -1,0 +1,67 @@
+﻿<Page x:Class="SemestralProject.View.Pages.VehiclesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SemestralProject.View.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+            xmlns:ui="http://schemas.modernwpf.com/2019"  
+xmlns:vml="clr-namespace:SemestralProject.Common"
+xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+xmlns:components="clr-namespace:SemestralProject.View.Components"
+xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+xmlns:model="clr-namespace:SemestralProject.Model.Entities"
+xmlns:converters="clr-namespace:SemestralProject.View.Converters"
+vml:ViewModelLocator.AutoHookedUpViewModel="True"
+      Title="ShiftsPage">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding PageLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <StackPanel>
+        <TextBlock Text="Vozidla" Style="{DynamicResource HeaderTextBlockStyle}" />
+        <Grid Margin="0,0,0,8" Visibility="{Binding WaitVisibility}"  Background="{DynamicResource SystemAltHighColorBrush}" Panel.ZIndex="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Panel.ZIndex="8">
+                <Label FontSize="24" Content="Počkejte prosím..." Margin="0,0,0,8" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <ui:ProgressRing Width="32" Height="32" IsActive="True" Foreground="{DynamicResource SystemBaseHighColorBrush}"/>
+            </StackPanel>
+        </Grid>
+        <StackPanel Margin="4,8,4,8" fw:PointerTracker.Enabled="True" Orientation="Horizontal">
+            <Button Padding="8,8,8,8" Margin="0,0,8,0" Command="{Binding NewCommand}" Style="{DynamicResource ButtonRevealStyle}" Content="Přidat vozidlo" Width="128">
+                <ui:FlyoutService.Flyout>
+                    <ui:Flyout fw:PointerTracker.Enabled="True">
+                        <StackPanel>
+                            <TextBox Margin="0,0,0,8" Text="{Binding VehicleEvidenceNumber}">
+                                <ui:ControlHelper.Header>
+                                    <Label Content="Evidenční číslo vozu"/>
+                                </ui:ControlHelper.Header>
+                            </TextBox>
+                            <ComboBox ItemsSource="{Binding AvailableTypes}"  Margin="0,0,0,8" SelectedItem="{Binding VehicleType}">
+                                <ui:ControlHelper.Header>
+                                    <Label Content="Typ vozidla"/>
+                                </ui:ControlHelper.Header>
+                                <!-- <i:Interaction.Triggers
+                                    <i:EventTrigger EventName="SelectionChanged"> 
+                                        <i:InvokeCommandAction Command="{Binding CountryChangedCommand}" /> 
+                                    </i:EventTrigger>  
+                                </i:Interaction.Triggers>  -->
+                            </ComboBox>
+    
+                            <Button  Command="{Binding NewCommand}" Style="{DynamicResource PrimaryButton}" Content="Přidat zastávku" Padding="8,8,8,8" />
+                        </StackPanel>
+                    </ui:Flyout>
+                </ui:FlyoutService.Flyout>
+            </Button>
+            <Button Padding="8,8,8,8"  Command="{Binding RemoveCommand}" Style="{DynamicResource ButtonAccentRevealStyle}" Content="Odebrat vozidlo" Width="128"/>
+        </StackPanel>
+        <ListBox ItemsSource="{Binding Vehicles}" SelectedItem="{Binding SelectedVehicle}" />
+    </StackPanel>
+</Page>

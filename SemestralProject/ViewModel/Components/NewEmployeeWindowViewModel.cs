@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using SemestralProject.Common;
 using SemestralProject.Model.Entities;
 using SemestralProject.Utils;
+using SemestralProject.View.Pages;
 using SemestralProject.ViewModel.Messaging;
 using System;
 using System.Collections.Generic;
@@ -10,13 +12,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
-namespace SemestralProject.ViewModel.Windows
+namespace SemestralProject.ViewModel.Components
 {
     /// <summary>
-    /// View mdoel which handles behaviour of employee detail window.
+    /// Class which handles new employee window model.
     /// </summary>
-    public partial class EmployeeDetailWindowViewModel: ObservableObject
+    public partial class NewEmployeeWindowViewModel: ObservableObject
     {
         /// <summary>
         /// Name of new employee.
@@ -42,6 +45,10 @@ namespace SemestralProject.ViewModel.Windows
         [ObservableProperty]
         private string phone = string.Empty;
 
+        /// <summary>
+        /// Password of new employee.
+        /// </summary>
+        private string password = string.Empty;
 
         /// <summary>
         /// Address of new employee.
@@ -67,36 +74,24 @@ namespace SemestralProject.ViewModel.Windows
         private Visibility textVisibility = Visibility.Visible;
 
         /// <summary>
-        /// Date of start of employement of employee.
+        /// Creates new view model for new employee window.
         /// </summary>
-        [ObservableProperty]
-        private DateTime employementDate = DateTime.MinValue;
-
-        /// <summary>
-        /// Actually displayed employee.
-        /// </summary>
-        private Employee? employee;
-
-        /// <summary>
-        /// Creates new view model for employee detail window.
-        /// </summary>
-        public EmployeeDetailWindowViewModel()
+        public NewEmployeeWindowViewModel()
         {
-            WeakReferenceMessenger.Default.Register<InfoEmployeeMessage>(this, (sender, args) =>
-            {
-                this.employee = args.Value;
-                this.Name = this.employee.PersonalData.Name;
-                this.Surname = this.employee.PersonalData.Surname;
-                this.Email = this.employee.PersonalData.Email;
-                this.Phone = this.employee.PersonalData.Phone;
-                this.EmployementDate = this.employee.EmploymentDate;
-                WeakReferenceMessenger.Default.Send<SelectedAddressChangedMessage>(new SelectedAddressChangedMessage(this.employee.Residence));
-                this.address = this.employee.Residence;
-            });
             WeakReferenceMessenger.Default.Register<SelectedAddressChangedMessage>(this, (sender, args) =>
             {
                 this.address = args.Value;
             });
+        }
+
+        /// <summary>
+        /// Handles change of password.
+        /// </summary>
+        /// <param name="pb">Password box with actual password.</param>
+        [RelayCommand]
+        private void PasswordChanged(PasswordBox pb)
+        {
+            this.password = pb.Password;
         }
 
         /// <summary>
@@ -105,19 +100,16 @@ namespace SemestralProject.ViewModel.Windows
         [RelayCommand]
         private async Task OK()
         {
-            if (this.address != null && this.employee != null)
+            if (this.address != null)
             {
                 this.TextVisibility = Visibility.Collapsed;
                 this.ProgressVisibility = Visibility.Visible;
                 this.ControlsEnabled = false;
-                this.employee.PersonalData.Name = this.Name;
-                this.employee.PersonalData.Surname = this.Surname;
-                this.employee.PersonalData.Email = this.Email;
-                this.employee.PersonalData.Phone = this.Phone;
-                await this.employee.PersonalData.UpdateAsync();
-                this.employee.EmploymentDate = this.EmployementDate;
-                this.employee.Residence = this.address;
-                await this.employee.UpdateAsync();
+                Person person = await Person.CreateAsync(this.Name, this.Surname, this.Email, this.Phone);
+                Employee employee = await Employee.CreateAsync(this.address, person);
+                await User.CreateAsync(this.password, DateTime.Now, ImageFile.Default, Role.User, State.Active, employee);
+                WeakReferenceMessenger.Default.Send<UsersChangedMessage>(new UsersChangedMessage());
+                WeakReferenceMessenger.Default.Send<EmployeesChangedMessage>(new EmployeesChangedMessage());
                 WindowUtils.CloseForModel(this);
             }
         }
