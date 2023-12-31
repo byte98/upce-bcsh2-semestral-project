@@ -28,5 +28,31 @@ namespace SemestralProject.Utils
             }
             return reti;
         }
+
+        /// <summary>
+        /// Gets part of array.
+        /// </summary>
+        /// <param name="array">Array which part will be returned.</param>
+        /// <param name="start">Starting position in array.</param>
+        /// <param name="length">Length of part.</param>
+        /// <returns>Part of array.</returns>
+        public static T[] Part(T[] array, int start, int length)
+        {
+            IList<T> reti = new List<T>();
+            int counter = 0;
+            for (int i = start; i < array.Length; i++)
+            {
+                if (counter < length)
+                {
+                    reti.Add(array[i]);
+                    counter++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return reti.ToArray();
+        }
     }
 }
