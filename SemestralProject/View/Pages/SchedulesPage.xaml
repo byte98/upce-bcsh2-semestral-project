@@ -36,7 +36,6 @@ vml:ViewModelLocator.AutoHookedUpViewModel="True"
         </Grid>
         <StackPanel Margin="4,8,4,8" fw:PointerTracker.Enabled="True" Orientation="Horizontal">
             <Button Padding="8,8,8,8" Margin="0,0,8,0" Command="{Binding NewCommand}" Style="{DynamicResource ButtonRevealStyle}" Content="Přidat jízdní řád" Width="128" />
-            <Button Padding="8,8,8,8" Margin="0,0,8,0" Command="{Binding ChangeSchedulesCommand}" Style="{DynamicResource ButtonRevealStyle}" Content="testd" Width="128" />
             <Button Padding="8,8,8,8"  Command="{Binding RemoveCommand}" Style="{DynamicResource ButtonAccentRevealStyle}" Content="Odebrat jízdní řád" Width="128"/>
             <ui:ToggleSwitch  OnContent="Skrýt detaily" OffContent="Zobrazit detaily" IsOn="{Binding DetailsVisible}" Margin="8,0,8,0"/>
         </StackPanel>
